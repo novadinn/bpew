@@ -18,11 +18,9 @@ struct VertexArray {
 	void unbind();
 
 	inline uint getID() const { return id; }
+	
 private:
 	uint id;
-	
-	std::vector<VertexBuffer> vbs;
-	IndexBuffer ib;
 };
 
 #endif

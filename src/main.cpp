@@ -15,6 +15,7 @@
 #include "graphics/vertex_buffer.h"
 #include "graphics/vertex_array.h"
 #include "graphics/renderer.h"
+#include "graphics/camera.h"
 #include "imgui/imgui.h"
 #include "imgui/backends/imgui_impl_sdl2.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
@@ -134,7 +135,14 @@ int main(int argc, char** argv) {
 	glBindBuffer(GL_ARRAY_BUFFER, 0); 
     glBindVertexArray(0);
 
+	Camera camera;
+	camera.create(45, 1.778f, 0.1f, 1000);
+	
 	glClearColor(0.1, 0.1, 0.1, 1);
+
+	float last_time = SDL_GetTicks();
+
+	glm::ivec2 previous_mouse;
 	
 	bool running = true;
 	while(running) {
@@ -152,6 +160,15 @@ int main(int argc, char** argv) {
 			case SDL_KEYUP: {
 				Input::keyUpEvent(event);
 			} break;
+			case SDL_MOUSEBUTTONDOWN: {
+				Input::mouseButtonDownEvent(event);
+			} break;
+			case SDL_MOUSEBUTTONUP: {
+				Input::mouseButtonUpEvent(event);
+			} break;
+			case SDL_MOUSEWHEEL: {
+				Input::wheelEvent(event);
+			} break;
 			case SDL_WINDOWEVENT: {
 				if(event.window.event == SDL_WINDOWEVENT_CLOSE) {
 					uint32 window_id = event.window.windowID;
@@ -163,12 +180,38 @@ int main(int argc, char** argv) {
 			};
 		}
 
+		float current_time = (float)SDL_GetTicks() / 1000;
+		float delta_time = current_time - last_time;
+		last_time = current_time;
+
+		glm::ivec2 current_mouse;
+		Input::getMousePosition(&current_mouse.x, &current_mouse.y);
+		glm::vec2 mouse_delta = current_mouse - previous_mouse;
+		mouse_delta *= delta_time;
+		previous_mouse = current_mouse;
+
+		glm::ivec2 wheel_movement;
+		Input::getWheelMovement(&wheel_movement.x, &wheel_movement.y);
+		
+		if(Input::wasMouseButtonHeld(SDL_BUTTON_MIDDLE)) {
+			if(Input::wasKeyHeld(SDLK_LSHIFT)) {
+				camera.pan(mouse_delta);
+			} else {
+				camera.rotate(mouse_delta);
+			}
+		}
+		if(Input::wasWheelMoved()) {
+			camera.zoom(delta_time * wheel_movement.y);
+		}
+		
 		window.makeContextCurrent(context);
 		
 		int w, h;
 		window.getViewport(&w, &h);
 		glViewport(0, 0, w, h);
 
+		camera.setViewportSize(w, h);
+		
 		ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplSDL2_NewFrame();
         ImGui::NewFrame();
@@ -179,25 +222,23 @@ int main(int argc, char** argv) {
 		ImGui::ShowDemoWindow(&show);
 		
 		texture.bind();
-
-		glm::mat4 view = glm::mat4(1.0f);
-        glm::mat4 projection = glm::mat4(1.0f);
-        projection = glm::perspective(glm::radians(45.0f),
-									  (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT,
-									  0.1f, 100.0f);
-        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-		glm::mat4 model = glm::mat4(1.0f);
-		float angle = 20.0f * 2;
-		model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
 		
-        Renderer::begin(view, projection);
+        Renderer::begin(camera.getViewMatrix(), camera.getProjectionMatrix());
 
+		glm::mat4 model = glm::mat4(1.0f);
 		Renderer::drawMesh(model);
 		
 		va.bind();
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		Renderer::end();
+
+		// From -camera.far to +camera.far
+		for(float x = -1000.0f; x < 1000.0f; x += 0.5f) {
+			for(float y = -1000.0f; y < 1000.0f; y += 0.5f) {
+				
+			}
+		}
 		
 		ImGuiIO& io = ImGui::GetIO();
 		io.DisplaySize = ImVec2((float)w, (float)h);

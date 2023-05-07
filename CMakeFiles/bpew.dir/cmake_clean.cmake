@@ -23,6 +23,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/bpew.dir/src/core/window.cpp.o.d"
   "CMakeFiles/bpew.dir/src/glad.c.o"
   "CMakeFiles/bpew.dir/src/glad.c.o.d"
+  "CMakeFiles/bpew.dir/src/graphics/camera.cpp.o"
+  "CMakeFiles/bpew.dir/src/graphics/camera.cpp.o.d"
   "CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o"
   "CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o.d"
   "CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o"

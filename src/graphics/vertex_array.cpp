@@ -38,15 +38,11 @@ void VertexArray::addVertexBuffer(VertexBuffer vb, const std::vector<VertexAttri
 	    glEnableVertexAttribArray(i);
 	    off += attribs[i].getCount();
 	}
-
-	vbs.push_back(vb);
 }
     
 void VertexArray::setIndexBuffer(IndexBuffer i) {
 	bind();
 	i.bind();
-		
-	ib = i;
 }
 
 void VertexArray::bind() {

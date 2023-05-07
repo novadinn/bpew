@@ -417,6 +417,30 @@ src/glad.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/glad.c.s
 .PHONY : src/glad.c.s
 
+src/graphics/camera.o: src/graphics/camera.cpp.o
+.PHONY : src/graphics/camera.o
+
+# target to build an object file
+src/graphics/camera.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/camera.cpp.o
+.PHONY : src/graphics/camera.cpp.o
+
+src/graphics/camera.i: src/graphics/camera.cpp.i
+.PHONY : src/graphics/camera.i
+
+# target to preprocess a source file
+src/graphics/camera.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/camera.cpp.i
+.PHONY : src/graphics/camera.cpp.i
+
+src/graphics/camera.s: src/graphics/camera.cpp.s
+.PHONY : src/graphics/camera.s
+
+# target to generate assembly for a file
+src/graphics/camera.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/camera.cpp.s
+.PHONY : src/graphics/camera.cpp.s
+
 src/graphics/index_buffer.o: src/graphics/index_buffer.cpp.o
 .PHONY : src/graphics/index_buffer.o
 
@@ -630,6 +654,9 @@ help:
 	@echo "... src/glad.o"
 	@echo "... src/glad.i"
 	@echo "... src/glad.s"
+	@echo "... src/graphics/camera.o"
+	@echo "... src/graphics/camera.i"
+	@echo "... src/graphics/camera.s"
 	@echo "... src/graphics/index_buffer.o"
 	@echo "... src/graphics/index_buffer.i"
 	@echo "... src/graphics/index_buffer.s"

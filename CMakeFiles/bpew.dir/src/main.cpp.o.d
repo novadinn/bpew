@@ -523,6 +523,16 @@ CMakeFiles/bpew.dir/src/main.cpp.o: /home/dinn/projects/bpew/src/main.cpp \
  /home/dinn/projects/bpew/src/graphics/index_buffer.h \
  /home/dinn/projects/bpew/src/graphics/vertex_attribute.h \
  /home/dinn/projects/bpew/src/graphics/renderer.h \
+ /home/dinn/projects/bpew/src/graphics/camera.h \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/quaternion.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../ext/quaternion_exponential.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../ext/quaternion_exponential.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/norm.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/../gtx/component_wise.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/../gtx/../detail/setup.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/../gtx/component_wise.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/norm.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/quaternion.inl \
  /home/dinn/projects/bpew/include/imgui/imgui.h \
  /home/dinn/projects/bpew/include/imgui/imconfig.h \
  /home/dinn/projects/bpew/include/imgui/backends/imgui_impl_sdl2.h \
