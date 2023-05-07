@@ -22,6 +22,37 @@
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 800
+#define NUM_SAMPLES 16
+#define CLEAR_COLOR glm::vec4{0.2, 0.2, 0.2, 1.0}
+#define LINE_COLOR glm::vec3{0.4, 0.4, 0.4}
+
+const char* line_shader_vs = R"(
+#version 460 core
+layout (location = 0) in vec3 pos;
+layout (location = 1) in vec3 aColor;
+
+out vec3 outColor;
+
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
+void main() {
+    gl_Position = projection * view * model * vec4(pos, 1.0f);
+    outColor = aColor;
+}
+)";
+const char* line_shader_fs = R"(
+#version 460 core
+
+out vec4 fragColor;
+
+in vec3 outColor;
+
+void main() {
+    fragColor = vec4(outColor, 1.0);
+}
+)";
 
 int main(int argc, char** argv) {
 	if(SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -35,6 +66,8 @@ int main(int argc, char** argv) {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, NUM_SAMPLES);
 	
 	Window window;
 	if(!window.create("BPew",
@@ -68,7 +101,8 @@ int main(int argc, char** argv) {
 	SDL_GL_SetSwapInterval(1);
 
 	glEnable(GL_DEPTH_TEST);
-
+	glEnable(GL_MULTISAMPLE);
+	
 	float vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 		0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -112,8 +146,9 @@ int main(int argc, char** argv) {
         -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     };
-	
+
 	Renderer::init();
+	Renderer::setClearColor(CLEAR_COLOR);
 	
 	Texture2D texture;
 	texture.createFromFile(FileSystem::joinPath("img/wall.jpg").c_str());
@@ -135,15 +170,19 @@ int main(int argc, char** argv) {
 	glBindBuffer(GL_ARRAY_BUFFER, 0); 
     glBindVertexArray(0);
 
-	Camera camera;
-	camera.create(45, 1.778f, 0.1f, 1000);
+	Shader line_shader;
+	line_shader.createFromSource(line_shader_vs, line_shader_fs);
 	
-	glClearColor(0.1, 0.1, 0.1, 1);
+	float near = 0.1f;
+	float far = 50.0f;
+	
+	Camera camera;
+	camera.create(45, 1.778f, near, far);
 
 	float last_time = SDL_GetTicks();
 
 	glm::ivec2 previous_mouse;
-	
+
 	bool running = true;
 	while(running) {
 		Input::begin();
@@ -233,12 +272,76 @@ int main(int argc, char** argv) {
 
 		Renderer::end();
 
-		// From -camera.far to +camera.far
-		for(float x = -1000.0f; x < 1000.0f; x += 0.5f) {
-			for(float y = -1000.0f; y < 1000.0f; y += 0.5f) {
-				
+		std::vector<float> line_vertices;
+		const glm::vec3& cam_pos = camera.getPosition();
+		for(float x = cam_pos.x - far; x < cam_pos.x + far; x += 0.5f) {
+			glm::vec3 color = {0.4, 0.4, 0.4};
+			if((int)x == 0) {
+				color = {1, 0.4, 0.4};
 			}
+			
+			line_vertices.push_back((int)x);
+			line_vertices.push_back(0);
+			line_vertices.push_back((int)(cam_pos.z - far));
+			line_vertices.push_back(color.x);
+			line_vertices.push_back(color.y);
+			line_vertices.push_back(color.z);
+
+			line_vertices.push_back((int)x);
+			line_vertices.push_back(0);
+			line_vertices.push_back((int)(cam_pos.z + far));
+			line_vertices.push_back(color.x);
+			line_vertices.push_back(color.y);
+			line_vertices.push_back(color.z);
 		}
+		for(float z = cam_pos.z - far; z < cam_pos.z + far; z += 0.5f) {
+			glm::vec3 color = {0.4, 0.4, 0.4};
+			if((int)z == 0) {
+				color = {0.55, 0.8, 0.9};
+			}
+			
+			line_vertices.push_back((int)(cam_pos.x - far));
+			line_vertices.push_back(0);
+			line_vertices.push_back((int)z);
+			line_vertices.push_back(color.x);
+			line_vertices.push_back(color.y);
+			line_vertices.push_back(color.z);
+
+			line_vertices.push_back((int)(cam_pos.x + far));
+			line_vertices.push_back(0);
+			line_vertices.push_back((int)z);
+			line_vertices.push_back(color.x);
+			line_vertices.push_back(color.y);
+			line_vertices.push_back(color.z);
+		}
+		
+		VertexArray line_va;
+		line_va.create();
+		line_va.bind();
+
+		size_t vertices_size = line_vertices.size() * sizeof(float);
+		attribs = {
+			{sizeof(float), 3, GL_FALSE},
+			{sizeof(float), 3, GL_FALSE}
+		};
+		
+		VertexBuffer line_vb;
+		line_vb.create(line_vertices.data(), vertices_size);
+
+		line_va.addVertexBuffer(line_vb, attribs);
+
+		line_shader.bind();
+		line_va.bind();
+
+		model = glm::mat4(1.0f);
+		line_shader.setMatrix4("projection", camera.getProjectionMatrix());
+        line_shader.setMatrix4("view", camera.getViewMatrix());
+		line_shader.setMatrix4("model", model);
+
+		glDrawArrays(GL_LINES, 0, line_vertices.size());
+
+		line_va.destroy();
+		line_vb.destroy();
 		
 		ImGuiIO& io = ImGui::GetIO();
 		io.DisplaySize = ImVec2((float)w, (float)h);
