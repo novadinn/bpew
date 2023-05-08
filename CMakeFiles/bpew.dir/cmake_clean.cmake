@@ -27,6 +27,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/bpew.dir/src/graphics/camera.cpp.o.d"
   "CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o"
   "CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o.d"
+  "CMakeFiles/bpew.dir/src/graphics/model.cpp.o"
+  "CMakeFiles/bpew.dir/src/graphics/model.cpp.o.d"
   "CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o"
   "CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o.d"
   "CMakeFiles/bpew.dir/src/graphics/shader.cpp.o"

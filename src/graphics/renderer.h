@@ -1,17 +1,15 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
+#include "shader.h"
+#include "model.h"
+#include "camera.h"
+
 #include <glm/glm.hpp>
 
 struct Renderer {
-	static void init();
-	static void destroy();
-
-	static void begin(const glm::mat4& view, const glm::mat4& proj);
-	// TODO: this should take a mesh
-	static void drawMesh(const glm::mat4& model);
-	static void end();
-
+	static void drawModel(Model& target, Shader shader, const Camera& camera, const glm::mat4& view, const glm::mat4& proj, const glm::mat4& model);
+	
 	static void clear();
 
 	static void setClearColor(const glm::vec4& color);

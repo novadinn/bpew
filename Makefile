@@ -465,6 +465,30 @@ src/graphics/index_buffer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.s
 .PHONY : src/graphics/index_buffer.cpp.s
 
+src/graphics/model.o: src/graphics/model.cpp.o
+.PHONY : src/graphics/model.o
+
+# target to build an object file
+src/graphics/model.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/model.cpp.o
+.PHONY : src/graphics/model.cpp.o
+
+src/graphics/model.i: src/graphics/model.cpp.i
+.PHONY : src/graphics/model.i
+
+# target to preprocess a source file
+src/graphics/model.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/model.cpp.i
+.PHONY : src/graphics/model.cpp.i
+
+src/graphics/model.s: src/graphics/model.cpp.s
+.PHONY : src/graphics/model.s
+
+# target to generate assembly for a file
+src/graphics/model.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/model.cpp.s
+.PHONY : src/graphics/model.cpp.s
+
 src/graphics/renderer.o: src/graphics/renderer.cpp.o
 .PHONY : src/graphics/renderer.o
 
@@ -660,6 +684,9 @@ help:
 	@echo "... src/graphics/index_buffer.o"
 	@echo "... src/graphics/index_buffer.i"
 	@echo "... src/graphics/index_buffer.s"
+	@echo "... src/graphics/model.o"
+	@echo "... src/graphics/model.i"
+	@echo "... src/graphics/model.s"
 	@echo "... src/graphics/renderer.o"
 	@echo "... src/graphics/renderer.i"
 	@echo "... src/graphics/renderer.s"

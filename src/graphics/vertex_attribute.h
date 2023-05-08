@@ -1,6 +1,8 @@
 #ifndef VERTEX_ATTRIBUTE_H
 #define VERTEX_ATTRIBUTE_H
 
+#include "../core/platform.h"
+
 #include <cstdio>
 #include <glad/glad.h>
 

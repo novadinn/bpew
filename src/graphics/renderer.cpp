@@ -4,57 +4,29 @@
 
 #include <glad/glad.h>
 
-const char* shader_vs = R"(
-#version 460 core
-layout (location = 0) in vec3 aPos;
-layout (location = 1) in vec2 aTexCoord;
+void Renderer::drawModel(Model& target, Shader shader, const Camera& camera,
+						 const glm::mat4& view, const glm::mat4& proj, const glm::mat4& model) {
+	for(int i = 0; i < target.meshes.size(); ++i) {
+		shader.bind();
+		shader.setMatrix4("view", view);
+		shader.setMatrix4("projection", proj);
+		shader.setMatrix4("model", model);
 
-out vec2 texCoord;
+		shader.setFloat("shininess", 0.2f);
+		shader.setVec3("viewPos", camera.getPosition());
+		shader.setVec3("dirLight.direction", camera.getForward());
+		shader.setVec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
+		shader.setVec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
+		shader.setVec3("dirLight.specilar", glm::vec3(0.5f, 0.5f, 0.5f));
+	
+		Mesh& mesh = target.meshes[i];
+		
+		mesh.va.bind();
+		glDrawElements(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, 0);
+		mesh.va.unbind();
 
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
-
-void main() {
-	gl_Position = projection * view * model * vec4(aPos, 1.0f);
-	texCoord = vec2(aTexCoord.x, aTexCoord.y);
-}
-)";
-const char* shader_fs = R"(
-#version 460 core
-out vec4 fragColor;
-
-in vec2 texCoord;
-
-uniform sampler2D mainTexture;
-
-void main() {
-	fragColor = texture(mainTexture, texCoord);
-}
-)";
-
-static Shader shader;
-
-void Renderer::init() {
-	shader.createFromSource(shader_vs, shader_fs);
-}
-
-void Renderer::destroy() {
-	shader.destroy();
-}
-
-void Renderer::begin(const glm::mat4& view, const glm::mat4& proj) {
-	shader.bind();
-	shader.setMatrix4("view", view);
-	shader.setMatrix4("projection", proj);
-}
-
-void Renderer::drawMesh(const glm::mat4& model) {
-	shader.setMatrix4("model", model);
-}
-
-void Renderer::end() {
-	shader.unbind();
+		shader.unbind();
+	}
 }
 
 void Renderer::clear() {

@@ -22,6 +22,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/dinn/projects/bpew/src/core/window.cpp" "CMakeFiles/bpew.dir/src/core/window.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/core/window.cpp.o.d"
   "/home/dinn/projects/bpew/src/graphics/camera.cpp" "CMakeFiles/bpew.dir/src/graphics/camera.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/camera.cpp.o.d"
   "/home/dinn/projects/bpew/src/graphics/index_buffer.cpp" "CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o.d"
+  "/home/dinn/projects/bpew/src/graphics/model.cpp" "CMakeFiles/bpew.dir/src/graphics/model.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/model.cpp.o.d"
   "/home/dinn/projects/bpew/src/graphics/renderer.cpp" "CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o.d"
   "/home/dinn/projects/bpew/src/graphics/shader.cpp" "CMakeFiles/bpew.dir/src/graphics/shader.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/shader.cpp.o.d"
   "/home/dinn/projects/bpew/src/graphics/texture.cpp" "CMakeFiles/bpew.dir/src/graphics/texture.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/texture.cpp.o.d"

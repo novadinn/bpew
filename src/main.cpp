@@ -16,6 +16,8 @@
 #include "graphics/vertex_array.h"
 #include "graphics/renderer.h"
 #include "graphics/camera.h"
+#include "graphics/mesh.h"
+#include "graphics/model.h"
 #include "imgui/imgui.h"
 #include "imgui/backends/imgui_impl_sdl2.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
@@ -24,7 +26,79 @@
 #define WINDOW_HEIGHT 800
 #define NUM_SAMPLES 16
 #define CLEAR_COLOR glm::vec4{0.2, 0.2, 0.2, 1.0}
-#define LINE_COLOR glm::vec3{0.4, 0.4, 0.4}
+
+const char* shader_vs = R"(
+#version 460 core
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec3 aNormal;
+layout (location = 2) in vec2 aTexCoord;
+layout (location = 3) in vec3 aTangent;
+layout (location = 4) in vec3 aBitangent;
+
+out VS_OUT {
+    vec3 fragPos;
+    vec3 normal;
+} vs_out;
+
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
+void main() {
+    vec4 worldPosition = model* vec4(aPos, 1.0f);
+
+    vs_out.fragPos = vec3(worldPosition);
+    vs_out.normal = mat3(transpose(inverse(model))) * aNormal;
+
+	gl_Position = projection * view * worldPosition;
+}
+)";
+const char* shader_fs = R"(
+#version 460 core
+
+out vec4 fragColor;
+
+struct DirLight {
+    vec3 direction;
+
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+};
+
+in VS_OUT {
+    vec3 fragPos;
+    vec3 normal;
+} vs_in;
+
+uniform vec3 viewPos;
+uniform DirLight dirLight;
+uniform float shininess;
+
+vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir);
+
+void main() {
+    vec3 norm = normalize(vs_in.normal);
+    vec3 viewDir = normalize(viewPos - vs_in.fragPos);
+
+    vec3 result = calcDirLight(dirLight, norm, viewDir);
+
+	fragColor = vec4(0.5f, 0.5f, 0.5f, 1.0f) + vec4(result, 0.0f);
+}
+
+vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir) {
+    vec3 lightDir = normalize(-light.direction);
+    float diff = max(dot(normal, lightDir), 0.0);
+    vec3 reflectDir = reflect(-lightDir, normal);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+    
+    vec3 ambient = light.ambient;
+    vec3 diffuse = light.diffuse * diff;
+    vec3 specular = light.specular * spec;
+    
+    return (ambient + diffuse + specular);
+}
+)";
 
 const char* line_shader_vs = R"(
 #version 460 core
@@ -103,75 +177,15 @@ int main(int argc, char** argv) {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_MULTISAMPLE);
 	
-	float vertices[] = {
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-    };
-
-	Renderer::init();
 	Renderer::setClearColor(CLEAR_COLOR);
 	
-	Texture2D texture;
-	texture.createFromFile(FileSystem::joinPath("img/wall.jpg").c_str());
-
-	VertexArray va;
-	VertexBuffer vb;
-
-	va.create();
-	va.bind();
-
-	std::vector<VertexAttribute> attribs = {
-		{sizeof(float), 3, GL_FALSE},
-	    {sizeof(float), 2, GL_FALSE},
-	};
-
-	vb.create(vertices, sizeof(vertices));
-	va.addVertexBuffer(vb, attribs);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, 0); 
-    glBindVertexArray(0);
-
 	Shader line_shader;
 	line_shader.createFromSource(line_shader_vs, line_shader_fs);
+
+	Model monkey;
+	monkey.loadModel("models/monkey.obj");
+	Shader model_shader;
+	model_shader.createFromSource(shader_vs, shader_fs);
 	
 	float near = 0.1f;
 	float far = 50.0f;
@@ -259,18 +273,11 @@ int main(int argc, char** argv) {
 
 		static bool show = true;
 		ImGui::ShowDemoWindow(&show);
-		
-		texture.bind();
-		
-        Renderer::begin(camera.getViewMatrix(), camera.getProjectionMatrix());
 
 		glm::mat4 model = glm::mat4(1.0f);
-		Renderer::drawMesh(model);
 		
-		va.bind();
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-
-		Renderer::end();
+		Renderer::drawModel(monkey, model_shader, camera,
+							camera.getViewMatrix(), camera.getProjectionMatrix(), model);
 
 		std::vector<float> line_vertices;
 		const glm::vec3& cam_pos = camera.getPosition();
@@ -320,7 +327,7 @@ int main(int argc, char** argv) {
 		line_va.bind();
 
 		size_t vertices_size = line_vertices.size() * sizeof(float);
-		attribs = {
+		std::vector<VertexAttribute> attribs = {
 			{sizeof(float), 3, GL_FALSE},
 			{sizeof(float), 3, GL_FALSE}
 		};
@@ -351,8 +358,6 @@ int main(int argc, char** argv) {
 		window.swap();
 	}
 
-	Renderer::destroy();
-	
 	SDL_GL_DeleteContext(context);
 	window.destroy();
 	
