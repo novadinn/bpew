@@ -7,6 +7,8 @@
 
 struct FileSystem {
 	static std::string joinPath(const char* path);
+	static std::string pathDirectory(const char* path);
+	static std::string connectPathWithDirectory(const std::string& path, const std::string& directory);
 };
 
 #endif

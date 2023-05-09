@@ -2,19 +2,18 @@
 
 #include <cstring>
 
-std::string FileSystem::joinPath(const char* path) {
-	
 #if defined(PLATFORM_WINDOWS)
-	const char slash_char = '\\';
+#define SLASH_CHAR '\\'
 #elif defined(PLATFORM_LINUX) || defined(PLATFORM_IOS) || defined(PLATFORM_MACOS) || defined(PLATFORM_ANDROID)
-	const char slash_char = '/';
+#define SLASH_CHAR '/'
 #endif
-	
+
+std::string FileSystem::joinPath(const char* path) {
 	std::string result;
 		
 	for (int i = 0; i < strlen(path); ++i) {
 		if (path[i] == '/' || path[i] == '\\') {
-			result += slash_char;
+			result += SLASH_CHAR;
 			continue;
 		}
 
@@ -22,4 +21,13 @@ std::string FileSystem::joinPath(const char* path) {
 	}
 
 	return result;
+}
+
+std::string FileSystem::pathDirectory(const char* path) {
+	std::string str = path;
+	return str.substr(0, str.find_last_of(SLASH_CHAR));
+}
+
+std::string FileSystem::connectPathWithDirectory(const std::string& path, const std::string& directory) {
+	return path + SLASH_CHAR + directory;
 }

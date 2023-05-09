@@ -4,12 +4,11 @@
 
 #include <glad/glad.h>
 
-void Renderer::drawModel(Model& target, Shader shader, const Camera& camera,
-						 const glm::mat4& view, const glm::mat4& proj, const glm::mat4& model) {
+void Renderer::drawModel(Model& target, Shader shader, Camera& camera, const glm::mat4& model) {
 	for(int i = 0; i < target.meshes.size(); ++i) {
 		shader.bind();
-		shader.setMatrix4("view", view);
-		shader.setMatrix4("projection", proj);
+		shader.setMatrix4("view", camera.getViewMatrix());
+		shader.setMatrix4("projection", camera.getProjectionMatrix());
 		shader.setMatrix4("model", model);
 
 		shader.setFloat("shininess", 0.2f);

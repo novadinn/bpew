@@ -289,12 +289,7 @@ CMakeFiles/bpew.dir/src/graphics/model.cpp.o: \
  /home/dinn/projects/bpew/include/glm/glm/gtc/../ext/matrix_transform.hpp \
  /home/dinn/projects/bpew/include/glm/glm/gtc/../ext/matrix_transform.inl \
  /home/dinn/projects/bpew/include/glm/glm/gtc/matrix_transform.inl \
- /usr/include/assimp/Importer.hpp /usr/include/assimp/types.h \
- /usr/include/string.h /usr/include/strings.h /usr/include/assimp/defs.h \
- /usr/include/assimp/config.h /usr/include/assimp/vector2.h \
- /usr/include/assimp/vector3.h /usr/include/assimp/color4.h \
- /usr/include/assimp/matrix3x3.h /usr/include/assimp/matrix4x4.h \
- /usr/include/assimp/quaternion.h /usr/include/c++/11/cstring \
+ /home/dinn/projects/bpew/src/graphics/texture.h \
  /usr/include/c++/11/string /usr/include/c++/11/bits/stringfwd.h \
  /usr/include/c++/11/bits/char_traits.h \
  /usr/include/c++/11/bits/postypes.h /usr/include/c++/11/cwchar \
@@ -334,6 +329,12 @@ CMakeFiles/bpew.dir/src/graphics/model.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc \
+ /usr/include/assimp/Importer.hpp /usr/include/assimp/types.h \
+ /usr/include/string.h /usr/include/strings.h /usr/include/assimp/defs.h \
+ /usr/include/assimp/config.h /usr/include/assimp/vector2.h \
+ /usr/include/assimp/vector3.h /usr/include/assimp/color4.h \
+ /usr/include/assimp/matrix3x3.h /usr/include/assimp/matrix4x4.h \
+ /usr/include/assimp/quaternion.h /usr/include/c++/11/cstring \
  /usr/include/assimp/vector2.inl /usr/include/assimp/vector3.inl \
  /usr/include/assimp/color4.inl /usr/include/assimp/matrix3x3.inl \
  /usr/include/c++/11/algorithm /usr/include/c++/11/utility \
@@ -368,4 +369,24 @@ CMakeFiles/bpew.dir/src/graphics/model.cpp.o: \
  /usr/include/assimp/camera.h /usr/include/assimp/material.h \
  /usr/include/assimp/material.inl /usr/include/assimp/anim.h \
  /usr/include/assimp/metadata.h /usr/include/assimp/postprocess.h \
- /home/dinn/projects/bpew/src/graphics/../core/log.h
+ /home/dinn/projects/bpew/src/graphics/../core/log.h \
+ /home/dinn/projects/bpew/src/graphics/../core/file_system.h \
+ /home/dinn/projects/bpew/src/graphics/../core/platform.h \
+ /usr/include/c++/11/iostream /usr/include/c++/11/ostream \
+ /usr/include/c++/11/ios /usr/include/c++/11/bits/ios_base.h \
+ /usr/include/c++/11/bits/locale_classes.h \
+ /usr/include/c++/11/bits/locale_classes.tcc \
+ /usr/include/c++/11/system_error \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h \
+ /usr/include/c++/11/stdexcept /usr/include/c++/11/streambuf \
+ /usr/include/c++/11/bits/streambuf.tcc \
+ /usr/include/c++/11/bits/basic_ios.h \
+ /usr/include/c++/11/bits/locale_facets.h /usr/include/c++/11/cwctype \
+ /usr/include/wctype.h /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_base.h \
+ /usr/include/c++/11/bits/streambuf_iterator.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h \
+ /usr/include/c++/11/bits/locale_facets.tcc \
+ /usr/include/c++/11/bits/basic_ios.tcc \
+ /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
+ /usr/include/c++/11/bits/istream.tcc

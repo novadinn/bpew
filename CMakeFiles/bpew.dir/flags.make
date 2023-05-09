@@ -5,13 +5,13 @@
 # compile CXX with /usr/bin/c++
 C_DEFINES = 
 
-C_INCLUDES = -I/usr/include/SDL2 -I/home/dinn/projects/bpew/include -I/home/dinn/projects/bpew/include/glm -I/home/dinn/projects/bpew/include/imgui
+C_INCLUDES = -I/usr/include/SDL2 -I/home/dinn/projects/bpew/include -I/home/dinn/projects/bpew/include/glm -I/home/dinn/projects/bpew/include/imgui -I/home/dinn/projects/bpew/include/entt/single_include
 
 C_FLAGS = 
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/usr/include/SDL2 -I/home/dinn/projects/bpew/include -I/home/dinn/projects/bpew/include/glm -I/home/dinn/projects/bpew/include/imgui
+CXX_INCLUDES = -I/usr/include/SDL2 -I/home/dinn/projects/bpew/include -I/home/dinn/projects/bpew/include/glm -I/home/dinn/projects/bpew/include/imgui -I/home/dinn/projects/bpew/include/entt/single_include
 
 CXX_FLAGS = 
 

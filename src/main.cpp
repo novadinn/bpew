@@ -18,6 +18,10 @@
 #include "graphics/camera.h"
 #include "graphics/mesh.h"
 #include "graphics/model.h"
+#include "graphics/framebuffer.h"
+#include "ecs/scene.h"
+#include "ecs/entity.h"
+#include "ecs/components.h"
 #include "imgui/imgui.h"
 #include "imgui/backends/imgui_impl_sdl2.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
@@ -176,14 +180,14 @@ int main(int argc, char** argv) {
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_MULTISAMPLE);
-	
+
 	Renderer::setClearColor(CLEAR_COLOR);
 	
 	Shader line_shader;
 	line_shader.createFromSource(line_shader_vs, line_shader_fs);
 
-	Model monkey;
-	monkey.loadModel("models/monkey.obj");
+	Model model;
+	model.loadFromPath("models/monkey/monkey.obj");
 	Shader model_shader;
 	model_shader.createFromSource(shader_vs, shader_fs);
 	
@@ -193,8 +197,21 @@ int main(int argc, char** argv) {
 	Camera camera;
 	camera.create(45, 1.778f, near, far);
 
-	float last_time = SDL_GetTicks();
+	Scene scene;
+	Entity camera_entity = scene.createEntity("Camera");
+	auto& camera_component = camera_entity.addComponent<CameraComponent>(camera);
+	camera_component.main = true;
+	Entity object = scene.createEntity("Monkey");
+	object.addComponent<MeshComponent>(model, model_shader);
 
+	Entity object2 = scene.createEntity("Monkey2");
+	object2.addComponent<MeshComponent>(model, model_shader);
+	auto& tr = object.getComponent<TransformComponent>();
+	tr.position = glm::vec3(3.0, 0, 0);
+	tr.scale = glm::vec3(0.5, 0.5, 0.5);
+	tr.rotation = glm::vec3(36, 80, 170);
+	
+	float last_time = SDL_GetTicks();
 	glm::ivec2 previous_mouse;
 
 	bool running = true;
@@ -274,10 +291,79 @@ int main(int argc, char** argv) {
 		static bool show = true;
 		ImGui::ShowDemoWindow(&show);
 
-		glm::mat4 model = glm::mat4(1.0f);
+		if(ImGui::BeginMainMenuBar()) {
+			if(ImGui::BeginMenu("File")) {
+				if(ImGui::MenuItem("New")) {
+					
+				}
+				if(ImGui::MenuItem("Open")) {
+					// ImGuiFileDialog::Instance()->OpenDialog("LoadSceneDlgKey", "Choose File", ".scene", ".");
+				}
+
+				ImGui::Separator();
+				if(ImGui::MenuItem("Save", "Ctrl+S")) {
+					// ImGuiFileDialog::Instance()->OpenDialog("SaveSceneDlgKey", "Choose File", ".scene", ".");
+				}
+
+				ImGui::Separator();
+				if(ImGui::MenuItem("Import")) {}
+				if(ImGui::MenuItem("Export")) {}
+
+				ImGui::Separator();
+				if(ImGui::MenuItem("Quit")) {}
+				ImGui::EndMenu();
+			}
+	    
+			if(ImGui::BeginMenu("Edit")) {
+				if(ImGui::MenuItem("Undo", "CTRL+Z")) {}
+				if(ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}
+				if(ImGui::MenuItem("Repeat Last", "SHIFT+R", false, false)) {}
+				
+				ImGui::Separator();
+				if(ImGui::MenuItem("Cut", "CTRL+X")) {}
+				if(ImGui::MenuItem("Copy", "CTRL+C")) {}
+				if(ImGui::MenuItem("Paste", "CTRL+V")) {}
+				
+				ImGui::Separator();
+				if(ImGui::BeginMenu("Preferences")) {
+					// TODO: open another window
+				}
+				ImGui::EndMenu();
+			}
+
+			if(ImGui::BeginMenu("Window")) {
+				if(ImGui::MenuItem("New Window")) {}
+				if(ImGui::MenuItem("Toggle Window Fullscreen")) {}
+
+				ImGui::Separator();
+				if(ImGui::MenuItem("Next Workspace")) {}
+				if(ImGui::MenuItem("Previous Workspace")) {}
+				
+				ImGui::EndMenu();
+			}
+			
+			ImGui::EndMainMenuBar();
+		}
+
+		// if(ImGuiFileDialog::Instance()->Display("LoadSceneDlgKey"))  {
+		// 	if(ImGuiFileDialog::Instance()->IsOk()) {
+		// 		std::string fp = ImGuiFileDialog::Instance()->GetFilePathName();
+		// 		std::string name = ImGuiFileDialog::Instance()->GetCurrentFileName();
+		// 	}
+
+		// 	ImGuiFileDialog::Instance()->Close();
+		// }
+
+		// if(ImGuiFileDialog::Instance()->Display("SaveSceneDlgKey"))  {
+		// 	if(ImGuiFileDialog::Instance()->IsOk()) {
+		// 		std::string fp = ImGuiFileDialog::Instance()->GetFilePathName();
+
+		// 	}
+
+		// 	ImGuiFileDialog::Instance()->Close();
+		// }
 		
-		Renderer::drawModel(monkey, model_shader, camera,
-							camera.getViewMatrix(), camera.getProjectionMatrix(), model);
+		scene.onUpdate();
 
 		std::vector<float> line_vertices;
 		const glm::vec3& cam_pos = camera.getPosition();
@@ -340,10 +426,10 @@ int main(int argc, char** argv) {
 		line_shader.bind();
 		line_va.bind();
 
-		model = glm::mat4(1.0f);
+		glm::mat4 modelmtx = glm::mat4(1.0f);
 		line_shader.setMatrix4("projection", camera.getProjectionMatrix());
         line_shader.setMatrix4("view", camera.getViewMatrix());
-		line_shader.setMatrix4("model", model);
+		line_shader.setMatrix4("model", modelmtx);
 
 		glDrawArrays(GL_LINES, 0, line_vertices.size());
 

@@ -527,6 +527,7 @@ CMakeFiles/bpew.dir/src/main.cpp.o: /home/dinn/projects/bpew/src/main.cpp \
  /home/dinn/projects/bpew/src/graphics/model.h \
  /home/dinn/projects/bpew/src/graphics/mesh.h \
  /home/dinn/projects/bpew/src/graphics/vertex_array.h \
+ /home/dinn/projects/bpew/src/graphics/texture.h \
  /usr/include/assimp/Importer.hpp /usr/include/assimp/types.h \
  /usr/include/assimp/defs.h /usr/include/assimp/config.h \
  /usr/include/assimp/vector2.h /usr/include/assimp/vector3.h \
@@ -565,9 +566,42 @@ CMakeFiles/bpew.dir/src/main.cpp.o: /home/dinn/projects/bpew/src/main.cpp \
  /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/../gtx/component_wise.inl \
  /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/norm.inl \
  /home/dinn/projects/bpew/include/glm/glm/gtx/quaternion.inl \
+ /home/dinn/projects/bpew/src/graphics/../ecs/entity.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/scene.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/../core/platform.h \
+ /home/dinn/projects/bpew/include/entt/single_include/entt/entt.hpp \
+ /usr/include/c++/11/iterator /usr/include/c++/11/bits/stream_iterator.h \
+ /usr/include/c++/11/memory \
+ /usr/include/c++/11/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/11/bits/align.h /usr/include/c++/11/bit \
+ /usr/include/c++/11/bits/unique_ptr.h \
+ /usr/include/c++/11/bits/shared_ptr.h \
+ /usr/include/c++/11/bits/shared_ptr_base.h \
+ /usr/include/c++/11/bits/allocated_ptr.h \
+ /usr/include/c++/11/ext/concurrence.h \
+ /usr/include/c++/11/bits/shared_ptr_atomic.h \
+ /usr/include/c++/11/bits/atomic_base.h \
+ /usr/include/c++/11/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/11/backward/auto_ptr.h \
+ /usr/include/c++/11/pstl/glue_memory_defs.h /usr/include/c++/11/deque \
+ /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
+ /usr/include/c++/11/list /usr/include/c++/11/bits/stl_list.h \
+ /usr/include/c++/11/bits/list.tcc /usr/include/c++/11/set \
+ /usr/include/c++/11/bits/stl_set.h \
+ /usr/include/c++/11/bits/stl_multiset.h \
+ /usr/include/c++/11/unordered_set \
+ /usr/include/c++/11/bits/unordered_set.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/../core/log.h \
  /home/dinn/projects/bpew/src/graphics/camera.h \
  /home/dinn/projects/bpew/src/graphics/mesh.h \
  /home/dinn/projects/bpew/src/graphics/model.h \
+ /home/dinn/projects/bpew/src/graphics/framebuffer.h \
+ /home/dinn/projects/bpew/src/ecs/scene.h \
+ /home/dinn/projects/bpew/src/ecs/entity.h \
+ /home/dinn/projects/bpew/src/ecs/components.h \
+ /home/dinn/projects/bpew/src/ecs/../graphics/camera.h \
+ /home/dinn/projects/bpew/src/ecs/../graphics/model.h \
+ /home/dinn/projects/bpew/src/ecs/../graphics/shader.h \
  /home/dinn/projects/bpew/include/imgui/imgui.h \
  /home/dinn/projects/bpew/include/imgui/imconfig.h \
  /home/dinn/projects/bpew/include/imgui/backends/imgui_impl_sdl2.h \

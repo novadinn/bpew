@@ -393,6 +393,30 @@ src/core/window.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/core/window.cpp.s
 .PHONY : src/core/window.cpp.s
 
+src/ecs/scene.o: src/ecs/scene.cpp.o
+.PHONY : src/ecs/scene.o
+
+# target to build an object file
+src/ecs/scene.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/ecs/scene.cpp.o
+.PHONY : src/ecs/scene.cpp.o
+
+src/ecs/scene.i: src/ecs/scene.cpp.i
+.PHONY : src/ecs/scene.i
+
+# target to preprocess a source file
+src/ecs/scene.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/ecs/scene.cpp.i
+.PHONY : src/ecs/scene.cpp.i
+
+src/ecs/scene.s: src/ecs/scene.cpp.s
+.PHONY : src/ecs/scene.s
+
+# target to generate assembly for a file
+src/ecs/scene.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/ecs/scene.cpp.s
+.PHONY : src/ecs/scene.cpp.s
+
 src/glad.o: src/glad.c.o
 .PHONY : src/glad.o
 
@@ -440,6 +464,30 @@ src/graphics/camera.s: src/graphics/camera.cpp.s
 src/graphics/camera.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/camera.cpp.s
 .PHONY : src/graphics/camera.cpp.s
+
+src/graphics/framebuffer.o: src/graphics/framebuffer.cpp.o
+.PHONY : src/graphics/framebuffer.o
+
+# target to build an object file
+src/graphics/framebuffer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o
+.PHONY : src/graphics/framebuffer.cpp.o
+
+src/graphics/framebuffer.i: src/graphics/framebuffer.cpp.i
+.PHONY : src/graphics/framebuffer.i
+
+# target to preprocess a source file
+src/graphics/framebuffer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.i
+.PHONY : src/graphics/framebuffer.cpp.i
+
+src/graphics/framebuffer.s: src/graphics/framebuffer.cpp.s
+.PHONY : src/graphics/framebuffer.s
+
+# target to generate assembly for a file
+src/graphics/framebuffer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.s
+.PHONY : src/graphics/framebuffer.cpp.s
 
 src/graphics/index_buffer.o: src/graphics/index_buffer.cpp.o
 .PHONY : src/graphics/index_buffer.o
@@ -675,12 +723,18 @@ help:
 	@echo "... src/core/window.o"
 	@echo "... src/core/window.i"
 	@echo "... src/core/window.s"
+	@echo "... src/ecs/scene.o"
+	@echo "... src/ecs/scene.i"
+	@echo "... src/ecs/scene.s"
 	@echo "... src/glad.o"
 	@echo "... src/glad.i"
 	@echo "... src/glad.s"
 	@echo "... src/graphics/camera.o"
 	@echo "... src/graphics/camera.i"
 	@echo "... src/graphics/camera.s"
+	@echo "... src/graphics/framebuffer.o"
+	@echo "... src/graphics/framebuffer.i"
+	@echo "... src/graphics/framebuffer.s"
 	@echo "... src/graphics/index_buffer.o"
 	@echo "... src/graphics/index_buffer.i"
 	@echo "... src/graphics/index_buffer.s"
