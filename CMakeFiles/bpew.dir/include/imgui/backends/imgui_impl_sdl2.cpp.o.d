@@ -217,4 +217,5 @@ CMakeFiles/bpew.dir/include/imgui/backends/imgui_impl_sdl2.cpp.o: \
  /usr/include/SDL2/SDL_locale.h /usr/include/SDL2/SDL_misc.h \
  /usr/include/SDL2/SDL_syswm.h /usr/include/X11/Xlib.h \
  /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h \
- /usr/include/X11/Xosdefs.h /usr/include/X11/Xatom.h
+ /usr/include/X11/Xosdefs.h /usr/include/X11/Xatom.h \
+ /usr/include/SDL2/SDL_vulkan.h

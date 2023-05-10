@@ -16,7 +16,11 @@ Entity Scene::createEntity(const std::string& name) {
 	return entity;
 }
 
-void Scene::onUpdate() {
+void Scene::destroyEntity(Entity entity) {
+	registry.destroy(entity);
+}
+
+void Scene::onDraw() {
 	CameraComponent* main_camera = nullptr;
 	
 	auto view = registry.view<CameraComponent>();
@@ -39,5 +43,10 @@ void Scene::onUpdate() {
 }
 
 void Scene::onResize(uint width, uint height) {
+	auto view = registry.view<CameraComponent>();
+	for(auto entity : view) {
+		auto& camera = view.get<CameraComponent>(entity);
 
+		camera.camera.setViewportSize(width, height);
+	}
 }

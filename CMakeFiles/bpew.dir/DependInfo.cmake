@@ -21,6 +21,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/dinn/projects/bpew/src/core/input.cpp" "CMakeFiles/bpew.dir/src/core/input.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/core/input.cpp.o.d"
   "/home/dinn/projects/bpew/src/core/window.cpp" "CMakeFiles/bpew.dir/src/core/window.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/core/window.cpp.o.d"
   "/home/dinn/projects/bpew/src/ecs/scene.cpp" "CMakeFiles/bpew.dir/src/ecs/scene.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/ecs/scene.cpp.o.d"
+  "/home/dinn/projects/bpew/src/editor/editor.cpp" "CMakeFiles/bpew.dir/src/editor/editor.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/editor/editor.cpp.o.d"
   "/home/dinn/projects/bpew/src/graphics/camera.cpp" "CMakeFiles/bpew.dir/src/graphics/camera.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/camera.cpp.o.d"
   "/home/dinn/projects/bpew/src/graphics/framebuffer.cpp" "CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o.d"
   "/home/dinn/projects/bpew/src/graphics/index_buffer.cpp" "CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o.d"

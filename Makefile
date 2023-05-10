@@ -417,6 +417,30 @@ src/ecs/scene.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/ecs/scene.cpp.s
 .PHONY : src/ecs/scene.cpp.s
 
+src/editor/editor.o: src/editor/editor.cpp.o
+.PHONY : src/editor/editor.o
+
+# target to build an object file
+src/editor/editor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/editor.cpp.o
+.PHONY : src/editor/editor.cpp.o
+
+src/editor/editor.i: src/editor/editor.cpp.i
+.PHONY : src/editor/editor.i
+
+# target to preprocess a source file
+src/editor/editor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/editor.cpp.i
+.PHONY : src/editor/editor.cpp.i
+
+src/editor/editor.s: src/editor/editor.cpp.s
+.PHONY : src/editor/editor.s
+
+# target to generate assembly for a file
+src/editor/editor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/editor.cpp.s
+.PHONY : src/editor/editor.cpp.s
+
 src/glad.o: src/glad.c.o
 .PHONY : src/glad.o
 
@@ -726,6 +750,9 @@ help:
 	@echo "... src/ecs/scene.o"
 	@echo "... src/ecs/scene.i"
 	@echo "... src/ecs/scene.s"
+	@echo "... src/editor/editor.o"
+	@echo "... src/editor/editor.i"
+	@echo "... src/editor/editor.s"
 	@echo "... src/glad.o"
 	@echo "... src/glad.i"
 	@echo "... src/glad.s"

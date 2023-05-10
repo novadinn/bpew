@@ -1,6 +1,8 @@
-CMakeFiles/bpew.dir/src/main.cpp.o: /home/dinn/projects/bpew/src/main.cpp \
- /usr/include/stdc-predef.h /home/dinn/projects/bpew/include/glad/glad.h \
- /home/dinn/projects/bpew/include/KHR/khrplatform.h \
+CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
+ /home/dinn/projects/bpew/src/editor/editor.cpp \
+ /usr/include/stdc-predef.h /home/dinn/projects/bpew/src/editor/editor.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/scene.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/../core/platform.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -16,13 +18,13 @@ CMakeFiles/bpew.dir/src/main.cpp.o: /home/dinn/projects/bpew/src/main.cpp \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
- /home/dinn/projects/bpew/include/glm/glm/glm.hpp \
- /home/dinn/projects/bpew/include/glm/glm/detail/_fixes.hpp \
- /usr/include/c++/11/cmath \
+ /home/dinn/projects/bpew/include/entt/single_include/entt/entt.hpp \
+ /usr/include/c++/11/cstdint \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
- /usr/include/c++/11/pstl/pstl_config.h \
+ /usr/include/c++/11/pstl/pstl_config.h /usr/include/c++/11/cassert \
+ /usr/include/assert.h /usr/include/c++/11/cmath \
  /usr/include/c++/11/bits/cpp_type_traits.h \
  /usr/include/c++/11/ext/type_traits.h /usr/include/math.h \
  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
@@ -89,18 +91,145 @@ CMakeFiles/bpew.dir/src/main.cpp.o: /home/dinn/projects/bpew/src/main.cpp \
  /usr/include/c++/11/tr1/modified_bessel_func.tcc \
  /usr/include/c++/11/tr1/poly_hermite.tcc \
  /usr/include/c++/11/tr1/poly_laguerre.tcc \
- /usr/include/c++/11/tr1/riemann_zeta.tcc \
+ /usr/include/c++/11/tr1/riemann_zeta.tcc /usr/include/c++/11/cstddef \
+ /usr/include/c++/11/functional /usr/include/c++/11/bits/stl_function.h \
+ /usr/include/c++/11/backward/binders.h /usr/include/c++/11/new \
+ /usr/include/c++/11/bits/exception.h /usr/include/c++/11/tuple \
+ /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
+ /usr/include/c++/11/initializer_list /usr/include/c++/11/array \
+ /usr/include/c++/11/bits/range_access.h \
+ /usr/include/c++/11/bits/uses_allocator.h \
+ /usr/include/c++/11/bits/invoke.h \
+ /usr/include/c++/11/bits/functional_hash.h \
+ /usr/include/c++/11/bits/hash_bytes.h /usr/include/c++/11/bits/refwrap.h \
+ /usr/include/c++/11/bits/std_function.h /usr/include/c++/11/typeinfo \
+ /usr/include/c++/11/unordered_map /usr/include/c++/11/bits/allocator.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
+ /usr/include/c++/11/ext/new_allocator.h \
+ /usr/include/c++/11/bits/memoryfwd.h \
+ /usr/include/c++/11/ext/alloc_traits.h \
+ /usr/include/c++/11/bits/alloc_traits.h \
+ /usr/include/c++/11/bits/stl_construct.h \
+ /usr/include/c++/11/ext/aligned_buffer.h \
+ /usr/include/c++/11/bits/hashtable.h \
+ /usr/include/c++/11/bits/hashtable_policy.h \
+ /usr/include/c++/11/bits/enable_special_members.h \
+ /usr/include/c++/11/bits/node_handle.h \
+ /usr/include/c++/11/bits/unordered_map.h \
+ /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/vector \
+ /usr/include/c++/11/bits/stl_uninitialized.h \
+ /usr/include/c++/11/bits/stl_vector.h \
+ /usr/include/c++/11/bits/stl_bvector.h \
+ /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/bits/stl_algo.h \
+ /usr/include/c++/11/cstdlib /usr/include/c++/11/bits/algorithmfwd.h \
+ /usr/include/c++/11/bits/stl_heap.h \
+ /usr/include/c++/11/bits/stl_tempbuf.h \
+ /usr/include/c++/11/bits/uniform_int_dist.h /usr/include/c++/11/iterator \
+ /usr/include/c++/11/iosfwd /usr/include/c++/11/bits/stringfwd.h \
+ /usr/include/c++/11/bits/postypes.h /usr/include/c++/11/cwchar \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+ /usr/include/c++/11/bits/stream_iterator.h \
+ /usr/include/c++/11/bits/streambuf_iterator.h \
+ /usr/include/c++/11/streambuf /usr/include/c++/11/bits/localefwd.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h \
+ /usr/include/c++/11/clocale /usr/include/locale.h \
+ /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/11/cctype \
+ /usr/include/ctype.h /usr/include/c++/11/bits/ios_base.h \
+ /usr/include/c++/11/ext/atomicity.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h \
+ /usr/include/pthread.h /usr/include/sched.h \
+ /usr/include/x86_64-linux-gnu/bits/sched.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h \
+ /usr/include/x86_64-linux-gnu/bits/cpu-set.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
+ /usr/include/x86_64-linux-gnu/bits/setjmp.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
+ /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h \
+ /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
+ /usr/include/c++/11/bits/locale_classes.h /usr/include/c++/11/string \
+ /usr/include/c++/11/bits/char_traits.h \
+ /usr/include/c++/11/bits/ostream_insert.h \
+ /usr/include/c++/11/bits/cxxabi_forced.h \
+ /usr/include/c++/11/bits/basic_string.h /usr/include/c++/11/string_view \
+ /usr/include/c++/11/bits/string_view.tcc \
+ /usr/include/c++/11/ext/string_conversions.h /usr/include/c++/11/cstdio \
+ /usr/include/stdio.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/c++/11/cerrno /usr/include/errno.h \
+ /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
+ /usr/include/x86_64-linux-gnu/asm/errno.h \
+ /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+ /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
+ /usr/include/c++/11/bits/charconv.h \
+ /usr/include/c++/11/bits/basic_string.tcc \
+ /usr/include/c++/11/bits/locale_classes.tcc \
+ /usr/include/c++/11/system_error \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h \
+ /usr/include/c++/11/stdexcept /usr/include/c++/11/exception \
+ /usr/include/c++/11/bits/exception_ptr.h \
+ /usr/include/c++/11/bits/cxxabi_init_exception.h \
+ /usr/include/c++/11/bits/nested_exception.h \
+ /usr/include/c++/11/bits/streambuf.tcc /usr/include/c++/11/memory \
+ /usr/include/c++/11/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/11/bits/align.h /usr/include/c++/11/bit \
+ /usr/include/c++/11/bits/unique_ptr.h \
+ /usr/include/c++/11/bits/shared_ptr.h \
+ /usr/include/c++/11/bits/shared_ptr_base.h \
+ /usr/include/c++/11/bits/allocated_ptr.h \
+ /usr/include/c++/11/ext/concurrence.h \
+ /usr/include/c++/11/bits/shared_ptr_atomic.h \
+ /usr/include/c++/11/bits/atomic_base.h \
+ /usr/include/c++/11/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/11/backward/auto_ptr.h \
+ /usr/include/c++/11/pstl/glue_memory_defs.h \
+ /usr/include/c++/11/pstl/execution_defs.h /usr/include/c++/11/algorithm \
+ /usr/include/c++/11/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/11/ostream /usr/include/c++/11/ios \
+ /usr/include/c++/11/bits/basic_ios.h \
+ /usr/include/c++/11/bits/locale_facets.h /usr/include/c++/11/cwctype \
+ /usr/include/wctype.h /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_base.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h \
+ /usr/include/c++/11/bits/locale_facets.tcc \
+ /usr/include/c++/11/bits/basic_ios.tcc \
+ /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/deque \
+ /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
+ /usr/include/c++/11/list /usr/include/c++/11/bits/stl_list.h \
+ /usr/include/c++/11/bits/list.tcc /usr/include/c++/11/map \
+ /usr/include/c++/11/bits/stl_tree.h /usr/include/c++/11/bits/stl_map.h \
+ /usr/include/c++/11/bits/stl_multimap.h /usr/include/c++/11/set \
+ /usr/include/c++/11/bits/stl_set.h \
+ /usr/include/c++/11/bits/stl_multiset.h \
+ /usr/include/c++/11/unordered_set \
+ /usr/include/c++/11/bits/unordered_set.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/entity.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/scene.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/../core/log.h \
+ /usr/include/c++/11/cstring /usr/include/string.h /usr/include/strings.h \
+ /home/dinn/projects/bpew/src/editor/../graphics/camera.h \
+ /home/dinn/projects/bpew/include/glm/glm/glm.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/detail/_fixes.hpp \
  /home/dinn/projects/bpew/include/glm/glm/detail/setup.hpp \
- /usr/include/c++/11/cassert /usr/include/assert.h \
- /usr/include/c++/11/cstddef \
  /home/dinn/projects/bpew/include/glm/glm/detail/../simd/platform.h \
- /usr/include/c++/11/cstdint /usr/include/c++/11/climits \
+ /usr/include/c++/11/climits \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
  /usr/include/linux/limits.h \
- /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
  /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
  /usr/include/x86_64-linux-gnu/bits/uio_lim.h /usr/include/c++/11/cfloat \
@@ -242,152 +371,93 @@ CMakeFiles/bpew.dir/src/main.cpp.o: /home/dinn/projects/bpew/src/main.cpp \
  /home/dinn/projects/bpew/include/glm/glm/detail/type_half.inl \
  /home/dinn/projects/bpew/include/glm/glm/integer.hpp \
  /home/dinn/projects/bpew/include/glm/glm/detail/func_integer.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtc/matrix_transform.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../ext/matrix_projection.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../ext/../gtc/constants.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../ext/../gtc/../ext/scalar_constants.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../ext/../gtc/../ext/../detail/setup.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../ext/../gtc/../ext/scalar_constants.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../ext/../gtc/constants.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../ext/matrix_projection.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../ext/matrix_clip_space.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../ext/matrix_clip_space.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../ext/matrix_transform.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../ext/matrix_transform.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtc/matrix_transform.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtc/type_ptr.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/quaternion.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_relational.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_relational.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/../detail/type_float.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/../detail/setup.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_common.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/../ext/quaternion_geometric.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/../ext/quaternion_geometric.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_common.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_float.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/../detail/type_quat.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/../detail/../ext/quaternion_relational.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/../detail/../ext/quaternion_relational.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/../detail/type_quat.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_float_precision.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_double.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_double_precision.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_trigonometric.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_trigonometric.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_transform.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_transform.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/quaternion.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/epsilon.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../detail/setup.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/epsilon.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/vec1.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_bool1.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_bool1_precision.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_float1.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_float1_precision.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_double1.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_double1_precision.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_int1.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_int1_sized.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_uint1.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_uint1_sized.hpp \
- /usr/include/c++/11/cstring /usr/include/string.h /usr/include/strings.h \
- /home/dinn/projects/bpew/include/glm/glm/gtc/type_ptr.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtx/string_cast.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/type_precision.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/type_precision.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/dual_quaternion.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/dual_quaternion.inl \
- /usr/include/c++/11/string /usr/include/c++/11/bits/stringfwd.h \
- /usr/include/c++/11/bits/memoryfwd.h \
- /usr/include/c++/11/bits/char_traits.h \
- /usr/include/c++/11/bits/postypes.h /usr/include/c++/11/cwchar \
- /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
- /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
- /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
- /usr/include/c++/11/bits/allocator.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
- /usr/include/c++/11/ext/new_allocator.h /usr/include/c++/11/new \
- /usr/include/c++/11/bits/exception.h \
- /usr/include/c++/11/bits/localefwd.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h \
- /usr/include/c++/11/clocale /usr/include/locale.h \
- /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/11/iosfwd \
- /usr/include/c++/11/cctype /usr/include/ctype.h \
- /usr/include/c++/11/bits/ostream_insert.h \
- /usr/include/c++/11/bits/cxxabi_forced.h \
- /usr/include/c++/11/bits/stl_function.h \
- /usr/include/c++/11/backward/binders.h \
- /usr/include/c++/11/bits/range_access.h \
- /usr/include/c++/11/initializer_list \
- /usr/include/c++/11/bits/basic_string.h \
- /usr/include/c++/11/ext/atomicity.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h \
- /usr/include/pthread.h /usr/include/sched.h \
- /usr/include/x86_64-linux-gnu/bits/sched.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h \
- /usr/include/x86_64-linux-gnu/bits/cpu-set.h /usr/include/time.h \
- /usr/include/x86_64-linux-gnu/bits/time.h \
- /usr/include/x86_64-linux-gnu/bits/timex.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
- /usr/include/x86_64-linux-gnu/bits/setjmp.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h \
- /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
- /usr/include/c++/11/ext/alloc_traits.h \
- /usr/include/c++/11/bits/alloc_traits.h \
- /usr/include/c++/11/bits/stl_construct.h /usr/include/c++/11/string_view \
- /usr/include/c++/11/bits/functional_hash.h \
- /usr/include/c++/11/bits/hash_bytes.h \
- /usr/include/c++/11/bits/string_view.tcc \
- /usr/include/c++/11/ext/string_conversions.h /usr/include/c++/11/cstdlib \
- /usr/include/c++/11/cstdio /usr/include/stdio.h \
- /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
- /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
- /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
- /usr/include/c++/11/cerrno /usr/include/errno.h \
- /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
- /usr/include/x86_64-linux-gnu/asm/errno.h \
- /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
- /usr/include/c++/11/bits/charconv.h \
- /usr/include/c++/11/bits/basic_string.tcc \
- /home/dinn/projects/bpew/include/glm/glm/gtx/string_cast.inl \
- /usr/include/c++/11/cstdarg /usr/include/c++/11/iostream \
- /usr/include/c++/11/ostream /usr/include/c++/11/ios \
- /usr/include/c++/11/exception /usr/include/c++/11/bits/exception_ptr.h \
- /usr/include/c++/11/bits/cxxabi_init_exception.h \
- /usr/include/c++/11/typeinfo /usr/include/c++/11/bits/nested_exception.h \
- /usr/include/c++/11/bits/ios_base.h \
- /usr/include/c++/11/bits/locale_classes.h \
- /usr/include/c++/11/bits/locale_classes.tcc \
- /usr/include/c++/11/system_error \
- /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h \
- /usr/include/c++/11/stdexcept /usr/include/c++/11/streambuf \
- /usr/include/c++/11/bits/streambuf.tcc \
- /usr/include/c++/11/bits/basic_ios.h \
- /usr/include/c++/11/bits/locale_facets.h /usr/include/c++/11/cwctype \
- /usr/include/wctype.h /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_base.h \
- /usr/include/c++/11/bits/streambuf_iterator.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h \
- /usr/include/c++/11/bits/locale_facets.tcc \
- /usr/include/c++/11/bits/basic_ios.tcc \
- /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
- /usr/include/c++/11/bits/istream.tcc \
- /home/dinn/projects/bpew/src/core/file_system.h \
- /home/dinn/projects/bpew/src/core/platform.h \
- /home/dinn/projects/bpew/src/core/window.h /usr/include/SDL2/SDL.h \
- /usr/include/SDL2/SDL_main.h /usr/include/SDL2/SDL_stdinc.h \
- /usr/include/SDL2/SDL_config.h \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/quaternion.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/constants.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/scalar_constants.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/../detail/setup.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/scalar_constants.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/constants.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/quaternion.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../gtc/matrix_transform.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../gtc/../ext/matrix_projection.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../gtc/../ext/matrix_projection.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../gtc/../ext/matrix_clip_space.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../gtc/../ext/matrix_clip_space.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../gtc/../ext/matrix_transform.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../gtc/../ext/matrix_transform.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../gtc/matrix_transform.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/vector_relational.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/vector_relational.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/../detail/type_float.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/../detail/setup.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/quaternion_common.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/../ext/quaternion_geometric.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/../ext/quaternion_geometric.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/quaternion_common.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/quaternion_float.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/../detail/type_quat.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/../detail/../ext/quaternion_relational.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/../detail/../ext/quaternion_relational.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/../detail/type_quat.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/quaternion_float_precision.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/quaternion_double.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/quaternion_double_precision.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/quaternion_trigonometric.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/quaternion_trigonometric.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/quaternion_transform.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../ext/quaternion_transform.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/quaternion.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/epsilon.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/../detail/setup.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtc/epsilon.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../ext/quaternion_exponential.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../ext/quaternion_exponential.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/norm.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/../gtx/component_wise.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/../gtx/../detail/setup.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/../gtx/component_wise.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/norm.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/quaternion.inl \
+ /home/dinn/projects/bpew/src/editor/../graphics/framebuffer.h \
+ /home/dinn/projects/bpew/src/editor/../graphics/../core/platform.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/components.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/../graphics/camera.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/../graphics/model.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/../graphics/mesh.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/../graphics/vertex_attribute.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/../graphics/../core/platform.h \
+ /home/dinn/projects/bpew/include/glad/glad.h \
+ /home/dinn/projects/bpew/include/KHR/khrplatform.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/../graphics/vertex_array.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/../graphics/vertex_buffer.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/../graphics/index_buffer.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/../graphics/texture.h \
+ /usr/include/assimp/Importer.hpp /usr/include/assimp/types.h \
+ /usr/include/assimp/defs.h /usr/include/assimp/config.h \
+ /usr/include/assimp/vector2.h /usr/include/assimp/vector3.h \
+ /usr/include/assimp/color4.h /usr/include/assimp/matrix3x3.h \
+ /usr/include/assimp/matrix4x4.h /usr/include/assimp/quaternion.h \
+ /usr/include/assimp/vector2.inl /usr/include/assimp/vector3.inl \
+ /usr/include/assimp/color4.inl /usr/include/assimp/matrix3x3.inl \
+ /usr/include/assimp/matrix4x4.inl /usr/include/assimp/MathFunctions.h \
+ /usr/include/assimp/quaternion.inl /usr/include/assimp/scene.h \
+ /usr/include/assimp/texture.h /usr/include/assimp/Compiler/pushpack1.h \
+ /usr/include/assimp/Compiler/poppack1.h /usr/include/assimp/mesh.h \
+ /usr/include/assimp/aabb.h /usr/include/assimp/light.h \
+ /usr/include/assimp/camera.h /usr/include/assimp/material.h \
+ /usr/include/assimp/material.inl /usr/include/assimp/anim.h \
+ /usr/include/assimp/metadata.h /usr/include/assimp/postprocess.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/../graphics/shader.h \
+ /home/dinn/projects/bpew/src/editor/../graphics/model.h \
+ /home/dinn/projects/bpew/src/editor/../graphics/renderer.h \
+ /home/dinn/projects/bpew/src/editor/../graphics/shader.h \
+ /home/dinn/projects/bpew/src/editor/../graphics/model.h \
+ /home/dinn/projects/bpew/src/editor/../graphics/camera.h \
+ /home/dinn/projects/bpew/src/editor/../graphics/../ecs/entity.h \
+ /home/dinn/projects/bpew/src/editor/../core/input.h \
+ /home/dinn/projects/bpew/src/editor/../core/platform.h \
+ /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_main.h \
+ /usr/include/SDL2/SDL_stdinc.h /usr/include/SDL2/SDL_config.h \
  /usr/include/x86_64-linux-gnu/SDL2/_real_SDL_config.h \
  /usr/include/SDL2/SDL_platform.h /usr/include/SDL2/begin_code.h \
  /usr/include/SDL2/close_code.h /usr/include/c++/11/stdlib.h \
@@ -498,116 +568,5 @@ CMakeFiles/bpew.dir/src/main.cpp.o: /home/dinn/projects/bpew/src/main.cpp \
  /usr/include/SDL2/SDL_shape.h /usr/include/SDL2/SDL_system.h \
  /usr/include/SDL2/SDL_timer.h /usr/include/SDL2/SDL_version.h \
  /usr/include/SDL2/SDL_locale.h /usr/include/SDL2/SDL_misc.h \
- /usr/include/SDL2/SDL_opengl.h /home/dinn/projects/bpew/src/core/log.h \
- /home/dinn/projects/bpew/src/core/input.h /usr/include/c++/11/map \
- /usr/include/c++/11/bits/stl_tree.h \
- /usr/include/c++/11/ext/aligned_buffer.h \
- /usr/include/c++/11/bits/node_handle.h \
- /usr/include/c++/11/bits/stl_map.h /usr/include/c++/11/tuple \
- /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
- /usr/include/c++/11/array /usr/include/c++/11/bits/uses_allocator.h \
- /usr/include/c++/11/bits/invoke.h \
- /usr/include/c++/11/bits/stl_multimap.h \
- /usr/include/c++/11/bits/erase_if.h \
- /home/dinn/projects/bpew/src/graphics/shader.h \
- /home/dinn/projects/bpew/src/graphics/texture.h \
- /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_uninitialized.h \
- /usr/include/c++/11/bits/stl_vector.h \
- /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc \
- /home/dinn/projects/bpew/src/graphics/index_buffer.h \
- /home/dinn/projects/bpew/src/graphics/../core/platform.h \
- /home/dinn/projects/bpew/src/graphics/vertex_buffer.h \
- /home/dinn/projects/bpew/src/graphics/vertex_array.h \
- /home/dinn/projects/bpew/src/graphics/vertex_buffer.h \
- /home/dinn/projects/bpew/src/graphics/index_buffer.h \
- /home/dinn/projects/bpew/src/graphics/vertex_attribute.h \
- /home/dinn/projects/bpew/src/graphics/renderer.h \
- /home/dinn/projects/bpew/src/graphics/shader.h \
- /home/dinn/projects/bpew/src/graphics/model.h \
- /home/dinn/projects/bpew/src/graphics/mesh.h \
- /home/dinn/projects/bpew/src/graphics/vertex_array.h \
- /home/dinn/projects/bpew/src/graphics/texture.h \
- /usr/include/assimp/Importer.hpp /usr/include/assimp/types.h \
- /usr/include/assimp/defs.h /usr/include/assimp/config.h \
- /usr/include/assimp/vector2.h /usr/include/assimp/vector3.h \
- /usr/include/assimp/color4.h /usr/include/assimp/matrix3x3.h \
- /usr/include/assimp/matrix4x4.h /usr/include/assimp/quaternion.h \
- /usr/include/assimp/vector2.inl /usr/include/assimp/vector3.inl \
- /usr/include/assimp/color4.inl /usr/include/assimp/matrix3x3.inl \
- /usr/include/c++/11/algorithm /usr/include/c++/11/bits/stl_algo.h \
- /usr/include/c++/11/bits/algorithmfwd.h \
- /usr/include/c++/11/bits/stl_heap.h \
- /usr/include/c++/11/bits/stl_tempbuf.h \
- /usr/include/c++/11/bits/uniform_int_dist.h \
- /usr/include/c++/11/pstl/glue_algorithm_defs.h \
- /usr/include/c++/11/functional /usr/include/c++/11/bits/refwrap.h \
- /usr/include/c++/11/bits/std_function.h \
- /usr/include/c++/11/unordered_map /usr/include/c++/11/bits/hashtable.h \
- /usr/include/c++/11/bits/hashtable_policy.h \
- /usr/include/c++/11/bits/enable_special_members.h \
- /usr/include/c++/11/bits/unordered_map.h \
- /usr/include/c++/11/pstl/execution_defs.h \
- /usr/include/assimp/matrix4x4.inl /usr/include/assimp/MathFunctions.h \
- /usr/include/assimp/quaternion.inl /usr/include/assimp/scene.h \
- /usr/include/assimp/texture.h /usr/include/assimp/Compiler/pushpack1.h \
- /usr/include/assimp/Compiler/poppack1.h /usr/include/assimp/mesh.h \
- /usr/include/assimp/aabb.h /usr/include/assimp/light.h \
- /usr/include/assimp/camera.h /usr/include/assimp/material.h \
- /usr/include/assimp/material.inl /usr/include/assimp/anim.h \
- /usr/include/assimp/metadata.h /usr/include/assimp/postprocess.h \
- /home/dinn/projects/bpew/src/graphics/camera.h \
- /home/dinn/projects/bpew/include/glm/glm/gtx/quaternion.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtx/../ext/quaternion_exponential.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtx/../ext/quaternion_exponential.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/norm.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/../gtx/component_wise.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/../gtx/../detail/setup.hpp \
- /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/../gtx/component_wise.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/norm.inl \
- /home/dinn/projects/bpew/include/glm/glm/gtx/quaternion.inl \
- /home/dinn/projects/bpew/src/graphics/../ecs/entity.h \
- /home/dinn/projects/bpew/src/graphics/../ecs/scene.h \
- /home/dinn/projects/bpew/src/graphics/../ecs/../core/platform.h \
- /home/dinn/projects/bpew/include/entt/single_include/entt/entt.hpp \
- /usr/include/c++/11/iterator /usr/include/c++/11/bits/stream_iterator.h \
- /usr/include/c++/11/memory \
- /usr/include/c++/11/bits/stl_raw_storage_iter.h \
- /usr/include/c++/11/bits/align.h /usr/include/c++/11/bit \
- /usr/include/c++/11/bits/unique_ptr.h \
- /usr/include/c++/11/bits/shared_ptr.h \
- /usr/include/c++/11/bits/shared_ptr_base.h \
- /usr/include/c++/11/bits/allocated_ptr.h \
- /usr/include/c++/11/ext/concurrence.h \
- /usr/include/c++/11/bits/shared_ptr_atomic.h \
- /usr/include/c++/11/bits/atomic_base.h \
- /usr/include/c++/11/bits/atomic_lockfree_defines.h \
- /usr/include/c++/11/backward/auto_ptr.h \
- /usr/include/c++/11/pstl/glue_memory_defs.h /usr/include/c++/11/deque \
- /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
- /usr/include/c++/11/list /usr/include/c++/11/bits/stl_list.h \
- /usr/include/c++/11/bits/list.tcc /usr/include/c++/11/set \
- /usr/include/c++/11/bits/stl_set.h \
- /usr/include/c++/11/bits/stl_multiset.h \
- /usr/include/c++/11/unordered_set \
- /usr/include/c++/11/bits/unordered_set.h \
- /home/dinn/projects/bpew/src/graphics/../ecs/../core/log.h \
- /home/dinn/projects/bpew/src/graphics/camera.h \
- /home/dinn/projects/bpew/src/graphics/mesh.h \
- /home/dinn/projects/bpew/src/graphics/model.h \
- /home/dinn/projects/bpew/src/graphics/framebuffer.h \
- /home/dinn/projects/bpew/src/ecs/scene.h \
- /home/dinn/projects/bpew/src/ecs/entity.h \
- /home/dinn/projects/bpew/src/ecs/components.h \
- /home/dinn/projects/bpew/src/ecs/../graphics/camera.h \
- /home/dinn/projects/bpew/src/ecs/../graphics/model.h \
- /home/dinn/projects/bpew/src/ecs/../graphics/shader.h \
- /home/dinn/projects/bpew/src/editor/editor.h \
- /home/dinn/projects/bpew/src/editor/../ecs/scene.h \
- /home/dinn/projects/bpew/src/editor/../ecs/entity.h \
- /home/dinn/projects/bpew/src/editor/../graphics/camera.h \
- /home/dinn/projects/bpew/src/editor/../graphics/framebuffer.h \
  /home/dinn/projects/bpew/include/imgui/imgui.h \
- /home/dinn/projects/bpew/include/imgui/imconfig.h \
- /home/dinn/projects/bpew/include/imgui/backends/imgui_impl_sdl2.h \
- /home/dinn/projects/bpew/include/imgui/backends/imgui_impl_opengl3.h
+ /home/dinn/projects/bpew/include/imgui/imconfig.h

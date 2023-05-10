@@ -8,6 +8,13 @@
 
 #include <string>
 
+struct TagComponent {
+	TagComponent() = default;
+	TagComponent(std::string name) : tag(name) {}
+	
+	std::string tag;
+};
+
 struct TransformComponent {
 	TransformComponent() = default;
 	TransformComponent(glm::vec3 pos, glm::vec3 sca, glm::vec3 rot) :
@@ -29,30 +36,19 @@ struct TransformComponent {
 	}
 };
 
-struct UUIDComponent {
-	UUIDComponent() = default;
-};
-
 struct CameraComponent {
 	CameraComponent() = default;
-	CameraComponent(Camera& cam) : camera(cam) {}
+	CameraComponent(Camera cam) : camera(cam) {}
 	
-	Camera& camera;
+	Camera camera;
 	bool main = false;
-};
-
-struct TagComponent {
-	TagComponent() = default;
-	TagComponent(std::string name) : tag(name) {}
-	
-	std::string tag;
 };
 
 struct MeshComponent {
 	MeshComponent() = default;
-	MeshComponent(Model& mod, Shader sha) : model(mod), shader(sha) {}
+	MeshComponent(Model mod, Shader sha) : model(mod), shader(sha) {}
 	
-	Model& model;
+	Model model;
 	Shader shader;
 };
 

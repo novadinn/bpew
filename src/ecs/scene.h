@@ -10,14 +10,15 @@ struct Entity;
 
 struct Scene {
 	Entity createEntity(const std::string& name = std::string());
-
-	void onUpdate();
+	void destroyEntity(Entity entity);
+	
+	void onDraw();
 	void onResize(uint width, uint height);
+
+	entt::registry& getEntityRegistry() { return registry; }
 
 private:
 	entt::registry registry;
-
-	friend struct Entity;
 };
 
 #endif // SCENE_H

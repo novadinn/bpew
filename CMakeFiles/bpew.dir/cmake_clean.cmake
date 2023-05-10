@@ -23,6 +23,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/bpew.dir/src/core/window.cpp.o.d"
   "CMakeFiles/bpew.dir/src/ecs/scene.cpp.o"
   "CMakeFiles/bpew.dir/src/ecs/scene.cpp.o.d"
+  "CMakeFiles/bpew.dir/src/editor/editor.cpp.o"
+  "CMakeFiles/bpew.dir/src/editor/editor.cpp.o.d"
   "CMakeFiles/bpew.dir/src/glad.c.o"
   "CMakeFiles/bpew.dir/src/glad.c.o.d"
   "CMakeFiles/bpew.dir/src/graphics/camera.cpp.o"

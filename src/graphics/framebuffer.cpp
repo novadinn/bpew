@@ -6,7 +6,7 @@
 
 #define MAX_FRAMEBUFFER_SIZE 8192
 
-bool Framebuffer::create(FrambufferData new_data) {
+bool Framebuffer::create(FramebufferData new_data) {
 	data = new_data;
 	
 	return invalidate();
@@ -36,7 +36,7 @@ bool Framebuffer::resize(uint width, uint height) {
 	
 	data.width = width;
 	data.height = height;
-		
+
 	return invalidate();
 }
 	
@@ -49,7 +49,7 @@ bool Framebuffer::invalidate() {
 
 	glCreateFramebuffers(1, &id);
 	glBindFramebuffer(GL_FRAMEBUFFER, id);
-		
+
 	glCreateTextures(GL_TEXTURE_2D, 1, &color_attachment_id);
 	glBindTexture(GL_TEXTURE_2D, color_attachment_id);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, data.width, data.height, 0, GL_RGBA,
