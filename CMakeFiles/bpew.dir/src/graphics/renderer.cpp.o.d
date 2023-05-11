@@ -245,10 +245,13 @@ CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o: \
  /home/dinn/projects/bpew/include/glm/glm/detail/type_half.inl \
  /home/dinn/projects/bpew/include/glm/glm/integer.hpp \
  /home/dinn/projects/bpew/include/glm/glm/detail/func_integer.inl \
- /home/dinn/projects/bpew/src/graphics/model.h \
- /home/dinn/projects/bpew/src/graphics/mesh.h \
- /home/dinn/projects/bpew/src/graphics/vertex_attribute.h \
+ /home/dinn/projects/bpew/src/graphics/vertex_array.h \
+ /home/dinn/projects/bpew/src/graphics/vertex_buffer.h \
  /home/dinn/projects/bpew/src/graphics/../core/platform.h \
+ /home/dinn/projects/bpew/include/glad/glad.h \
+ /home/dinn/projects/bpew/include/KHR/khrplatform.h \
+ /home/dinn/projects/bpew/src/graphics/index_buffer.h \
+ /home/dinn/projects/bpew/src/graphics/vertex_attribute.h \
  /usr/include/c++/11/cstdio /usr/include/stdio.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
@@ -259,11 +262,6 @@ CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
- /home/dinn/projects/bpew/include/glad/glad.h \
- /home/dinn/projects/bpew/include/KHR/khrplatform.h \
- /home/dinn/projects/bpew/src/graphics/vertex_array.h \
- /home/dinn/projects/bpew/src/graphics/vertex_buffer.h \
- /home/dinn/projects/bpew/src/graphics/index_buffer.h \
  /usr/include/c++/11/vector /usr/include/c++/11/bits/allocator.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
  /usr/include/c++/11/ext/new_allocator.h /usr/include/c++/11/new \
@@ -280,6 +278,8 @@ CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o: \
  /usr/include/c++/11/bits/hash_bytes.h \
  /usr/include/c++/11/bits/range_access.h \
  /usr/include/c++/11/bits/vector.tcc \
+ /home/dinn/projects/bpew/src/graphics/model.h \
+ /home/dinn/projects/bpew/src/graphics/mesh.h \
  /home/dinn/projects/bpew/include/glm/glm/gtc/matrix_transform.hpp \
  /home/dinn/projects/bpew/include/glm/glm/gtc/../ext/matrix_projection.hpp \
  /home/dinn/projects/bpew/include/glm/glm/gtc/../ext/../gtc/constants.hpp \

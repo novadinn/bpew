@@ -3239,6 +3239,7 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: src/editor/editor.cpp \
   src/graphics/model.h \
   src/graphics/renderer.h \
   src/graphics/shader.h \
+  src/graphics/vertex_array.h \
   src/graphics/model.h \
   src/graphics/camera.h \
   src/ecs/entity.h \
@@ -4567,10 +4568,13 @@ CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o: src/graphics/renderer.cpp \
   include/glm/glm/detail/type_half.inl \
   include/glm/glm/integer.hpp \
   include/glm/glm/detail/func_integer.inl \
-  src/graphics/model.h \
-  src/graphics/mesh.h \
-  src/graphics/vertex_attribute.h \
+  src/graphics/vertex_array.h \
+  src/graphics/vertex_buffer.h \
   src/core/platform.h \
+  include/glad/glad.h \
+  include/KHR/khrplatform.h \
+  src/graphics/index_buffer.h \
+  src/graphics/vertex_attribute.h \
   /usr/include/c++/11/cstdio \
   /usr/include/stdio.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
@@ -4582,11 +4586,6 @@ CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o: src/graphics/renderer.cpp \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
-  include/glad/glad.h \
-  include/KHR/khrplatform.h \
-  src/graphics/vertex_array.h \
-  src/graphics/vertex_buffer.h \
-  src/graphics/index_buffer.h \
   /usr/include/c++/11/vector \
   /usr/include/c++/11/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
@@ -4605,6 +4604,8 @@ CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o: src/graphics/renderer.cpp \
   /usr/include/c++/11/bits/hash_bytes.h \
   /usr/include/c++/11/bits/range_access.h \
   /usr/include/c++/11/bits/vector.tcc \
+  src/graphics/model.h \
+  src/graphics/mesh.h \
   include/glm/glm/gtc/matrix_transform.hpp \
   include/glm/glm/ext/matrix_projection.hpp \
   include/glm/glm/gtc/constants.hpp \
@@ -6076,9 +6077,9 @@ CMakeFiles/bpew.dir/src/main.cpp.o: src/main.cpp \
   src/graphics/vertex_attribute.h \
   src/graphics/renderer.h \
   src/graphics/shader.h \
+  src/graphics/vertex_array.h \
   src/graphics/model.h \
   src/graphics/mesh.h \
-  src/graphics/vertex_array.h \
   src/graphics/texture.h \
   /usr/include/assimp/Importer.hpp \
   /usr/include/assimp/types.h \

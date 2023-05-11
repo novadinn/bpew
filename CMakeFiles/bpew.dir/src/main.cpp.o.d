@@ -524,9 +524,9 @@ CMakeFiles/bpew.dir/src/main.cpp.o: /home/dinn/projects/bpew/src/main.cpp \
  /home/dinn/projects/bpew/src/graphics/vertex_attribute.h \
  /home/dinn/projects/bpew/src/graphics/renderer.h \
  /home/dinn/projects/bpew/src/graphics/shader.h \
+ /home/dinn/projects/bpew/src/graphics/vertex_array.h \
  /home/dinn/projects/bpew/src/graphics/model.h \
  /home/dinn/projects/bpew/src/graphics/mesh.h \
- /home/dinn/projects/bpew/src/graphics/vertex_array.h \
  /home/dinn/projects/bpew/src/graphics/texture.h \
  /usr/include/assimp/Importer.hpp /usr/include/assimp/types.h \
  /usr/include/assimp/defs.h /usr/include/assimp/config.h \

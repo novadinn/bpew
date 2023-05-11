@@ -451,6 +451,7 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
  /home/dinn/projects/bpew/src/editor/../graphics/model.h \
  /home/dinn/projects/bpew/src/editor/../graphics/renderer.h \
  /home/dinn/projects/bpew/src/editor/../graphics/shader.h \
+ /home/dinn/projects/bpew/src/editor/../graphics/vertex_array.h \
  /home/dinn/projects/bpew/src/editor/../graphics/model.h \
  /home/dinn/projects/bpew/src/editor/../graphics/camera.h \
  /home/dinn/projects/bpew/src/editor/../graphics/../ecs/entity.h \

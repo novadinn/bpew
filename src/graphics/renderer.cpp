@@ -28,6 +28,17 @@ void Renderer::drawModel(Model& target, Shader shader, Camera& camera, const glm
 	}
 }
 
+void Renderer::drawLine(VertexArray va, Shader shader, Camera& camera, size_t size, const glm::mat4& model) {
+	shader.bind();
+	va.bind();
+	
+	shader.setMatrix4("projection", camera.getProjectionMatrix());
+	shader.setMatrix4("view", camera.getViewMatrix());
+	shader.setMatrix4("model", model);
+
+	glDrawArrays(GL_LINES, 0, size);
+}
+
 void Renderer::clear() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
