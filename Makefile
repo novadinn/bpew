@@ -369,6 +369,30 @@ src/core/input.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/core/input.cpp.s
 .PHONY : src/core/input.cpp.s
 
+src/core/time.o: src/core/time.cpp.o
+.PHONY : src/core/time.o
+
+# target to build an object file
+src/core/time.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/core/time.cpp.o
+.PHONY : src/core/time.cpp.o
+
+src/core/time.i: src/core/time.cpp.i
+.PHONY : src/core/time.i
+
+# target to preprocess a source file
+src/core/time.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/core/time.cpp.i
+.PHONY : src/core/time.cpp.i
+
+src/core/time.s: src/core/time.cpp.s
+.PHONY : src/core/time.s
+
+# target to generate assembly for a file
+src/core/time.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/core/time.cpp.s
+.PHONY : src/core/time.cpp.s
+
 src/core/window.o: src/core/window.cpp.o
 .PHONY : src/core/window.o
 
@@ -744,6 +768,9 @@ help:
 	@echo "... src/core/input.o"
 	@echo "... src/core/input.i"
 	@echo "... src/core/input.s"
+	@echo "... src/core/time.o"
+	@echo "... src/core/time.i"
+	@echo "... src/core/time.s"
 	@echo "... src/core/window.o"
 	@echo "... src/core/window.i"
 	@echo "... src/core/window.s"

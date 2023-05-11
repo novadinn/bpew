@@ -9,6 +9,7 @@
 #include "core/window.h"
 #include "core/log.h"
 #include "core/input.h"
+#include "core/time.h"
 #include "graphics/shader.h"
 #include "graphics/texture.h"
 #include "graphics/index_buffer.h"
@@ -82,8 +83,6 @@ int main(int argc, char** argv) {
 	glEnable(GL_MULTISAMPLE);
 
 	Renderer::setClearColor(CLEAR_COLOR);
-	
-	float last_time = SDL_GetTicks();
 
 	Editor editor;
 	editor.create();
@@ -124,10 +123,8 @@ int main(int argc, char** argv) {
 			};
 		}
 
-		float current_time = (float)SDL_GetTicks() / 1000;
-		float delta_time = current_time - last_time;
-		last_time = current_time;
-
+		Time::beginFrame();
+		
 		editor.onUpdate();
 		
 		window.makeContextCurrent(context);

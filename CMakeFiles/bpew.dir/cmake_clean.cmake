@@ -19,6 +19,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/bpew.dir/src/core/file_system.cpp.o.d"
   "CMakeFiles/bpew.dir/src/core/input.cpp.o"
   "CMakeFiles/bpew.dir/src/core/input.cpp.o.d"
+  "CMakeFiles/bpew.dir/src/core/time.cpp.o"
+  "CMakeFiles/bpew.dir/src/core/time.cpp.o.d"
   "CMakeFiles/bpew.dir/src/core/window.cpp.o"
   "CMakeFiles/bpew.dir/src/core/window.cpp.o.d"
   "CMakeFiles/bpew.dir/src/ecs/scene.cpp.o"

@@ -4,6 +4,7 @@
 #include "../graphics/model.h"
 #include "../graphics/renderer.h"
 #include "../core/input.h"
+#include "../core/time.h"
 
 #include "imgui/imgui.h"
 
@@ -154,9 +155,7 @@ void Editor::destroy() {
 }
 
 void Editor::onUpdate() {
-
-	float delta_time = 0.01f;
-	
+	float delta_time = Time::deltaTime();
 	glm::ivec2 current_mouse;
 	Input::getMousePosition(&current_mouse.x, &current_mouse.y);
 	glm::vec2 mouse_delta = current_mouse - previous_mouse;

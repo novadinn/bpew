@@ -569,5 +569,6 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
  /usr/include/SDL2/SDL_shape.h /usr/include/SDL2/SDL_system.h \
  /usr/include/SDL2/SDL_timer.h /usr/include/SDL2/SDL_version.h \
  /usr/include/SDL2/SDL_locale.h /usr/include/SDL2/SDL_misc.h \
+ /home/dinn/projects/bpew/src/editor/../core/time.h \
  /home/dinn/projects/bpew/include/imgui/imgui.h \
  /home/dinn/projects/bpew/include/imgui/imconfig.h

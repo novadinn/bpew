@@ -509,6 +509,7 @@ CMakeFiles/bpew.dir/src/main.cpp.o: /home/dinn/projects/bpew/src/main.cpp \
  /usr/include/c++/11/bits/invoke.h \
  /usr/include/c++/11/bits/stl_multimap.h \
  /usr/include/c++/11/bits/erase_if.h \
+ /home/dinn/projects/bpew/src/core/time.h \
  /home/dinn/projects/bpew/src/graphics/shader.h \
  /home/dinn/projects/bpew/src/graphics/texture.h \
  /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_uninitialized.h \
