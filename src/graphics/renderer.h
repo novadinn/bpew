@@ -11,7 +11,6 @@
 
 struct Renderer {
 	static void drawModel(Model& target, Shader shader, Camera& camera, const glm::mat4& model);
-	static void drawLine(VertexArray va, Shader shader, Camera& camera, size_t size, const glm::mat4& model);
 	
 	static void clear();
 

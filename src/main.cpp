@@ -20,6 +20,7 @@
 #include "graphics/mesh.h"
 #include "graphics/model.h"
 #include "graphics/framebuffer.h"
+#include "graphics/gizmos.h"
 #include "ecs/scene.h"
 #include "ecs/entity.h"
 #include "ecs/components.h"
@@ -45,8 +46,8 @@ int main(int argc, char** argv) {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, NUM_SAMPLES);
+	// SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+	// SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, NUM_SAMPLES);
 	
 	Window window;
 	if(!window.create("BPew",
@@ -83,6 +84,7 @@ int main(int argc, char** argv) {
 	glEnable(GL_MULTISAMPLE);
 
 	Renderer::setClearColor(CLEAR_COLOR);
+	Gizmos::init();
 
 	Editor editor;
 	editor.create();
@@ -147,6 +149,8 @@ int main(int argc, char** argv) {
 		window.swap();
 	}
 
+	Gizmos::destroy();
+	
 	SDL_GL_DeleteContext(context);
 	window.destroy();
 	

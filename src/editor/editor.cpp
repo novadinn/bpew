@@ -3,6 +3,7 @@
 #include "../ecs/components.h"
 #include "../graphics/model.h"
 #include "../graphics/renderer.h"
+#include "../graphics/gizmos.h"
 #include "../core/input.h"
 #include "../core/time.h"
 
@@ -81,36 +82,6 @@ vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir) {
 }
 )";
 
-const char* line_shader_vs = R"(
-#version 460 core
-layout (location = 0) in vec3 pos;
-layout (location = 1) in vec3 aColor;
-
-out vec3 outColor;
-
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
-
-void main() {
-    gl_Position = projection * view * model * vec4(pos, 1.0f);
-    outColor = aColor;
-}
-)";
-const char* line_shader_fs = R"(
-#version 460 core
-
-out vec4 fragColor;
-
-in vec3 outColor;
-
-void main() {
-    fragColor = vec4(outColor, 1.0);
-}
-)";
-
-static Shader line_shader;
-
 void Editor::create() {
 	Model model;
 	model.loadFromPath("models/monkey/monkey.obj");
@@ -146,8 +117,6 @@ void Editor::create() {
 	data.height = 800;
 	
 	framebuffer.create(data);
-
-	line_shader.createFromSource(line_shader_vs, line_shader_fs);
 }
 
 void Editor::destroy() {
@@ -457,69 +426,25 @@ template<typename T> void Editor::showRemoveComponentPopup(const char* str) {
 }
 
 void Editor::showLines() {
-	// TODO: we dont need to recreate them every time
-	std::vector<float> line_vertices;
-	const glm::vec3& cam_pos = main_camera->getPosition();
+	glm::vec3 cam_pos = main_camera->getPosition();
 	float far = main_camera->far;
 	for(float x = cam_pos.x - far; x < cam_pos.x + far; x += 0.5f) {
-		glm::vec3 color = {0.4, 0.4, 0.4};
+		glm::vec3 start = glm::vec3((int)x, 0, (int)(cam_pos.z - far));
+		glm::vec3 end = glm::vec3((int)x, 0, (int)(cam_pos.z + far));
+		glm::vec3 color = glm::vec3(0.4, 0.4, 0.4);
 		if((int)x == 0) {
-			color = {1, 0.4, 0.4};
+			color = glm::vec3(1, 0.4, 0.4);
 		}
-			
-		line_vertices.push_back((int)x);
-		line_vertices.push_back(0);
-		line_vertices.push_back((int)(cam_pos.z - far));
-		line_vertices.push_back(color.x);
-		line_vertices.push_back(color.y);
-		line_vertices.push_back(color.z);
-
-		line_vertices.push_back((int)x);
-		line_vertices.push_back(0);
-		line_vertices.push_back((int)(cam_pos.z + far));
-		line_vertices.push_back(color.x);
-		line_vertices.push_back(color.y);
-		line_vertices.push_back(color.z);
+		Gizmos::drawLine(*main_camera, start, end, color);
 	}
+
 	for(float z = cam_pos.z - far; z < cam_pos.z + far; z += 0.5f) {
-		glm::vec3 color = {0.4, 0.4, 0.4};
+		glm::vec3 start = glm::vec3((int)(cam_pos.x - far), 0, (int)z);
+		glm::vec3 end = glm::vec3((int)(cam_pos.x + far), 0, (int)z);
+		glm::vec3 color = glm::vec3(0.4, 0.4, 0.4);
 		if((int)z == 0) {
-			color = {0.55, 0.8, 0.9};
+			color = glm::vec3(0.55, 0.8, 0.9);
 		}
-			
-		line_vertices.push_back((int)(cam_pos.x - far));
-		line_vertices.push_back(0);
-		line_vertices.push_back((int)z);
-		line_vertices.push_back(color.x);
-		line_vertices.push_back(color.y);
-		line_vertices.push_back(color.z);
-
-		line_vertices.push_back((int)(cam_pos.x + far));
-		line_vertices.push_back(0);
-		line_vertices.push_back((int)z);
-		line_vertices.push_back(color.x);
-		line_vertices.push_back(color.y);
-		line_vertices.push_back(color.z);
+		Gizmos::drawLine(*main_camera, start, end, color);
 	}
-		
-	VertexArray line_va;
-	line_va.create();
-	line_va.bind();
-
-	size_t vertices_size = line_vertices.size() * sizeof(float);
-	std::vector<VertexAttribute> attribs = {
-		{sizeof(float), 3, GL_FALSE},
-		{sizeof(float), 3, GL_FALSE}
-	};
-		
-	VertexBuffer line_vb;
-	line_vb.create(line_vertices.data(), vertices_size);
-
-	line_va.addVertexBuffer(line_vb, attribs);
-
-	glm::mat4 model = glm::mat4(1.0f);
-	Renderer::drawLine(line_va, line_shader, *main_camera, line_vertices.size(), model);
-
-	line_va.destroy();
-	line_vb.destroy();
 }

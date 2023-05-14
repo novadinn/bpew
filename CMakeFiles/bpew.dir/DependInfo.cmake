@@ -25,6 +25,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/dinn/projects/bpew/src/editor/editor.cpp" "CMakeFiles/bpew.dir/src/editor/editor.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/editor/editor.cpp.o.d"
   "/home/dinn/projects/bpew/src/graphics/camera.cpp" "CMakeFiles/bpew.dir/src/graphics/camera.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/camera.cpp.o.d"
   "/home/dinn/projects/bpew/src/graphics/framebuffer.cpp" "CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o.d"
+  "/home/dinn/projects/bpew/src/graphics/gizmos.cpp" "CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.o.d"
   "/home/dinn/projects/bpew/src/graphics/index_buffer.cpp" "CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o.d"
   "/home/dinn/projects/bpew/src/graphics/model.cpp" "CMakeFiles/bpew.dir/src/graphics/model.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/model.cpp.o.d"
   "/home/dinn/projects/bpew/src/graphics/renderer.cpp" "CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o.d"

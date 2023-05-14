@@ -597,6 +597,7 @@ CMakeFiles/bpew.dir/src/main.cpp.o: /home/dinn/projects/bpew/src/main.cpp \
  /home/dinn/projects/bpew/src/graphics/mesh.h \
  /home/dinn/projects/bpew/src/graphics/model.h \
  /home/dinn/projects/bpew/src/graphics/framebuffer.h \
+ /home/dinn/projects/bpew/src/graphics/gizmos.h \
  /home/dinn/projects/bpew/src/ecs/scene.h \
  /home/dinn/projects/bpew/src/ecs/entity.h \
  /home/dinn/projects/bpew/src/ecs/components.h \

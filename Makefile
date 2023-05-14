@@ -537,6 +537,30 @@ src/graphics/framebuffer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.s
 .PHONY : src/graphics/framebuffer.cpp.s
 
+src/graphics/gizmos.o: src/graphics/gizmos.cpp.o
+.PHONY : src/graphics/gizmos.o
+
+# target to build an object file
+src/graphics/gizmos.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.o
+.PHONY : src/graphics/gizmos.cpp.o
+
+src/graphics/gizmos.i: src/graphics/gizmos.cpp.i
+.PHONY : src/graphics/gizmos.i
+
+# target to preprocess a source file
+src/graphics/gizmos.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.i
+.PHONY : src/graphics/gizmos.cpp.i
+
+src/graphics/gizmos.s: src/graphics/gizmos.cpp.s
+.PHONY : src/graphics/gizmos.s
+
+# target to generate assembly for a file
+src/graphics/gizmos.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.s
+.PHONY : src/graphics/gizmos.cpp.s
+
 src/graphics/index_buffer.o: src/graphics/index_buffer.cpp.o
 .PHONY : src/graphics/index_buffer.o
 
@@ -789,6 +813,9 @@ help:
 	@echo "... src/graphics/framebuffer.o"
 	@echo "... src/graphics/framebuffer.i"
 	@echo "... src/graphics/framebuffer.s"
+	@echo "... src/graphics/gizmos.o"
+	@echo "... src/graphics/gizmos.i"
+	@echo "... src/graphics/gizmos.s"
 	@echo "... src/graphics/index_buffer.o"
 	@echo "... src/graphics/index_buffer.i"
 	@echo "... src/graphics/index_buffer.s"

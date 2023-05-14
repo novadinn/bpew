@@ -33,6 +33,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/bpew.dir/src/graphics/camera.cpp.o.d"
   "CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o"
   "CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o.d"
+  "CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.o"
+  "CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.o.d"
   "CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o"
   "CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o.d"
   "CMakeFiles/bpew.dir/src/graphics/model.cpp.o"
