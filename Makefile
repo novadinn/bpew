@@ -129,6 +129,126 @@ bpew/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/build
 .PHONY : bpew/fast
 
+include/ImGuizmo/GraphEditor.o: include/ImGuizmo/GraphEditor.cpp.o
+.PHONY : include/ImGuizmo/GraphEditor.o
+
+# target to build an object file
+include/ImGuizmo/GraphEditor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuizmo/GraphEditor.cpp.o
+.PHONY : include/ImGuizmo/GraphEditor.cpp.o
+
+include/ImGuizmo/GraphEditor.i: include/ImGuizmo/GraphEditor.cpp.i
+.PHONY : include/ImGuizmo/GraphEditor.i
+
+# target to preprocess a source file
+include/ImGuizmo/GraphEditor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuizmo/GraphEditor.cpp.i
+.PHONY : include/ImGuizmo/GraphEditor.cpp.i
+
+include/ImGuizmo/GraphEditor.s: include/ImGuizmo/GraphEditor.cpp.s
+.PHONY : include/ImGuizmo/GraphEditor.s
+
+# target to generate assembly for a file
+include/ImGuizmo/GraphEditor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuizmo/GraphEditor.cpp.s
+.PHONY : include/ImGuizmo/GraphEditor.cpp.s
+
+include/ImGuizmo/ImCurveEdit.o: include/ImGuizmo/ImCurveEdit.cpp.o
+.PHONY : include/ImGuizmo/ImCurveEdit.o
+
+# target to build an object file
+include/ImGuizmo/ImCurveEdit.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuizmo/ImCurveEdit.cpp.o
+.PHONY : include/ImGuizmo/ImCurveEdit.cpp.o
+
+include/ImGuizmo/ImCurveEdit.i: include/ImGuizmo/ImCurveEdit.cpp.i
+.PHONY : include/ImGuizmo/ImCurveEdit.i
+
+# target to preprocess a source file
+include/ImGuizmo/ImCurveEdit.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuizmo/ImCurveEdit.cpp.i
+.PHONY : include/ImGuizmo/ImCurveEdit.cpp.i
+
+include/ImGuizmo/ImCurveEdit.s: include/ImGuizmo/ImCurveEdit.cpp.s
+.PHONY : include/ImGuizmo/ImCurveEdit.s
+
+# target to generate assembly for a file
+include/ImGuizmo/ImCurveEdit.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuizmo/ImCurveEdit.cpp.s
+.PHONY : include/ImGuizmo/ImCurveEdit.cpp.s
+
+include/ImGuizmo/ImGradient.o: include/ImGuizmo/ImGradient.cpp.o
+.PHONY : include/ImGuizmo/ImGradient.o
+
+# target to build an object file
+include/ImGuizmo/ImGradient.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuizmo/ImGradient.cpp.o
+.PHONY : include/ImGuizmo/ImGradient.cpp.o
+
+include/ImGuizmo/ImGradient.i: include/ImGuizmo/ImGradient.cpp.i
+.PHONY : include/ImGuizmo/ImGradient.i
+
+# target to preprocess a source file
+include/ImGuizmo/ImGradient.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuizmo/ImGradient.cpp.i
+.PHONY : include/ImGuizmo/ImGradient.cpp.i
+
+include/ImGuizmo/ImGradient.s: include/ImGuizmo/ImGradient.cpp.s
+.PHONY : include/ImGuizmo/ImGradient.s
+
+# target to generate assembly for a file
+include/ImGuizmo/ImGradient.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuizmo/ImGradient.cpp.s
+.PHONY : include/ImGuizmo/ImGradient.cpp.s
+
+include/ImGuizmo/ImGuizmo.o: include/ImGuizmo/ImGuizmo.cpp.o
+.PHONY : include/ImGuizmo/ImGuizmo.o
+
+# target to build an object file
+include/ImGuizmo/ImGuizmo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuizmo/ImGuizmo.cpp.o
+.PHONY : include/ImGuizmo/ImGuizmo.cpp.o
+
+include/ImGuizmo/ImGuizmo.i: include/ImGuizmo/ImGuizmo.cpp.i
+.PHONY : include/ImGuizmo/ImGuizmo.i
+
+# target to preprocess a source file
+include/ImGuizmo/ImGuizmo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuizmo/ImGuizmo.cpp.i
+.PHONY : include/ImGuizmo/ImGuizmo.cpp.i
+
+include/ImGuizmo/ImGuizmo.s: include/ImGuizmo/ImGuizmo.cpp.s
+.PHONY : include/ImGuizmo/ImGuizmo.s
+
+# target to generate assembly for a file
+include/ImGuizmo/ImGuizmo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuizmo/ImGuizmo.cpp.s
+.PHONY : include/ImGuizmo/ImGuizmo.cpp.s
+
+include/ImGuizmo/ImSequencer.o: include/ImGuizmo/ImSequencer.cpp.o
+.PHONY : include/ImGuizmo/ImSequencer.o
+
+# target to build an object file
+include/ImGuizmo/ImSequencer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuizmo/ImSequencer.cpp.o
+.PHONY : include/ImGuizmo/ImSequencer.cpp.o
+
+include/ImGuizmo/ImSequencer.i: include/ImGuizmo/ImSequencer.cpp.i
+.PHONY : include/ImGuizmo/ImSequencer.i
+
+# target to preprocess a source file
+include/ImGuizmo/ImSequencer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuizmo/ImSequencer.cpp.i
+.PHONY : include/ImGuizmo/ImSequencer.cpp.i
+
+include/ImGuizmo/ImSequencer.s: include/ImGuizmo/ImSequencer.cpp.s
+.PHONY : include/ImGuizmo/ImSequencer.s
+
+# target to generate assembly for a file
+include/ImGuizmo/ImSequencer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuizmo/ImSequencer.cpp.s
+.PHONY : include/ImGuizmo/ImSequencer.cpp.s
+
 include/imgui/backends/imgui_impl_opengl3.o: include/imgui/backends/imgui_impl_opengl3.cpp.o
 .PHONY : include/imgui/backends/imgui_impl_opengl3.o
 
@@ -762,6 +882,21 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... bpew"
+	@echo "... include/ImGuizmo/GraphEditor.o"
+	@echo "... include/ImGuizmo/GraphEditor.i"
+	@echo "... include/ImGuizmo/GraphEditor.s"
+	@echo "... include/ImGuizmo/ImCurveEdit.o"
+	@echo "... include/ImGuizmo/ImCurveEdit.i"
+	@echo "... include/ImGuizmo/ImCurveEdit.s"
+	@echo "... include/ImGuizmo/ImGradient.o"
+	@echo "... include/ImGuizmo/ImGradient.i"
+	@echo "... include/ImGuizmo/ImGradient.s"
+	@echo "... include/ImGuizmo/ImGuizmo.o"
+	@echo "... include/ImGuizmo/ImGuizmo.i"
+	@echo "... include/ImGuizmo/ImGuizmo.s"
+	@echo "... include/ImGuizmo/ImSequencer.o"
+	@echo "... include/ImGuizmo/ImSequencer.i"
+	@echo "... include/ImGuizmo/ImSequencer.s"
 	@echo "... include/imgui/backends/imgui_impl_opengl3.o"
 	@echo "... include/imgui/backends/imgui_impl_opengl3.i"
 	@echo "... include/imgui/backends/imgui_impl_opengl3.s"

@@ -456,6 +456,9 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
  /home/dinn/projects/bpew/src/editor/../graphics/camera.h \
  /home/dinn/projects/bpew/src/editor/../graphics/../ecs/entity.h \
  /home/dinn/projects/bpew/src/editor/../graphics/gizmos.h \
+ /home/dinn/projects/bpew/include/imgui/imgui.h \
+ /home/dinn/projects/bpew/include/imgui/imconfig.h \
+ /home/dinn/projects/bpew/include/ImGuizmo/ImGuizmo.h \
  /home/dinn/projects/bpew/src/editor/../core/input.h \
  /home/dinn/projects/bpew/src/editor/../core/platform.h \
  /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_main.h \
@@ -571,5 +574,18 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
  /usr/include/SDL2/SDL_timer.h /usr/include/SDL2/SDL_version.h \
  /usr/include/SDL2/SDL_locale.h /usr/include/SDL2/SDL_misc.h \
  /home/dinn/projects/bpew/src/editor/../core/time.h \
- /home/dinn/projects/bpew/include/imgui/imgui.h \
- /home/dinn/projects/bpew/include/imgui/imconfig.h
+ /home/dinn/projects/bpew/include/glm/glm/gtx/matrix_decompose.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtx/matrix_decompose.inl \
+ /home/dinn/projects/bpew/include/glm/glm/gtc/type_ptr.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/vec1.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_bool1.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_bool1_precision.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_float1.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_float1_precision.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_double1.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_double1_precision.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_int1.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_int1_sized.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_uint1.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_uint1_sized.hpp \
+ /home/dinn/projects/bpew/include/glm/glm/gtc/type_ptr.inl

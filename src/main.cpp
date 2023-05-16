@@ -28,6 +28,7 @@
 #include "imgui/imgui.h"
 #include "imgui/backends/imgui_impl_sdl2.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
+#include "ImGuizmo/ImGuizmo.h"
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 800
@@ -138,6 +139,7 @@ int main(int argc, char** argv) {
 		ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplSDL2_NewFrame();
         ImGui::NewFrame();
+		ImGuizmo::BeginFrame();
 
 		editor.onDraw();
 		
@@ -150,6 +152,10 @@ int main(int argc, char** argv) {
 	}
 
 	Gizmos::destroy();
+
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplSDL2_Shutdown();
+	ImGui::DestroyContext();
 	
 	SDL_GL_DeleteContext(context);
 	window.destroy();

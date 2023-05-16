@@ -9,6 +9,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/dinn/projects/bpew/src/glad.c" "CMakeFiles/bpew.dir/src/glad.c.o" "gcc" "CMakeFiles/bpew.dir/src/glad.c.o.d"
+  "/home/dinn/projects/bpew/include/ImGuizmo/GraphEditor.cpp" "CMakeFiles/bpew.dir/include/ImGuizmo/GraphEditor.cpp.o" "gcc" "CMakeFiles/bpew.dir/include/ImGuizmo/GraphEditor.cpp.o.d"
+  "/home/dinn/projects/bpew/include/ImGuizmo/ImCurveEdit.cpp" "CMakeFiles/bpew.dir/include/ImGuizmo/ImCurveEdit.cpp.o" "gcc" "CMakeFiles/bpew.dir/include/ImGuizmo/ImCurveEdit.cpp.o.d"
+  "/home/dinn/projects/bpew/include/ImGuizmo/ImGradient.cpp" "CMakeFiles/bpew.dir/include/ImGuizmo/ImGradient.cpp.o" "gcc" "CMakeFiles/bpew.dir/include/ImGuizmo/ImGradient.cpp.o.d"
+  "/home/dinn/projects/bpew/include/ImGuizmo/ImGuizmo.cpp" "CMakeFiles/bpew.dir/include/ImGuizmo/ImGuizmo.cpp.o" "gcc" "CMakeFiles/bpew.dir/include/ImGuizmo/ImGuizmo.cpp.o.d"
+  "/home/dinn/projects/bpew/include/ImGuizmo/ImSequencer.cpp" "CMakeFiles/bpew.dir/include/ImGuizmo/ImSequencer.cpp.o" "gcc" "CMakeFiles/bpew.dir/include/ImGuizmo/ImSequencer.cpp.o.d"
   "/home/dinn/projects/bpew/include/imgui/backends/imgui_impl_opengl3.cpp" "CMakeFiles/bpew.dir/include/imgui/backends/imgui_impl_opengl3.cpp.o" "gcc" "CMakeFiles/bpew.dir/include/imgui/backends/imgui_impl_opengl3.cpp.o.d"
   "/home/dinn/projects/bpew/include/imgui/backends/imgui_impl_sdl2.cpp" "CMakeFiles/bpew.dir/include/imgui/backends/imgui_impl_sdl2.cpp.o" "gcc" "CMakeFiles/bpew.dir/include/imgui/backends/imgui_impl_sdl2.cpp.o.d"
   "/home/dinn/projects/bpew/include/imgui/imgui.cpp" "CMakeFiles/bpew.dir/include/imgui/imgui.cpp.o" "gcc" "CMakeFiles/bpew.dir/include/imgui/imgui.cpp.o.d"

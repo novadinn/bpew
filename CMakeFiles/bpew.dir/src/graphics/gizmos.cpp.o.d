@@ -292,6 +292,11 @@ CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.o: \
  /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/../gtx/component_wise.inl \
  /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/norm.inl \
  /home/dinn/projects/bpew/include/glm/glm/gtx/quaternion.inl \
+ /home/dinn/projects/bpew/include/imgui/imgui.h \
+ /home/dinn/projects/bpew/include/imgui/imconfig.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h /usr/include/string.h \
+ /usr/include/strings.h \
+ /home/dinn/projects/bpew/include/ImGuizmo/ImGuizmo.h \
  /home/dinn/projects/bpew/src/graphics/shader.h \
  /home/dinn/projects/bpew/src/graphics/vertex_array.h \
  /home/dinn/projects/bpew/src/graphics/vertex_buffer.h \
@@ -301,7 +306,6 @@ CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.o: \
  /home/dinn/projects/bpew/src/graphics/index_buffer.h \
  /home/dinn/projects/bpew/src/graphics/vertex_attribute.h \
  /usr/include/c++/11/cstdio /usr/include/stdio.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \

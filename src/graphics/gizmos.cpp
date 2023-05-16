@@ -44,8 +44,8 @@ void Gizmos::destroy() {
 	line_shader.destroy();
 }
 
-void Gizmos::drawLine(Camera& camera,
-					  const glm::vec3& start, const glm::vec3& end, const glm::vec3& color) {
+void Gizmos::drawLine(Camera& camera, const glm::vec3& start,
+					  const glm::vec3& end, const glm::vec3& color) {
 	// TODO: we dont need to create it every time
 	std::vector<float> line_vertices;
 	line_vertices.reserve(12);
@@ -92,4 +92,24 @@ void Gizmos::drawLine(Camera& camera,
 
 	line_vb.destroy();
 	line_va.destroy();
+}
+
+void Gizmos::drawManupilations(ImGuizmo::OPERATION gizmo_operation,
+							   float* view, float* projection,
+							   float* model, bool snap) {
+	ImGuizmo::SetOrthographic(false);
+	ImGuizmo::SetDrawlist();
+
+	ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y,
+					  (float)ImGui::GetWindowWidth(), (float)ImGui::GetWindowHeight());
+
+	float snap_value = 0.5f;
+	if(gizmo_operation == ImGuizmo::OPERATION::ROTATE)
+		snap_value = 45.0f;
+
+	float snap_values[3] = {snap_value, snap_value, snap_value};
+		
+	ImGuizmo::Manipulate(view, projection,
+						 (ImGuizmo::OPERATION)gizmo_operation, ImGuizmo::LOCAL,
+						 model, nullptr, snap ? snap_values : nullptr);
 }

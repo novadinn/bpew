@@ -598,6 +598,9 @@ CMakeFiles/bpew.dir/src/main.cpp.o: /home/dinn/projects/bpew/src/main.cpp \
  /home/dinn/projects/bpew/src/graphics/model.h \
  /home/dinn/projects/bpew/src/graphics/framebuffer.h \
  /home/dinn/projects/bpew/src/graphics/gizmos.h \
+ /home/dinn/projects/bpew/include/imgui/imgui.h \
+ /home/dinn/projects/bpew/include/imgui/imconfig.h \
+ /home/dinn/projects/bpew/include/ImGuizmo/ImGuizmo.h \
  /home/dinn/projects/bpew/src/ecs/scene.h \
  /home/dinn/projects/bpew/src/ecs/entity.h \
  /home/dinn/projects/bpew/src/ecs/components.h \
@@ -609,7 +612,5 @@ CMakeFiles/bpew.dir/src/main.cpp.o: /home/dinn/projects/bpew/src/main.cpp \
  /home/dinn/projects/bpew/src/editor/../ecs/entity.h \
  /home/dinn/projects/bpew/src/editor/../graphics/camera.h \
  /home/dinn/projects/bpew/src/editor/../graphics/framebuffer.h \
- /home/dinn/projects/bpew/include/imgui/imgui.h \
- /home/dinn/projects/bpew/include/imgui/imconfig.h \
  /home/dinn/projects/bpew/include/imgui/backends/imgui_impl_sdl2.h \
  /home/dinn/projects/bpew/include/imgui/backends/imgui_impl_opengl3.h

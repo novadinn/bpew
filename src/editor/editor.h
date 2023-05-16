@@ -34,6 +34,8 @@ private:
 
 	glm::ivec2 previous_mouse{0, 0};
 	glm::vec2 viewport_size{1, 1};
+
+	int gizmo_operation = -1;
 };
 
 #endif // EDITOR_H

@@ -8,6 +8,9 @@
 #include "../core/time.h"
 
 #include "imgui/imgui.h"
+#include "ImGuizmo/ImGuizmo.h"
+#include <glm/gtx/matrix_decompose.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 const char* shader_vs = R"(
 #version 460 core
@@ -144,6 +147,16 @@ void Editor::onUpdate() {
 	if(Input::wasWheelMoved()) {
 		main_camera->zoom(delta_time * wheel_movement.y);
 	}
+
+	if(Input::wasKeyPressed(SDLK_q)) {
+		gizmo_operation = -1;
+	} else if(Input::wasKeyPressed(SDLK_t)) {
+		gizmo_operation = ImGuizmo::OPERATION::TRANSLATE;
+	} else if(Input::wasKeyPressed(SDLK_r)) {
+		gizmo_operation = ImGuizmo::OPERATION::ROTATE;
+	} else if(Input::wasKeyPressed(SDLK_s)) {
+		gizmo_operation = ImGuizmo::OPERATION::SCALE;
+	}
 }
 
 void Editor::onDraw() {
@@ -216,7 +229,36 @@ void Editor::showViewport() {
 	
 	uint fbid = framebuffer.getColorAttachmentID();
 	ImGui::Image(reinterpret_cast<void*>(fbid), ImVec2{ viewport_size.x, viewport_size.y },
-				 ImVec2{ 0, 1 }, ImVec2{ 1, 0 });	
+				 ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+	
+	if(selected_entity && gizmo_operation != -1 &&
+	   selected_entity.hasComponent<TransformComponent>()) {
+
+		glm::mat4 view = main_camera->getViewMatrix();
+		glm::mat4 projection = main_camera->getProjectionMatrix();
+		
+		TransformComponent& transform = selected_entity.getComponent<TransformComponent>();
+		glm::mat4 model = transform.getModelMatrix();
+
+		bool snap = Input::wasKeyHeld(SDLK_LCTRL);
+
+		Gizmos::drawManupilations((ImGuizmo::OPERATION)gizmo_operation,
+								  glm::value_ptr(view), glm::value_ptr(projection),
+								  glm::value_ptr(model), snap);
+		
+		if(ImGuizmo::IsUsing()) {
+			float* model_ptr = glm::value_ptr(model);
+		    float scale_result[3];
+		    float rotation_result[3];
+		    float translation_result[3];
+		    ImGuizmo::DecomposeMatrixToComponents(model_ptr, translation_result,
+												  rotation_result, scale_result);
+
+		    transform.position = {translation_result[0], translation_result[1], translation_result[2]};
+		    transform.rotation = {rotation_result[0], rotation_result[1], rotation_result[2]};
+		    transform.scale = {scale_result[0], scale_result[1], scale_result[2]};
+		}
+	}
 	
 	ImGui::End();
 }
