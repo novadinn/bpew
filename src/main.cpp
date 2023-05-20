@@ -84,8 +84,9 @@ int main(int argc, char** argv) {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_MULTISAMPLE);
 
-	Renderer::setClearColor(CLEAR_COLOR);
+	Renderer::init();
 	Gizmos::init();
+	Renderer::setClearColor(CLEAR_COLOR);
 
 	Editor editor;
 	editor.create();
@@ -152,6 +153,7 @@ int main(int argc, char** argv) {
 	}
 
 	Gizmos::destroy();
+	Renderer::destroy();
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();

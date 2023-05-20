@@ -13,5 +13,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/usr/include/SDL2 -I/home/dinn/projects/bpew/include -I/home/dinn/projects/bpew/include/glm -I/home/dinn/projects/bpew/include/imgui -I/home/dinn/projects/bpew/include/entt/single_include
 
-CXX_FLAGS = 
+CXX_FLAGS = -std=gnu++20
 

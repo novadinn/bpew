@@ -12,7 +12,11 @@ struct Scene {
 	Entity createEntity(const std::string& name = std::string());
 	void destroyEntity(Entity entity);
 	
-	void onDraw();
+	void onDrawWireframe();
+	void onDrawRendered();
+	void onDrawSolid();
+	void onDrawMaterialPreview();
+	
 	void onResize(uint width, uint height);
 
 	entt::registry& getEntityRegistry() { return registry; }

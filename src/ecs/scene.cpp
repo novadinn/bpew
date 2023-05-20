@@ -20,7 +20,64 @@ void Scene::destroyEntity(Entity entity) {
 	registry.destroy(entity);
 }
 
-void Scene::onDraw() {
+void Scene::onDrawWireframe() {
+	CameraComponent* main_camera = nullptr;
+	
+	auto view = registry.view<CameraComponent>();
+	for(auto entity : view) {
+		auto& camera = view.get<CameraComponent>(entity);
+
+		if(camera.main) {
+			main_camera = &camera;
+		}
+	}
+	
+	if(main_camera) {
+		auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
+		for(auto entity : group) {
+			auto [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
+
+			Renderer::drawMeshWireframe(mesh, (*main_camera), transform.getModelMatrix());
+		}
+	}
+}
+
+void Scene::onDrawRendered() {
+	CameraComponent* main_camera = nullptr;
+	
+	auto view = registry.view<CameraComponent>();
+	for(auto entity : view) {
+		auto& camera = view.get<CameraComponent>(entity);
+
+		if(camera.main) {
+			main_camera = &camera;
+		}
+	}
+
+	if(main_camera) {
+
+		std::vector<LightComponent> lights;
+		std::vector<TransformComponent> light_transforms;
+
+		auto light_group = registry.group<LightComponent>(entt::get<TransformComponent>);
+		for(auto entity : light_group) {
+			auto [light, transform] = light_group.get<LightComponent, TransformComponent>(entity);
+
+			lights.push_back(light);
+			light_transforms.push_back(transform);
+		}
+		
+		auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
+		for(auto entity : group) {
+			auto [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
+			
+			Renderer::drawMeshRendered(mesh, (*main_camera), lights, light_transforms,
+							   transform.getModelMatrix());
+		}
+	}
+}
+
+void Scene::onDrawSolid() {
 	CameraComponent* main_camera = nullptr;
 	
 	auto view = registry.view<CameraComponent>();
@@ -36,10 +93,14 @@ void Scene::onDraw() {
 		auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
 		for(auto entity : group) {
 			auto [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
-
-			Renderer::drawModel(mesh.model, mesh.shader, main_camera->camera, transform.getModelMatrix());
+			
+			Renderer::drawMeshSolid(mesh, (*main_camera), transform.getModelMatrix());
 		}
 	}
+}
+
+void Scene::onDrawMaterialPreview() {
+	// TODO:
 }
 
 void Scene::onResize(uint width, uint height) {

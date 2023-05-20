@@ -6,11 +6,31 @@
 #include "model.h"
 #include "camera.h"
 #include "../ecs/entity.h"
+#include "../ecs/components.h"
 
 #include <glm/glm.hpp>
+#include <vector>
 
 struct Renderer {
-	static void drawModel(Model& target, Shader shader, Camera& camera, const glm::mat4& model);
+
+	static void init();
+	static void destroy();
+
+	// TODO: this shoud take in a material
+	// TODO: should it lights?
+	// TODO: can we pass a entt::view in here?
+	static void drawMesh(MeshComponent& mesh, CameraComponent& camera,
+						 std::vector<LightComponent>& lights,
+						 std::vector<TransformComponent>& light_transforms,
+						 const glm::mat4& model);
+	static void drawMeshSolid(MeshComponent& mesh, CameraComponent& camera,
+							  const glm::mat4& model);
+	static void drawMeshRendered(MeshComponent& mesh, CameraComponent& camera,
+								 std::vector<LightComponent>& lights,
+								 std::vector<TransformComponent>& light_transforms,
+								 const glm::mat4& model);
+	static void drawMeshWireframe(MeshComponent& mesh, CameraComponent& camera,
+								  const glm::mat4& model);
 	
 	static void clear();
 

@@ -9,17 +9,10 @@
 #include <string>
 
 struct TagComponent {
-	TagComponent() = default;
-	TagComponent(std::string name) : tag(name) {}
-	
 	std::string tag;
 };
 
 struct TransformComponent {
-	TransformComponent() = default;
-	TransformComponent(glm::vec3 pos, glm::vec3 sca, glm::vec3 rot) :
-		position(pos), scale(sca), rotation(rot) {}
-	
 	glm::vec3 position = glm::vec3(0.0f);
 	glm::vec3 scale = glm::vec3(1.0f);
 	glm::vec3 rotation = glm::vec3(0.0f);
@@ -37,19 +30,41 @@ struct TransformComponent {
 };
 
 struct CameraComponent {
-	CameraComponent() = default;
-	CameraComponent(Camera cam) : camera(cam) {}
-	
 	Camera camera;
 	bool main = false;
 };
 
 struct MeshComponent {
-	MeshComponent() = default;
-	MeshComponent(Model mod, Shader sha) : model(mod), shader(sha) {}
-	
 	Model model;
-	Shader shader;
+};
+
+struct LightComponent {
+	enum LightType {
+		SPOT,
+		POINT,
+		DIRECTIONAL
+		// TODO: area
+	};
+	// TODO:
+	enum ShadowsType {
+		NO_SHADOW,
+		HARD_SHADOWS,
+		SOFT_SHADOWS
+	};
+
+	LightType type;
+	glm::vec3 color = {1.0f, 1.0f, 0.8f};
+	float intensity = 0.5f;
+	float intensity_multiplier = 0.75f;
+
+	// Spot light properties
+	float spot_angle = 30.0f;
+
+	// Point light properies
+	float range = 10.0f;
+
+	// TODO: cookie texture
+	
 };
 
 #endif // COMPONENTS_H

@@ -12,84 +12,9 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-const char* shader_vs = R"(
-#version 460 core
-layout (location = 0) in vec3 aPos;
-layout (location = 1) in vec3 aNormal;
-layout (location = 2) in vec2 aTexCoord;
-layout (location = 3) in vec3 aTangent;
-layout (location = 4) in vec3 aBitangent;
-
-out VS_OUT {
-    vec3 fragPos;
-    vec3 normal;
-} vs_out;
-
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
-
-void main() {
-    vec4 worldPosition = model* vec4(aPos, 1.0f);
-
-    vs_out.fragPos = vec3(worldPosition);
-    vs_out.normal = mat3(transpose(inverse(model))) * aNormal;
-
-	gl_Position = projection * view * worldPosition;
-}
-)";
-const char* shader_fs = R"(
-#version 460 core
-
-out vec4 fragColor;
-
-struct DirLight {
-    vec3 direction;
-
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;
-};
-
-in VS_OUT {
-    vec3 fragPos;
-    vec3 normal;
-} vs_in;
-
-uniform vec3 viewPos;
-uniform DirLight dirLight;
-uniform float shininess;
-
-vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir);
-
-void main() {
-    vec3 norm = normalize(vs_in.normal);
-    vec3 viewDir = normalize(viewPos - vs_in.fragPos);
-
-    vec3 result = calcDirLight(dirLight, norm, viewDir);
-
-	fragColor = vec4(0.5f, 0.5f, 0.5f, 1.0f) + vec4(result, 0.0f);
-}
-
-vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir) {
-    vec3 lightDir = normalize(-light.direction);
-    float diff = max(dot(normal, lightDir), 0.0);
-    vec3 reflectDir = reflect(-lightDir, normal);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
-    
-    vec3 ambient = light.ambient;
-    vec3 diffuse = light.diffuse * diff;
-    vec3 specular = light.specular * spec;
-    
-    return (ambient + diffuse + specular);
-}
-)";
-
 void Editor::create() {
 	Model model;
 	model.loadFromPath("models/monkey/monkey.obj");
-	Shader model_shader;
-	model_shader.createFromSource(shader_vs, shader_fs);
 	
 	float near = 0.1f;
 	float far = 50.0f;
@@ -104,17 +29,21 @@ void Editor::create() {
 	Entity object = scene->createEntity("Monkey");
 	auto& mesh = object.addComponent<MeshComponent>();
 	mesh.model = model;
-	mesh.shader = model_shader;
 	
 	Entity object2 = scene->createEntity("Monkey2");
 	auto& mesh2 = object2.addComponent<MeshComponent>();
 	mesh2.model = model;
-	mesh2.shader = model_shader;
-	auto& tr = object.getComponent<TransformComponent>();
+	auto& tr = object2.getComponent<TransformComponent>();
 	tr.position = glm::vec3(3.0, 0, 0);
 	tr.scale = glm::vec3(0.5, 0.5, 0.5);
 	tr.rotation = glm::vec3(36, 80, 170);
 
+	Entity point_light = scene->createEntity("PointLight");
+	auto& light_point = point_light.addComponent<LightComponent>();
+	light_point.type = LightComponent::LightType::POINT;
+	auto& tr1 = point_light.getComponent<TransformComponent>();
+	tr1.position = glm::vec3(1, 0, 0);
+	
 	FramebufferData data;
 	data.width = 800;
 	data.height = 800;
@@ -157,6 +86,19 @@ void Editor::onUpdate() {
 	} else if(Input::wasKeyPressed(SDLK_s)) {
 		gizmo_operation = ImGuizmo::OPERATION::SCALE;
 	}
+
+	// TODO: create imgui buttons instead of this
+	if(Input::wasKeyHeld(SDLK_z)) {
+		if(Input::wasKeyPressed(SDLK_1)) {
+			draw_mode = DrawMode::WIREFRAME;
+		} else if(Input::wasKeyPressed(SDLK_2)) {
+			draw_mode = DrawMode::RENDERED;
+		} else if(Input::wasKeyPressed(SDLK_3)) {
+			draw_mode = DrawMode::SOLID;
+		} else if(Input::wasKeyPressed(SDLK_4)) {
+			draw_mode = DrawMode::MATERIAL_PREVIEW;
+		}
+	}
 }
 
 void Editor::onDraw() {
@@ -171,7 +113,22 @@ void Editor::onDraw() {
 
 	framebuffer.bind();
 	Renderer::clear();
-	scene->onDraw();
+	
+	switch(draw_mode) {
+	case DrawMode::WIREFRAME: {
+		scene->onDrawWireframe();
+	} break;
+	case DrawMode::RENDERED: {
+		scene->onDrawRendered();
+	} break;
+	case DrawMode::SOLID: {
+		scene->onDrawSolid();
+	} break;
+	case DrawMode::MATERIAL_PREVIEW: {
+		scene->onDrawMaterialPreview();
+	} break;
+	}
+	
 	showLines();
 	framebuffer.unbind();
 
@@ -212,6 +169,9 @@ void Editor::onDraw() {
 	    if (ImGui::SmallButton("click here"))
 			io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	}
+
+	static bool show_demo = false;
+	if(show_demo) ImGui::ShowDemoWindow(&show_demo);
 	
 	showViewport();
 	showMenuBar();
@@ -425,12 +385,46 @@ void Editor::showInspectorPanel() {
 			}
 		}
 
+		if(selected_entity.hasComponent<LightComponent>()) {
+			if(ImGui::CollapsingHeader("Light")) {
+				LightComponent& light = selected_entity.getComponent<LightComponent>();
+
+				const char* types[] = { "Spot", "Point", "Directional" };
+				int type = light.type;
+				float color[3] = { light.color.x, light.color.y, light.color.z };
+				float intensity = light.intensity;
+				float intensity_multiplier = light.intensity_multiplier;
+				
+				if(ImGui::Combo("Type", &type, types, 3))
+					light.type = (LightComponent::LightType)type;
+				if(ImGui::DragFloat3("Color", color, 0.1f, 0.0f, 0.0f, "%.2f"))
+					light.color = glm::vec3(color[0], color[1], color[2]);
+				if(ImGui::DragFloat("Intensity", &intensity, 0.1f, 0.0f, 0.0f, "%.2f"))
+					light.intensity = intensity;
+				if(ImGui::DragFloat("Intensity Multiplier", &intensity_multiplier, 0.1f, 0.0f, 0.0f, "%.2f"))
+					light.intensity_multiplier = intensity_multiplier;
+				switch(light.type) {
+				case LightComponent::LightType::SPOT: {
+					float spot_angle = light.spot_angle;
+					if(ImGui::DragFloat("Spot Angle", &spot_angle, 0.1f, 0.0f, 0.0f, "%.2f"))
+						light.spot_angle = spot_angle;
+				} break;
+				case LightComponent::LightType::POINT: {
+					float range = light.range;
+					if(ImGui::DragFloat("Range", &range, 0.1f, 0.0f, 0.0f, "%.2f"))
+						light.range = range;
+				} break;
+				};
+			}
+		}
+
 		if(ImGui::Button("Add Component"))
 			ImGui::OpenPopup("AddComponent");
 	    if(ImGui::BeginPopup("AddComponent")) {
 			showAddComponentPopup<TransformComponent>("Transform");
 			showAddComponentPopup<CameraComponent>("Camera");
 			showAddComponentPopup<MeshComponent>("Mesh");
+			showAddComponentPopup<LightComponent>("Light");
 		
 			ImGui::EndPopup();
 	    }
@@ -441,6 +435,7 @@ void Editor::showInspectorPanel() {
 			showRemoveComponentPopup<TransformComponent>("Transform");
 			showRemoveComponentPopup<CameraComponent>("Camera");
 			showRemoveComponentPopup<MeshComponent>("Mesh");
+			showRemoveComponentPopup<LightComponent>("Light");
 		
 			ImGui::EndPopup();
 	    }

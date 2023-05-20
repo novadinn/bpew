@@ -17,6 +17,13 @@ struct Editor {
 	void onDraw();
 
 private:
+	enum DrawMode {
+		WIREFRAME,
+		RENDERED,
+		SOLID,
+		MATERIAL_PREVIEW
+	};
+	
 	void showViewport();
 	void showMenuBar();
 	void showHierarchyPanel();
@@ -36,6 +43,7 @@ private:
 	glm::vec2 viewport_size{1, 1};
 
 	int gizmo_operation = -1;
+	DrawMode draw_mode = DrawMode::SOLID;
 };
 
 #endif // EDITOR_H
