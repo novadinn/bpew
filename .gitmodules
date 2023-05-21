@@ -13,3 +13,6 @@
 [submodule "include/ImGuizmo"]
 	path = include/ImGuizmo
 	url = git@github.com:CedricGuillemet/ImGuizmo.git
+[submodule "include/ImGuiFileDialog"]
+	path = include/ImGuiFileDialog
+	url = git@github.com:aiekick/ImGuiFileDialog.git

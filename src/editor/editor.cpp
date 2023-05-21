@@ -1,6 +1,10 @@
 #include "editor.h"
 
-#include "../ecs/components.h"
+#include "../ecs/components/tag_component.h"
+#include "../ecs/components/transform_component.h"
+#include "../ecs/components/mesh_component.h"
+#include "../ecs/components/camera_component.h"
+#include "../ecs/components/light_component.h"
 #include "../graphics/model.h"
 #include "../graphics/renderer.h"
 #include "../graphics/gizmos.h"
@@ -9,12 +13,13 @@
 
 #include "imgui/imgui.h"
 #include "ImGuizmo/ImGuizmo.h"
+#include "ImGuiFileDialog/ImGuiFileDialog.h"
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 void Editor::create() {
 	Model model;
-	model.loadFromPath("models/monkey/monkey.obj");
+	model.loadFromPath("datafiles/monkey/monkey.obj");
 	
 	float near = 0.1f;
 	float far = 50.0f;
@@ -170,7 +175,7 @@ void Editor::onDraw() {
 			io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	}
 
-	static bool show_demo = false;
+	static bool show_demo = true;
 	if(show_demo) ImGui::ShowDemoWindow(&show_demo);
 	
 	showViewport();
@@ -295,6 +300,25 @@ void Editor::showMenuBar() {
 
 	// 	ImGuiFileDialog::Instance()->Close();
 	// }
+
+	if(ImGuiFileDialog::Instance()->Display("LoadMeshDlgKey"))  {
+		if(ImGuiFileDialog::Instance()->IsOk()) {
+			std::string path = ImGuiFileDialog::Instance()->GetFilePathName();
+			std::string name = ImGuiFileDialog::Instance()->GetCurrentFileName();
+
+			printf("%s\n", path.c_str());
+			printf("%s\n", name.c_str());
+
+			if(selected_entity) {
+				if(selected_entity.hasComponent<MeshComponent>()) {
+					MeshComponent& mesh = selected_entity.getComponent<MeshComponent>();
+					mesh.model.loadFromPath(path.c_str());
+				}
+			}
+		}
+
+		ImGuiFileDialog::Instance()->Close();
+	}
 }
 
 void Editor::showHierarchyPanel() {
@@ -382,6 +406,12 @@ void Editor::showInspectorPanel() {
 		if(selected_entity.hasComponent<MeshComponent>()) {
 			if(ImGui::CollapsingHeader("Mesh")) {
 				MeshComponent& mesh = selected_entity.getComponent<MeshComponent>();
+
+				ImGui::Text("Mesh");
+				ImGui::SameLine();
+				if(ImGui::Button("+")) {
+					ImGuiFileDialog::Instance()->OpenDialog("LoadMeshDlgKey", "Choose File", ".obj", ".");
+				}
 			}
 		}
 

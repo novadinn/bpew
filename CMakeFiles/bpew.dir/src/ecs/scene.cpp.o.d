@@ -248,8 +248,8 @@ CMakeFiles/bpew.dir/src/ecs/scene.cpp.o: \
  /home/dinn/projects/bpew/src/ecs/entity.h \
  /home/dinn/projects/bpew/src/ecs/../core/log.h \
  /usr/include/c++/11/cstring /usr/include/string.h /usr/include/strings.h \
- /home/dinn/projects/bpew/src/ecs/components.h \
- /home/dinn/projects/bpew/src/ecs/../graphics/camera.h \
+ /home/dinn/projects/bpew/src/ecs/components/tag_component.h \
+ /home/dinn/projects/bpew/src/ecs/components/transform_component.h \
  /home/dinn/projects/bpew/include/glm/glm/glm.hpp \
  /home/dinn/projects/bpew/include/glm/glm/detail/_fixes.hpp \
  /home/dinn/projects/bpew/include/glm/glm/detail/setup.hpp \
@@ -440,16 +440,17 @@ CMakeFiles/bpew.dir/src/ecs/scene.cpp.o: \
  /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/../gtx/component_wise.inl \
  /home/dinn/projects/bpew/include/glm/glm/gtx/../gtx/norm.inl \
  /home/dinn/projects/bpew/include/glm/glm/gtx/quaternion.inl \
- /home/dinn/projects/bpew/src/ecs/../graphics/model.h \
- /home/dinn/projects/bpew/src/ecs/../graphics/mesh.h \
- /home/dinn/projects/bpew/src/ecs/../graphics/vertex_attribute.h \
- /home/dinn/projects/bpew/src/ecs/../graphics/../core/platform.h \
+ /home/dinn/projects/bpew/src/ecs/components/mesh_component.h \
+ /home/dinn/projects/bpew/src/ecs/components/../../graphics/model.h \
+ /home/dinn/projects/bpew/src/ecs/components/../../graphics/mesh.h \
+ /home/dinn/projects/bpew/src/ecs/components/../../graphics/vertex_attribute.h \
+ /home/dinn/projects/bpew/src/ecs/components/../../graphics/../core/platform.h \
  /home/dinn/projects/bpew/include/glad/glad.h \
  /home/dinn/projects/bpew/include/KHR/khrplatform.h \
- /home/dinn/projects/bpew/src/ecs/../graphics/vertex_array.h \
- /home/dinn/projects/bpew/src/ecs/../graphics/vertex_buffer.h \
- /home/dinn/projects/bpew/src/ecs/../graphics/index_buffer.h \
- /home/dinn/projects/bpew/src/ecs/../graphics/texture.h \
+ /home/dinn/projects/bpew/src/ecs/components/../../graphics/vertex_array.h \
+ /home/dinn/projects/bpew/src/ecs/components/../../graphics/vertex_buffer.h \
+ /home/dinn/projects/bpew/src/ecs/components/../../graphics/index_buffer.h \
+ /home/dinn/projects/bpew/src/ecs/components/../../graphics/texture.h \
  /usr/include/assimp/Importer.hpp /usr/include/assimp/types.h \
  /usr/include/assimp/defs.h /usr/include/assimp/config.h \
  /usr/include/assimp/vector2.h /usr/include/assimp/vector3.h \
@@ -465,10 +466,16 @@ CMakeFiles/bpew.dir/src/ecs/scene.cpp.o: \
  /usr/include/assimp/camera.h /usr/include/assimp/material.h \
  /usr/include/assimp/material.inl /usr/include/assimp/anim.h \
  /usr/include/assimp/metadata.h /usr/include/assimp/postprocess.h \
- /home/dinn/projects/bpew/src/ecs/../graphics/shader.h \
+ /home/dinn/projects/bpew/src/ecs/components/camera_component.h \
+ /home/dinn/projects/bpew/src/ecs/components/../../graphics/camera.h \
+ /home/dinn/projects/bpew/src/ecs/components/light_component.h \
  /home/dinn/projects/bpew/src/ecs/../graphics/renderer.h \
  /home/dinn/projects/bpew/src/ecs/../graphics/shader.h \
+ /home/dinn/projects/bpew/src/ecs/../graphics/vertex_array.h \
  /home/dinn/projects/bpew/src/ecs/../graphics/model.h \
  /home/dinn/projects/bpew/src/ecs/../graphics/camera.h \
  /home/dinn/projects/bpew/src/ecs/../graphics/../ecs/entity.h \
- /home/dinn/projects/bpew/src/ecs/../graphics/../ecs/components.h
+ /home/dinn/projects/bpew/src/ecs/../graphics/../ecs/components/mesh_component.h \
+ /home/dinn/projects/bpew/src/ecs/../graphics/../ecs/components/light_component.h \
+ /home/dinn/projects/bpew/src/ecs/../graphics/../ecs/components/transform_component.h \
+ /home/dinn/projects/bpew/src/ecs/../graphics/../ecs/components/camera_component.h

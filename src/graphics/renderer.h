@@ -6,7 +6,10 @@
 #include "model.h"
 #include "camera.h"
 #include "../ecs/entity.h"
-#include "../ecs/components.h"
+#include "../ecs/components/mesh_component.h"
+#include "../ecs/components/light_component.h"
+#include "../ecs/components/transform_component.h"
+#include "../ecs/components/camera_component.h"
 
 #include <glm/glm.hpp>
 #include <vector>

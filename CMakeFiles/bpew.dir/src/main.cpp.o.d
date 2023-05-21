@@ -614,10 +614,12 @@ CMakeFiles/bpew.dir/src/main.cpp.o: /home/dinn/projects/bpew/src/main.cpp \
  /usr/include/c++/11/unordered_set \
  /usr/include/c++/11/bits/unordered_set.h \
  /home/dinn/projects/bpew/src/graphics/../ecs/../core/log.h \
- /home/dinn/projects/bpew/src/graphics/../ecs/components.h \
- /home/dinn/projects/bpew/src/graphics/../ecs/../graphics/camera.h \
- /home/dinn/projects/bpew/src/graphics/../ecs/../graphics/model.h \
- /home/dinn/projects/bpew/src/graphics/../ecs/../graphics/shader.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/mesh_component.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/../../graphics/model.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/light_component.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/transform_component.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/camera_component.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/../../graphics/camera.h \
  /home/dinn/projects/bpew/src/graphics/camera.h \
  /home/dinn/projects/bpew/src/graphics/mesh.h \
  /home/dinn/projects/bpew/src/graphics/model.h \
@@ -628,7 +630,6 @@ CMakeFiles/bpew.dir/src/main.cpp.o: /home/dinn/projects/bpew/src/main.cpp \
  /home/dinn/projects/bpew/include/ImGuizmo/ImGuizmo.h \
  /home/dinn/projects/bpew/src/ecs/scene.h \
  /home/dinn/projects/bpew/src/ecs/entity.h \
- /home/dinn/projects/bpew/src/ecs/components.h \
  /home/dinn/projects/bpew/src/editor/editor.h \
  /home/dinn/projects/bpew/src/editor/../ecs/scene.h \
  /home/dinn/projects/bpew/src/editor/../ecs/entity.h \

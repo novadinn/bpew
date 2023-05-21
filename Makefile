@@ -129,6 +129,30 @@ bpew/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/build
 .PHONY : bpew/fast
 
+include/ImGuiFileDialog/ImGuiFileDialog.o: include/ImGuiFileDialog/ImGuiFileDialog.cpp.o
+.PHONY : include/ImGuiFileDialog/ImGuiFileDialog.o
+
+# target to build an object file
+include/ImGuiFileDialog/ImGuiFileDialog.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuiFileDialog/ImGuiFileDialog.cpp.o
+.PHONY : include/ImGuiFileDialog/ImGuiFileDialog.cpp.o
+
+include/ImGuiFileDialog/ImGuiFileDialog.i: include/ImGuiFileDialog/ImGuiFileDialog.cpp.i
+.PHONY : include/ImGuiFileDialog/ImGuiFileDialog.i
+
+# target to preprocess a source file
+include/ImGuiFileDialog/ImGuiFileDialog.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuiFileDialog/ImGuiFileDialog.cpp.i
+.PHONY : include/ImGuiFileDialog/ImGuiFileDialog.cpp.i
+
+include/ImGuiFileDialog/ImGuiFileDialog.s: include/ImGuiFileDialog/ImGuiFileDialog.cpp.s
+.PHONY : include/ImGuiFileDialog/ImGuiFileDialog.s
+
+# target to generate assembly for a file
+include/ImGuiFileDialog/ImGuiFileDialog.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/ImGuiFileDialog/ImGuiFileDialog.cpp.s
+.PHONY : include/ImGuiFileDialog/ImGuiFileDialog.cpp.s
+
 include/ImGuizmo/GraphEditor.o: include/ImGuizmo/GraphEditor.cpp.o
 .PHONY : include/ImGuizmo/GraphEditor.o
 
@@ -882,6 +906,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... bpew"
+	@echo "... include/ImGuiFileDialog/ImGuiFileDialog.o"
+	@echo "... include/ImGuiFileDialog/ImGuiFileDialog.i"
+	@echo "... include/ImGuiFileDialog/ImGuiFileDialog.s"
 	@echo "... include/ImGuizmo/GraphEditor.o"
 	@echo "... include/ImGuizmo/GraphEditor.i"
 	@echo "... include/ImGuizmo/GraphEditor.s"

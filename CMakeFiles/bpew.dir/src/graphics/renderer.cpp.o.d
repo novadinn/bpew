@@ -473,10 +473,12 @@ CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o: \
  /usr/include/c++/11/unordered_set \
  /usr/include/c++/11/bits/unordered_set.h \
  /home/dinn/projects/bpew/src/graphics/../ecs/../core/log.h \
- /home/dinn/projects/bpew/src/graphics/../ecs/components.h \
- /home/dinn/projects/bpew/src/graphics/../ecs/../graphics/camera.h \
- /home/dinn/projects/bpew/src/graphics/../ecs/../graphics/model.h \
- /home/dinn/projects/bpew/src/graphics/../ecs/../graphics/shader.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/mesh_component.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/../../graphics/model.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/light_component.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/transform_component.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/camera_component.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/../../graphics/camera.h \
  /home/dinn/projects/bpew/src/graphics/../graphics/shader.h \
  /home/dinn/projects/bpew/src/graphics/../core/glm_extensions.h \
  /home/dinn/projects/bpew/src/graphics/../core/log.h

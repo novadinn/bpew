@@ -1,7 +1,11 @@
 #include "scene.h"
 
 #include "entity.h"
-#include "components.h"
+#include "components/tag_component.h"
+#include "components/transform_component.h"
+#include "components/mesh_component.h"
+#include "components/camera_component.h"
+#include "components/light_component.h"
 #include "../graphics/renderer.h"
 
 Entity Scene::createEntity(const std::string& name) {

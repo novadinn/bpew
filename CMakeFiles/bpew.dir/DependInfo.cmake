@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/dinn/projects/bpew/src/glad.c" "CMakeFiles/bpew.dir/src/glad.c.o" "gcc" "CMakeFiles/bpew.dir/src/glad.c.o.d"
+  "/home/dinn/projects/bpew/include/ImGuiFileDialog/ImGuiFileDialog.cpp" "CMakeFiles/bpew.dir/include/ImGuiFileDialog/ImGuiFileDialog.cpp.o" "gcc" "CMakeFiles/bpew.dir/include/ImGuiFileDialog/ImGuiFileDialog.cpp.o.d"
   "/home/dinn/projects/bpew/include/ImGuizmo/GraphEditor.cpp" "CMakeFiles/bpew.dir/include/ImGuizmo/GraphEditor.cpp.o" "gcc" "CMakeFiles/bpew.dir/include/ImGuizmo/GraphEditor.cpp.o.d"
   "/home/dinn/projects/bpew/include/ImGuizmo/ImCurveEdit.cpp" "CMakeFiles/bpew.dir/include/ImGuizmo/ImCurveEdit.cpp.o" "gcc" "CMakeFiles/bpew.dir/include/ImGuizmo/ImCurveEdit.cpp.o.d"
   "/home/dinn/projects/bpew/include/ImGuizmo/ImGradient.cpp" "CMakeFiles/bpew.dir/include/ImGuizmo/ImGradient.cpp.o" "gcc" "CMakeFiles/bpew.dir/include/ImGuizmo/ImGradient.cpp.o.d"

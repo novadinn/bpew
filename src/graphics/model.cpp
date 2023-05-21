@@ -6,6 +6,8 @@
 #include <iostream>
 
 bool Model::loadFromPath(const char* path) {
+	meshes.clear();
+	
 	Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate |
 					     aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace);

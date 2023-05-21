@@ -171,8 +171,15 @@ void main() {
 
 // TODO: add specular highlight
 vec3 calcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir) {
-    // TODO: 
-    return vec3(0, 0, 0);
+    // TODO: these are wrong calculations
+    vec3 light_direction = normalize(light.position - fragPos);
+    float distance = length(light.position - fragPos);
+    float attenuation = 1.0 / (1.0 + 0.1 * distance + 0.01 * distance * distance);
+    float diffuse_intensity = max(dot(normal, light_direction), 0.0);
+    float spot_factor = dot(-light_direction, normalize(light.direction));
+    float spot_attenuation = smoothstep(light.spot_angle, light.spot_angle * 0.9, spot_factor);
+
+    return light.color * diffuse_intensity * attenuation * spot_attenuation * light.intensity * light.intensity_multiplier;
 }
 
 // TODO: add specular highlight
@@ -259,7 +266,21 @@ void Renderer::drawMeshRendered(MeshComponent& mesh, CameraComponent& camera,
 		render_shader.setVec3("viewPos", camera.camera.getPosition());
 		render_shader.setFloat("shininess", 0.2f);
 
-		// TODO: clear shader cache
+		// Refresh the shader values so that it will not affect the shader call
+		// TODO: sizes may not match, we need to query it smh
+		for(int j = 0; j < 16; ++j) {
+			std::string element = "spotLights[" + std::to_string(j) + "]";
+			std::string value = element + ".intensity_multiplier";
+			render_shader.setFloat(value.c_str(), 0);
+
+			element = "pointLights[" + std::to_string(j) + "]";
+			value = element + ".intensity_multiplier";
+			render_shader.setFloat(value.c_str(), 0);
+
+			element = "dirLights[" + std::to_string(j) + "]";
+			value = element + ".intensity_multiplier";
+			render_shader.setFloat(value.c_str(), 0);
+		}
 		
 		int num_spot_lights = 0;
 		int num_point_lights = 0;
