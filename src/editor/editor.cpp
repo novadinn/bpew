@@ -50,10 +50,15 @@ void Editor::create() {
 	tr1.position = glm::vec3(1, 0, 0);
 	
 	FramebufferData data;
+	data.formats = {GL_RGBA8, GL_DEPTH24_STENCIL8};
 	data.width = 800;
 	data.height = 800;
-	
+	data.samples = 16;
 	framebuffer.create(data);
+
+	data.formats = {GL_RGBA8};
+	data.samples = 1;
+	intermediate_framebuffer.create(data);
 }
 
 void Editor::destroy() {
@@ -114,6 +119,7 @@ void Editor::onDraw() {
 	   (data.width != viewport_size.x || data.height != viewport_size.y)) {
 		
 	    framebuffer.resize(viewport_size.x, viewport_size.y);
+		intermediate_framebuffer.resize(viewport_size.x, viewport_size.y);
 	}
 
 	framebuffer.bind();
@@ -135,6 +141,7 @@ void Editor::onDraw() {
 	}
 	
 	showLines();
+	framebuffer.blitTo(intermediate_framebuffer);
 	framebuffer.unbind();
 
 	static bool dockspace_open = true;
@@ -192,7 +199,7 @@ void Editor::showViewport() {
 	ImVec2 vpsize = ImGui::GetContentRegionAvail();
 	viewport_size = glm::vec2(vpsize.x, vpsize.y);
 	
-	uint fbid = framebuffer.getColorAttachmentID();
+	uint fbid = intermediate_framebuffer.getColorAttachmentID(0);
 	ImGui::Image(reinterpret_cast<void*>(fbid), ImVec2{ viewport_size.x, viewport_size.y },
 				 ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 	

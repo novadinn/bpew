@@ -3,8 +3,13 @@
 
 #include "../core/platform.h"
 
+#include <glad/glad.h>
+#include <vector>
+
 struct FramebufferData {
+	std::vector<GLenum> formats;
 	uint width, height;
+	uint samples = 1;
 };
 
 struct Framebuffer {
@@ -14,18 +19,24 @@ struct Framebuffer {
 	void bind();
 	void unbind();
 
+	void blitTo(Framebuffer other);
+	void blitFrom(Framebuffer other);
+	
 	bool resize(uint width, uint height);
+	int readPixel(uint index, int value);
 
 	inline FramebufferData getFramebufferData() const { return data; }
 	inline uint getID() const { return id; }
-	inline uint getColorAttachmentID() const { return color_attachment_id; }
+	inline uint getColorAttachmentID(uint index) const { return color_attachment_ids[index]; }
 	inline uint getDepthAttachmentID() const { return depth_attachment_id; }
 	
 private:
 	bool invalidate();
 
+	uint id;
 	FramebufferData data;
-	uint id, color_attachment_id, depth_attachment_id;
+	std::vector<uint> color_attachment_ids;
+	uint depth_attachment_id = GL_NONE;
 };
 
 #endif // FRAMEBUFFER_H

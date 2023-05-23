@@ -38,6 +38,7 @@ private:
 	Entity selected_entity;
 
 	Framebuffer framebuffer;
+	Framebuffer intermediate_framebuffer;
 
 	glm::ivec2 previous_mouse{0, 0};
 	glm::vec2 viewport_size{1, 1};

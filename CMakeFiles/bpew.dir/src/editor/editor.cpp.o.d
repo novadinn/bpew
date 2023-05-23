@@ -443,6 +443,8 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
  /home/dinn/projects/bpew/include/glm/glm/gtx/quaternion.inl \
  /home/dinn/projects/bpew/src/editor/../graphics/framebuffer.h \
  /home/dinn/projects/bpew/src/editor/../graphics/../core/platform.h \
+ /home/dinn/projects/bpew/include/glad/glad.h \
+ /home/dinn/projects/bpew/include/KHR/khrplatform.h \
  /home/dinn/projects/bpew/src/editor/../ecs/components/tag_component.h \
  /home/dinn/projects/bpew/src/editor/../ecs/components/transform_component.h \
  /home/dinn/projects/bpew/src/editor/../ecs/components/mesh_component.h \
@@ -450,8 +452,6 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
  /home/dinn/projects/bpew/src/editor/../ecs/components/../../graphics/mesh.h \
  /home/dinn/projects/bpew/src/editor/../ecs/components/../../graphics/vertex_attribute.h \
  /home/dinn/projects/bpew/src/editor/../ecs/components/../../graphics/../core/platform.h \
- /home/dinn/projects/bpew/include/glad/glad.h \
- /home/dinn/projects/bpew/include/KHR/khrplatform.h \
  /home/dinn/projects/bpew/src/editor/../ecs/components/../../graphics/vertex_array.h \
  /home/dinn/projects/bpew/src/editor/../ecs/components/../../graphics/vertex_buffer.h \
  /home/dinn/projects/bpew/src/editor/../ecs/components/../../graphics/index_buffer.h \
