@@ -50,15 +50,11 @@ void Editor::create() {
 	tr1.position = glm::vec3(1, 0, 0);
 	
 	FramebufferData data;
-	data.formats = {GL_RGBA8, GL_DEPTH24_STENCIL8};
+	data.formats = {GL_RGBA8, GL_R32I, GL_DEPTH24_STENCIL8};
 	data.width = 800;
 	data.height = 800;
-	data.samples = 16;
-	framebuffer.create(data);
-
-	data.formats = {GL_RGBA8};
 	data.samples = 1;
-	intermediate_framebuffer.create(data);
+	framebuffer.create(data);
 }
 
 void Editor::destroy() {
@@ -82,6 +78,10 @@ void Editor::onUpdate() {
 		} else {
 			main_camera->rotate(mouse_delta);
 		}
+	}
+	if(Input::wasMouseButtonPressed(SDL_BUTTON_LEFT)) {
+		if(viewport_hovered && !ImGuizmo::IsOver())
+			selected_entity = hovered_entity;
 	}
 	if(Input::wasWheelMoved()) {
 		main_camera->zoom(delta_time * wheel_movement.y);
@@ -119,11 +119,11 @@ void Editor::onDraw() {
 	   (data.width != viewport_size.x || data.height != viewport_size.y)) {
 		
 	    framebuffer.resize(viewport_size.x, viewport_size.y);
-		intermediate_framebuffer.resize(viewport_size.x, viewport_size.y);
 	}
 
 	framebuffer.bind();
 	Renderer::clear();
+	framebuffer.clearColorAttachment(1, -1);
 	
 	switch(draw_mode) {
 	case DrawMode::WIREFRAME: {
@@ -139,9 +139,36 @@ void Editor::onDraw() {
 		scene->onDrawMaterialPreview();
 	} break;
 	}
+
+	auto[mx, my] = ImGui::GetMousePos();
+	mx -= viewport_bounds[0].x;
+	my -= viewport_bounds[0].y;
+	glm::vec2 viewport_size = viewport_bounds[1] - viewport_bounds[0];
+	my = viewport_size.y - my;
+	int mouse_x = (int)mx;
+	int mouse_y = (int)my;
+
+	if (mouse_x >= 0 && mouse_y >= 0 &&
+		mouse_x < (int)viewport_size.x && mouse_y < (int)viewport_size.y) {
+
+		// Set read buffer to the R32I one
+		framebuffer.bindReadAttachment(1);
+			
+		int pixel_data = framebuffer.readPixel(mouse_x, mouse_y);
+		if(pixel_data != -1) {
+			Entity entity;
+			entity.create((entt::entity)pixel_data, scene);
+			hovered_entity = entity;
+		} else {
+			hovered_entity = {};
+		}
+			
+		// Set read buffer back to the color buffer
+		framebuffer.bindReadAttachment(0);
+	}
 	
 	showLines();
-	framebuffer.blitTo(intermediate_framebuffer);
+	
 	framebuffer.unbind();
 
 	static bool dockspace_open = true;
@@ -196,10 +223,18 @@ void Editor::onDraw() {
 
 void Editor::showViewport() {
 	ImGui::Begin("Scene");
+	viewport_hovered = ImGui::IsWindowHovered();
+	
 	ImVec2 vpsize = ImGui::GetContentRegionAvail();
 	viewport_size = glm::vec2(vpsize.x, vpsize.y);
+
+	auto viewport_min_region = ImGui::GetWindowContentRegionMin();
+	auto viewport_max_region = ImGui::GetWindowContentRegionMax();
+	auto viewport_offset = ImGui::GetWindowPos();
+	viewport_bounds[0] = { viewport_min_region.x + viewport_offset.x, viewport_min_region.y + viewport_offset.y };
+	viewport_bounds[1] = { viewport_max_region.x + viewport_offset.x, viewport_max_region.y + viewport_offset.y };
 	
-	uint fbid = intermediate_framebuffer.getColorAttachmentID(0);
+	uint fbid = framebuffer.getColorAttachmentID(0);
 	ImGui::Image(reinterpret_cast<void*>(fbid), ImVec2{ viewport_size.x, viewport_size.y },
 				 ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 	
@@ -312,9 +347,6 @@ void Editor::showMenuBar() {
 		if(ImGuiFileDialog::Instance()->IsOk()) {
 			std::string path = ImGuiFileDialog::Instance()->GetFilePathName();
 			std::string name = ImGuiFileDialog::Instance()->GetCurrentFileName();
-
-			printf("%s\n", path.c_str());
-			printf("%s\n", name.c_str());
 
 			if(selected_entity) {
 				if(selected_entity.hasComponent<MeshComponent>()) {

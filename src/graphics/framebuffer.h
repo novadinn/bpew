@@ -19,11 +19,15 @@ struct Framebuffer {
 	void bind();
 	void unbind();
 
+	void bindReadAttachment(uint index);
+	void bindDrawAttachment(uint index);
+
 	void blitTo(Framebuffer other);
 	void blitFrom(Framebuffer other);
 	
 	bool resize(uint width, uint height);
-	int readPixel(uint index, int value);
+	int readPixel(int x, int y);
+	void clearColorAttachment(uint index, int value);
 
 	inline FramebufferData getFramebufferData() const { return data; }
 	inline uint getID() const { return id; }
@@ -33,6 +37,12 @@ struct Framebuffer {
 private:
 	bool invalidate();
 
+	void attachColorTexture(GLenum internal_format, GLenum format, int index);
+	void attachRenderbuffer(GLenum format, GLenum attachment_type);
+
+	std::vector<GLenum> getColorAttachmentFormats() const;
+	GLenum getRenderbufferAttachmentFormat() const;
+	
 	uint id;
 	FramebufferData data;
 	std::vector<uint> color_attachment_ids;

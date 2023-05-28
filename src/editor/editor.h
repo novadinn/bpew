@@ -36,12 +36,15 @@ private:
 	Scene* scene;
 	Camera* main_camera;
 	Entity selected_entity;
+	Entity hovered_entity;
 
 	Framebuffer framebuffer;
-	Framebuffer intermediate_framebuffer;
 
 	glm::ivec2 previous_mouse{0, 0};
 	glm::vec2 viewport_size{1, 1};
+	glm::vec2 viewport_bounds[2];
+
+	bool viewport_hovered = false;
 
 	int gizmo_operation = -1;
 	DrawMode draw_mode = DrawMode::SOLID;

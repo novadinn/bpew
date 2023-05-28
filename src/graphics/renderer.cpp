@@ -35,7 +35,8 @@ void main() {
 const char* solid_shader_fs = R"(
 #version 460 core
 
-out vec4 fragColor;
+layout (location = 0) out vec4 fragColor;
+layout (location = 1) out int entityID;
 
 struct DirLight {
     vec3 direction;
@@ -54,6 +55,8 @@ uniform vec3 viewPos;
 uniform DirLight dirLight;
 uniform float shininess;
 
+uniform int entity;
+
 vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir);
 
 void main() {
@@ -63,6 +66,7 @@ void main() {
     vec3 result = calcDirLight(dirLight, norm, viewDir);
 
 	fragColor = vec4(0.5f, 0.5f, 0.5f, 1.0f) + vec4(result, 0.0f);
+    entityID = entity;
 }
 
 vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir) {
@@ -108,7 +112,8 @@ void main() {
 const char* render_shader_fs = R"(
 #version 460 core
 
-out vec4 fragColor;
+layout (location = 0) out vec4 fragColor;
+layout (location = 1) out int entityID;
 
 struct SpotLight {
     vec3 position;
@@ -144,6 +149,7 @@ uniform float shininess;
 uniform SpotLight spotLights[NUM_SPOT_LIGHTS];
 uniform PointLight pointLights[NUM_POINT_LIGHTS];
 uniform DirectionalLight dirLights[NUM_DIRECTIONAL_LIGHTS];
+uniform int entity;
 
 in VS_OUT {
     vec3 fragPos;
@@ -167,6 +173,7 @@ void main() {
         result += calcDirectionalLight(dirLights[i], norm, viewDir);
 
 	fragColor = vec4(0.5f, 0.5f, 0.5f, 1.0f) + vec4(result, 0.0f);
+    entityID = entity;
 }
 
 // TODO: add specular highlight
@@ -215,7 +222,7 @@ void Renderer::destroy() {
 	solid_shader.destroy();
 }
 
-void Renderer::drawMesh(MeshComponent& mesh, CameraComponent& camera,
+void Renderer::drawMesh(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
 						std::vector<LightComponent>& lights,
 						std::vector<TransformComponent>& light_transforms,
 						const glm::mat4& model) {
@@ -223,7 +230,7 @@ void Renderer::drawMesh(MeshComponent& mesh, CameraComponent& camera,
 	// TODO:
 }
 
-void Renderer::drawMeshSolid(MeshComponent& mesh, CameraComponent& camera,
+void Renderer::drawMeshSolid(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
 							 const glm::mat4& model) {
 	for(int i = 0; i < mesh.model.meshes.size(); ++i) {
 		solid_shader.bind();
@@ -237,7 +244,8 @@ void Renderer::drawMeshSolid(MeshComponent& mesh, CameraComponent& camera,
 		solid_shader.setVec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
 		solid_shader.setVec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
 		solid_shader.setVec3("dirLight.specilar", glm::vec3(0.5f, 0.5f, 0.5f));
-	
+		solid_shader.setInt("entity", (int)entity_id);
+		
 		Mesh& target = mesh.model.meshes[i];
 		
 		target.va.bind();
@@ -248,7 +256,7 @@ void Renderer::drawMeshSolid(MeshComponent& mesh, CameraComponent& camera,
 	}
 }
 
-void Renderer::drawMeshRendered(MeshComponent& mesh, CameraComponent& camera,
+void Renderer::drawMeshRendered(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
 								std::vector<LightComponent>& lights,
 								std::vector<TransformComponent>& light_transforms,
 								const glm::mat4& model) {
@@ -265,7 +273,8 @@ void Renderer::drawMeshRendered(MeshComponent& mesh, CameraComponent& camera,
 
 		render_shader.setVec3("viewPos", camera.camera.getPosition());
 		render_shader.setFloat("shininess", 0.2f);
-
+		render_shader.setInt("entity", (int)entity_id);
+		
 		// Refresh the shader values so that it will not affect the shader call
 		// TODO: sizes may not match, we need to query it smh
 		for(int j = 0; j < 16; ++j) {
@@ -344,10 +353,10 @@ void Renderer::drawMeshRendered(MeshComponent& mesh, CameraComponent& camera,
 	}
 }
 
-void Renderer::drawMeshWireframe(MeshComponent& mesh, CameraComponent& camera,
+void Renderer::drawMeshWireframe(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
 								 const glm::mat4& model) {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	drawMeshSolid(mesh, camera, model);
+	drawMeshSolid(entity_id, mesh, camera, model);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 

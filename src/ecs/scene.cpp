@@ -41,7 +41,7 @@ void Scene::onDrawWireframe() {
 		for(auto entity : group) {
 			auto [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
 
-			Renderer::drawMeshWireframe(mesh, (*main_camera), transform.getModelMatrix());
+			Renderer::drawMeshWireframe((uint32)entity, mesh, (*main_camera), transform.getModelMatrix());
 		}
 	}
 }
@@ -75,7 +75,7 @@ void Scene::onDrawRendered() {
 		for(auto entity : group) {
 			auto [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
 			
-			Renderer::drawMeshRendered(mesh, (*main_camera), lights, light_transforms,
+			Renderer::drawMeshRendered((uint32)entity, mesh, (*main_camera), lights, light_transforms,
 							   transform.getModelMatrix());
 		}
 	}
@@ -98,7 +98,7 @@ void Scene::onDrawSolid() {
 		for(auto entity : group) {
 			auto [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
 			
-			Renderer::drawMeshSolid(mesh, (*main_camera), transform.getModelMatrix());
+			Renderer::drawMeshSolid((uint32)entity, mesh, (*main_camera), transform.getModelMatrix());
 		}
 	}
 }

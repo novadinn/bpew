@@ -22,17 +22,17 @@ struct Renderer {
 	// TODO: this shoud take in a material
 	// TODO: should it lights?
 	// TODO: can we pass a entt::view in here?
-	static void drawMesh(MeshComponent& mesh, CameraComponent& camera,
+	static void drawMesh(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
 						 std::vector<LightComponent>& lights,
 						 std::vector<TransformComponent>& light_transforms,
 						 const glm::mat4& model);
-	static void drawMeshSolid(MeshComponent& mesh, CameraComponent& camera,
+	static void drawMeshSolid(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
 							  const glm::mat4& model);
-	static void drawMeshRendered(MeshComponent& mesh, CameraComponent& camera,
+	static void drawMeshRendered(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
 								 std::vector<LightComponent>& lights,
 								 std::vector<TransformComponent>& light_transforms,
 								 const glm::mat4& model);
-	static void drawMeshWireframe(MeshComponent& mesh, CameraComponent& camera,
+	static void drawMeshWireframe(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
 								  const glm::mat4& model);
 	
 	static void clear();
