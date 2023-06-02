@@ -22,7 +22,6 @@ struct Camera {
 	glm::vec3 getForward() const;
 	glm::quat getOrientation() const;
 
-	const glm::vec3& getPosition() const { return position; }
 	float getDistance() const { return distance; }
 
 	void pan(const glm::vec2& delta);
@@ -36,7 +35,6 @@ private:
 	float rotationSpeed() const;
 	float zoomSpeed();
 
-	glm::vec3 position = {0, 0, 0};
 	glm::vec3 focal_point = {0, 0, 0};
 	float aspect_ratio = 1.778f;
 	float pitch = 0.0f, yaw = 0.0f;

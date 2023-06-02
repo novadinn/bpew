@@ -9,20 +9,20 @@
 struct Entity;
 
 struct Scene {
-	Entity createEntity(const std::string& name = std::string());
-	void destroyEntity(Entity entity);
+    Entity createEntity(const std::string& name = std::string());
+    void destroyEntity(Entity entity);
 	
-	void onDrawWireframe();
-	void onDrawRendered();
-	void onDrawSolid();
-	void onDrawMaterialPreview();
+    void onDrawWireframe();
+    void onDrawRendered();
+    void onDrawSolid();
+    void onDrawMaterialPreview();
 	
-	void onResize(uint width, uint height);
+    void onResize(uint width, uint height);
 
-	entt::registry& getEntityRegistry() { return registry; }
+    entt::registry& getEntityRegistry() { return registry; }
 
 private:
-	entt::registry registry;
+    entt::registry registry;
 };
 
 #endif // SCENE_H
