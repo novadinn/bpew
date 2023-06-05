@@ -471,6 +471,13 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
  /usr/include/assimp/camera.h /usr/include/assimp/material.h \
  /usr/include/assimp/material.inl /usr/include/assimp/anim.h \
  /usr/include/assimp/metadata.h /usr/include/assimp/postprocess.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/components/../../graphics/material.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/components/../../graphics/shader.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/components/../../graphics/framebuffer.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/components/../../graphics/../nodes/node.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/components/../../graphics/../nodes/node_property.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/components/../../graphics/../nodes/../graphics/shader.h \
+ /home/dinn/projects/bpew/src/editor/../ecs/components/../../graphics/../nodes/../graphics/texture.h \
  /home/dinn/projects/bpew/src/editor/../ecs/components/camera_component.h \
  /home/dinn/projects/bpew/src/editor/../ecs/components/../../graphics/camera.h \
  /home/dinn/projects/bpew/src/editor/../ecs/components/light_component.h \

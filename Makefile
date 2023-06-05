@@ -897,6 +897,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/nodes/node.o: src/nodes/node.cpp.o
+.PHONY : src/nodes/node.o
+
+# target to build an object file
+src/nodes/node.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/nodes/node.cpp.o
+.PHONY : src/nodes/node.cpp.o
+
+src/nodes/node.i: src/nodes/node.cpp.i
+.PHONY : src/nodes/node.i
+
+# target to preprocess a source file
+src/nodes/node.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/nodes/node.cpp.i
+.PHONY : src/nodes/node.cpp.i
+
+src/nodes/node.s: src/nodes/node.cpp.s
+.PHONY : src/nodes/node.s
+
+# target to generate assembly for a file
+src/nodes/node.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/nodes/node.cpp.s
+.PHONY : src/nodes/node.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1002,6 +1026,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/nodes/node.o"
+	@echo "... src/nodes/node.i"
+	@echo "... src/nodes/node.s"
 .PHONY : help
 
 

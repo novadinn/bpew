@@ -19,10 +19,8 @@ struct Renderer {
 	static void init();
 	static void destroy();
 
-	// TODO: this shoud take in a material
-	// TODO: should it lights?
 	// TODO: can we pass a entt::view in here?
-	static void drawMesh(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
+	static void drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
 						 std::vector<LightComponent>& lights,
 						 std::vector<TransformComponent>& light_transforms,
 						 const glm::mat4& model);

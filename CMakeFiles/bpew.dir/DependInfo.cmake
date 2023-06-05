@@ -40,6 +40,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/dinn/projects/bpew/src/graphics/vertex_array.cpp" "CMakeFiles/bpew.dir/src/graphics/vertex_array.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/vertex_array.cpp.o.d"
   "/home/dinn/projects/bpew/src/graphics/vertex_buffer.cpp" "CMakeFiles/bpew.dir/src/graphics/vertex_buffer.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/vertex_buffer.cpp.o.d"
   "/home/dinn/projects/bpew/src/main.cpp" "CMakeFiles/bpew.dir/src/main.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/main.cpp.o.d"
+  "/home/dinn/projects/bpew/src/nodes/node.cpp" "CMakeFiles/bpew.dir/src/nodes/node.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/nodes/node.cpp.o.d"
   )
 
 # Targets to which this target links.

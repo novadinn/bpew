@@ -63,6 +63,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/bpew.dir/src/graphics/vertex_buffer.cpp.o.d"
   "CMakeFiles/bpew.dir/src/main.cpp.o"
   "CMakeFiles/bpew.dir/src/main.cpp.o.d"
+  "CMakeFiles/bpew.dir/src/nodes/node.cpp.o"
+  "CMakeFiles/bpew.dir/src/nodes/node.cpp.o.d"
   "build/bpew"
   "build/bpew.pdb"
 )

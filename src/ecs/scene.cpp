@@ -47,38 +47,40 @@ void Scene::onDrawWireframe() {
 }
 
 void Scene::onDrawRendered() {
-	CameraComponent* main_camera = nullptr;
+	// CameraComponent* main_camera = nullptr;
 	
-	auto view = registry.view<CameraComponent>();
-	for(auto entity : view) {
-		auto& camera = view.get<CameraComponent>(entity);
+	// auto view = registry.view<CameraComponent>();
+	// for(auto entity : view) {
+	// 	auto& camera = view.get<CameraComponent>(entity);
 
-		if(camera.main) {
-			main_camera = &camera;
-		}
-	}
+	// 	if(camera.main) {
+	// 		main_camera = &camera;
+	// 	}
+	// }
 
-	if(main_camera) {
+	// if(main_camera) {
 
-		std::vector<LightComponent> lights;
-		std::vector<TransformComponent> light_transforms;
+	// 	std::vector<LightComponent> lights;
+	// 	std::vector<TransformComponent> light_transforms;
 
-		auto light_group = registry.group<LightComponent>(entt::get<TransformComponent>);
-		for(auto entity : light_group) {
-			auto [light, transform] = light_group.get<LightComponent, TransformComponent>(entity);
+	// 	auto light_group = registry.group<LightComponent>(entt::get<TransformComponent>);
+	// 	for(auto entity : light_group) {
+	// 		auto [light, transform] = light_group.get<LightComponent, TransformComponent>(entity);
 
-			lights.push_back(light);
-			light_transforms.push_back(transform);
-		}
+	// 		lights.push_back(light);
+	// 		light_transforms.push_back(transform);
+	// 	}
 		
-		auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
-		for(auto entity : group) {
-			auto [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
+	// 	auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
+	// 	for(auto entity : group) {
+	// 		auto [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
 			
-			Renderer::drawMeshRendered((uint32)entity, mesh, (*main_camera), lights, light_transforms,
-							   transform.getModelMatrix());
-		}
-	}
+	// 		Renderer::drawMeshRendered((uint32)entity, mesh, (*main_camera), lights, light_transforms,
+	// 						   transform.getModelMatrix());
+	// 	}
+	// }
+
+  // TODO:
 }
 
 void Scene::onDrawSolid() {

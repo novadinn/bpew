@@ -248,6 +248,18 @@ CMakeFiles/bpew.dir/src/graphics/shader.cpp.o: \
  /home/dinn/projects/bpew/include/glm/glm/detail/type_half.inl \
  /home/dinn/projects/bpew/include/glm/glm/integer.hpp \
  /home/dinn/projects/bpew/include/glm/glm/detail/func_integer.inl \
+ /home/dinn/projects/bpew/src/graphics/../core/log.h \
+ /usr/include/c++/11/cstdlib /usr/include/c++/11/cstdio \
+ /usr/include/stdio.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/c++/11/cstring /usr/include/string.h /usr/include/strings.h \
  /home/dinn/projects/bpew/include/glad/glad.h \
  /home/dinn/projects/bpew/include/KHR/khrplatform.h \
  /home/dinn/projects/bpew/include/glm/glm/gtc/type_ptr.hpp \
@@ -300,10 +312,9 @@ CMakeFiles/bpew.dir/src/graphics/shader.cpp.o: \
  /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_int1_sized.hpp \
  /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_uint1.hpp \
  /home/dinn/projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_uint1_sized.hpp \
- /usr/include/c++/11/cstring /usr/include/string.h /usr/include/strings.h \
  /home/dinn/projects/bpew/include/glm/glm/gtc/type_ptr.inl \
  /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_algo.h \
- /usr/include/c++/11/cstdlib /usr/include/c++/11/bits/algorithmfwd.h \
+ /usr/include/c++/11/bits/algorithmfwd.h \
  /usr/include/c++/11/initializer_list /usr/include/c++/11/bits/stl_heap.h \
  /usr/include/c++/11/bits/stl_tempbuf.h \
  /usr/include/c++/11/bits/stl_construct.h \
@@ -320,13 +331,4 @@ CMakeFiles/bpew.dir/src/graphics/shader.cpp.o: \
  /usr/include/c++/11/bits/functional_hash.h \
  /usr/include/c++/11/bits/hash_bytes.h \
  /usr/include/c++/11/bits/range_access.h \
- /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/cstdio \
- /usr/include/stdio.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
- /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
- /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
- /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
- /usr/include/x86_64-linux-gnu/bits/stdio_lim.h
+ /usr/include/c++/11/bits/vector.tcc

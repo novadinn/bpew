@@ -1,9 +1,55 @@
 #include "shader.h"
 
+#include "../core/log.h"
+
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 #include <cstdio>
+
+bool Shader::createFromFile(const char* vert_path, const char* frag_path) {
+	long file_length;
+
+	FILE* vert_fp;
+	char* vert_content;
+
+	if((vert_fp = fopen(vert_path, "r")) == NULL) {
+		LOG_ERROR("Failed to load file at path%s\n", vert_path);
+		return false;
+	}
+	
+	fseek(vert_fp, 0, SEEK_END);
+	file_length = ftell(vert_fp);
+	fseek(vert_fp, 0, SEEK_SET);
+	vert_content = (char*)malloc(file_length);
+	fread(vert_content, 1, file_length, vert_fp);
+	vert_content[file_length] = '\0';
+
+	FILE* frag_fp;
+	char* frag_content;
+
+	if((frag_fp = fopen(frag_path, "r")) == NULL) {
+		LOG_ERROR("Failed to load file at path%s\n", frag_path);
+		return false;
+	}
+	
+	fseek(frag_fp, 0, SEEK_END);
+	file_length = ftell(frag_fp);
+	fseek(frag_fp, 0, SEEK_SET);
+	frag_content = (char*)malloc(file_length);
+	fread(frag_content, 1, file_length, frag_fp);
+	frag_content[file_length] = '\0';
+	
+	bool result = createFromSource(vert_content, frag_content);
+
+	free(vert_content);
+	free(frag_content);
+	
+	fclose(vert_fp);
+	fclose(frag_fp);
+
+	return result;
+}
 
 bool Shader::createFromSource(const char* vsrc, const char* fsrc) {
 	// Compile the vertex shader
@@ -25,7 +71,7 @@ bool Shader::createFromSource(const char* vsrc, const char* fsrc) {
 
 		glDeleteShader(vs);
 
-		printf("Failed to load Vertex Shader. \n%s\n", &log[0]);
+		LOG_ERROR("Failed to load Vertex Shader. \n%s\n", &log[0]);
 
 		return false;
 	}
@@ -49,7 +95,7 @@ bool Shader::createFromSource(const char* vsrc, const char* fsrc) {
 		glDeleteShader(fs);
 		glDeleteShader(vs);
 
-		printf("Failed to load Fragment Shader. \n%s\n", &log[0]);
+		LOG_ERROR("Failed to load Fragment Shader. \n%s\n", &log[0]);
 	
 		return false;
 	}
@@ -75,7 +121,7 @@ bool Shader::createFromSource(const char* vsrc, const char* fsrc) {
 		glDeleteShader(vs);
 		glDeleteShader(fs);
 
-		printf("Failed to create Program. \n%s\n", &log[0]);
+		LOG_ERROR("Failed to create Program. \n%s\n", &log[0]);
 	
 		return false;
 	}

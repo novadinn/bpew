@@ -475,6 +475,14 @@ CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o: \
  /home/dinn/projects/bpew/src/graphics/../ecs/../core/log.h \
  /home/dinn/projects/bpew/src/graphics/../ecs/components/mesh_component.h \
  /home/dinn/projects/bpew/src/graphics/../ecs/components/../../graphics/model.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/../../graphics/material.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/../../graphics/shader.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/../../graphics/framebuffer.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/../../graphics/../core/platform.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/../../graphics/../nodes/node.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/../../graphics/../nodes/node_property.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/../../graphics/../nodes/../graphics/shader.h \
+ /home/dinn/projects/bpew/src/graphics/../ecs/components/../../graphics/../nodes/../graphics/texture.h \
  /home/dinn/projects/bpew/src/graphics/../ecs/components/light_component.h \
  /home/dinn/projects/bpew/src/graphics/../ecs/components/transform_component.h \
  /home/dinn/projects/bpew/src/graphics/../ecs/components/camera_component.h \
