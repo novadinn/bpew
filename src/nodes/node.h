@@ -2,6 +2,7 @@
 #define NODE_H
 
 #include "node_property.h"
+#include "../core/utils.h"
 
 #include <glm/glm.hpp>
 #include <vector>
@@ -20,14 +21,13 @@ enum NodeType {
 };
 
 struct Node {
-  void create(std::string node_name, NodeType node_type,
-	      std::vector<NodeProperty> node_inputs,
-	      std::vector<NodeProperty> node_outputs);
-
+  void create(NodeType node_type);
+  
   std::string name;
   std::vector<NodeProperty> inputs;
   std::vector<NodeProperty> outputs;
   NodeType type;
+  uint64 id;
 };
 
 #endif // NODE_H

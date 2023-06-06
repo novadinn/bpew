@@ -5,6 +5,7 @@
 #include "../ecs/entity.h"
 #include "../graphics/camera.h"
 #include "../graphics/framebuffer.h"
+#include "../nodes/node.h"
 
 #include "glm/glm.hpp"
 #include <vector>
@@ -33,7 +34,9 @@ private:
 
   template<typename T> void showAddComponentPopup(const char* str);
   template<typename T> void showRemoveComponentPopup(const char* str);
-	
+
+  void createNode(NodeType type);
+
   Scene* scene;
   Camera* main_camera;
   Entity selected_entity;

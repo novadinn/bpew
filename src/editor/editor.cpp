@@ -14,6 +14,7 @@
 #include "imgui/imgui.h"
 #include "ImGuizmo/ImGuizmo.h"
 #include "ImGuiFileDialog/ImGuiFileDialog.h"
+#include "imnodes/imnodes.h"
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -271,37 +272,88 @@ void Editor::showViewSpace() {
 
 void Editor::showNodeSpace() {
   ImGui::Begin("Shading");
+  
+  if (ImGui::Button("Material...")) {
+    if(selected_entity && selected_entity.hasComponent<MeshComponent>()) {
+      ImGui::OpenPopup("MaterialsMenu");
+    } else {
+      // TODO: error message popup
+    }
+  }
+  
+  if(ImGui::BeginPopup("MaterialsMenu")) {
+    MeshComponent& mesh = selected_entity.getComponent<MeshComponent>();
+    std::vector<Material>& materials = mesh.materials;
 
-  if(selected_entity && selected_entity.hasComponent<MeshComponent>()) {
-    if(ImGui::BeginTabBar("EditorTabBar", ImGuiTabBarFlags_Reorderable)) {
-      MeshComponent& mesh = selected_entity.getComponent<MeshComponent>();
-      for(int i = 0; i < mesh.materials.size(); ++i) {
-	Material& mat = mesh.materials[i];
-	if(ImGui::BeginTabItem(mat.name.c_str())) {
+    static char material_name[255];
+    if(ImGui::InputText("New Material", material_name, 255,
+			ImGuiInputTextFlags_EnterReturnsTrue)) {
+      Material mat;
+      mat.name = material_name;
+      materials.push_back(mat);
 
-	  ImGui::EndTabItem();
+      memset(material_name, '\0', sizeof(material_name));
+    }
+    if(ImGui::Button("Destroy Material")) {
+      if(mesh.validMaterialIndex()) {
+	materials.erase(materials.begin() + mesh.active_material_index);
+
+	if(mesh.active_material_index == materials.size()) {
+	  --mesh.active_material_index;
 	}
       }
+    }
+    
+    if(ImGui::CollapsingHeader("Materials")) {
+      for(int i = 0; i < materials.size(); ++i) {
+	Material& mat = materials[i];
+	
+	if(ImGui::Selectable(mat.name.c_str(), mesh.active_material_index == i, ImGuiSelectableFlags_DontClosePopups)) {
+	  mesh.active_material_index = i;
+	}
+      }
+    }
 
-      if(ImGui::TabItemButton("+", ImGuiTabItemFlags_Trailing | ImGuiTabItemFlags_NoTooltip))
-	ImGui::OpenPopup("NewMaterialMenu");
+    ImGui::EndPopup();
+  }
 
-      if(ImGui::BeginPopup("NewMaterialMenu")) {
-	static char material_name[255];
-	if(ImGui::InputText("Material Name", material_name, 255,
-			    ImGuiInputTextFlags_EnterReturnsTrue)) {
-	  Material mat;
-	  mat.name = material_name;
-	  mesh.materials.push_back(mat);
+  ImNodes::BeginNodeEditor();
+  
+  if(selected_entity && selected_entity.hasComponent<MeshComponent>()) {
+    MeshComponent& mesh = selected_entity.getComponent<MeshComponent>();
+    std::vector<Material>& materials = mesh.materials;
 
-	  memset(material_name, '\0', sizeof(material_name));
-	  ImGui::CloseCurrentPopup();
+    Material* mat = mesh.getActiveMaterial();
+    if(mat) {
+      for(int i = 0; i < mat->nodes.size(); ++i) {
+	Node& node = mat->nodes[i];
+	std::vector<NodeProperty>& inputs = node.inputs;
+	std::vector<NodeProperty>& outputs = node.outputs;
+
+	ImNodes::BeginNode(node.id);
+	
+	ImNodes::BeginNodeTitleBar();
+	ImGui::TextUnformatted(node.name.c_str());
+	ImNodes::EndNodeTitleBar();
+
+	for(int j = 0; j < inputs.size(); ++j) {
+	  NodeProperty& prop = inputs[j];
+	  
+	  ImNodes::BeginInputAttribute(prop.id);
+	  ImGui::Text("%s", prop.name.c_str());
+	  ImNodes::EndInputAttribute();
+	}
+
+	for(int j = 0; j < outputs.size(); ++j) {
+	  NodeProperty& prop = outputs[j];
+	  
+	  ImNodes::BeginOutputAttribute(prop.id);
+	  ImGui::Text("%s", prop.name.c_str());
+	  ImNodes::EndOutputAttribute();
 	}
 	
-	ImGui::EndPopup();
+	ImNodes::EndNode();
       }
-      
-      ImGui::EndTabBar();
     }
   }
   
@@ -310,14 +362,14 @@ void Editor::showNodeSpace() {
     if(ImGui::BeginMenu("Add")) {
       if(ImGui::BeginMenu("Input")) {
 	if(ImGui::Button("RGB")) {
-	  
+	  createNode(NodeType::RGB);
 	}
 	
 	ImGui::EndMenu();
       }
       if(ImGui::BeginMenu("Output")) {
 	if(ImGui::Button("Material Output")) {
-	  
+	  createNode(NodeType::MATERIAL_OUTPUT);
 	}
 	
 	ImGui::EndMenu();
@@ -374,6 +426,8 @@ void Editor::showNodeSpace() {
     
     ImGui::EndPopup();
   }
+
+  ImNodes::EndNodeEditor();
   
   ImGui::End();
 }
@@ -675,5 +729,19 @@ void Editor::showLines() {
       color = glm::vec3(0.55, 0.8, 0.9);
     }
     Gizmos::drawLine(*main_camera, start, end, color);
+  }
+}
+
+void Editor::createNode(NodeType type) {
+  if(selected_entity && selected_entity.hasComponent<MeshComponent>()) {
+    MeshComponent& mesh = selected_entity.getComponent<MeshComponent>();
+    Material* mat = mesh.getActiveMaterial();
+    
+    if(mat) {
+      Node node;
+      node.create(type);
+      
+      mat->nodes.push_back(node);
+    }
   }
 }
