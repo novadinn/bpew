@@ -65,9 +65,8 @@ void Node::create(NodeType node_type) {
   } break;
   }
   
-  name = node_name;
+  id.create(node_name);
   inputs = node_inputs;
   outputs = node_outputs;
   type = node_type;
-  id = Utils::generateUUID();
 }

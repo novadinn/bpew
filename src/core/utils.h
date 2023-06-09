@@ -16,7 +16,7 @@
 
 namespace Utils {
   static std::random_device random_device;
-  static std::mt19937_64 mtprng(random_device());
+  static std::mt19937_64 mtprng(random_device());;
   static std::uniform_int_distribution<uint64_t> uniform_distribution;
 
   static uint64 generateUUID() {

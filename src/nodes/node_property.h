@@ -3,7 +3,8 @@
 
 #include "../graphics/shader.h"
 #include "../graphics/texture.h"
-#include "../core/utils.h"
+#include "../core/id.h"
+#include "node_link.h"
 
 #include <glm/glm.hpp>
 #include <vector>
@@ -34,17 +35,15 @@ union NodePropertyValue {
 struct NodeProperty {
   void create(NodePropertyValue prop_value, std::string prop_name,
 	      NodePropertyType prop_type) {
+    id.create(prop_name);
     value = prop_value;
     type = prop_type;
-    name = prop_name;
-    id = Utils::generateUUID();
   }
 
-  std::string name;
-  std::vector<NodeProperty*> links;
+  ID id;
+  std::vector<NodeLink> links;
   NodePropertyValue value;
   NodePropertyType type;
-  uint64 id;
 };
 
 #endif // NODE_PROPERTY_H

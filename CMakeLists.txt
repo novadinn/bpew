@@ -9,6 +9,8 @@ set (CMAKE_CXX_STANDARD 20)
 find_package(SDL2 REQUIRED)
 find_package(assimp REQUIRED)
 
+add_definitions(-DIMGUI_DEFINE_MATH_OPERATORS)
+
 include_directories(${SDL2_INCLUDE_DIRS} ${ASSIMP_INCLUDE_DIR} "include" "include/glm" "include/imgui" "include/entt/single_include")
 
 FILE(GLOB IMGUISRC "include/imgui/*.cpp" "include/imgui/misc/cpp/*.cpp" "include/imgui/backends/imgui_impl_sdl2.cpp" "include/imgui/backends/imgui_impl_opengl3.cpp")
@@ -17,7 +19,7 @@ FILE(GLOB IMGUIFILEDIALOGSRC "include/ImGuiFileDialog/ImGuiFileDialog.cpp")
 FILE(GLOB IMNODESSRC "include/imnodes/*.cpp")
 FILE(GLOB GLADSRC "src/glad.c")
 
-add_executable(${PROJECT_NAME} ${IMGUISRC} ${IMGUIZMOSRC} ${IMGUIFILEDIALOGSRC} ${IMNODESSRC} ${GLADSRC} "src/main.cpp" "src/graphics/shader.cpp" "src/graphics/texture.cpp" "src/graphics/framebuffer.cpp" "src/graphics/index_buffer.cpp" "src/graphics/vertex_buffer.cpp" "src/graphics/vertex_array.cpp" "src/core/window.cpp" "src/core/input.cpp" "src/graphics/renderer.cpp" "src/graphics/camera.cpp" "src/graphics/model.cpp" "src/ecs/scene.cpp" "src/editor/editor.cpp" "src/core/time.cpp" "src/graphics/gizmos.cpp" "src/nodes/node.cpp")
+add_executable(${PROJECT_NAME} ${IMGUISRC} ${IMGUIZMOSRC} ${IMGUIFILEDIALOGSRC} ${IMNODESSRC} ${GLADSRC} "src/main.cpp" "src/graphics/shader.cpp" "src/graphics/texture.cpp" "src/graphics/framebuffer.cpp" "src/graphics/index_buffer.cpp" "src/graphics/vertex_buffer.cpp" "src/graphics/vertex_array.cpp" "src/core/window.cpp" "src/core/input.cpp" "src/graphics/renderer.cpp" "src/graphics/camera.cpp" "src/graphics/model.cpp" "src/ecs/scene.cpp" "src/editor/editor.cpp" "src/core/time.cpp" "src/graphics/gizmos.cpp" "src/nodes/node.cpp" "src/nodes/node_link.cpp")
 
 link_directories(${ASSIMP_LIBRARY_DIRS})
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${ASSIMP_LIBRARIES} GL dl)
