@@ -467,7 +467,7 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
  /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/light_component.h \
  /home/nikolay/Projects/bpew-new/src/editor/../graphics/model.h \
  /home/nikolay/Projects/bpew-new/src/editor/../graphics/renderer.h \
- /home/nikolay/Projects/bpew-new/src/editor/../graphics/shader.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../graphics/shaders/shader.h \
  /home/nikolay/Projects/bpew-new/src/editor/../graphics/vertex_array.h \
  /home/nikolay/Projects/bpew-new/src/editor/../graphics/model.h \
  /home/nikolay/Projects/bpew-new/src/editor/../graphics/camera.h \

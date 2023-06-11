@@ -508,7 +508,7 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /usr/include/c++/13.1.1/bits/stl_multimap.h \
  /usr/include/c++/13.1.1/bits/erase_if.h \
  /home/nikolay/Projects/bpew-new/src/core/time.h \
- /home/nikolay/Projects/bpew-new/src/graphics/shader.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader.h \
  /home/nikolay/Projects/bpew-new/src/graphics/texture.h \
  /usr/include/c++/13.1.1/vector \
  /usr/include/c++/13.1.1/bits/stl_uninitialized.h \
@@ -523,7 +523,7 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /home/nikolay/Projects/bpew-new/src/graphics/index_buffer.h \
  /home/nikolay/Projects/bpew-new/src/graphics/vertex_attribute.h \
  /home/nikolay/Projects/bpew-new/src/graphics/renderer.h \
- /home/nikolay/Projects/bpew-new/src/graphics/shader.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader.h \
  /home/nikolay/Projects/bpew-new/src/graphics/vertex_array.h \
  /home/nikolay/Projects/bpew-new/src/graphics/model.h \
  /home/nikolay/Projects/bpew-new/src/graphics/mesh.h \

@@ -10,7 +10,7 @@
 #include "core/log.h"
 #include "core/input.h"
 #include "core/time.h"
-#include "graphics/shader.h"
+#include "graphics/shaders/shader.h"
 #include "graphics/texture.h"
 #include "graphics/index_buffer.h"
 #include "graphics/vertex_buffer.h"

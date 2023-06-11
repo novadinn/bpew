@@ -461,7 +461,7 @@ CMakeFiles/bpew.dir/src/ecs/scene.cpp.o: \
  /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/camera.h \
  /home/nikolay/Projects/bpew-new/src/ecs/components/light_component.h \
  /home/nikolay/Projects/bpew-new/src/ecs/../graphics/renderer.h \
- /home/nikolay/Projects/bpew-new/src/ecs/../graphics/shader.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/../graphics/shaders/shader.h \
  /home/nikolay/Projects/bpew-new/src/ecs/../graphics/vertex_array.h \
  /home/nikolay/Projects/bpew-new/src/ecs/../graphics/model.h \
  /home/nikolay/Projects/bpew-new/src/ecs/../graphics/camera.h \

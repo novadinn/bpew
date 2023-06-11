@@ -2,7 +2,7 @@ CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o: \
  /home/nikolay/Projects/bpew-new/src/graphics/renderer.cpp \
  /usr/include/stdc-predef.h \
  /home/nikolay/Projects/bpew-new/src/graphics/renderer.h \
- /home/nikolay/Projects/bpew-new/src/graphics/shader.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader.h \
  /home/nikolay/Projects/bpew-new/include/glm/glm/glm.hpp \
  /home/nikolay/Projects/bpew-new/include/glm/glm/detail/_fixes.hpp \
  /usr/include/c++/13.1.1/cmath \
@@ -463,6 +463,22 @@ CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o: \
  /home/nikolay/Projects/bpew-new/src/graphics/../ecs/components/transform_component.h \
  /home/nikolay/Projects/bpew-new/src/graphics/../ecs/components/camera_component.h \
  /home/nikolay/Projects/bpew-new/src/graphics/../ecs/components/../../graphics/camera.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../graphics/shader.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../graphics/shaders/shader.h \
  /home/nikolay/Projects/bpew-new/src/graphics/../core/glm_extensions.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../core/log.h
+ /home/nikolay/Projects/bpew-new/src/graphics/../core/log.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_builder.h \
+ /usr/include/c++/13.1.1/sstream /usr/include/c++/13.1.1/istream \
+ /usr/include/c++/13.1.1/bits/istream.tcc \
+ /usr/include/c++/13.1.1/bits/sstream.tcc /usr/include/c++/13.1.1/fstream \
+ /usr/include/c++/13.1.1/bits/codecvt.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/basic_file.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/c++io.h \
+ /usr/include/c++/13.1.1/bits/fstream.tcc \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_info.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../core/platform.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../core/tokenizer.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../shaders/infos/solid_shader.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../shaders/infos/../../graphics/shaders/shader_create_info.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../shaders/infos/../../graphics/shaders/shader_info.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../shaders/infos/../../graphics/shaders/shader_builder.h

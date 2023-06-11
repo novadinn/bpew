@@ -16,7 +16,7 @@ FILE(GLOB IMGUIZMOSRC "include/ImGuizmo/*.cpp")
 FILE(GLOB IMGUIFILEDIALOGSRC "include/ImGuiFileDialog/ImGuiFileDialog.cpp")
 FILE(GLOB GLADSRC "src/glad.c")
 
-add_executable(${PROJECT_NAME} ${IMGUISRC} ${IMGUIZMOSRC} ${IMGUIFILEDIALOGSRC} ${GLADSRC} "src/main.cpp" "src/graphics/shader.cpp" "src/graphics/texture.cpp" "src/graphics/framebuffer.cpp" "src/graphics/index_buffer.cpp" "src/graphics/vertex_buffer.cpp" "src/graphics/vertex_array.cpp" "src/core/window.cpp" "src/core/input.cpp" "src/core/file_system.cpp" "src/graphics/renderer.cpp" "src/graphics/camera.cpp" "src/graphics/model.cpp" "src/ecs/scene.cpp" "src/editor/editor.cpp" "src/core/time.cpp" "src/graphics/gizmos.cpp")
+add_executable(${PROJECT_NAME} ${IMGUISRC} ${IMGUIZMOSRC} ${IMGUIFILEDIALOGSRC} ${GLADSRC} "src/main.cpp" "src/graphics/shaders/shader.cpp" "src/graphics/texture.cpp" "src/graphics/framebuffer.cpp" "src/graphics/index_buffer.cpp" "src/graphics/vertex_buffer.cpp" "src/graphics/vertex_array.cpp" "src/core/window.cpp" "src/core/input.cpp" "src/core/file_system.cpp" "src/graphics/renderer.cpp" "src/graphics/camera.cpp" "src/graphics/model.cpp" "src/ecs/scene.cpp" "src/editor/editor.cpp" "src/core/time.cpp" "src/graphics/gizmos.cpp" "src/graphics/shaders/shader_builder.cpp" "src/graphics/shaders/shader_parser.cpp" "src/core/tokenizer.cpp")
 
 link_directories(${ASSIMP_LIBRARY_DIRS})
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${ASSIMP_LIBRARIES} GL dl)

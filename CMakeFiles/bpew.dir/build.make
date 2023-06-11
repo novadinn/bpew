@@ -293,19 +293,19 @@ CMakeFiles/bpew.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bpew.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nikolay/Projects/bpew-new/src/main.cpp -o CMakeFiles/bpew.dir/src/main.cpp.s
 
-CMakeFiles/bpew.dir/src/graphics/shader.cpp.o: CMakeFiles/bpew.dir/flags.make
-CMakeFiles/bpew.dir/src/graphics/shader.cpp.o: src/graphics/shader.cpp
-CMakeFiles/bpew.dir/src/graphics/shader.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/bpew.dir/src/graphics/shader.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/graphics/shader.cpp.o -MF CMakeFiles/bpew.dir/src/graphics/shader.cpp.o.d -o CMakeFiles/bpew.dir/src/graphics/shader.cpp.o -c /home/nikolay/Projects/bpew-new/src/graphics/shader.cpp
+CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o: CMakeFiles/bpew.dir/flags.make
+CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o: src/graphics/shaders/shader.cpp
+CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o -MF CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o.d -o CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o -c /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader.cpp
 
-CMakeFiles/bpew.dir/src/graphics/shader.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bpew.dir/src/graphics/shader.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nikolay/Projects/bpew-new/src/graphics/shader.cpp > CMakeFiles/bpew.dir/src/graphics/shader.cpp.i
+CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader.cpp > CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.i
 
-CMakeFiles/bpew.dir/src/graphics/shader.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bpew.dir/src/graphics/shader.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nikolay/Projects/bpew-new/src/graphics/shader.cpp -o CMakeFiles/bpew.dir/src/graphics/shader.cpp.s
+CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader.cpp -o CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.s
 
 CMakeFiles/bpew.dir/src/graphics/texture.cpp.o: CMakeFiles/bpew.dir/flags.make
 CMakeFiles/bpew.dir/src/graphics/texture.cpp.o: src/graphics/texture.cpp
@@ -517,6 +517,48 @@ CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nikolay/Projects/bpew-new/src/graphics/gizmos.cpp -o CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.s
 
+CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o: CMakeFiles/bpew.dir/flags.make
+CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o: src/graphics/shaders/shader_builder.cpp
+CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o -MF CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o.d -o CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o -c /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_builder.cpp
+
+CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_builder.cpp > CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.i
+
+CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_builder.cpp -o CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.s
+
+CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o: CMakeFiles/bpew.dir/flags.make
+CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o: src/graphics/shaders/shader_parser.cpp
+CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o -MF CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o.d -o CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o -c /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_parser.cpp
+
+CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_parser.cpp > CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.i
+
+CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_parser.cpp -o CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.s
+
+CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o: CMakeFiles/bpew.dir/flags.make
+CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o: src/core/tokenizer.cpp
+CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o -MF CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o.d -o CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o -c /home/nikolay/Projects/bpew-new/src/core/tokenizer.cpp
+
+CMakeFiles/bpew.dir/src/core/tokenizer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bpew.dir/src/core/tokenizer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nikolay/Projects/bpew-new/src/core/tokenizer.cpp > CMakeFiles/bpew.dir/src/core/tokenizer.cpp.i
+
+CMakeFiles/bpew.dir/src/core/tokenizer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bpew.dir/src/core/tokenizer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nikolay/Projects/bpew-new/src/core/tokenizer.cpp -o CMakeFiles/bpew.dir/src/core/tokenizer.cpp.s
+
 # Object files for target bpew
 bpew_OBJECTS = \
 "CMakeFiles/bpew.dir/include/imgui/backends/imgui_impl_opengl3.cpp.o" \
@@ -535,7 +577,7 @@ bpew_OBJECTS = \
 "CMakeFiles/bpew.dir/include/ImGuiFileDialog/ImGuiFileDialog.cpp.o" \
 "CMakeFiles/bpew.dir/src/glad.c.o" \
 "CMakeFiles/bpew.dir/src/main.cpp.o" \
-"CMakeFiles/bpew.dir/src/graphics/shader.cpp.o" \
+"CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o" \
 "CMakeFiles/bpew.dir/src/graphics/texture.cpp.o" \
 "CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o" \
 "CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o" \
@@ -550,7 +592,10 @@ bpew_OBJECTS = \
 "CMakeFiles/bpew.dir/src/ecs/scene.cpp.o" \
 "CMakeFiles/bpew.dir/src/editor/editor.cpp.o" \
 "CMakeFiles/bpew.dir/src/core/time.cpp.o" \
-"CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.o"
+"CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.o" \
+"CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o" \
+"CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o" \
+"CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o"
 
 # External object files for target bpew
 bpew_EXTERNAL_OBJECTS =
@@ -571,7 +616,7 @@ build/bpew: CMakeFiles/bpew.dir/include/ImGuizmo/ImSequencer.cpp.o
 build/bpew: CMakeFiles/bpew.dir/include/ImGuiFileDialog/ImGuiFileDialog.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/glad.c.o
 build/bpew: CMakeFiles/bpew.dir/src/main.cpp.o
-build/bpew: CMakeFiles/bpew.dir/src/graphics/shader.cpp.o
+build/bpew: CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/graphics/texture.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o
@@ -587,6 +632,9 @@ build/bpew: CMakeFiles/bpew.dir/src/ecs/scene.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/editor/editor.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/core/time.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.o
+build/bpew: CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o
+build/bpew: CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o
+build/bpew: CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o
 build/bpew: CMakeFiles/bpew.dir/build.make
 build/bpew: /usr/lib/libSDL2main.a
 build/bpew: /usr/lib/libSDL2-2.0.so.0.2600.5
@@ -594,7 +642,7 @@ build/bpew: /usr/lib/libassimp.so.5.2.4
 build/bpew: /usr/lib/libz.so
 build/bpew: /usr/lib/librt.a
 build/bpew: CMakeFiles/bpew.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Linking CXX executable build/bpew"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Linking CXX executable build/bpew"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/bpew.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

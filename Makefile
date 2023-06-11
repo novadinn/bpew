@@ -537,6 +537,30 @@ src/core/time.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/core/time.cpp.s
 .PHONY : src/core/time.cpp.s
 
+src/core/tokenizer.o: src/core/tokenizer.cpp.o
+.PHONY : src/core/tokenizer.o
+
+# target to build an object file
+src/core/tokenizer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o
+.PHONY : src/core/tokenizer.cpp.o
+
+src/core/tokenizer.i: src/core/tokenizer.cpp.i
+.PHONY : src/core/tokenizer.i
+
+# target to preprocess a source file
+src/core/tokenizer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/core/tokenizer.cpp.i
+.PHONY : src/core/tokenizer.cpp.i
+
+src/core/tokenizer.s: src/core/tokenizer.cpp.s
+.PHONY : src/core/tokenizer.s
+
+# target to generate assembly for a file
+src/core/tokenizer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/core/tokenizer.cpp.s
+.PHONY : src/core/tokenizer.cpp.s
+
 src/core/window.o: src/core/window.cpp.o
 .PHONY : src/core/window.o
 
@@ -777,29 +801,77 @@ src/graphics/renderer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/renderer.cpp.s
 .PHONY : src/graphics/renderer.cpp.s
 
-src/graphics/shader.o: src/graphics/shader.cpp.o
-.PHONY : src/graphics/shader.o
+src/graphics/shaders/shader.o: src/graphics/shaders/shader.cpp.o
+.PHONY : src/graphics/shaders/shader.o
 
 # target to build an object file
-src/graphics/shader.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/shader.cpp.o
-.PHONY : src/graphics/shader.cpp.o
+src/graphics/shaders/shader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o
+.PHONY : src/graphics/shaders/shader.cpp.o
 
-src/graphics/shader.i: src/graphics/shader.cpp.i
-.PHONY : src/graphics/shader.i
+src/graphics/shaders/shader.i: src/graphics/shaders/shader.cpp.i
+.PHONY : src/graphics/shaders/shader.i
 
 # target to preprocess a source file
-src/graphics/shader.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/shader.cpp.i
-.PHONY : src/graphics/shader.cpp.i
+src/graphics/shaders/shader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.i
+.PHONY : src/graphics/shaders/shader.cpp.i
 
-src/graphics/shader.s: src/graphics/shader.cpp.s
-.PHONY : src/graphics/shader.s
+src/graphics/shaders/shader.s: src/graphics/shaders/shader.cpp.s
+.PHONY : src/graphics/shaders/shader.s
 
 # target to generate assembly for a file
-src/graphics/shader.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/shader.cpp.s
-.PHONY : src/graphics/shader.cpp.s
+src/graphics/shaders/shader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.s
+.PHONY : src/graphics/shaders/shader.cpp.s
+
+src/graphics/shaders/shader_builder.o: src/graphics/shaders/shader_builder.cpp.o
+.PHONY : src/graphics/shaders/shader_builder.o
+
+# target to build an object file
+src/graphics/shaders/shader_builder.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o
+.PHONY : src/graphics/shaders/shader_builder.cpp.o
+
+src/graphics/shaders/shader_builder.i: src/graphics/shaders/shader_builder.cpp.i
+.PHONY : src/graphics/shaders/shader_builder.i
+
+# target to preprocess a source file
+src/graphics/shaders/shader_builder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.i
+.PHONY : src/graphics/shaders/shader_builder.cpp.i
+
+src/graphics/shaders/shader_builder.s: src/graphics/shaders/shader_builder.cpp.s
+.PHONY : src/graphics/shaders/shader_builder.s
+
+# target to generate assembly for a file
+src/graphics/shaders/shader_builder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.s
+.PHONY : src/graphics/shaders/shader_builder.cpp.s
+
+src/graphics/shaders/shader_parser.o: src/graphics/shaders/shader_parser.cpp.o
+.PHONY : src/graphics/shaders/shader_parser.o
+
+# target to build an object file
+src/graphics/shaders/shader_parser.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o
+.PHONY : src/graphics/shaders/shader_parser.cpp.o
+
+src/graphics/shaders/shader_parser.i: src/graphics/shaders/shader_parser.cpp.i
+.PHONY : src/graphics/shaders/shader_parser.i
+
+# target to preprocess a source file
+src/graphics/shaders/shader_parser.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.i
+.PHONY : src/graphics/shaders/shader_parser.cpp.i
+
+src/graphics/shaders/shader_parser.s: src/graphics/shaders/shader_parser.cpp.s
+.PHONY : src/graphics/shaders/shader_parser.s
+
+# target to generate assembly for a file
+src/graphics/shaders/shader_parser.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.s
+.PHONY : src/graphics/shaders/shader_parser.cpp.s
 
 src/graphics/texture.o: src/graphics/texture.cpp.o
 .PHONY : src/graphics/texture.o
@@ -957,6 +1029,9 @@ help:
 	@echo "... src/core/time.o"
 	@echo "... src/core/time.i"
 	@echo "... src/core/time.s"
+	@echo "... src/core/tokenizer.o"
+	@echo "... src/core/tokenizer.i"
+	@echo "... src/core/tokenizer.s"
 	@echo "... src/core/window.o"
 	@echo "... src/core/window.i"
 	@echo "... src/core/window.s"
@@ -987,9 +1062,15 @@ help:
 	@echo "... src/graphics/renderer.o"
 	@echo "... src/graphics/renderer.i"
 	@echo "... src/graphics/renderer.s"
-	@echo "... src/graphics/shader.o"
-	@echo "... src/graphics/shader.i"
-	@echo "... src/graphics/shader.s"
+	@echo "... src/graphics/shaders/shader.o"
+	@echo "... src/graphics/shaders/shader.i"
+	@echo "... src/graphics/shaders/shader.s"
+	@echo "... src/graphics/shaders/shader_builder.o"
+	@echo "... src/graphics/shaders/shader_builder.i"
+	@echo "... src/graphics/shaders/shader_builder.s"
+	@echo "... src/graphics/shaders/shader_parser.o"
+	@echo "... src/graphics/shaders/shader_parser.i"
+	@echo "... src/graphics/shaders/shader_parser.s"
 	@echo "... src/graphics/texture.o"
 	@echo "... src/graphics/texture.i"
 	@echo "... src/graphics/texture.s"

@@ -1,7 +1,7 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "shader.h"
+#include "shaders/shader.h"
 #include "vertex_array.h"
 #include "model.h"
 #include "camera.h"

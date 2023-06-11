@@ -1,87 +1,12 @@
 #include "renderer.h"
 
-#include "../graphics/shader.h"
+#include "../graphics/shaders/shader.h"
 #include "../core/glm_extensions.h"
 #include "../core/log.h"
+#include "shaders/shader_builder.h"
+#include "../shaders/infos/solid_shader.h"
 
 #include <glad/glad.h>
-
-const char* solid_shader_vs = R"(
-#version 460 core
-layout (location = 0) in vec3 aPos;
-layout (location = 1) in vec3 aNormal;
-layout (location = 2) in vec2 aTexCoord;
-layout (location = 3) in vec3 aTangent;
-layout (location = 4) in vec3 aBitangent;
-
-out VS_OUT {
-    vec3 fragPos;
-    vec3 normal;
-} vs_out;
-
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
-
-void main() {
-    vec4 worldPosition = model* vec4(aPos, 1.0f);
-
-    vs_out.fragPos = vec3(worldPosition);
-    vs_out.normal = mat3(transpose(inverse(model))) * aNormal;
-
-	gl_Position = projection * view * worldPosition;
-}
-)";
-const char* solid_shader_fs = R"(
-#version 460 core
-
-layout (location = 0) out vec4 fragColor;
-layout (location = 1) out int entityID;
-
-struct DirLight {
-    vec3 direction;
-
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;
-};
-
-in VS_OUT {
-    vec3 fragPos;
-    vec3 normal;
-} vs_in;
-
-uniform vec3 viewPos;
-uniform DirLight dirLight;
-uniform float shininess;
-
-uniform int entity;
-
-vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir);
-
-void main() {
-    vec3 norm = normalize(vs_in.normal);
-    vec3 viewDir = normalize(viewPos - vs_in.fragPos);
-
-    vec3 result = calcDirLight(dirLight, norm, viewDir);
-
-	fragColor = vec4(0.5f, 0.5f, 0.5f, 1.0f) + vec4(result, 0.0f);
-    entityID = entity;
-}
-
-vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir) {
-    vec3 lightDir = normalize(-light.direction);
-    float diff = max(dot(normal, lightDir), 0.0);
-    vec3 reflectDir = reflect(-lightDir, normal);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
-    
-    vec3 ambient = light.ambient;
-    vec3 diffuse = light.diffuse * diff;
-    vec3 specular = light.specular * spec;
-    
-    return (ambient + diffuse + specular);
-}
-)";
 
 const char* render_shader_vs = R"(
 #version 460 core
@@ -214,7 +139,7 @@ static Shader solid_shader;
 static Shader render_shader;
 
 void Renderer::init() {
-    solid_shader.createFromSource(solid_shader_vs, solid_shader_fs);
+    solid_shader = ShaderBuilder::build_shader_from_create_info(solid_shader_create_info);
     render_shader.createFromSource(render_shader_vs, render_shader_fs);
 }
 
