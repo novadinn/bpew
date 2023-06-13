@@ -16,26 +16,30 @@
 
 struct Renderer {
 
-	static void init();
-	static void destroy();
+    static void init();
+    static void destroy();
 
-	// TODO: can we pass a entt::view in here?
-	static void drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
-						 std::vector<LightComponent>& lights,
-						 std::vector<TransformComponent>& light_transforms,
-						 const glm::mat4& model);
-	static void drawMeshSolid(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
-							  const glm::mat4& model);
-	static void drawMeshRendered(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
-								 std::vector<LightComponent>& lights,
-								 std::vector<TransformComponent>& light_transforms,
-								 const glm::mat4& model);
-	static void drawMeshWireframe(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
-								  const glm::mat4& model);
-	
-	static void clear();
+    // TODO: can we pass a entt::view in here?
+    static void drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
+				 std::vector<LightComponent>& lights,
+				 std::vector<TransformComponent>& light_transforms,
+				 const glm::mat4& model);
+    static void drawMeshSolid(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
+			      const glm::mat4& model);
+    static void drawMeshRendered(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
+				 std::vector<LightComponent>& lights,
+				 std::vector<TransformComponent>& light_transforms,
+				 const glm::mat4& model);
+    static void drawMeshWireframe(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
+				  const glm::mat4& model);
 
-	static void setClearColor(const glm::vec4& color);
+    static void outlineSelectedMesh(uint color_texture_id, uint entities_texture_id,
+				     uint32 selected_entity_id, glm::vec3 outline_color,
+				     float mix_factor);
+    
+    static void clear();
+
+    static void setClearColor(const glm::vec4& color);
 };
 
 #endif // RENDERER_H

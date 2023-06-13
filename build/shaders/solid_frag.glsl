@@ -1,7 +1,8 @@
 #version 460 core
 
 layout (location = 0) out vec4 fragColor;
-layout (location = 1) out int entityID;
+// TODO: shouldnt entities be an uint? 
+layout (location = 1) out vec4 entityID;
 
 struct DirLight {
     vec3 direction;
@@ -30,8 +31,8 @@ void main() {
 
     vec3 result = calcDirLight(dirLight, norm, viewDir);
 
-	fragColor = vec4(0.5f, 0.5f, 0.5f, 1.0f) + vec4(result, 0.0f);
-    entityID = entity;
+    fragColor = vec4(0.5f, 0.5f, 0.5f, 1.0f) + vec4(result, 0.0f);
+    entityID = vec4(float(entity), 0.0f, 0.0f, 0.0f);
 }
 
 vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir) {
