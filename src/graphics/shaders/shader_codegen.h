@@ -7,7 +7,7 @@
 #include "shader_create_info.h"
 
 struct ShaderCodegen {
-	
+    ShaderCreateInfo create_material_info(Material& material);
 private:
     ShaderCreateInfo info;	
 };

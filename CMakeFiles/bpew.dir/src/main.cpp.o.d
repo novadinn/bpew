@@ -375,8 +375,28 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /usr/include/c++/13.1.1/bits/basic_ios.tcc \
  /usr/include/c++/13.1.1/bits/ostream.tcc /usr/include/c++/13.1.1/istream \
  /usr/include/c++/13.1.1/bits/istream.tcc \
- /home/nikolay/Projects/bpew-new/src/core/file_system.h \
+ /home/nikolay/Projects/bpew-new/src/core/utils.h \
  /home/nikolay/Projects/bpew-new/src/core/platform.h \
+ /usr/include/c++/13.1.1/random /usr/include/c++/13.1.1/bits/random.h \
+ /usr/include/c++/13.1.1/vector \
+ /usr/include/c++/13.1.1/bits/stl_uninitialized.h \
+ /usr/include/c++/13.1.1/bits/stl_vector.h \
+ /usr/include/c++/13.1.1/bits/stl_bvector.h \
+ /usr/include/c++/13.1.1/bits/vector.tcc \
+ /usr/include/c++/13.1.1/bits/uniform_int_dist.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/opt_random.h \
+ /usr/include/c++/13.1.1/bits/random.tcc /usr/include/c++/13.1.1/numeric \
+ /usr/include/c++/13.1.1/bits/stl_numeric.h \
+ /usr/include/c++/13.1.1/pstl/glue_numeric_defs.h \
+ /usr/include/c++/13.1.1/pstl/execution_defs.h \
+ /usr/include/c++/13.1.1/unordered_map \
+ /usr/include/c++/13.1.1/bits/unordered_map.h \
+ /usr/include/c++/13.1.1/bits/hashtable.h \
+ /usr/include/c++/13.1.1/bits/hashtable_policy.h \
+ /usr/include/c++/13.1.1/ext/aligned_buffer.h \
+ /usr/include/c++/13.1.1/bits/enable_special_members.h \
+ /usr/include/c++/13.1.1/bits/node_handle.h \
+ /usr/include/c++/13.1.1/bits/erase_if.h \
  /home/nikolay/Projects/bpew-new/src/core/window.h \
  /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_main.h \
  /usr/include/SDL2/SDL_stdinc.h /usr/include/SDL2/SDL_config.h \
@@ -502,19 +522,11 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /home/nikolay/Projects/bpew-new/src/core/log.h \
  /home/nikolay/Projects/bpew-new/src/core/input.h \
  /usr/include/c++/13.1.1/map /usr/include/c++/13.1.1/bits/stl_tree.h \
- /usr/include/c++/13.1.1/ext/aligned_buffer.h \
- /usr/include/c++/13.1.1/bits/node_handle.h \
  /usr/include/c++/13.1.1/bits/stl_map.h \
  /usr/include/c++/13.1.1/bits/stl_multimap.h \
- /usr/include/c++/13.1.1/bits/erase_if.h \
  /home/nikolay/Projects/bpew-new/src/core/time.h \
  /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader.h \
  /home/nikolay/Projects/bpew-new/src/graphics/texture.h \
- /usr/include/c++/13.1.1/vector \
- /usr/include/c++/13.1.1/bits/stl_uninitialized.h \
- /usr/include/c++/13.1.1/bits/stl_vector.h \
- /usr/include/c++/13.1.1/bits/stl_bvector.h \
- /usr/include/c++/13.1.1/bits/vector.tcc \
  /home/nikolay/Projects/bpew-new/src/graphics/index_buffer.h \
  /home/nikolay/Projects/bpew-new/src/graphics/../core/platform.h \
  /home/nikolay/Projects/bpew-new/src/graphics/vertex_buffer.h \
@@ -528,6 +540,42 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /home/nikolay/Projects/bpew-new/src/graphics/model.h \
  /home/nikolay/Projects/bpew-new/src/graphics/mesh.h \
  /home/nikolay/Projects/bpew-new/src/graphics/texture.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/material.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/framebuffer.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../nodes/node.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../nodes/node_property.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../nodes/../graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../nodes/../graphics/texture.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../nodes/../core/id.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../nodes/../core/utils.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../nodes/node_link.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_builder.h \
+ /usr/include/c++/13.1.1/sstream /usr/include/c++/13.1.1/bits/sstream.tcc \
+ /usr/include/c++/13.1.1/fstream /usr/include/c++/13.1.1/bits/codecvt.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/basic_file.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/c++io.h \
+ /usr/include/c++/13.1.1/bits/fstream.tcc /usr/include/c++/13.1.1/set \
+ /usr/include/c++/13.1.1/bits/stl_set.h \
+ /usr/include/c++/13.1.1/bits/stl_multiset.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_info.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../core/platform.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../core/tokenizer.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../nodes/node.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../nodes/node_property.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../core/sha.h \
+ /usr/include/openssl/sha.h /usr/include/openssl/macros.h \
+ /usr/include/openssl/opensslconf.h /usr/include/openssl/configuration.h \
+ /usr/include/openssl/opensslv.h /usr/include/openssl/e_os2.h \
+ /usr/include/c++/13.1.1/iomanip /usr/include/c++/13.1.1/locale \
+ /usr/include/c++/13.1.1/bits/locale_facets_nonio.h \
+ /usr/include/c++/13.1.1/ctime \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/time_members.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/messages_members.h \
+ /usr/include/libintl.h \
+ /usr/include/c++/13.1.1/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/13.1.1/bits/locale_conv.h \
+ /usr/include/c++/13.1.1/bits/quoted_string.h \
  /usr/include/assimp/Importer.hpp /usr/include/assimp/types.h \
  /usr/include/assimp/defs.h /usr/include/assimp/config.h \
  /usr/include/assimp/vector2.h /usr/include/assimp/vector3.h \
@@ -539,12 +587,10 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /usr/include/c++/13.1.1/bits/stl_algo.h \
  /usr/include/c++/13.1.1/bits/algorithmfwd.h \
  /usr/include/c++/13.1.1/bits/stl_heap.h \
- /usr/include/c++/13.1.1/bits/uniform_int_dist.h \
  /usr/include/c++/13.1.1/bits/stl_tempbuf.h \
  /usr/include/c++/13.1.1/bits/ranges_algo.h \
  /usr/include/c++/13.1.1/bits/ranges_algobase.h \
  /usr/include/c++/13.1.1/pstl/glue_algorithm_defs.h \
- /usr/include/c++/13.1.1/pstl/execution_defs.h \
  /usr/include/assimp/matrix4x4.inl /usr/include/assimp/MathFunctions.h \
  /usr/include/assimp/quaternion.inl /usr/include/assimp/scene.h \
  /usr/include/assimp/texture.h /usr/include/assimp/Compiler/pushpack1.h \
@@ -569,11 +615,6 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /home/nikolay/Projects/bpew-new/include/entt/single_include/entt/entt.hpp \
  /usr/include/c++/13.1.1/functional \
  /usr/include/c++/13.1.1/bits/std_function.h \
- /usr/include/c++/13.1.1/unordered_map \
- /usr/include/c++/13.1.1/bits/unordered_map.h \
- /usr/include/c++/13.1.1/bits/hashtable.h \
- /usr/include/c++/13.1.1/bits/hashtable_policy.h \
- /usr/include/c++/13.1.1/bits/enable_special_members.h \
  /usr/include/c++/13.1.1/array /usr/include/c++/13.1.1/iterator \
  /usr/include/c++/13.1.1/bits/stream_iterator.h \
  /usr/include/c++/13.1.1/memory \
@@ -603,14 +644,13 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /usr/include/c++/13.1.1/bits/stl_deque.h \
  /usr/include/c++/13.1.1/bits/deque.tcc /usr/include/c++/13.1.1/list \
  /usr/include/c++/13.1.1/bits/stl_list.h \
- /usr/include/c++/13.1.1/bits/list.tcc /usr/include/c++/13.1.1/set \
- /usr/include/c++/13.1.1/bits/stl_set.h \
- /usr/include/c++/13.1.1/bits/stl_multiset.h \
+ /usr/include/c++/13.1.1/bits/list.tcc \
  /usr/include/c++/13.1.1/unordered_set \
  /usr/include/c++/13.1.1/bits/unordered_set.h \
  /home/nikolay/Projects/bpew-new/src/graphics/../ecs/../core/log.h \
  /home/nikolay/Projects/bpew-new/src/graphics/../ecs/components/mesh_component.h \
  /home/nikolay/Projects/bpew-new/src/graphics/../ecs/components/../../graphics/model.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../ecs/components/../../graphics/material.h \
  /home/nikolay/Projects/bpew-new/src/graphics/../ecs/components/light_component.h \
  /home/nikolay/Projects/bpew-new/src/graphics/../ecs/components/transform_component.h \
  /home/nikolay/Projects/bpew-new/src/graphics/../ecs/components/camera_component.h \
@@ -630,5 +670,7 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /home/nikolay/Projects/bpew-new/src/editor/../ecs/entity.h \
  /home/nikolay/Projects/bpew-new/src/editor/../graphics/camera.h \
  /home/nikolay/Projects/bpew-new/src/editor/../graphics/framebuffer.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../nodes/node.h \
  /home/nikolay/Projects/bpew-new/include/imgui/backends/imgui_impl_sdl2.h \
- /home/nikolay/Projects/bpew-new/include/imgui/backends/imgui_impl_opengl3.h
+ /home/nikolay/Projects/bpew-new/include/imgui/backends/imgui_impl_opengl3.h \
+ /home/nikolay/Projects/bpew-new/include/imnodes/imnodes.h

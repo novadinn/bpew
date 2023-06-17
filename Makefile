@@ -465,29 +465,29 @@ include/imgui/misc/cpp/imgui_stdlib.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/imgui/misc/cpp/imgui_stdlib.cpp.s
 .PHONY : include/imgui/misc/cpp/imgui_stdlib.cpp.s
 
-src/core/file_system.o: src/core/file_system.cpp.o
-.PHONY : src/core/file_system.o
+include/imnodes/imnodes.o: include/imnodes/imnodes.cpp.o
+.PHONY : include/imnodes/imnodes.o
 
 # target to build an object file
-src/core/file_system.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/core/file_system.cpp.o
-.PHONY : src/core/file_system.cpp.o
+include/imnodes/imnodes.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.o
+.PHONY : include/imnodes/imnodes.cpp.o
 
-src/core/file_system.i: src/core/file_system.cpp.i
-.PHONY : src/core/file_system.i
+include/imnodes/imnodes.i: include/imnodes/imnodes.cpp.i
+.PHONY : include/imnodes/imnodes.i
 
 # target to preprocess a source file
-src/core/file_system.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/core/file_system.cpp.i
-.PHONY : src/core/file_system.cpp.i
+include/imnodes/imnodes.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.i
+.PHONY : include/imnodes/imnodes.cpp.i
 
-src/core/file_system.s: src/core/file_system.cpp.s
-.PHONY : src/core/file_system.s
+include/imnodes/imnodes.s: include/imnodes/imnodes.cpp.s
+.PHONY : include/imnodes/imnodes.s
 
 # target to generate assembly for a file
-src/core/file_system.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/core/file_system.cpp.s
-.PHONY : src/core/file_system.cpp.s
+include/imnodes/imnodes.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.s
+.PHONY : include/imnodes/imnodes.cpp.s
 
 src/core/input.o: src/core/input.cpp.o
 .PHONY : src/core/input.o
@@ -969,6 +969,54 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/nodes/node.o: src/nodes/node.cpp.o
+.PHONY : src/nodes/node.o
+
+# target to build an object file
+src/nodes/node.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/nodes/node.cpp.o
+.PHONY : src/nodes/node.cpp.o
+
+src/nodes/node.i: src/nodes/node.cpp.i
+.PHONY : src/nodes/node.i
+
+# target to preprocess a source file
+src/nodes/node.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/nodes/node.cpp.i
+.PHONY : src/nodes/node.cpp.i
+
+src/nodes/node.s: src/nodes/node.cpp.s
+.PHONY : src/nodes/node.s
+
+# target to generate assembly for a file
+src/nodes/node.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/nodes/node.cpp.s
+.PHONY : src/nodes/node.cpp.s
+
+src/nodes/node_link.o: src/nodes/node_link.cpp.o
+.PHONY : src/nodes/node_link.o
+
+# target to build an object file
+src/nodes/node_link.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/nodes/node_link.cpp.o
+.PHONY : src/nodes/node_link.cpp.o
+
+src/nodes/node_link.i: src/nodes/node_link.cpp.i
+.PHONY : src/nodes/node_link.i
+
+# target to preprocess a source file
+src/nodes/node_link.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/nodes/node_link.cpp.i
+.PHONY : src/nodes/node_link.cpp.i
+
+src/nodes/node_link.s: src/nodes/node_link.cpp.s
+.PHONY : src/nodes/node_link.s
+
+# target to generate assembly for a file
+src/nodes/node_link.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/nodes/node_link.cpp.s
+.PHONY : src/nodes/node_link.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1020,9 +1068,9 @@ help:
 	@echo "... include/imgui/misc/cpp/imgui_stdlib.o"
 	@echo "... include/imgui/misc/cpp/imgui_stdlib.i"
 	@echo "... include/imgui/misc/cpp/imgui_stdlib.s"
-	@echo "... src/core/file_system.o"
-	@echo "... src/core/file_system.i"
-	@echo "... src/core/file_system.s"
+	@echo "... include/imnodes/imnodes.o"
+	@echo "... include/imnodes/imnodes.i"
+	@echo "... include/imnodes/imnodes.s"
 	@echo "... src/core/input.o"
 	@echo "... src/core/input.i"
 	@echo "... src/core/input.s"
@@ -1083,6 +1131,12 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/nodes/node.o"
+	@echo "... src/nodes/node.i"
+	@echo "... src/nodes/node.s"
+	@echo "... src/nodes/node_link.o"
+	@echo "... src/nodes/node_link.i"
+	@echo "... src/nodes/node_link.s"
 .PHONY : help
 
 

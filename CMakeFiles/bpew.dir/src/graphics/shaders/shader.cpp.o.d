@@ -230,6 +230,16 @@ CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o: \
  /home/nikolay/Projects/bpew-new/include/glm/glm/detail/type_half.inl \
  /home/nikolay/Projects/bpew-new/include/glm/glm/integer.hpp \
  /home/nikolay/Projects/bpew-new/include/glm/glm/detail/func_integer.inl \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../core/log.h \
+ /usr/include/c++/13.1.1/cstdlib /usr/include/c++/13.1.1/cstdio \
+ /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stdarg.h \
+ /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__mbstate_t.h \
+ /usr/include/bits/types/__fpos64_t.h /usr/include/bits/types/__FILE.h \
+ /usr/include/bits/types/FILE.h /usr/include/bits/types/struct_FILE.h \
+ /usr/include/bits/types/cookie_io_functions_t.h \
+ /usr/include/bits/stdio_lim.h /usr/include/c++/13.1.1/cstring \
+ /usr/include/string.h /usr/include/strings.h \
  /home/nikolay/Projects/bpew-new/include/glad/glad.h \
  /home/nikolay/Projects/bpew-new/include/KHR/khrplatform.h \
  /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/type_ptr.hpp \
@@ -282,8 +292,6 @@ CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o: \
  /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/vector_int1_sized.hpp \
  /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/vector_uint1.hpp \
  /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/vector_uint1_sized.hpp \
- /usr/include/c++/13.1.1/cstring /usr/include/string.h \
- /usr/include/strings.h \
  /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/type_ptr.inl \
  /usr/include/c++/13.1.1/vector /usr/include/c++/13.1.1/bits/allocator.h \
  /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
@@ -309,11 +317,4 @@ CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o: \
  /usr/include/c++/13.1.1/tuple /usr/include/c++/13.1.1/bits/ranges_util.h \
  /usr/include/c++/13.1.1/bits/ranges_base.h \
  /usr/include/c++/13.1.1/bits/max_size_type.h \
- /usr/include/c++/13.1.1/numbers /usr/include/c++/13.1.1/cstdio \
- /usr/include/stdio.h \
- /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stdarg.h \
- /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__mbstate_t.h \
- /usr/include/bits/types/__fpos64_t.h /usr/include/bits/types/__FILE.h \
- /usr/include/bits/types/FILE.h /usr/include/bits/types/struct_FILE.h \
- /usr/include/bits/types/cookie_io_functions_t.h \
- /usr/include/bits/stdio_lim.h
+ /usr/include/c++/13.1.1/numbers

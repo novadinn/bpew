@@ -1,11 +1,9 @@
+#ifndef SOLID_SHADER_H
+#define SOLID_SHADER_H
+
 #include "../../graphics/shaders/shader_create_info.h"
 
-const char* VS_OUT = R"(
-{
-vec3 fragPos;
-vec3 normal;
-}
-)";
+#include "info_defines.h"
 
 const ShaderCreateInfo solid_shader_create_info = ShaderCreateInfo::create()
     .vin(ShaderType::VEC3, 0, "aPos")
@@ -26,3 +24,5 @@ const ShaderCreateInfo solid_shader_create_info = ShaderCreateInfo::create()
     .dep("lights_lib.glsl")
     .vertex("solid_shader_vs.glsl")
     .fragment("solid_shader_fs.glsl");		    
+
+#endif

@@ -34,6 +34,12 @@ struct ShaderUniform {
     std::string name;
 };
 
+struct ShaderUniformArray {
+    std::string type;
+    std::string name;
+    uint size;
+};
+
 struct ShaderUniformBuffer {
     std::string name;    
     std::string body;
@@ -45,21 +51,19 @@ struct ShaderDefine {
     std::string value;
 };
 
-struct ShaderInfo {
-    ShaderInfo() = default;
-
-    std::vector<ShaderInOut> vins;
-    std::vector<ShaderInOut> fins;
+struct ShaderInfo {        
+    std::vector<ShaderInOut> vins, fins;    
     std::vector<ShaderInterface> interfaces;
     std::vector<ShaderUniformBuffer> uniform_buffers;
-    std::vector<ShaderInOut> vouts;
-    std::vector<ShaderInOut> fouts;
+    std::vector<ShaderInOut> vouts, fouts;    
     std::vector<ShaderUniform> uniforms;
+    std::vector<ShaderUniformArray> uniform_arrays;
     std::vector<ShaderDefine> defines;	
 
-    std::string fragment_source, vertex_source;	
-    std::vector<std::string> deps;
-    // NOTE: the difference between deps in that deps will recursively search for other deps
+    std::string fragment_source, vertex_source, compute_source;	
+    // NOTE: the difference between typedeps in that ShaderBuilder will
+    // recursively search for other deps
+    std::vector<std::string> deps;    
     std::vector<std::string> typedeps;
 };
 

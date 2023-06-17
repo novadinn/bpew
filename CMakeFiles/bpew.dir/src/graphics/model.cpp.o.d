@@ -306,42 +306,41 @@ CMakeFiles/bpew.dir/src/graphics/model.cpp.o: \
  /usr/include/bits/types/error_t.h \
  /usr/include/c++/13.1.1/bits/charconv.h \
  /usr/include/c++/13.1.1/bits/basic_string.tcc \
- /usr/include/assimp/Importer.hpp /usr/include/assimp/types.h \
- /usr/include/string.h /usr/include/strings.h /usr/include/assimp/defs.h \
- /usr/include/assimp/config.h /usr/include/assimp/vector2.h \
- /usr/include/assimp/vector3.h /usr/include/assimp/color4.h \
- /usr/include/assimp/matrix3x3.h /usr/include/assimp/matrix4x4.h \
- /usr/include/assimp/quaternion.h /usr/include/c++/13.1.1/cstring \
- /usr/include/assimp/vector2.inl /usr/include/assimp/vector3.inl \
- /usr/include/assimp/color4.inl /usr/include/assimp/matrix3x3.inl \
- /usr/include/c++/13.1.1/algorithm \
- /usr/include/c++/13.1.1/bits/stl_algo.h \
- /usr/include/c++/13.1.1/bits/algorithmfwd.h \
- /usr/include/c++/13.1.1/bits/stl_heap.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/material.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/framebuffer.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../nodes/node.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../nodes/node_property.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../nodes/../graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../nodes/../graphics/texture.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../nodes/../core/id.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../nodes/../core/utils.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../nodes/../core/platform.h \
+ /usr/include/c++/13.1.1/random /usr/include/c++/13.1.1/bits/random.h \
  /usr/include/c++/13.1.1/bits/uniform_int_dist.h \
- /usr/include/c++/13.1.1/bits/stl_tempbuf.h \
- /usr/include/c++/13.1.1/bits/ranges_algo.h \
- /usr/include/c++/13.1.1/bits/ranges_algobase.h \
- /usr/include/c++/13.1.1/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/opt_random.h \
+ /usr/include/c++/13.1.1/bits/random.tcc /usr/include/c++/13.1.1/numeric \
+ /usr/include/c++/13.1.1/bits/stl_numeric.h \
+ /usr/include/c++/13.1.1/pstl/glue_numeric_defs.h \
  /usr/include/c++/13.1.1/pstl/execution_defs.h \
- /usr/include/assimp/matrix4x4.inl /usr/include/assimp/MathFunctions.h \
- /usr/include/assimp/quaternion.inl /usr/include/c++/13.1.1/exception \
+ /usr/include/c++/13.1.1/unordered_map \
+ /usr/include/c++/13.1.1/bits/unordered_map.h \
+ /usr/include/c++/13.1.1/bits/hashtable.h \
+ /usr/include/c++/13.1.1/bits/hashtable_policy.h \
+ /usr/include/c++/13.1.1/ext/aligned_buffer.h \
+ /usr/include/c++/13.1.1/bits/enable_special_members.h \
+ /usr/include/c++/13.1.1/bits/node_handle.h \
+ /usr/include/c++/13.1.1/bits/erase_if.h /usr/include/c++/13.1.1/cstring \
+ /usr/include/string.h /usr/include/strings.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../nodes/node_link.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_builder.h \
+ /usr/include/c++/13.1.1/sstream /usr/include/c++/13.1.1/istream \
+ /usr/include/c++/13.1.1/ios /usr/include/c++/13.1.1/exception \
  /usr/include/c++/13.1.1/bits/exception_ptr.h \
  /usr/include/c++/13.1.1/bits/cxxabi_init_exception.h \
  /usr/include/c++/13.1.1/typeinfo \
  /usr/include/c++/13.1.1/bits/nested_exception.h \
- /usr/include/assimp/scene.h /usr/include/assimp/texture.h \
- /usr/include/assimp/Compiler/pushpack1.h \
- /usr/include/assimp/Compiler/poppack1.h /usr/include/assimp/mesh.h \
- /usr/include/assimp/aabb.h /usr/include/assimp/light.h \
- /usr/include/assimp/camera.h /usr/include/assimp/material.h \
- /usr/include/assimp/material.inl /usr/include/assimp/anim.h \
- /usr/include/assimp/metadata.h /usr/include/assimp/postprocess.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../core/log.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../core/file_system.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../core/platform.h \
- /usr/include/c++/13.1.1/iostream /usr/include/c++/13.1.1/ostream \
- /usr/include/c++/13.1.1/ios /usr/include/c++/13.1.1/bits/ios_base.h \
+ /usr/include/c++/13.1.1/bits/ios_base.h \
  /usr/include/c++/13.1.1/ext/atomicity.h \
  /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/gthr.h \
  /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/gthr-default.h \
@@ -368,5 +367,58 @@ CMakeFiles/bpew.dir/src/graphics/model.cpp.o: \
  /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/ctype_inline.h \
  /usr/include/c++/13.1.1/bits/locale_facets.tcc \
  /usr/include/c++/13.1.1/bits/basic_ios.tcc \
- /usr/include/c++/13.1.1/bits/ostream.tcc /usr/include/c++/13.1.1/istream \
- /usr/include/c++/13.1.1/bits/istream.tcc
+ /usr/include/c++/13.1.1/ostream /usr/include/c++/13.1.1/bits/ostream.tcc \
+ /usr/include/c++/13.1.1/bits/istream.tcc \
+ /usr/include/c++/13.1.1/bits/sstream.tcc /usr/include/c++/13.1.1/fstream \
+ /usr/include/c++/13.1.1/bits/codecvt.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/basic_file.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/c++io.h \
+ /usr/include/c++/13.1.1/bits/fstream.tcc /usr/include/c++/13.1.1/set \
+ /usr/include/c++/13.1.1/bits/stl_tree.h \
+ /usr/include/c++/13.1.1/bits/stl_set.h \
+ /usr/include/c++/13.1.1/bits/stl_multiset.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_info.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../core/platform.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../core/tokenizer.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../nodes/node.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../nodes/node_property.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../core/sha.h \
+ /usr/include/openssl/sha.h /usr/include/openssl/macros.h \
+ /usr/include/openssl/opensslconf.h /usr/include/openssl/configuration.h \
+ /usr/include/openssl/opensslv.h /usr/include/openssl/e_os2.h \
+ /usr/include/c++/13.1.1/iomanip /usr/include/c++/13.1.1/locale \
+ /usr/include/c++/13.1.1/bits/locale_facets_nonio.h \
+ /usr/include/c++/13.1.1/ctime \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/time_members.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/messages_members.h \
+ /usr/include/libintl.h \
+ /usr/include/c++/13.1.1/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/13.1.1/bits/locale_conv.h \
+ /usr/include/c++/13.1.1/bits/quoted_string.h \
+ /usr/include/assimp/Importer.hpp /usr/include/assimp/types.h \
+ /usr/include/assimp/defs.h /usr/include/assimp/config.h \
+ /usr/include/assimp/vector2.h /usr/include/assimp/vector3.h \
+ /usr/include/assimp/color4.h /usr/include/assimp/matrix3x3.h \
+ /usr/include/assimp/matrix4x4.h /usr/include/assimp/quaternion.h \
+ /usr/include/assimp/vector2.inl /usr/include/assimp/vector3.inl \
+ /usr/include/assimp/color4.inl /usr/include/assimp/matrix3x3.inl \
+ /usr/include/c++/13.1.1/algorithm \
+ /usr/include/c++/13.1.1/bits/stl_algo.h \
+ /usr/include/c++/13.1.1/bits/algorithmfwd.h \
+ /usr/include/c++/13.1.1/bits/stl_heap.h \
+ /usr/include/c++/13.1.1/bits/stl_tempbuf.h \
+ /usr/include/c++/13.1.1/bits/ranges_algo.h \
+ /usr/include/c++/13.1.1/bits/ranges_algobase.h \
+ /usr/include/c++/13.1.1/pstl/glue_algorithm_defs.h \
+ /usr/include/assimp/matrix4x4.inl /usr/include/assimp/MathFunctions.h \
+ /usr/include/assimp/quaternion.inl /usr/include/assimp/scene.h \
+ /usr/include/assimp/texture.h /usr/include/assimp/Compiler/pushpack1.h \
+ /usr/include/assimp/Compiler/poppack1.h /usr/include/assimp/mesh.h \
+ /usr/include/assimp/aabb.h /usr/include/assimp/light.h \
+ /usr/include/assimp/camera.h /usr/include/assimp/material.h \
+ /usr/include/assimp/material.inl /usr/include/assimp/anim.h \
+ /usr/include/assimp/metadata.h /usr/include/assimp/postprocess.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../core/log.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/../core/utils.h \
+ /usr/include/c++/13.1.1/iostream

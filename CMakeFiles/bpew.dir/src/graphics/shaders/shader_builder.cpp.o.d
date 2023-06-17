@@ -149,7 +149,13 @@ CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o: \
  /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/basic_file.h \
  /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/c++io.h \
  /usr/include/c++/13.1.1/bits/fstream.tcc /usr/include/c++/13.1.1/cstring \
- /usr/include/string.h /usr/include/strings.h \
+ /usr/include/string.h /usr/include/strings.h /usr/include/c++/13.1.1/set \
+ /usr/include/c++/13.1.1/bits/stl_tree.h \
+ /usr/include/c++/13.1.1/ext/aligned_buffer.h \
+ /usr/include/c++/13.1.1/bits/node_handle.h \
+ /usr/include/c++/13.1.1/bits/stl_set.h \
+ /usr/include/c++/13.1.1/bits/stl_multiset.h \
+ /usr/include/c++/13.1.1/bits/erase_if.h \
  /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader.h \
  /home/nikolay/Projects/bpew-new/include/glm/glm/glm.hpp \
  /home/nikolay/Projects/bpew-new/include/glm/glm/detail/_fixes.hpp \
@@ -331,4 +337,49 @@ CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o: \
  /usr/include/c++/13.1.1/bits/vector.tcc \
  /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../core/platform.h \
  /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../core/tokenizer.h \
- /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_create_info.h
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../nodes/node.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../nodes/node_property.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../nodes/../graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../nodes/../graphics/texture.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../nodes/../core/id.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../nodes/../core/utils.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../nodes/../core/platform.h \
+ /usr/include/c++/13.1.1/random /usr/include/c++/13.1.1/bits/random.h \
+ /usr/include/c++/13.1.1/bits/uniform_int_dist.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/opt_random.h \
+ /usr/include/c++/13.1.1/bits/random.tcc /usr/include/c++/13.1.1/numeric \
+ /usr/include/c++/13.1.1/bits/stl_numeric.h \
+ /usr/include/c++/13.1.1/pstl/glue_numeric_defs.h \
+ /usr/include/c++/13.1.1/pstl/execution_defs.h \
+ /usr/include/c++/13.1.1/unordered_map \
+ /usr/include/c++/13.1.1/bits/unordered_map.h \
+ /usr/include/c++/13.1.1/bits/hashtable.h \
+ /usr/include/c++/13.1.1/bits/hashtable_policy.h \
+ /usr/include/c++/13.1.1/bits/enable_special_members.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../nodes/node_link.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../nodes/node_property.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../core/sha.h \
+ /usr/include/openssl/sha.h /usr/include/openssl/macros.h \
+ /usr/include/openssl/opensslconf.h /usr/include/openssl/configuration.h \
+ /usr/include/openssl/opensslv.h /usr/include/openssl/e_os2.h \
+ /usr/include/c++/13.1.1/iomanip /usr/include/c++/13.1.1/locale \
+ /usr/include/c++/13.1.1/bits/locale_facets_nonio.h \
+ /usr/include/c++/13.1.1/ctime \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/time_members.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/messages_members.h \
+ /usr/include/libintl.h \
+ /usr/include/c++/13.1.1/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/13.1.1/bits/locale_conv.h \
+ /usr/include/c++/13.1.1/bits/quoted_string.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../material.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../shaders/shader.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../framebuffer.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../core/platform.h \
+ /home/nikolay/Projects/bpew-new/include/glad/glad.h \
+ /home/nikolay/Projects/bpew-new/include/KHR/khrplatform.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../nodes/node.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../shaders/shader_builder.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_create_info.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../shaders/infos/material_shader.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../shaders/infos/../../graphics/shaders/shader_create_info.h \
+ /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../shaders/infos/info_defines.h

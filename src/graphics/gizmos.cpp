@@ -11,8 +11,9 @@
 
 static Shader line_shader;
 
-void Gizmos::init() {    
-    line_shader = ShaderBuilder::build_shader_from_create_info(line_shader_create_info);
+void Gizmos::init() {
+    ShaderBuilder builder;
+    builder.build_shader_from_create_info(line_shader, line_shader_create_info);
 }
 
 void Gizmos::destroy() {

@@ -265,10 +265,24 @@ CMakeFiles/bpew.dir/include/ImGuiFileDialog/ImGuiFileDialog.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bpew.dir/include/ImGuiFileDialog/ImGuiFileDialog.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nikolay/Projects/bpew-new/include/ImGuiFileDialog/ImGuiFileDialog.cpp -o CMakeFiles/bpew.dir/include/ImGuiFileDialog/ImGuiFileDialog.cpp.s
 
+CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.o: CMakeFiles/bpew.dir/flags.make
+CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.o: include/imnodes/imnodes.cpp
+CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.o -MF CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.o.d -o CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.o -c /home/nikolay/Projects/bpew-new/include/imnodes/imnodes.cpp
+
+CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nikolay/Projects/bpew-new/include/imnodes/imnodes.cpp > CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.i
+
+CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nikolay/Projects/bpew-new/include/imnodes/imnodes.cpp -o CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.s
+
 CMakeFiles/bpew.dir/src/glad.c.o: CMakeFiles/bpew.dir/flags.make
 CMakeFiles/bpew.dir/src/glad.c.o: src/glad.c
 CMakeFiles/bpew.dir/src/glad.c.o: CMakeFiles/bpew.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/bpew.dir/src/glad.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/bpew.dir/src/glad.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/glad.c.o -MF CMakeFiles/bpew.dir/src/glad.c.o.d -o CMakeFiles/bpew.dir/src/glad.c.o -c /home/nikolay/Projects/bpew-new/src/glad.c
 
 CMakeFiles/bpew.dir/src/glad.c.i: cmake_force
@@ -282,7 +296,7 @@ CMakeFiles/bpew.dir/src/glad.c.s: cmake_force
 CMakeFiles/bpew.dir/src/main.cpp.o: CMakeFiles/bpew.dir/flags.make
 CMakeFiles/bpew.dir/src/main.cpp.o: src/main.cpp
 CMakeFiles/bpew.dir/src/main.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/bpew.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/bpew.dir/src/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/main.cpp.o -MF CMakeFiles/bpew.dir/src/main.cpp.o.d -o CMakeFiles/bpew.dir/src/main.cpp.o -c /home/nikolay/Projects/bpew-new/src/main.cpp
 
 CMakeFiles/bpew.dir/src/main.cpp.i: cmake_force
@@ -296,7 +310,7 @@ CMakeFiles/bpew.dir/src/main.cpp.s: cmake_force
 CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o: CMakeFiles/bpew.dir/flags.make
 CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o: src/graphics/shaders/shader.cpp
 CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o -MF CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o.d -o CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o -c /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader.cpp
 
 CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.i: cmake_force
@@ -310,7 +324,7 @@ CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.s: cmake_force
 CMakeFiles/bpew.dir/src/graphics/texture.cpp.o: CMakeFiles/bpew.dir/flags.make
 CMakeFiles/bpew.dir/src/graphics/texture.cpp.o: src/graphics/texture.cpp
 CMakeFiles/bpew.dir/src/graphics/texture.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/bpew.dir/src/graphics/texture.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/bpew.dir/src/graphics/texture.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/graphics/texture.cpp.o -MF CMakeFiles/bpew.dir/src/graphics/texture.cpp.o.d -o CMakeFiles/bpew.dir/src/graphics/texture.cpp.o -c /home/nikolay/Projects/bpew-new/src/graphics/texture.cpp
 
 CMakeFiles/bpew.dir/src/graphics/texture.cpp.i: cmake_force
@@ -324,7 +338,7 @@ CMakeFiles/bpew.dir/src/graphics/texture.cpp.s: cmake_force
 CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o: CMakeFiles/bpew.dir/flags.make
 CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o: src/graphics/framebuffer.cpp
 CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o -MF CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o.d -o CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o -c /home/nikolay/Projects/bpew-new/src/graphics/framebuffer.cpp
 
 CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.i: cmake_force
@@ -338,7 +352,7 @@ CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.s: cmake_force
 CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o: CMakeFiles/bpew.dir/flags.make
 CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o: src/graphics/index_buffer.cpp
 CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o -MF CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o.d -o CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.o -c /home/nikolay/Projects/bpew-new/src/graphics/index_buffer.cpp
 
 CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.i: cmake_force
@@ -352,7 +366,7 @@ CMakeFiles/bpew.dir/src/graphics/index_buffer.cpp.s: cmake_force
 CMakeFiles/bpew.dir/src/graphics/vertex_buffer.cpp.o: CMakeFiles/bpew.dir/flags.make
 CMakeFiles/bpew.dir/src/graphics/vertex_buffer.cpp.o: src/graphics/vertex_buffer.cpp
 CMakeFiles/bpew.dir/src/graphics/vertex_buffer.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/bpew.dir/src/graphics/vertex_buffer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/bpew.dir/src/graphics/vertex_buffer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/graphics/vertex_buffer.cpp.o -MF CMakeFiles/bpew.dir/src/graphics/vertex_buffer.cpp.o.d -o CMakeFiles/bpew.dir/src/graphics/vertex_buffer.cpp.o -c /home/nikolay/Projects/bpew-new/src/graphics/vertex_buffer.cpp
 
 CMakeFiles/bpew.dir/src/graphics/vertex_buffer.cpp.i: cmake_force
@@ -366,7 +380,7 @@ CMakeFiles/bpew.dir/src/graphics/vertex_buffer.cpp.s: cmake_force
 CMakeFiles/bpew.dir/src/graphics/vertex_array.cpp.o: CMakeFiles/bpew.dir/flags.make
 CMakeFiles/bpew.dir/src/graphics/vertex_array.cpp.o: src/graphics/vertex_array.cpp
 CMakeFiles/bpew.dir/src/graphics/vertex_array.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/bpew.dir/src/graphics/vertex_array.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/bpew.dir/src/graphics/vertex_array.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/graphics/vertex_array.cpp.o -MF CMakeFiles/bpew.dir/src/graphics/vertex_array.cpp.o.d -o CMakeFiles/bpew.dir/src/graphics/vertex_array.cpp.o -c /home/nikolay/Projects/bpew-new/src/graphics/vertex_array.cpp
 
 CMakeFiles/bpew.dir/src/graphics/vertex_array.cpp.i: cmake_force
@@ -380,7 +394,7 @@ CMakeFiles/bpew.dir/src/graphics/vertex_array.cpp.s: cmake_force
 CMakeFiles/bpew.dir/src/core/window.cpp.o: CMakeFiles/bpew.dir/flags.make
 CMakeFiles/bpew.dir/src/core/window.cpp.o: src/core/window.cpp
 CMakeFiles/bpew.dir/src/core/window.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/bpew.dir/src/core/window.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/bpew.dir/src/core/window.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/core/window.cpp.o -MF CMakeFiles/bpew.dir/src/core/window.cpp.o.d -o CMakeFiles/bpew.dir/src/core/window.cpp.o -c /home/nikolay/Projects/bpew-new/src/core/window.cpp
 
 CMakeFiles/bpew.dir/src/core/window.cpp.i: cmake_force
@@ -394,7 +408,7 @@ CMakeFiles/bpew.dir/src/core/window.cpp.s: cmake_force
 CMakeFiles/bpew.dir/src/core/input.cpp.o: CMakeFiles/bpew.dir/flags.make
 CMakeFiles/bpew.dir/src/core/input.cpp.o: src/core/input.cpp
 CMakeFiles/bpew.dir/src/core/input.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/bpew.dir/src/core/input.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/bpew.dir/src/core/input.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/core/input.cpp.o -MF CMakeFiles/bpew.dir/src/core/input.cpp.o.d -o CMakeFiles/bpew.dir/src/core/input.cpp.o -c /home/nikolay/Projects/bpew-new/src/core/input.cpp
 
 CMakeFiles/bpew.dir/src/core/input.cpp.i: cmake_force
@@ -404,20 +418,6 @@ CMakeFiles/bpew.dir/src/core/input.cpp.i: cmake_force
 CMakeFiles/bpew.dir/src/core/input.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bpew.dir/src/core/input.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nikolay/Projects/bpew-new/src/core/input.cpp -o CMakeFiles/bpew.dir/src/core/input.cpp.s
-
-CMakeFiles/bpew.dir/src/core/file_system.cpp.o: CMakeFiles/bpew.dir/flags.make
-CMakeFiles/bpew.dir/src/core/file_system.cpp.o: src/core/file_system.cpp
-CMakeFiles/bpew.dir/src/core/file_system.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/bpew.dir/src/core/file_system.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/core/file_system.cpp.o -MF CMakeFiles/bpew.dir/src/core/file_system.cpp.o.d -o CMakeFiles/bpew.dir/src/core/file_system.cpp.o -c /home/nikolay/Projects/bpew-new/src/core/file_system.cpp
-
-CMakeFiles/bpew.dir/src/core/file_system.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bpew.dir/src/core/file_system.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nikolay/Projects/bpew-new/src/core/file_system.cpp > CMakeFiles/bpew.dir/src/core/file_system.cpp.i
-
-CMakeFiles/bpew.dir/src/core/file_system.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bpew.dir/src/core/file_system.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nikolay/Projects/bpew-new/src/core/file_system.cpp -o CMakeFiles/bpew.dir/src/core/file_system.cpp.s
 
 CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o: CMakeFiles/bpew.dir/flags.make
 CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o: src/graphics/renderer.cpp
@@ -517,10 +517,38 @@ CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nikolay/Projects/bpew-new/src/graphics/gizmos.cpp -o CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.s
 
+CMakeFiles/bpew.dir/src/nodes/node.cpp.o: CMakeFiles/bpew.dir/flags.make
+CMakeFiles/bpew.dir/src/nodes/node.cpp.o: src/nodes/node.cpp
+CMakeFiles/bpew.dir/src/nodes/node.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/bpew.dir/src/nodes/node.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/nodes/node.cpp.o -MF CMakeFiles/bpew.dir/src/nodes/node.cpp.o.d -o CMakeFiles/bpew.dir/src/nodes/node.cpp.o -c /home/nikolay/Projects/bpew-new/src/nodes/node.cpp
+
+CMakeFiles/bpew.dir/src/nodes/node.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bpew.dir/src/nodes/node.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nikolay/Projects/bpew-new/src/nodes/node.cpp > CMakeFiles/bpew.dir/src/nodes/node.cpp.i
+
+CMakeFiles/bpew.dir/src/nodes/node.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bpew.dir/src/nodes/node.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nikolay/Projects/bpew-new/src/nodes/node.cpp -o CMakeFiles/bpew.dir/src/nodes/node.cpp.s
+
+CMakeFiles/bpew.dir/src/nodes/node_link.cpp.o: CMakeFiles/bpew.dir/flags.make
+CMakeFiles/bpew.dir/src/nodes/node_link.cpp.o: src/nodes/node_link.cpp
+CMakeFiles/bpew.dir/src/nodes/node_link.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/bpew.dir/src/nodes/node_link.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/nodes/node_link.cpp.o -MF CMakeFiles/bpew.dir/src/nodes/node_link.cpp.o.d -o CMakeFiles/bpew.dir/src/nodes/node_link.cpp.o -c /home/nikolay/Projects/bpew-new/src/nodes/node_link.cpp
+
+CMakeFiles/bpew.dir/src/nodes/node_link.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bpew.dir/src/nodes/node_link.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nikolay/Projects/bpew-new/src/nodes/node_link.cpp > CMakeFiles/bpew.dir/src/nodes/node_link.cpp.i
+
+CMakeFiles/bpew.dir/src/nodes/node_link.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bpew.dir/src/nodes/node_link.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nikolay/Projects/bpew-new/src/nodes/node_link.cpp -o CMakeFiles/bpew.dir/src/nodes/node_link.cpp.s
+
 CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o: CMakeFiles/bpew.dir/flags.make
 CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o: src/graphics/shaders/shader_builder.cpp
 CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o -MF CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o.d -o CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o -c /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_builder.cpp
 
 CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.i: cmake_force
@@ -534,7 +562,7 @@ CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.s: cmake_force
 CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o: CMakeFiles/bpew.dir/flags.make
 CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o: src/graphics/shaders/shader_parser.cpp
 CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building CXX object CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o -MF CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o.d -o CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o -c /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_parser.cpp
 
 CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.i: cmake_force
@@ -548,7 +576,7 @@ CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.s: cmake_force
 CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o: CMakeFiles/bpew.dir/flags.make
 CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o: src/core/tokenizer.cpp
 CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o: CMakeFiles/bpew.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building CXX object CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o -MF CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o.d -o CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o -c /home/nikolay/Projects/bpew-new/src/core/tokenizer.cpp
 
 CMakeFiles/bpew.dir/src/core/tokenizer.cpp.i: cmake_force
@@ -575,6 +603,7 @@ bpew_OBJECTS = \
 "CMakeFiles/bpew.dir/include/ImGuizmo/ImGuizmo.cpp.o" \
 "CMakeFiles/bpew.dir/include/ImGuizmo/ImSequencer.cpp.o" \
 "CMakeFiles/bpew.dir/include/ImGuiFileDialog/ImGuiFileDialog.cpp.o" \
+"CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.o" \
 "CMakeFiles/bpew.dir/src/glad.c.o" \
 "CMakeFiles/bpew.dir/src/main.cpp.o" \
 "CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o" \
@@ -585,7 +614,6 @@ bpew_OBJECTS = \
 "CMakeFiles/bpew.dir/src/graphics/vertex_array.cpp.o" \
 "CMakeFiles/bpew.dir/src/core/window.cpp.o" \
 "CMakeFiles/bpew.dir/src/core/input.cpp.o" \
-"CMakeFiles/bpew.dir/src/core/file_system.cpp.o" \
 "CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o" \
 "CMakeFiles/bpew.dir/src/graphics/camera.cpp.o" \
 "CMakeFiles/bpew.dir/src/graphics/model.cpp.o" \
@@ -593,6 +621,8 @@ bpew_OBJECTS = \
 "CMakeFiles/bpew.dir/src/editor/editor.cpp.o" \
 "CMakeFiles/bpew.dir/src/core/time.cpp.o" \
 "CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.o" \
+"CMakeFiles/bpew.dir/src/nodes/node.cpp.o" \
+"CMakeFiles/bpew.dir/src/nodes/node_link.cpp.o" \
 "CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o" \
 "CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o" \
 "CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o"
@@ -614,6 +644,7 @@ build/bpew: CMakeFiles/bpew.dir/include/ImGuizmo/ImGradient.cpp.o
 build/bpew: CMakeFiles/bpew.dir/include/ImGuizmo/ImGuizmo.cpp.o
 build/bpew: CMakeFiles/bpew.dir/include/ImGuizmo/ImSequencer.cpp.o
 build/bpew: CMakeFiles/bpew.dir/include/ImGuiFileDialog/ImGuiFileDialog.cpp.o
+build/bpew: CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/glad.c.o
 build/bpew: CMakeFiles/bpew.dir/src/main.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/graphics/shaders/shader.cpp.o
@@ -624,7 +655,6 @@ build/bpew: CMakeFiles/bpew.dir/src/graphics/vertex_buffer.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/graphics/vertex_array.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/core/window.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/core/input.cpp.o
-build/bpew: CMakeFiles/bpew.dir/src/core/file_system.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/graphics/camera.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/graphics/model.cpp.o
@@ -632,6 +662,8 @@ build/bpew: CMakeFiles/bpew.dir/src/ecs/scene.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/editor/editor.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/core/time.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/graphics/gizmos.cpp.o
+build/bpew: CMakeFiles/bpew.dir/src/nodes/node.cpp.o
+build/bpew: CMakeFiles/bpew.dir/src/nodes/node_link.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o
 build/bpew: CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o
@@ -639,10 +671,12 @@ build/bpew: CMakeFiles/bpew.dir/build.make
 build/bpew: /usr/lib/libSDL2main.a
 build/bpew: /usr/lib/libSDL2-2.0.so.0.2600.5
 build/bpew: /usr/lib/libassimp.so.5.2.4
+build/bpew: /usr/lib/libssl.so
 build/bpew: /usr/lib/libz.so
 build/bpew: /usr/lib/librt.a
+build/bpew: /usr/lib/libcrypto.so
 build/bpew: CMakeFiles/bpew.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Linking CXX executable build/bpew"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nikolay/Projects/bpew-new/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Linking CXX executable build/bpew"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/bpew.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

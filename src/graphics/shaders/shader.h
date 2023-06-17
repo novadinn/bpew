@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 
 struct Shader {
+	bool createFromFile(const char* vert_path, const char* frag_path);
 	bool createFromSource(const char* vsrc, const char* fsrc);
 	void destroy();
 

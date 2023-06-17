@@ -16,7 +16,9 @@ struct Scene {
     void onDrawRendered();
     void onDrawSolid();
     void onDrawMaterialPreview();
-	
+
+    void onUpdate();
+    
     void onResize(uint width, uint height);
 
     entt::registry& getEntityRegistry() { return registry; }

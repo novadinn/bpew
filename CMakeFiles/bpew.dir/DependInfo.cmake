@@ -23,7 +23,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/nikolay/Projects/bpew-new/include/imgui/imgui_tables.cpp" "CMakeFiles/bpew.dir/include/imgui/imgui_tables.cpp.o" "gcc" "CMakeFiles/bpew.dir/include/imgui/imgui_tables.cpp.o.d"
   "/home/nikolay/Projects/bpew-new/include/imgui/imgui_widgets.cpp" "CMakeFiles/bpew.dir/include/imgui/imgui_widgets.cpp.o" "gcc" "CMakeFiles/bpew.dir/include/imgui/imgui_widgets.cpp.o.d"
   "/home/nikolay/Projects/bpew-new/include/imgui/misc/cpp/imgui_stdlib.cpp" "CMakeFiles/bpew.dir/include/imgui/misc/cpp/imgui_stdlib.cpp.o" "gcc" "CMakeFiles/bpew.dir/include/imgui/misc/cpp/imgui_stdlib.cpp.o.d"
-  "/home/nikolay/Projects/bpew-new/src/core/file_system.cpp" "CMakeFiles/bpew.dir/src/core/file_system.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/core/file_system.cpp.o.d"
+  "/home/nikolay/Projects/bpew-new/include/imnodes/imnodes.cpp" "CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.o" "gcc" "CMakeFiles/bpew.dir/include/imnodes/imnodes.cpp.o.d"
   "/home/nikolay/Projects/bpew-new/src/core/input.cpp" "CMakeFiles/bpew.dir/src/core/input.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/core/input.cpp.o.d"
   "/home/nikolay/Projects/bpew-new/src/core/time.cpp" "CMakeFiles/bpew.dir/src/core/time.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/core/time.cpp.o.d"
   "/home/nikolay/Projects/bpew-new/src/core/tokenizer.cpp" "CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o.d"
@@ -43,6 +43,8 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/nikolay/Projects/bpew-new/src/graphics/vertex_array.cpp" "CMakeFiles/bpew.dir/src/graphics/vertex_array.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/vertex_array.cpp.o.d"
   "/home/nikolay/Projects/bpew-new/src/graphics/vertex_buffer.cpp" "CMakeFiles/bpew.dir/src/graphics/vertex_buffer.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/graphics/vertex_buffer.cpp.o.d"
   "/home/nikolay/Projects/bpew-new/src/main.cpp" "CMakeFiles/bpew.dir/src/main.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/main.cpp.o.d"
+  "/home/nikolay/Projects/bpew-new/src/nodes/node.cpp" "CMakeFiles/bpew.dir/src/nodes/node.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/nodes/node.cpp.o.d"
+  "/home/nikolay/Projects/bpew-new/src/nodes/node_link.cpp" "CMakeFiles/bpew.dir/src/nodes/node_link.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/nodes/node_link.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

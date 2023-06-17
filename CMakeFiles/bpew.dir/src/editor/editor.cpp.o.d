@@ -436,6 +436,19 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
  /home/nikolay/Projects/bpew-new/src/editor/../graphics/../core/platform.h \
  /home/nikolay/Projects/bpew-new/include/glad/glad.h \
  /home/nikolay/Projects/bpew-new/include/KHR/khrplatform.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../nodes/node.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../nodes/node_property.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../nodes/../graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../nodes/../graphics/texture.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../nodes/../core/id.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../nodes/../core/utils.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../nodes/../core/platform.h \
+ /usr/include/c++/13.1.1/random /usr/include/c++/13.1.1/bits/random.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/opt_random.h \
+ /usr/include/c++/13.1.1/bits/random.tcc /usr/include/c++/13.1.1/numeric \
+ /usr/include/c++/13.1.1/bits/stl_numeric.h \
+ /usr/include/c++/13.1.1/pstl/glue_numeric_defs.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../nodes/node_link.h \
  /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/tag_component.h \
  /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/transform_component.h \
  /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/mesh_component.h \
@@ -447,6 +460,37 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
  /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/vertex_buffer.h \
  /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/index_buffer.h \
  /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/texture.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/material.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/framebuffer.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/../nodes/node.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/shaders/shader_builder.h \
+ /usr/include/c++/13.1.1/sstream /usr/include/c++/13.1.1/istream \
+ /usr/include/c++/13.1.1/bits/istream.tcc \
+ /usr/include/c++/13.1.1/bits/sstream.tcc /usr/include/c++/13.1.1/fstream \
+ /usr/include/c++/13.1.1/bits/codecvt.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/basic_file.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/c++io.h \
+ /usr/include/c++/13.1.1/bits/fstream.tcc \
+ /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/shaders/shader_info.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/shaders/../../core/platform.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/shaders/../../core/tokenizer.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/shaders/../../nodes/node.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/shaders/../../nodes/node_property.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/shaders/../../core/sha.h \
+ /usr/include/openssl/sha.h /usr/include/openssl/macros.h \
+ /usr/include/openssl/opensslconf.h /usr/include/openssl/configuration.h \
+ /usr/include/openssl/opensslv.h /usr/include/openssl/e_os2.h \
+ /usr/include/c++/13.1.1/iomanip /usr/include/c++/13.1.1/locale \
+ /usr/include/c++/13.1.1/bits/locale_facets_nonio.h \
+ /usr/include/c++/13.1.1/ctime \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/time_members.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/messages_members.h \
+ /usr/include/libintl.h \
+ /usr/include/c++/13.1.1/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/13.1.1/bits/locale_conv.h \
+ /usr/include/c++/13.1.1/bits/quoted_string.h \
  /usr/include/assimp/Importer.hpp /usr/include/assimp/types.h \
  /usr/include/assimp/defs.h /usr/include/assimp/config.h \
  /usr/include/assimp/vector2.h /usr/include/assimp/vector3.h \
@@ -462,6 +506,7 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
  /usr/include/assimp/camera.h /usr/include/assimp/material.h \
  /usr/include/assimp/material.inl /usr/include/assimp/anim.h \
  /usr/include/assimp/metadata.h /usr/include/assimp/postprocess.h \
+ /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/material.h \
  /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/camera_component.h \
  /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/../../graphics/camera.h \
  /home/nikolay/Projects/bpew-new/src/editor/../ecs/components/light_component.h \
@@ -606,32 +651,17 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
  /home/nikolay/Projects/bpew-new/src/editor/../core/time.h \
  /home/nikolay/Projects/bpew-new/include/ImGuiFileDialog/ImGuiFileDialog.h \
  /home/nikolay/Projects/bpew-new/include/ImGuiFileDialog/ImGuiFileDialogConfig.h \
- /usr/include/c++/13.1.1/fstream /usr/include/c++/13.1.1/istream \
- /usr/include/c++/13.1.1/bits/istream.tcc \
- /usr/include/c++/13.1.1/bits/codecvt.h \
- /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/basic_file.h \
- /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/c++io.h \
- /usr/include/c++/13.1.1/bits/fstream.tcc /usr/include/c++/13.1.1/thread \
- /usr/include/c++/13.1.1/stop_token /usr/include/c++/13.1.1/atomic \
- /usr/include/c++/13.1.1/bits/std_thread.h \
+ /usr/include/c++/13.1.1/thread /usr/include/c++/13.1.1/stop_token \
+ /usr/include/c++/13.1.1/atomic /usr/include/c++/13.1.1/bits/std_thread.h \
  /usr/include/c++/13.1.1/semaphore \
  /usr/include/c++/13.1.1/bits/semaphore_base.h \
  /usr/include/c++/13.1.1/bits/chrono.h /usr/include/c++/13.1.1/ratio \
- /usr/include/c++/13.1.1/ctime \
  /usr/include/c++/13.1.1/bits/parse_numbers.h \
  /usr/include/c++/13.1.1/bits/atomic_timed_wait.h \
  /usr/include/c++/13.1.1/bits/this_thread_sleep.h /usr/include/sys/time.h \
  /usr/include/semaphore.h /usr/include/bits/semaphore.h \
  /usr/include/c++/13.1.1/mutex /usr/include/c++/13.1.1/bits/unique_lock.h \
  /usr/include/c++/13.1.1/regex /usr/include/c++/13.1.1/bitset \
- /usr/include/c++/13.1.1/locale \
- /usr/include/c++/13.1.1/bits/locale_facets_nonio.h \
- /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/time_members.h \
- /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/messages_members.h \
- /usr/include/libintl.h \
- /usr/include/c++/13.1.1/bits/locale_facets_nonio.tcc \
- /usr/include/c++/13.1.1/bits/locale_conv.h \
- /usr/include/c++/13.1.1/sstream /usr/include/c++/13.1.1/bits/sstream.tcc \
  /usr/include/c++/13.1.1/stack /usr/include/c++/13.1.1/bits/stl_stack.h \
  /usr/include/c++/13.1.1/bits/regex_constants.h \
  /usr/include/c++/13.1.1/bits/regex_error.h \
@@ -645,6 +675,7 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
  /usr/include/c++/13.1.1/bits/regex.tcc \
  /usr/include/c++/13.1.1/bits/regex_executor.h \
  /usr/include/c++/13.1.1/bits/regex_executor.tcc \
+ /home/nikolay/Projects/bpew-new/include/imnodes/imnodes.h \
  /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/matrix_decompose.hpp \
  /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/matrix_decompose.inl \
  /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/type_ptr.hpp \

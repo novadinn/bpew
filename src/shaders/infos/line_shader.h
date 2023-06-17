@@ -1,5 +1,7 @@
-#include "../../graphics/shaders/shader_create_info.h"
+#ifndef LINE_SHADER_H
+#define LINE_SHADER_H
 
+#include "../../graphics/shaders/shader_create_info.h"
 
 const ShaderCreateInfo line_shader_create_info = ShaderCreateInfo::create()
     .vin(ShaderType::VEC3, 0, "aPos")
@@ -12,3 +14,4 @@ const ShaderCreateInfo line_shader_create_info = ShaderCreateInfo::create()
     .vertex("line_vs.glsl")
     .fragment("line_fs.glsl");
 
+#endif

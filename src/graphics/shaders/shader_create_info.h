@@ -85,6 +85,24 @@ struct ShaderCreateInfo {
 	return *this;
     }
 
+    ShaderCreateInfo& uniform_array(ShaderType type, std::string name, uint size) {
+	ShaderUniformArray uniform_array;
+	uniform_array.type = ShaderBuilder::from_type(type);
+	uniform_array.name = name;
+	uniform_array.size = size;
+	info.uniform_arrays.push_back(uniform_array);
+	return *this;
+    }    
+
+    ShaderCreateInfo& uniform_array(std::string type, std::string name, uint size) {
+	ShaderUniformArray uniform_array;
+	uniform_array.type = type;
+	uniform_array.name = name;
+	uniform_array.size = size;
+	info.uniform_arrays.push_back(uniform_array);
+	return *this;
+    }
+
     ShaderCreateInfo& uniform_buffer(std::string name, uint binding, std::string body) {
 	ShaderUniformBuffer buffer;
 	buffer.name = name;	

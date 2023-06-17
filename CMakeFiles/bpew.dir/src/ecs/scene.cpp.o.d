@@ -442,6 +442,49 @@ CMakeFiles/bpew.dir/src/ecs/scene.cpp.o: \
  /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/vertex_buffer.h \
  /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/index_buffer.h \
  /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/texture.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/material.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/framebuffer.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/../nodes/node.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/../nodes/node_property.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/../nodes/../graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/../nodes/../graphics/texture.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/../nodes/../core/id.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/../nodes/../core/utils.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/../nodes/../core/platform.h \
+ /usr/include/c++/13.1.1/random /usr/include/c++/13.1.1/bits/random.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/opt_random.h \
+ /usr/include/c++/13.1.1/bits/random.tcc /usr/include/c++/13.1.1/numeric \
+ /usr/include/c++/13.1.1/bits/stl_numeric.h \
+ /usr/include/c++/13.1.1/pstl/glue_numeric_defs.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/../nodes/node_link.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/shaders/shader_builder.h \
+ /usr/include/c++/13.1.1/sstream /usr/include/c++/13.1.1/istream \
+ /usr/include/c++/13.1.1/bits/istream.tcc \
+ /usr/include/c++/13.1.1/bits/sstream.tcc /usr/include/c++/13.1.1/fstream \
+ /usr/include/c++/13.1.1/bits/codecvt.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/basic_file.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/c++io.h \
+ /usr/include/c++/13.1.1/bits/fstream.tcc \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/shaders/shader_info.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/shaders/../../core/platform.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/shaders/../../core/tokenizer.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/shaders/../../nodes/node.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/shaders/../../nodes/node_property.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/shaders/../../core/sha.h \
+ /usr/include/openssl/sha.h /usr/include/openssl/macros.h \
+ /usr/include/openssl/opensslconf.h /usr/include/openssl/configuration.h \
+ /usr/include/openssl/opensslv.h /usr/include/openssl/e_os2.h \
+ /usr/include/c++/13.1.1/iomanip /usr/include/c++/13.1.1/locale \
+ /usr/include/c++/13.1.1/bits/locale_facets_nonio.h \
+ /usr/include/c++/13.1.1/ctime \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/time_members.h \
+ /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/messages_members.h \
+ /usr/include/libintl.h \
+ /usr/include/c++/13.1.1/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/13.1.1/bits/locale_conv.h \
+ /usr/include/c++/13.1.1/bits/quoted_string.h \
  /usr/include/assimp/Importer.hpp /usr/include/assimp/types.h \
  /usr/include/assimp/defs.h /usr/include/assimp/config.h \
  /usr/include/assimp/vector2.h /usr/include/assimp/vector3.h \
@@ -457,6 +500,7 @@ CMakeFiles/bpew.dir/src/ecs/scene.cpp.o: \
  /usr/include/assimp/camera.h /usr/include/assimp/material.h \
  /usr/include/assimp/material.inl /usr/include/assimp/anim.h \
  /usr/include/assimp/metadata.h /usr/include/assimp/postprocess.h \
+ /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/material.h \
  /home/nikolay/Projects/bpew-new/src/ecs/components/camera_component.h \
  /home/nikolay/Projects/bpew-new/src/ecs/components/../../graphics/camera.h \
  /home/nikolay/Projects/bpew-new/src/ecs/components/light_component.h \

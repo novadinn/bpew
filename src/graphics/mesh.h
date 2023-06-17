@@ -10,25 +10,25 @@
 #include <vector>
 
 struct Mesh {
-	void generateVertexArray() {
-		va.create();
-		va.bind();
+    void generateVertexArray() {
+	va.create();
+	va.bind();
 
-		vb.create(&vertices[0], vertices.size() * sizeof(float));
-		ib.create(&indices[0], indices.size() * sizeof(uint));
+	vb.create(&vertices[0], vertices.size() * sizeof(float));
+	ib.create(&indices[0], indices.size() * sizeof(uint));
 
-		va.addVertexBuffer(vb, attributes);
-		va.setIndexBuffer(ib);
-	}
+	va.addVertexBuffer(vb, attributes);
+	va.setIndexBuffer(ib);
+    }
+    
+    // TODO: store a type of a vertex subdata in here (to identify position/normal..)
+    std::vector<VertexAttribute> attributes;
+    std::vector<float> vertices;
+    std::vector<uint> indices;
 
-	// TODO: store a type of a vertex subdata in here (to identify position/normal..)
-	std::vector<VertexAttribute> attributes;
-	std::vector<float> vertices;
-	std::vector<uint> indices;
-
-	VertexArray va;
-	VertexBuffer vb;
-	IndexBuffer ib;
+    VertexArray va;
+    VertexBuffer vb;
+    IndexBuffer ib;
 };
 
 #endif // MESH_H

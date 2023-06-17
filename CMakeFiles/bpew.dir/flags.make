@@ -3,15 +3,15 @@
 
 # compile C with /usr/bin/cc
 # compile CXX with /usr/bin/c++
-C_DEFINES = 
+C_DEFINES = -DIMGUI_DEFINE_MATH_OPERATORS
 
-C_INCLUDES = -I/home/nikolay/Projects/bpew-new/include -I/home/nikolay/Projects/bpew-new/include/glm -I/home/nikolay/Projects/bpew-new/include/imgui -I/home/nikolay/Projects/bpew-new/include/entt/single_include -isystem /usr/include/SDL2
+C_INCLUDES = -I/home/nikolay/Projects/bpew-new/include -I/home/nikolay/Projects/bpew-new/include/glm -I/home/nikolay/Projects/bpew-new/include/imgui -I/home/nikolay/Projects/bpew-new/include/entt/single_include -I/home/nikolay/Projects/bpew-new/include/openssl -isystem /usr/include/SDL2
 
 C_FLAGS = 
 
-CXX_DEFINES = 
+CXX_DEFINES = -DIMGUI_DEFINE_MATH_OPERATORS
 
-CXX_INCLUDES = -I/home/nikolay/Projects/bpew-new/include -I/home/nikolay/Projects/bpew-new/include/glm -I/home/nikolay/Projects/bpew-new/include/imgui -I/home/nikolay/Projects/bpew-new/include/entt/single_include -isystem /usr/include/SDL2
+CXX_INCLUDES = -I/home/nikolay/Projects/bpew-new/include -I/home/nikolay/Projects/bpew-new/include/glm -I/home/nikolay/Projects/bpew-new/include/imgui -I/home/nikolay/Projects/bpew-new/include/entt/single_include -I/home/nikolay/Projects/bpew-new/include/openssl -isystem /usr/include/SDL2
 
 CXX_FLAGS = -std=gnu++20
 

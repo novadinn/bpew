@@ -14,11 +14,13 @@
 #include "imgui/imgui.h"
 #include "ImGuizmo/ImGuizmo.h"
 #include "ImGuiFileDialog/ImGuiFileDialog.h"
+#include "imnodes/imnodes.h"
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-void Editor::create() {
+void Editor::create() {             
     Model model;
+
     model.loadFromPath("datafiles/monkey/monkey.obj");
 	
     float near = 0.1f;
@@ -26,7 +28,7 @@ void Editor::create() {
 	
     scene = new Scene();
     editor_camera = scene->createEntity("Camera");
-    auto& camera_component = editor_camera.addComponent<CameraComponent>();
+    auto& camera_component = editor_camera.addComponent<CameraComponent>();    
     camera_component.camera.create(45, 1.778f, near, far);
     camera_component.editor = true;
 	
@@ -42,11 +44,11 @@ void Editor::create() {
     tr.scale = glm::vec3(0.5, 0.5, 0.5);
     tr.rotation = glm::vec3(36, 80, 170);
 
-    Entity point_light = scene->createEntity("PointLight");
-    auto& light_point = point_light.addComponent<LightComponent>();
-    light_point.type = LightComponent::LightType::POINT;
-    auto& tr1 = point_light.getComponent<TransformComponent>();
-    tr1.position = glm::vec3(1, 0, 0);
+    Entity dir_light = scene->createEntity("DirectionalLight");
+    auto& light_dir = dir_light.addComponent<LightComponent>();
+    light_dir.type = LightComponent::LightType::DIRECTIONAL;
+    auto& tr1 = dir_light.getComponent<TransformComponent>();
+    tr1.rotation.x = -100;
 	
     FramebufferData data;
     data.formats = {GL_RGBA8, GL_R32I, GL_DEPTH24_STENCIL8};
@@ -71,13 +73,13 @@ void Editor::onUpdate() {
     glm::ivec2 wheel_movement;
     Input::getWheelMovement(&wheel_movement.x, &wheel_movement.y);
 
-    auto& camera = editor_camera.getComponent<CameraComponent>();
+    auto& camera_component = editor_camera.getComponent<CameraComponent>();
     
     if(Input::wasMouseButtonHeld(SDL_BUTTON_MIDDLE)) {
 	if(Input::wasKeyHeld(SDLK_LSHIFT)) {
-	    camera.camera.pan(mouse_delta);
+	    camera_component.camera.pan(mouse_delta);
 	} else {
-	    camera.camera.rotate(mouse_delta);
+	    camera_component.camera.rotate(mouse_delta);
 	}
     }
     if(Input::wasMouseButtonPressed(SDL_BUTTON_LEFT)) {
@@ -85,7 +87,7 @@ void Editor::onUpdate() {
 	    selected_entity = hovered_entity;
     }
     if(Input::wasWheelMoved()) {
-	camera.camera.zoom(delta_time * wheel_movement.y);
+	camera_component.camera.zoom(delta_time * wheel_movement.y);
     }
 
     if(Input::wasKeyPressed(SDLK_q)) {
@@ -97,6 +99,7 @@ void Editor::onUpdate() {
     } else if(Input::wasKeyPressed(SDLK_s)) {
 	gizmo_operation = ImGuizmo::OPERATION::SCALE;
     }
+
     // TODO: create imgui buttons instead of this
     if(Input::wasKeyHeld(SDLK_z)) {
 	if(Input::wasKeyPressed(SDLK_1)) {
@@ -109,6 +112,8 @@ void Editor::onUpdate() {
 	    draw_mode = DrawMode::MATERIAL_PREVIEW;
 	}
     }
+
+    scene->onUpdate();
 }
 
 void Editor::onDraw() {
@@ -170,7 +175,7 @@ void Editor::onDraw() {
     showLines();
 	
     framebuffer.unbind();
-
+  
     static bool dockspace_open = true;
     static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
 
@@ -211,8 +216,7 @@ void Editor::onDraw() {
 
     static bool show_demo = true;
     if(show_demo) ImGui::ShowDemoWindow(&show_demo);
-	
-    showViewport();
+
     showMenuBar();
     showHierarchyPanel();
     showInspectorPanel();
@@ -221,8 +225,8 @@ void Editor::onDraw() {
     ImGui::End();
 }
 
-void Editor::showViewport() {
-    ImGui::Begin("Scene");
+void Editor::showViewSpace() {
+    ImGui::Begin("Layout");
     viewport_hovered = ImGui::IsWindowHovered();
 	
     ImVec2 vpsize = ImGui::GetContentRegionAvail();
@@ -238,14 +242,13 @@ void Editor::showViewport() {
     ImGui::Image(reinterpret_cast<void*>(fbid), ImVec2{ viewport_size.x, viewport_size.y },
 		 ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
-    auto& camera = editor_camera.getComponent<CameraComponent>();
-    auto& camera_tr = editor_camera.getComponent<TransformComponent>();
+    auto& camera_component = editor_camera.getComponent<CameraComponent>();    
     
     if(selected_entity && gizmo_operation != -1 &&
        selected_entity.hasComponent<TransformComponent>()) {
 
-	glm::mat4 view = camera.camera.getViewMatrix();
-	glm::mat4 projection = camera.camera.getProjectionMatrix();
+	glm::mat4 view = camera_component.camera.getViewMatrix();
+	glm::mat4 projection = camera_component.camera.getProjectionMatrix();
 		
 	TransformComponent& transform = selected_entity.getComponent<TransformComponent>();
 	glm::mat4 model = transform.getModelMatrix();
@@ -273,11 +276,301 @@ void Editor::showViewport() {
     ImGui::End();
 }
 
+void Editor::showNodeSpace() {
+    ImGui::Begin("Shading");
+  
+    if (ImGui::Button("Material...")) {
+	if(selected_entity && selected_entity.hasComponent<MeshComponent>()) {
+	    ImGui::OpenPopup("MaterialsMenu");
+	} else {
+	    // TODO: error message popup
+	}
+    }
+  
+    if(ImGui::BeginPopup("MaterialsMenu")) {
+	MeshComponent& mesh = selected_entity.getComponent<MeshComponent>();
+	std::vector<Material>& materials = mesh.materials;
+
+	static char material_name[255];
+	if(ImGui::InputText("New Material", material_name, 255,
+			    ImGuiInputTextFlags_EnterReturnsTrue)) {
+	    Material mat;
+	    mat.name = material_name;
+	    materials.push_back(mat);
+
+	    memset(material_name, '\0', sizeof(material_name));
+	}
+	if(ImGui::Button("Destroy Material")) {
+	    if(mesh.validMaterialIndex()) {
+		materials.erase(materials.begin() + mesh.active_material_index);
+
+		if(mesh.active_material_index == materials.size()) {
+		    --mesh.active_material_index;
+		}
+	    }
+	}
+    
+	if(ImGui::CollapsingHeader("Materials")) {
+	    for(int i = 0; i < materials.size(); ++i) {
+		Material& mat = materials[i];
+	
+		if(ImGui::Selectable(mat.name.c_str(), mesh.active_material_index == i, ImGuiSelectableFlags_DontClosePopups)) {
+		    mesh.active_material_index = i;
+		}
+	    }
+	}
+
+	ImGui::EndPopup();
+    }
+
+    ImNodes::BeginNodeEditor();
+  
+    if(selected_entity && selected_entity.hasComponent<MeshComponent>()) {
+	MeshComponent& mesh = selected_entity.getComponent<MeshComponent>();
+
+	Material* mat = mesh.getActiveMaterial();
+	if(mat) {
+	    for(int i = 0; i < mat->nodes.size(); ++i) {
+		Node& node = mat->nodes[i];
+		std::vector<NodeProperty>& outputs = node.outputs;
+		std::vector<NodeProperty>& inputs = node.inputs;
+
+		ImNodes::BeginNode(node.id.id);
+	
+		ImNodes::BeginNodeTitleBar();
+		ImGui::TextUnformatted(node.id.name.c_str());
+		ImNodes::EndNodeTitleBar();
+	
+		// Outputs
+		for(int j = 0; j < outputs.size(); ++j) {
+		    NodeProperty& prop = outputs[j];
+	  
+		    ImNodes::BeginOutputAttribute(prop.id.id);
+		    ImGui::Text("%s", prop.id.name.c_str());
+		    ImNodes::EndOutputAttribute();
+		}
+
+		// Inputs
+		for(int j = 0; j < inputs.size(); ++j) {
+		    NodeProperty& prop = inputs[j];
+
+		    ImNodes::BeginInputAttribute(prop.id.id);
+		    ImGui::Text("%s", prop.id.name.c_str());
+		    ImNodes::EndInputAttribute();
+		}
+		
+		ImNodes::EndNode();
+	    }	
+	}
+    }
+
+  
+// TODO: not all of those are set right now
+    if(ImGui::BeginPopupContextWindow()) {
+	if(ImGui::BeginMenu("Add")) {
+	    if(ImGui::BeginMenu("Input")) {
+		if(ImGui::Button("RGB")) {
+		    createNode(NodeType::RGB);
+		}
+	
+		ImGui::EndMenu();
+	    }
+	    if(ImGui::BeginMenu("Output")) {
+		if(ImGui::Button("Material Output")) {
+		    createNode(NodeType::MATERIAL_OUTPUT);
+		}
+	
+		ImGui::EndMenu();
+	    }
+	    if(ImGui::BeginMenu("Shader")) {
+	
+		ImGui::EndMenu();
+	    }
+	    if(ImGui::BeginMenu("Texture")) {
+	
+		ImGui::EndMenu();
+	    }
+	    if(ImGui::BeginMenu("Color")) {
+	
+		ImGui::EndMenu();
+	    }
+	    if(ImGui::BeginMenu("Vector")) {
+	
+		ImGui::EndMenu();
+	    }
+	    if(ImGui::BeginMenu("Converter")) {
+	
+		ImGui::EndMenu();
+	    }
+
+	    ImGui::EndMenu();
+	}
+
+	if(ImGui::BeginMenu("Node")) {
+	    if(ImGui::Button("Delete")) {
+	
+	    }
+	    if(ImGui::Button("Duplicate")) {
+	
+	    }
+	    if(ImGui::Button("Copy")) {
+	
+	    }
+	    if(ImGui::Button("Paste")) {
+	
+	    }
+
+	    ImGui::Separator();
+      
+	    if(ImGui::Button("Resize")) {
+	
+	    }
+	    if(ImGui::Button("Move")) {
+	
+	    }
+      
+	    ImGui::EndMenu();
+	}
+    
+	ImGui::EndPopup();
+    }
+
+// Links should be drawn after the nodes
+    if(selected_entity && selected_entity.hasComponent<MeshComponent>()) {
+	MeshComponent& mesh = selected_entity.getComponent<MeshComponent>();
+	Material* mat = mesh.getActiveMaterial();
+    
+	if(mat) {
+	    for(int i = 0; i < mat->nodes.size(); ++i) {
+		Node& node = mat->nodes[i];
+		// Draw Link only from output nodes - dont need to do this twice
+		std::vector<NodeProperty>& outputs = node.outputs;
+
+		for(int j = 0; j < outputs.size(); ++j) {
+		    NodeProperty& prop = outputs[j];
+		    std::vector<NodeLink>& links = prop.links;
+
+		    for(int k = 0; k < links.size(); ++k) {
+			int link_id = links[k].id.id;
+			int output_id = links[k].output->id.id;
+			int input_id = links[k].input->id.id;
+
+			ImNodes::Link(link_id, output_id, input_id);
+		    }
+		}
+	    }
+	}
+    }
+  
+    ImNodes::EndNodeEditor();
+
+    int output_id, input_id;
+    NodeProperty *output_prop = nullptr, *input_prop = nullptr;
+    uint output_node, input_node;
+    
+    if (ImNodes::IsLinkCreated(&output_id, &input_id)) {
+	// NOTE: assumes that material and mesh are there
+	MeshComponent& mesh = selected_entity.getComponent<MeshComponent>();
+	Material *mat = mesh.getActiveMaterial();
+	std::vector<Node>& nodes = mat->nodes;
+
+	// TODO: slow linear search
+	for(int i = 0; i < nodes.size(); ++i) {
+	    Node& node = nodes[i];
+	    std::vector<NodeProperty>& node_outputs = node.outputs;
+	    std::vector<NodeProperty>& node_inputs = node.inputs;
+
+	    for(int j = 0; j < node_outputs.size(); ++j) {
+		NodeProperty* prop = &node_outputs[j];
+
+		if(prop->id.id == output_id) {
+		    output_prop = prop;
+		    output_node = i;
+		}
+	    }
+
+	    for(int j = 0; j < node_inputs.size(); ++j) {
+		NodeProperty* prop = &node_inputs[j];
+	
+		if(prop->id.id == input_id) {
+		    input_prop = prop;
+		    input_node = i;
+		}
+	    }
+
+	    if(output_prop && input_prop) {
+		break;
+	    }
+      
+	}
+    }
+
+    if(output_prop && input_prop) {
+	// TODO: should we add this to both input and output node or not?
+	NodeLink link;	
+	link.create(output_prop, input_prop, output_node, input_node);
+    
+	output_prop->links.push_back(link);
+	input_prop->links.push_back(link);
+    }
+
+// TODO: ImNodes::IsLinkDestroyed is not impelemted on the imnodes side (or thats just me stupid),
+// so check for deletion by our own
+    int num_selected = ImNodes::NumSelectedLinks();
+// TODO: dont check for input in here - use update method
+    if(num_selected > 0 && Input::wasKeyReleased(SDLK_DELETE)) {
+	int selected_links[num_selected];
+	ImNodes::GetSelectedLinks(&selected_links[0]);
+
+	// TODO: slow linear search
+	for(int i = 0; i < num_selected; ++i) {
+	    int destroyed_link_id = selected_links[i];
+	    MeshComponent& mesh = selected_entity.getComponent<MeshComponent>();
+	    Material *mat = mesh.getActiveMaterial();
+	    std::vector<Node>& nodes = mat->nodes;
+      
+	    for(int j = 0; j < nodes.size(); ++j) {
+		Node& node = nodes[j];
+		std::vector<NodeProperty>& node_outputs = node.outputs;
+		std::vector<NodeProperty>& node_inputs = node.inputs;
+
+		for(int k = 0; k < node_outputs.size(); ++k) {
+		    NodeProperty* prop = &node_outputs[k];
+		    std::vector<NodeLink>& links = prop->links;
+
+		    for(int q = 0; q < links.size(); ++q) {
+			NodeLink link = links[q];
+
+			if(link.id.id == destroyed_link_id) {
+			    links.erase(links.begin() + q);
+			}
+		    }
+		}
+
+		for(int k = 0; k < node_inputs.size(); ++k) {
+		    NodeProperty* prop = &node_inputs[k];
+		    std::vector<NodeLink>& links = prop->links;
+
+		    for(int q = 0; q < links.size(); ++q) {
+			NodeLink link = links[q];
+
+			if(link.id.id == destroyed_link_id) {
+			    links.erase(links.begin() + q);
+			}
+		    }
+		}
+	    }
+	}
+    }
+    
+    ImGui::End();
+}
+
 void Editor::showMenuBar() {
     if(ImGui::BeginMainMenuBar()) {
 	if(ImGui::BeginMenu("File")) {
 	    if(ImGui::MenuItem("New")) {
-					
+
 	    }
 	    if(ImGui::MenuItem("Open")) {
 		// ImGuiFileDialog::Instance()->OpenDialog("LoadSceneDlgKey", "Choose File", ".scene", ".");
@@ -324,7 +617,22 @@ void Editor::showMenuBar() {
 				
 	    ImGui::EndMenu();
 	}
-			
+
+	// Render tabs
+	if(ImGui::BeginTabBar("EditorTabBar")) {
+	    if(ImGui::BeginTabItem("Layout")) {
+		showViewSpace();
+		ImGui::EndTabItem();
+	    }
+	    if(ImGui::BeginTabItem("Shading")) {
+		showNodeSpace();
+		ImGui::EndTabItem();
+	    }
+      
+	    ImGui::EndTabBar();
+	}
+    
+    
 	ImGui::EndMainMenuBar();
     }
 
@@ -534,11 +842,13 @@ template<typename T> void Editor::showRemoveComponentPopup(const char* str) {
     }
 }
 
-void Editor::showLines() {
-    auto& camera_tr = editor_camera.getComponent<TransformComponent>();
-    auto& camera = editor_camera.getComponent<CameraComponent>();
-    glm::vec3 cam_pos = camera_tr.position;
-    float far = camera.camera.far;
+void Editor::showLines() {       
+    auto& camera_component = editor_camera.getComponent<CameraComponent>();
+    auto& camera_transform  = editor_camera.getComponent<TransformComponent>();
+    
+    glm::vec3 cam_pos = camera_transform.position;
+    
+    float far = camera_component.camera.far;
     for(float x = cam_pos.x - far; x < cam_pos.x + far; x += 0.5f) {
 	glm::vec3 start = glm::vec3((int)x, 0, (int)(cam_pos.z - far));
 	glm::vec3 end = glm::vec3((int)x, 0, (int)(cam_pos.z + far));
@@ -546,7 +856,7 @@ void Editor::showLines() {
 	if((int)x == 0) {
 	    color = glm::vec3(1, 0.4, 0.4);
 	}
-	Gizmos::drawLine(camera.camera, start, end, color);
+	Gizmos::drawLine(camera_component.camera, start, end, color);
     }
 
     for(float z = cam_pos.z - far; z < cam_pos.z + far; z += 0.5f) {
@@ -556,6 +866,20 @@ void Editor::showLines() {
 	if((int)z == 0) {
 	    color = glm::vec3(0.55, 0.8, 0.9);
 	}
-	Gizmos::drawLine(camera.camera, start, end, color);
+	Gizmos::drawLine(camera_component.camera, start, end, color);
+    }
+}
+
+void Editor::createNode(NodeType type) {
+    if(selected_entity && selected_entity.hasComponent<MeshComponent>()) {
+	MeshComponent& mesh = selected_entity.getComponent<MeshComponent>();
+	Material* mat = mesh.getActiveMaterial();
+    
+	if(mat) {
+	    Node node;
+	    node.create(type);
+      
+	    mat->nodes.push_back(node);
+	}
     }
 }

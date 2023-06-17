@@ -5,11 +5,12 @@
 #include "../ecs/entity.h"
 #include "../graphics/camera.h"
 #include "../graphics/framebuffer.h"
+#include "../nodes/node.h"
 
 #include "glm/glm.hpp"
+#include <vector>
 
 struct Editor {
-
     void create();
     void destroy();
 
@@ -24,7 +25,8 @@ private:
 	MATERIAL_PREVIEW
     };
 	
-    void showViewport();
+    void showViewSpace();
+    void showNodeSpace();
     void showMenuBar();
     void showHierarchyPanel();
     void showInspectorPanel();
@@ -32,10 +34,12 @@ private:
 
     template<typename T> void showAddComponentPopup(const char* str);
     template<typename T> void showRemoveComponentPopup(const char* str);
-	
+
+    void createNode(NodeType type);
+
     Scene* scene;
     Entity editor_camera;
-    Entity main_camera;
+  
     Entity selected_entity;
     Entity hovered_entity;
 

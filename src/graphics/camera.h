@@ -15,7 +15,7 @@ struct Camera {
 	}
 	
 	glm::mat4 getProjectionMatrix();
-	glm::mat4 getViewMatrix();
+    glm::mat4 getViewMatrix();
 
 	glm::vec3 getUp() const;
 	glm::vec3 getRight() const;

@@ -5,7 +5,8 @@ ShaderCreateInfo ShaderParser::parse_custom_shader(const char* src) {
 
     ShaderCreateInfo info;
     if(fs.is_open()) {
-	Tokenizer tokenizer;
+	
+	
 	while(1) {
 	    
 	}

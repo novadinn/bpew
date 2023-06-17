@@ -19,29 +19,25 @@ struct Renderer {
     static void init();
     static void destroy();
 
-    // TODO: this shoud take in a material
-    // TODO: should it lights?
-    // TODO: can we pass a entt::view in here?
-    static void drawMesh(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
-			 TransformComponent& camera_t,
-			 std::vector<LightComponent>& lights,
-			 std::vector<TransformComponent>& light_transforms,
-			 const glm::mat4& model);
+	// TODO: can we pass a entt::view in here?
+    static void drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
+				 TransformComponent& camera_transform, const glm::mat4& model);
     static void drawMeshSolid(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
-			      TransformComponent& camera_tr,
-			      const glm::mat4& model);
-    static void drawMeshRendered(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
-				 TransformComponent& camera_tr,
-				 std::vector<LightComponent>& lights,
-				 std::vector<TransformComponent>& light_transforms,
-				 const glm::mat4& model);
-    static void drawMeshWireframe(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
-				  TransformComponent& camera_tr,
-				  const glm::mat4& model);
+			      TransformComponent& camera_transform, const glm::mat4& model);
+	static void drawMeshRendered(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
+								 std::vector<LightComponent>& lights,
+								 std::vector<TransformComponent>& light_transforms,
+								 const glm::mat4& model);
+	static void drawMeshWireframe(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
+				      TransformComponent& camera_transform, const glm::mat4& model);
 	
     static void clear();
 
     static void setClearColor(const glm::vec4& color);
+
+private:
+    static void setMaterialNodeUniforms(Shader& shader, Node& node);
+    static void setMaterialNodeUniform(Shader& shader, Node& node, NodeProperty& prop);
 };
 
 #endif // RENDERER_H

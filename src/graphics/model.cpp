@@ -1,7 +1,7 @@
 #include "model.h"
 
 #include "../core/log.h"
-#include "../core/file_system.h"
+#include "../core/utils.h"
 
 #include <iostream>
 
@@ -17,7 +17,7 @@ bool Model::loadFromPath(const char* path) {
 		return false;
     }
 
-	std::string directory = FileSystem::pathDirectory(path);
+	std::string directory = Utils::pathDirectory(path);
 	
     processNode(directory, scene->mRootNode, scene);
 	return true;
@@ -101,7 +101,7 @@ Mesh Model::processMesh(const std::string& directory, aiMesh *mesh, const aiScen
 	// 		material->GetTexture((aiTextureType)i, j, &str);
 
 	// 		std::string path = str.C_Str();
-	// 		std::string full_path = FileSystem::connectPathWithDirectory(directory, path);
+	// 		std::string full_path = Utils::connectPathWithDirectory(directory, path);
 			
 	// 		bool skip = false;
 	// 		for(int k = 0; k < loaded_textures.size(); ++k) {
@@ -124,3 +124,4 @@ Mesh Model::processMesh(const std::string& directory, aiMesh *mesh, const aiScen
 
     return result;
 }
+
