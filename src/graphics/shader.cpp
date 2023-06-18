@@ -17,8 +17,8 @@ bool Shader::createFromFile(const char* vert_path, const char* frag_path) {
     std::ifstream vert_fp;
     std::ifstream frag_fp;
     
-    vert_fp.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-    frag_fp.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    vert_fp.exceptions(std::ifstream::failbit);
+    frag_fp.exceptions(std::ifstream::failbit);
     try {
 	vert_fp.open(vert_path);
 	frag_fp.open(frag_path);

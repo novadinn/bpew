@@ -6,6 +6,9 @@
 #include "../graphics/camera.h"
 #include "../graphics/framebuffer.h"
 #include "../nodes/node.h"
+#include "space_layout.h"
+#include "space_modeling.h"
+#include "space_shading.h"
 
 #include "glm/glm.hpp"
 #include <vector>
@@ -25,12 +28,20 @@ private:
 	MATERIAL_PREVIEW
     };
 	
-    void showViewSpace();
-    void showNodeSpace();
+    void showLayoutSpace();
+    void showModelingSpace();
+    void showShadingSpace();
+    
     void showMenuBar();
     void showHierarchyPanel();
     void showInspectorPanel();
     void showLines();
+    void showView3D();
+
+    glm::vec2 getAvailableViewportSize() const;
+    glm::vec2 getAvailableViewportBoundsMin() const;
+    glm::vec2 getAvailableViewportBoundsMax() const;
+    bool isViewportHovered() const;
 
     template<typename T> void showAddComponentPopup(const char* str);
     template<typename T> void showRemoveComponentPopup(const char* str);
@@ -53,6 +64,10 @@ private:
 
     int gizmo_operation = -1;
     DrawMode draw_mode = DrawMode::SOLID;
+
+    SpaceLayout space_layout;
+    SpaceModeling space_modeling;
+    SpaceShading space_shading;
 };
 
 #endif // EDITOR_H

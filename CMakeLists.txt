@@ -19,7 +19,7 @@ FILE(GLOB IMGUIFILEDIALOGSRC "include/ImGuiFileDialog/ImGuiFileDialog.cpp")
 FILE(GLOB IMNODESSRC "include/imnodes/*.cpp")
 FILE(GLOB GLADSRC "src/glad.c")
 
-add_executable(${PROJECT_NAME} ${IMGUISRC} ${IMGUIZMOSRC} ${IMGUIFILEDIALOGSRC} ${IMNODESSRC} ${GLADSRC} "src/main.cpp" "src/graphics/shader.cpp" "src/graphics/texture.cpp" "src/graphics/framebuffer.cpp" "src/graphics/index_buffer.cpp" "src/graphics/vertex_buffer.cpp" "src/graphics/vertex_array.cpp" "src/core/window.cpp" "src/core/input.cpp" "src/graphics/renderer.cpp" "src/graphics/camera.cpp" "src/graphics/model.cpp" "src/ecs/scene.cpp" "src/editor/editor.cpp" "src/core/time.cpp" "src/graphics/gizmos.cpp" "src/nodes/node.cpp" "src/nodes/node_link.cpp")
+add_executable(${PROJECT_NAME} ${IMGUISRC} ${IMGUIZMOSRC} ${IMGUIFILEDIALOGSRC} ${IMNODESSRC} ${GLADSRC} "src/main.cpp" "src/graphics/shader.cpp" "src/graphics/texture.cpp" "src/graphics/framebuffer.cpp" "src/graphics/index_buffer.cpp" "src/graphics/vertex_buffer.cpp" "src/graphics/vertex_array.cpp" "src/core/window.cpp" "src/core/input.cpp" "src/graphics/renderer.cpp" "src/graphics/camera.cpp" "src/graphics/model.cpp" "src/ecs/scene.cpp" "src/editor/editor.cpp" "src/core/time.cpp" "src/graphics/gizmos.cpp" "src/nodes/node.cpp" "src/nodes/node_link.cpp" "src/editor/space_layout.cpp" "src/editor/space_modeling.cpp" "src/editor/space_shading.cpp")
 
 link_directories(${ASSIMP_LIBRARY_DIRS})
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${ASSIMP_LIBRARIES} GL dl)

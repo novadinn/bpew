@@ -15,10 +15,12 @@ struct Mesh {
 	va.bind();
 
 	vb.create(&vertices[0], vertices.size() * sizeof(float));
-	ib.create(&indices[0], indices.size() * sizeof(uint));
+	if(indices.size() > 0)
+	    ib.create(&indices[0], indices.size() * sizeof(uint));
 
 	va.addVertexBuffer(vb, attributes);
-	va.setIndexBuffer(ib);
+	if(indices.size() > 0)
+	    va.setIndexBuffer(ib);
     }
     
     void destroy() {
