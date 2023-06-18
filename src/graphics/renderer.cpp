@@ -116,8 +116,7 @@ void Renderer::setMaterialNodeUniforms(Shader& shader, Node& node) {
 }
 
 void Renderer::setMaterialNodeUniform(Shader& shader, Node& node, NodeProperty& prop) {    
-    std::string name = std::to_string(node.id.id) + std::string("_") + std::string(prop.id.name);
-    
+    std::string name = std::string("input_") + std::to_string(node.id.id) + std::string("_") + std::to_string(prop.id.id);    
     switch(prop.type) {
     case NodePropertyType::COLOR:
 	shader.setVec4(name.c_str(), prop.value.color_value);

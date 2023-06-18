@@ -147,7 +147,7 @@ void ShaderBuilder::build_material_shader(Material& material) {
     }
 
     if(!out) {
-	printf("WARNING: material \"%s\" output not found\n", material.name);
+	printf("WARNING: material \"%s\" output not found\n", material.name.c_str());
 	return;
     }    
     
@@ -169,7 +169,7 @@ void ShaderBuilder::build_material_shader(Material& material) {
 
     ss << "vec4 surface() {\n";
     if(surface == nullptr || surface->links.size() == 0) {
-	ss << "return vec4(0);\n";
+	ss << "return vec4(0.5);\n";
     } else {	
 	Node& surface_node = material.nodes[surface->links[0].output_node];
 	build_node(ss, &surface_node, material);
@@ -222,9 +222,10 @@ void ShaderBuilder::build_node_uniform(ShaderCreateInfo& info, const Node* node,
 }
 
 void ShaderBuilder::build_node(std::stringstream& ss, const Node* node, Material& material) {        
-    for(auto& input : node->inputs) {		
-	for(auto& link : input.links) {	    
-	    build_node(ss, &material.nodes[link.output_node], material);	    
+    for(auto& input : node->inputs) {
+	// TODO: should be only one link on input
+	if(input.links.size() > 0) {
+	    build_node(ss, &material.nodes[input.links[0].output_node], material);	
 	}
     }
 
