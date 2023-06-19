@@ -1,8 +1,7 @@
 CMakeFiles/bpew.dir/src/core/input.cpp.o: \
- /home/nikolay/Projects/bpew-new/src/core/input.cpp \
- /usr/include/stdc-predef.h \
- /home/nikolay/Projects/bpew-new/src/core/input.h \
- /home/nikolay/Projects/bpew-new/src/core/platform.h \
+ /home/nikolay/Projects/bpew/src/core/input.cpp \
+ /usr/include/stdc-predef.h /home/nikolay/Projects/bpew/src/core/input.h \
+ /home/nikolay/Projects/bpew/src/core/platform.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \

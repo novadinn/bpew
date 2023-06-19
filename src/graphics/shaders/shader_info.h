@@ -2,6 +2,7 @@
 #define SHADER_INFO_H
 
 #include <vector>
+#include <string>
 
 #include "../../core/platform.h"
 

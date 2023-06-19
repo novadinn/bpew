@@ -1,7 +1,7 @@
 CMakeFiles/bpew.dir/include/ImGuizmo/ImSequencer.cpp.o: \
- /home/nikolay/Projects/bpew-new/include/ImGuizmo/ImSequencer.cpp \
+ /home/nikolay/Projects/bpew/include/ImGuizmo/ImSequencer.cpp \
  /usr/include/stdc-predef.h \
- /home/nikolay/Projects/bpew-new/include/ImGuizmo/ImSequencer.h \
+ /home/nikolay/Projects/bpew/include/ImGuizmo/ImSequencer.h \
  /usr/include/c++/13.1.1/cstddef \
  /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/os_defines.h \
@@ -12,14 +12,14 @@ CMakeFiles/bpew.dir/include/ImGuizmo/ImSequencer.cpp.o: \
  /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/cpu_defines.h \
  /usr/include/c++/13.1.1/pstl/pstl_config.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stddef.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imgui.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imconfig.h \
+ /home/nikolay/Projects/bpew/include/imgui/imgui.h \
+ /home/nikolay/Projects/bpew/include/imgui/imconfig.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/float.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stdarg.h \
  /usr/include/string.h /usr/include/bits/libc-header-start.h \
  /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
  /usr/include/strings.h /usr/include/assert.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imgui_internal.h \
+ /home/nikolay/Projects/bpew/include/imgui/imgui_internal.h \
  /usr/include/stdio.h /usr/include/bits/types.h \
  /usr/include/bits/typesizes.h /usr/include/bits/time64.h \
  /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__mbstate_t.h \
@@ -189,4 +189,4 @@ CMakeFiles/bpew.dir/include/ImGuizmo/ImSequencer.cpp.o: \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/prfchwintrin.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/keylockerintrin.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/amxfp16intrin.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imstb_textedit.h
+ /home/nikolay/Projects/bpew/include/imgui/imstb_textedit.h

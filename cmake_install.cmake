@@ -1,4 +1,4 @@
-# Install script for directory: /home/nikolay/Projects/bpew-new
+# Install script for directory: /home/nikolay/Projects/bpew
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/nikolay/Projects/bpew-new/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/nikolay/Projects/bpew/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

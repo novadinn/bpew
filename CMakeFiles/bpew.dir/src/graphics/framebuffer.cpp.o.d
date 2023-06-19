@@ -1,8 +1,8 @@
 CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o: \
- /home/nikolay/Projects/bpew-new/src/graphics/framebuffer.cpp \
+ /home/nikolay/Projects/bpew/src/graphics/framebuffer.cpp \
  /usr/include/stdc-predef.h \
- /home/nikolay/Projects/bpew-new/src/graphics/framebuffer.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../core/platform.h \
+ /home/nikolay/Projects/bpew/src/graphics/framebuffer.h \
+ /home/nikolay/Projects/bpew/src/graphics/../core/platform.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -12,8 +12,8 @@ CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o: \
  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
  /usr/include/bits/time64.h /usr/include/bits/wchar.h \
  /usr/include/bits/stdint-intn.h /usr/include/bits/stdint-uintn.h \
- /home/nikolay/Projects/bpew-new/include/glad/glad.h \
- /home/nikolay/Projects/bpew-new/include/KHR/khrplatform.h \
+ /home/nikolay/Projects/bpew/include/glad/glad.h \
+ /home/nikolay/Projects/bpew/include/KHR/khrplatform.h \
  /usr/include/c++/13.1.1/vector \
  /usr/include/c++/13.1.1/bits/requires_hosted.h \
  /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/c++config.h \
@@ -69,7 +69,7 @@ CMakeFiles/bpew.dir/src/graphics/framebuffer.cpp.o: \
  /usr/include/c++/13.1.1/bits/ranges_base.h \
  /usr/include/c++/13.1.1/bits/max_size_type.h \
  /usr/include/c++/13.1.1/numbers \
- /home/nikolay/Projects/bpew-new/src/graphics/../core/log.h \
+ /home/nikolay/Projects/bpew/src/graphics/../core/log.h \
  /usr/include/c++/13.1.1/cstdlib /usr/include/stdlib.h \
  /usr/include/bits/waitflags.h /usr/include/bits/waitstatus.h \
  /usr/include/bits/floatn.h /usr/include/bits/floatn-common.h \

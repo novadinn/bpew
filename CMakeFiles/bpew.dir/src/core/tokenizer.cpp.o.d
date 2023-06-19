@@ -1,7 +1,7 @@
 CMakeFiles/bpew.dir/src/core/tokenizer.cpp.o: \
- /home/nikolay/Projects/bpew-new/src/core/tokenizer.cpp \
+ /home/nikolay/Projects/bpew/src/core/tokenizer.cpp \
  /usr/include/stdc-predef.h \
- /home/nikolay/Projects/bpew-new/src/core/tokenizer.h \
+ /home/nikolay/Projects/bpew/src/core/tokenizer.h \
  /usr/include/c++/13.1.1/string \
  /usr/include/c++/13.1.1/bits/requires_hosted.h \
  /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/c++config.h \

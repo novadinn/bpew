@@ -1,8 +1,8 @@
 CMakeFiles/bpew.dir/include/ImGuizmo/GraphEditor.cpp.o: \
- /home/nikolay/Projects/bpew-new/include/ImGuizmo/GraphEditor.cpp \
+ /home/nikolay/Projects/bpew/include/ImGuizmo/GraphEditor.cpp \
  /usr/include/stdc-predef.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imgui.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imconfig.h \
+ /home/nikolay/Projects/bpew/include/imgui/imgui.h \
+ /home/nikolay/Projects/bpew/include/imgui/imconfig.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/float.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stdarg.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stddef.h \
@@ -13,7 +13,7 @@ CMakeFiles/bpew.dir/include/ImGuizmo/GraphEditor.cpp.o: \
  /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
  /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
  /usr/include/strings.h /usr/include/assert.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imgui_internal.h \
+ /home/nikolay/Projects/bpew/include/imgui/imgui_internal.h \
  /usr/include/stdio.h /usr/include/bits/types.h \
  /usr/include/bits/typesizes.h /usr/include/bits/time64.h \
  /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__mbstate_t.h \
@@ -187,7 +187,7 @@ CMakeFiles/bpew.dir/include/ImGuizmo/GraphEditor.cpp.o: \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/prfchwintrin.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/keylockerintrin.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/amxfp16intrin.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imstb_textedit.h \
+ /home/nikolay/Projects/bpew/include/imgui/imstb_textedit.h \
  /usr/include/c++/13.1.1/vector /usr/include/c++/13.1.1/bits/allocator.h \
  /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
  /usr/include/c++/13.1.1/bits/new_allocator.h \
@@ -214,7 +214,7 @@ CMakeFiles/bpew.dir/include/ImGuizmo/GraphEditor.cpp.o: \
  /usr/include/c++/13.1.1/bits/ranges_base.h \
  /usr/include/c++/13.1.1/bits/max_size_type.h \
  /usr/include/c++/13.1.1/numbers /usr/include/c++/13.1.1/array \
- /home/nikolay/Projects/bpew-new/include/ImGuizmo/GraphEditor.h \
+ /home/nikolay/Projects/bpew/include/ImGuizmo/GraphEditor.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/wchar.h \
  /usr/include/bits/stdint-uintn.h /usr/include/c++/13.1.1/string \

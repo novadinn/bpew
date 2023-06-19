@@ -1,6 +1,6 @@
 #include "shader_parser.h"
 
-ShaderCreateInfo ShaderParser::parse_custom_shader(const char* src) {
+ShaderCreateInfo ShaderParser::parseCustomShader(const char* src) {
     std::ifstream fs(std::string("datafiles/shaders/") + std::string(src));
 
     ShaderCreateInfo info;

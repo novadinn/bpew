@@ -1,7 +1,7 @@
 #include "tokenizer.h"
 
-Token Tokenizer::read_token() {
-    token_next_skip();
+Token Tokenizer::readToken() {
+    tokenNextSkip();
 
     TokenType type = TokenType::NONE;
     std::string value = "";
@@ -9,15 +9,15 @@ Token Tokenizer::read_token() {
     if(token_pos != size) {
 	switch(token) {
 	case '"': {
-	    std::string str = token_str();
+	    std::string str = tokenStr();
 	    type = TokenType::STR;
 	    value = str;
 	}
 	    break;
 	case '#': {
 	    if(tokenc == 0) {
-		token_next_skip();
-		std::string ident = token_ident();
+		tokenNextSkip();
+		std::string ident = tokenIdent();
 		if(ident.size() != 0) {
 		    type = TokenType::DIRECTIVE;
 		    value = ident;	    
@@ -26,7 +26,7 @@ Token Tokenizer::read_token() {
 	    }
 	}	
 	default: {
-	    std::string ident = token_ident();
+	    std::string ident = tokenIdent();
 	    if(ident.size() != 0) {
 		type = TokenType::IDENT;
 		value = ident;	    
@@ -43,16 +43,16 @@ Token Tokenizer::read_token() {
     return token;
 }
 
-void Tokenizer::token_next() {
+void Tokenizer::tokenNext() {
     if(size == token_pos
 	|| token == EOF) return;    
     token = *(src + token_pos);
     token_pos++;    
 }
 
-void Tokenizer::token_next_skip() {
+void Tokenizer::tokenNextSkip() {
     while(1) {
-	token_next();	
+	tokenNext();	
        
 	if(token_pos == size
 	    || token == EOF) {
@@ -68,14 +68,14 @@ void Tokenizer::token_next_skip() {
     }
 }
 
-std::string Tokenizer::token_str() {
+std::string Tokenizer::tokenStr() {
     if(token != '"') {
 	token_pos--;
-	token_next();
+	tokenNext();
 	return "";
     }
 
-    token_next();
+    tokenNext();
     
     std::string str;
     while(1) {
@@ -85,18 +85,18 @@ std::string Tokenizer::token_str() {
 	}
 	
 	if(token == '"') {
-	    token_next();
+	    tokenNext();
 	    break;
 	}
 	
 	str += token;
-	token_next();
+	tokenNext();
     }
     
     return str;
 }
 
-std::string Tokenizer::token_ident() {    
+std::string Tokenizer::tokenIdent() {    
     std::string ident;
     while(1) {
 	if(size == token_pos
@@ -112,7 +112,7 @@ std::string Tokenizer::token_ident() {
 	}
 
 	ident += token;
-	token_next();	
+	tokenNext();	
     }
 
     return ident;

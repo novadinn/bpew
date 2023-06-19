@@ -18,12 +18,12 @@ struct Token {
 struct Tokenizer {
     Tokenizer(const char* src, uint size) : src(src), size(size) {}
     
-    Token read_token();
+    Token readToken();
 private:
-    void token_next();
-    void token_next_skip(); 
-    std::string token_str();
-    std::string token_ident();
+    void tokenNext();
+    void tokenNextSkip(); 
+    std::string tokenStr();
+    std::string tokenIdent();
     const char* src;    
     uint tokenc = 0;
     uint size = 0;

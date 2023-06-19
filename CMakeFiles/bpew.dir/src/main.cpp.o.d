@@ -1,7 +1,7 @@
 CMakeFiles/bpew.dir/src/main.cpp.o: \
- /home/nikolay/Projects/bpew-new/src/main.cpp /usr/include/stdc-predef.h \
- /home/nikolay/Projects/bpew-new/include/glad/glad.h \
- /home/nikolay/Projects/bpew-new/include/KHR/khrplatform.h \
+ /home/nikolay/Projects/bpew/src/main.cpp /usr/include/stdc-predef.h \
+ /home/nikolay/Projects/bpew/include/glad/glad.h \
+ /home/nikolay/Projects/bpew/include/KHR/khrplatform.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -11,8 +11,8 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
  /usr/include/bits/time64.h /usr/include/bits/wchar.h \
  /usr/include/bits/stdint-intn.h /usr/include/bits/stdint-uintn.h \
- /home/nikolay/Projects/bpew-new/include/glm/glm/glm.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/detail/_fixes.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/glm.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/detail/_fixes.hpp \
  /usr/include/c++/13.1.1/cmath \
  /usr/include/c++/13.1.1/bits/requires_hosted.h \
  /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/c++config.h \
@@ -79,10 +79,10 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /usr/include/c++/13.1.1/tr1/poly_hermite.tcc \
  /usr/include/c++/13.1.1/tr1/poly_laguerre.tcc \
  /usr/include/c++/13.1.1/tr1/riemann_zeta.tcc \
- /home/nikolay/Projects/bpew-new/include/glm/glm/detail/setup.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/detail/setup.hpp \
  /usr/include/c++/13.1.1/cassert /usr/include/assert.h \
  /usr/include/c++/13.1.1/cstddef \
- /home/nikolay/Projects/bpew-new/include/glm/glm/detail/../simd/platform.h \
+ /home/nikolay/Projects/bpew/include/glm/glm/detail/../simd/platform.h \
  /usr/include/c++/13.1.1/cstdint /usr/include/c++/13.1.1/climits \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/limits.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/syslimits.h \
@@ -92,201 +92,201 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
  /usr/include/bits/uio_lim.h /usr/include/c++/13.1.1/cfloat \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/float.h \
- /home/nikolay/Projects/bpew-new/include/glm/glm/fwd.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/detail/qualifier.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/detail/setup.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/vec2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_bool2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/type_vec2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/type_vec2.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/./compute_vector_relational.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/./setup.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_bool2_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_float2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_float2_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_double2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_double2_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_int2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_int2_sized.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../ext/scalar_int_sized.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../ext/../detail/setup.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_uint2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_uint2_sized.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../ext/scalar_uint_sized.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/vec3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_bool3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/type_vec3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/type_vec3.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_bool3_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_float3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_float3_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_double3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_double3_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_int3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_int3_sized.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_uint3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_uint3_sized.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/vec4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_bool4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/type_vec4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/type_vec4.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_bool4_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_float4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_float4_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_double4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_double4_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/setup.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_int4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_int4_sized.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_uint4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/vector_uint4_sized.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/mat2x2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/matrix_double2x2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/type_mat2x2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/type_mat2x2.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../matrix.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/setup.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../mat2x3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_double2x3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat2x3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat2x3.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_double2x3_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_float2x3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_float2x3_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../mat2x4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_double2x4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat2x4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat2x4.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_double2x4_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_float2x4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_float2x4_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../mat3x2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_double3x2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat3x2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat3x2.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_double3x2_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_float3x2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_float3x2_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../mat3x3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_double3x3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat3x3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat3x3.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_double3x3_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_float3x3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_float3x3_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../mat3x4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_double3x4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat3x4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat3x4.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_double3x4_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_float3x4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_float3x4_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../mat4x2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_double4x2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat4x2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat4x2.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_double4x2_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_float4x2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_float4x2_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../mat4x3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_double4x3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat4x3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat4x3.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_double4x3_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_float4x3.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_float4x3_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../mat4x4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_double4x4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat4x4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat4x4.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_double4x4_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_float4x4.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/.././ext/matrix_float4x4_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/func_matrix.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/../geometric.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/../detail/func_geometric.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/../detail/../exponential.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/../detail/../detail/type_vec1.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/../detail/../detail/type_vec1.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/../detail/../detail/func_exponential.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/../detail/../detail/../vector_relational.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/../detail/../detail/../detail/setup.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/../detail/../detail/../detail/func_vector_relational.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/../detail/../detail/_vectorize.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/../detail/../common.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/../detail/../detail/_fixes.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/../detail/../detail/func_common.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/../detail/../detail/compute_common.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/../detail/../detail/../detail/../detail/setup.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/matrix_double2x2_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/matrix_float2x2.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/./ext/matrix_float2x2_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/trigonometric.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/detail/func_trigonometric.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/packing.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/detail/func_packing.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/detail/type_half.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/detail/type_half.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/integer.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/detail/func_integer.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/matrix_transform.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../ext/matrix_projection.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../ext/../gtc/constants.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../ext/../gtc/../ext/scalar_constants.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../ext/../gtc/../ext/../detail/setup.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../ext/../gtc/../ext/scalar_constants.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../ext/../gtc/constants.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../ext/matrix_projection.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../ext/matrix_clip_space.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../ext/matrix_clip_space.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../ext/matrix_transform.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../ext/matrix_transform.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/matrix_transform.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/type_ptr.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/quaternion.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/vector_relational.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/vector_relational.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/../detail/type_float.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/../detail/setup.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/quaternion_common.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/../ext/quaternion_geometric.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/../ext/quaternion_geometric.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/quaternion_common.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/quaternion_float.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/../detail/type_quat.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/../detail/../ext/quaternion_relational.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/../detail/../ext/quaternion_relational.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/../detail/type_quat.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/quaternion_float_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/quaternion_double.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/quaternion_double_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/quaternion_trigonometric.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/quaternion_trigonometric.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/quaternion_transform.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/quaternion_transform.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/quaternion.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/epsilon.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../detail/setup.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/epsilon.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/vec1.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/vector_bool1.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/vector_bool1_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/vector_float1.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/vector_float1_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/vector_double1.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/vector_double1_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/vector_int1.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/vector_int1_sized.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/vector_uint1.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/../gtc/../ext/vector_uint1_sized.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/fwd.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/detail/qualifier.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/detail/setup.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/vec2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_bool2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/type_vec2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/type_vec2.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/./compute_vector_relational.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/./setup.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_bool2_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_float2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_float2_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_double2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_double2_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_int2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_int2_sized.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../ext/scalar_int_sized.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../ext/../detail/setup.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_uint2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_uint2_sized.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../ext/scalar_uint_sized.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/vec3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_bool3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/type_vec3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/type_vec3.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_bool3_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_float3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_float3_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_double3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_double3_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_int3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_int3_sized.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_uint3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_uint3_sized.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/vec4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_bool4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/type_vec4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/type_vec4.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_bool4_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_float4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_float4_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_double4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_double4_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/setup.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_int4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_int4_sized.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_uint4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/vector_uint4_sized.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/mat2x2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/matrix_double2x2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/type_mat2x2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/type_mat2x2.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../matrix.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/setup.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../mat2x3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_double2x3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat2x3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat2x3.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_double2x3_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_float2x3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_float2x3_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../mat2x4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_double2x4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat2x4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat2x4.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_double2x4_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_float2x4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_float2x4_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../mat3x2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_double3x2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat3x2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat3x2.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_double3x2_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_float3x2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_float3x2_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../mat3x3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_double3x3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat3x3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat3x3.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_double3x3_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_float3x3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_float3x3_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../mat3x4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_double3x4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat3x4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat3x4.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_double3x4_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_float3x4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_float3x4_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../mat4x2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_double4x2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat4x2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat4x2.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_double4x2_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_float4x2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_float4x2_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../mat4x3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_double4x3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat4x3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat4x3.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_double4x3_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_float4x3.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_float4x3_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../mat4x4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_double4x4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat4x4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/../detail/type_mat4x4.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_double4x4_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_float4x4.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/.././ext/matrix_float4x4_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/func_matrix.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/../geometric.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/../detail/func_geometric.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/../detail/../exponential.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/../detail/../detail/type_vec1.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/../detail/../detail/type_vec1.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/../detail/../detail/func_exponential.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/../detail/../detail/../vector_relational.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/../detail/../detail/../detail/setup.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/../detail/../detail/../detail/func_vector_relational.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/../detail/../detail/_vectorize.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/../detail/../common.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/../detail/../detail/_fixes.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/../detail/../detail/func_common.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/../detail/../detail/compute_common.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/../detail/../detail/../detail/../detail/setup.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/matrix_double2x2_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/matrix_float2x2.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/./ext/matrix_float2x2_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/trigonometric.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/detail/func_trigonometric.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/packing.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/detail/func_packing.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/detail/type_half.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/detail/type_half.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/integer.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/detail/func_integer.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/matrix_transform.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../ext/matrix_projection.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../ext/../gtc/constants.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../ext/../gtc/../ext/scalar_constants.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../ext/../gtc/../ext/../detail/setup.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../ext/../gtc/../ext/scalar_constants.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../ext/../gtc/constants.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../ext/matrix_projection.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../ext/matrix_clip_space.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../ext/matrix_clip_space.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../ext/matrix_transform.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../ext/matrix_transform.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/matrix_transform.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/type_ptr.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/quaternion.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_relational.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_relational.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/../detail/type_float.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/../detail/setup.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_common.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/../ext/quaternion_geometric.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/../ext/quaternion_geometric.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_common.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_float.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/../detail/type_quat.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/../detail/../ext/quaternion_relational.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/../detail/../ext/quaternion_relational.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/../detail/type_quat.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_float_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_double.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_double_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_trigonometric.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_trigonometric.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_transform.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/quaternion_transform.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/quaternion.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/epsilon.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../detail/setup.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/epsilon.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/vec1.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_bool1.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_bool1_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_float1.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_float1_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_double1.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_double1_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_int1.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_int1_sized.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_uint1.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/../gtc/../ext/vector_uint1_sized.hpp \
  /usr/include/c++/13.1.1/cstring /usr/include/string.h \
  /usr/include/strings.h \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtc/type_ptr.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/string_cast.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/../gtc/type_precision.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/../gtc/type_precision.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/../gtx/dual_quaternion.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/../gtx/dual_quaternion.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtc/type_ptr.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtx/string_cast.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtx/../gtc/type_precision.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtx/../gtc/type_precision.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtx/../gtx/dual_quaternion.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtx/../gtx/dual_quaternion.inl \
  /usr/include/c++/13.1.1/string /usr/include/c++/13.1.1/bits/stringfwd.h \
  /usr/include/c++/13.1.1/bits/memoryfwd.h \
  /usr/include/c++/13.1.1/bits/char_traits.h \
@@ -338,7 +338,7 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /usr/include/c++/13.1.1/bits/uses_allocator.h \
  /usr/include/c++/13.1.1/bits/uses_allocator_args.h \
  /usr/include/c++/13.1.1/tuple /usr/include/c++/13.1.1/bits/ranges_util.h \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/string_cast.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtx/string_cast.inl \
  /usr/include/c++/13.1.1/cstdarg /usr/include/c++/13.1.1/iostream \
  /usr/include/c++/13.1.1/ostream /usr/include/c++/13.1.1/ios \
  /usr/include/c++/13.1.1/exception \
@@ -375,8 +375,8 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /usr/include/c++/13.1.1/bits/basic_ios.tcc \
  /usr/include/c++/13.1.1/bits/ostream.tcc /usr/include/c++/13.1.1/istream \
  /usr/include/c++/13.1.1/bits/istream.tcc \
- /home/nikolay/Projects/bpew-new/src/core/utils.h \
- /home/nikolay/Projects/bpew-new/src/core/platform.h \
+ /home/nikolay/Projects/bpew/src/core/utils.h \
+ /home/nikolay/Projects/bpew/src/core/platform.h \
  /usr/include/c++/13.1.1/random /usr/include/c++/13.1.1/bits/random.h \
  /usr/include/c++/13.1.1/vector \
  /usr/include/c++/13.1.1/bits/stl_uninitialized.h \
@@ -397,17 +397,17 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /usr/include/c++/13.1.1/bits/enable_special_members.h \
  /usr/include/c++/13.1.1/bits/node_handle.h \
  /usr/include/c++/13.1.1/bits/erase_if.h \
- /home/nikolay/Projects/bpew-new/src/core/window.h \
- /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_main.h \
- /usr/include/SDL2/SDL_stdinc.h /usr/include/SDL2/SDL_config.h \
- /usr/include/SDL2/SDL_platform.h /usr/include/SDL2/begin_code.h \
- /usr/include/SDL2/close_code.h /usr/include/c++/13.1.1/stdlib.h \
- /usr/include/inttypes.h /usr/include/c++/13.1.1/math.h \
- /usr/include/SDL2/SDL_assert.h /usr/include/SDL2/SDL_atomic.h \
- /usr/include/SDL2/SDL_audio.h /usr/include/SDL2/SDL_error.h \
- /usr/include/SDL2/SDL_endian.h /usr/include/SDL2/SDL_mutex.h \
- /usr/include/SDL2/SDL_thread.h /usr/include/SDL2/SDL_rwops.h \
- /usr/include/SDL2/SDL_clipboard.h /usr/include/SDL2/SDL_cpuinfo.h \
+ /home/nikolay/Projects/bpew/src/core/window.h /usr/include/SDL2/SDL.h \
+ /usr/include/SDL2/SDL_main.h /usr/include/SDL2/SDL_stdinc.h \
+ /usr/include/SDL2/SDL_config.h /usr/include/SDL2/SDL_platform.h \
+ /usr/include/SDL2/begin_code.h /usr/include/SDL2/close_code.h \
+ /usr/include/c++/13.1.1/stdlib.h /usr/include/inttypes.h \
+ /usr/include/c++/13.1.1/math.h /usr/include/SDL2/SDL_assert.h \
+ /usr/include/SDL2/SDL_atomic.h /usr/include/SDL2/SDL_audio.h \
+ /usr/include/SDL2/SDL_error.h /usr/include/SDL2/SDL_endian.h \
+ /usr/include/SDL2/SDL_mutex.h /usr/include/SDL2/SDL_thread.h \
+ /usr/include/SDL2/SDL_rwops.h /usr/include/SDL2/SDL_clipboard.h \
+ /usr/include/SDL2/SDL_cpuinfo.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/immintrin.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/x86gprintrin.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/ia32intrin.h \
@@ -519,37 +519,37 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /usr/include/SDL2/SDL_system.h /usr/include/SDL2/SDL_timer.h \
  /usr/include/SDL2/SDL_version.h /usr/include/SDL2/SDL_locale.h \
  /usr/include/SDL2/SDL_misc.h /usr/include/SDL2/SDL_opengl.h \
- /home/nikolay/Projects/bpew-new/src/core/log.h \
- /home/nikolay/Projects/bpew-new/src/core/input.h \
- /usr/include/c++/13.1.1/map /usr/include/c++/13.1.1/bits/stl_tree.h \
+ /home/nikolay/Projects/bpew/src/core/log.h \
+ /home/nikolay/Projects/bpew/src/core/input.h /usr/include/c++/13.1.1/map \
+ /usr/include/c++/13.1.1/bits/stl_tree.h \
  /usr/include/c++/13.1.1/bits/stl_map.h \
  /usr/include/c++/13.1.1/bits/stl_multimap.h \
- /home/nikolay/Projects/bpew-new/src/core/time.h \
- /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader.h \
- /home/nikolay/Projects/bpew-new/src/graphics/texture.h \
- /home/nikolay/Projects/bpew-new/src/graphics/index_buffer.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../core/platform.h \
- /home/nikolay/Projects/bpew-new/src/graphics/vertex_buffer.h \
- /home/nikolay/Projects/bpew-new/src/graphics/vertex_array.h \
- /home/nikolay/Projects/bpew-new/src/graphics/vertex_buffer.h \
- /home/nikolay/Projects/bpew-new/src/graphics/index_buffer.h \
- /home/nikolay/Projects/bpew-new/src/graphics/vertex_attribute.h \
- /home/nikolay/Projects/bpew-new/src/graphics/renderer.h \
- /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader.h \
- /home/nikolay/Projects/bpew-new/src/graphics/vertex_array.h \
- /home/nikolay/Projects/bpew-new/src/graphics/model.h \
- /home/nikolay/Projects/bpew-new/src/graphics/mesh.h \
- /home/nikolay/Projects/bpew-new/src/graphics/texture.h \
- /home/nikolay/Projects/bpew-new/src/graphics/material.h \
- /home/nikolay/Projects/bpew-new/src/graphics/framebuffer.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../nodes/node.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../nodes/node_property.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../nodes/../graphics/shaders/shader.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../nodes/../graphics/texture.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../nodes/../core/id.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../nodes/../core/utils.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../nodes/node_link.h \
- /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_builder.h \
+ /home/nikolay/Projects/bpew/src/core/time.h \
+ /home/nikolay/Projects/bpew/src/graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew/src/graphics/texture.h \
+ /home/nikolay/Projects/bpew/src/graphics/index_buffer.h \
+ /home/nikolay/Projects/bpew/src/graphics/../core/platform.h \
+ /home/nikolay/Projects/bpew/src/graphics/vertex_buffer.h \
+ /home/nikolay/Projects/bpew/src/graphics/vertex_array.h \
+ /home/nikolay/Projects/bpew/src/graphics/vertex_buffer.h \
+ /home/nikolay/Projects/bpew/src/graphics/index_buffer.h \
+ /home/nikolay/Projects/bpew/src/graphics/vertex_attribute.h \
+ /home/nikolay/Projects/bpew/src/graphics/renderer.h \
+ /home/nikolay/Projects/bpew/src/graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew/src/graphics/vertex_array.h \
+ /home/nikolay/Projects/bpew/src/graphics/model.h \
+ /home/nikolay/Projects/bpew/src/graphics/mesh.h \
+ /home/nikolay/Projects/bpew/src/graphics/texture.h \
+ /home/nikolay/Projects/bpew/src/graphics/material.h \
+ /home/nikolay/Projects/bpew/src/graphics/framebuffer.h \
+ /home/nikolay/Projects/bpew/src/graphics/../nodes/node.h \
+ /home/nikolay/Projects/bpew/src/graphics/../nodes/node_property.h \
+ /home/nikolay/Projects/bpew/src/graphics/../nodes/../graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew/src/graphics/../nodes/../graphics/texture.h \
+ /home/nikolay/Projects/bpew/src/graphics/../nodes/../core/id.h \
+ /home/nikolay/Projects/bpew/src/graphics/../nodes/../core/utils.h \
+ /home/nikolay/Projects/bpew/src/graphics/../nodes/node_link.h \
+ /home/nikolay/Projects/bpew/src/graphics/shaders/shader_builder.h \
  /usr/include/c++/13.1.1/sstream /usr/include/c++/13.1.1/bits/sstream.tcc \
  /usr/include/c++/13.1.1/fstream /usr/include/c++/13.1.1/bits/codecvt.h \
  /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/basic_file.h \
@@ -557,13 +557,13 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /usr/include/c++/13.1.1/bits/fstream.tcc /usr/include/c++/13.1.1/set \
  /usr/include/c++/13.1.1/bits/stl_set.h \
  /usr/include/c++/13.1.1/bits/stl_multiset.h \
- /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader.h \
- /home/nikolay/Projects/bpew-new/src/graphics/shaders/shader_info.h \
- /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../core/platform.h \
- /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../core/tokenizer.h \
- /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../nodes/node.h \
- /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../nodes/node_property.h \
- /home/nikolay/Projects/bpew-new/src/graphics/shaders/../../core/sha.h \
+ /home/nikolay/Projects/bpew/src/graphics/shaders/shader.h \
+ /home/nikolay/Projects/bpew/src/graphics/shaders/shader_info.h \
+ /home/nikolay/Projects/bpew/src/graphics/shaders/../../core/platform.h \
+ /home/nikolay/Projects/bpew/src/graphics/shaders/../../core/tokenizer.h \
+ /home/nikolay/Projects/bpew/src/graphics/shaders/../../nodes/node.h \
+ /home/nikolay/Projects/bpew/src/graphics/shaders/../../nodes/node_property.h \
+ /home/nikolay/Projects/bpew/src/graphics/shaders/../../core/sha.h \
  /usr/include/openssl/sha.h /usr/include/openssl/macros.h \
  /usr/include/openssl/opensslconf.h /usr/include/openssl/configuration.h \
  /usr/include/openssl/opensslv.h /usr/include/openssl/e_os2.h \
@@ -599,20 +599,20 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /usr/include/assimp/camera.h /usr/include/assimp/material.h \
  /usr/include/assimp/material.inl /usr/include/assimp/anim.h \
  /usr/include/assimp/metadata.h /usr/include/assimp/postprocess.h \
- /home/nikolay/Projects/bpew-new/src/graphics/camera.h \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/quaternion.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/../ext/quaternion_exponential.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/../ext/quaternion_exponential.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/../gtx/norm.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/../gtx/../gtx/component_wise.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/../gtx/../gtx/../detail/setup.hpp \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/../gtx/../gtx/component_wise.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/../gtx/norm.inl \
- /home/nikolay/Projects/bpew-new/include/glm/glm/gtx/quaternion.inl \
- /home/nikolay/Projects/bpew-new/src/graphics/../ecs/entity.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../ecs/scene.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../ecs/../core/platform.h \
- /home/nikolay/Projects/bpew-new/include/entt/single_include/entt/entt.hpp \
+ /home/nikolay/Projects/bpew/src/graphics/camera.h \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtx/quaternion.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtx/../ext/quaternion_exponential.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtx/../ext/quaternion_exponential.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtx/../gtx/norm.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtx/../gtx/../gtx/component_wise.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtx/../gtx/../gtx/../detail/setup.hpp \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtx/../gtx/../gtx/component_wise.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtx/../gtx/norm.inl \
+ /home/nikolay/Projects/bpew/include/glm/glm/gtx/quaternion.inl \
+ /home/nikolay/Projects/bpew/src/graphics/../ecs/entity.h \
+ /home/nikolay/Projects/bpew/src/graphics/../ecs/scene.h \
+ /home/nikolay/Projects/bpew/src/graphics/../ecs/../core/platform.h \
+ /home/nikolay/Projects/bpew/include/entt/single_include/entt/entt.hpp \
  /usr/include/c++/13.1.1/functional \
  /usr/include/c++/13.1.1/bits/std_function.h \
  /usr/include/c++/13.1.1/array /usr/include/c++/13.1.1/iterator \
@@ -647,30 +647,30 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /usr/include/c++/13.1.1/bits/list.tcc \
  /usr/include/c++/13.1.1/unordered_set \
  /usr/include/c++/13.1.1/bits/unordered_set.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../ecs/../core/log.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../ecs/components/mesh_component.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../ecs/components/../../graphics/model.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../ecs/components/../../graphics/material.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../ecs/components/light_component.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../ecs/components/transform_component.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../ecs/components/camera_component.h \
- /home/nikolay/Projects/bpew-new/src/graphics/../ecs/components/../../graphics/camera.h \
- /home/nikolay/Projects/bpew-new/src/graphics/camera.h \
- /home/nikolay/Projects/bpew-new/src/graphics/mesh.h \
- /home/nikolay/Projects/bpew-new/src/graphics/model.h \
- /home/nikolay/Projects/bpew-new/src/graphics/framebuffer.h \
- /home/nikolay/Projects/bpew-new/src/graphics/gizmos.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imgui.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imconfig.h \
- /home/nikolay/Projects/bpew-new/include/ImGuizmo/ImGuizmo.h \
- /home/nikolay/Projects/bpew-new/src/ecs/scene.h \
- /home/nikolay/Projects/bpew-new/src/ecs/entity.h \
- /home/nikolay/Projects/bpew-new/src/editor/editor.h \
- /home/nikolay/Projects/bpew-new/src/editor/../ecs/scene.h \
- /home/nikolay/Projects/bpew-new/src/editor/../ecs/entity.h \
- /home/nikolay/Projects/bpew-new/src/editor/../graphics/camera.h \
- /home/nikolay/Projects/bpew-new/src/editor/../graphics/framebuffer.h \
- /home/nikolay/Projects/bpew-new/src/editor/../nodes/node.h \
- /home/nikolay/Projects/bpew-new/include/imgui/backends/imgui_impl_sdl2.h \
- /home/nikolay/Projects/bpew-new/include/imgui/backends/imgui_impl_opengl3.h \
- /home/nikolay/Projects/bpew-new/include/imnodes/imnodes.h
+ /home/nikolay/Projects/bpew/src/graphics/../ecs/../core/log.h \
+ /home/nikolay/Projects/bpew/src/graphics/../ecs/components/mesh_component.h \
+ /home/nikolay/Projects/bpew/src/graphics/../ecs/components/../../graphics/model.h \
+ /home/nikolay/Projects/bpew/src/graphics/../ecs/components/../../graphics/material.h \
+ /home/nikolay/Projects/bpew/src/graphics/../ecs/components/light_component.h \
+ /home/nikolay/Projects/bpew/src/graphics/../ecs/components/transform_component.h \
+ /home/nikolay/Projects/bpew/src/graphics/../ecs/components/camera_component.h \
+ /home/nikolay/Projects/bpew/src/graphics/../ecs/components/../../graphics/camera.h \
+ /home/nikolay/Projects/bpew/src/graphics/camera.h \
+ /home/nikolay/Projects/bpew/src/graphics/mesh.h \
+ /home/nikolay/Projects/bpew/src/graphics/model.h \
+ /home/nikolay/Projects/bpew/src/graphics/framebuffer.h \
+ /home/nikolay/Projects/bpew/src/graphics/gizmos.h \
+ /home/nikolay/Projects/bpew/include/imgui/imgui.h \
+ /home/nikolay/Projects/bpew/include/imgui/imconfig.h \
+ /home/nikolay/Projects/bpew/include/ImGuizmo/ImGuizmo.h \
+ /home/nikolay/Projects/bpew/src/ecs/scene.h \
+ /home/nikolay/Projects/bpew/src/ecs/entity.h \
+ /home/nikolay/Projects/bpew/src/editor/editor.h \
+ /home/nikolay/Projects/bpew/src/editor/../ecs/scene.h \
+ /home/nikolay/Projects/bpew/src/editor/../ecs/entity.h \
+ /home/nikolay/Projects/bpew/src/editor/../graphics/camera.h \
+ /home/nikolay/Projects/bpew/src/editor/../graphics/framebuffer.h \
+ /home/nikolay/Projects/bpew/src/editor/../nodes/node.h \
+ /home/nikolay/Projects/bpew/include/imgui/backends/imgui_impl_sdl2.h \
+ /home/nikolay/Projects/bpew/include/imgui/backends/imgui_impl_opengl3.h \
+ /home/nikolay/Projects/bpew/include/imnodes/imnodes.h

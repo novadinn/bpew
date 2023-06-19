@@ -1,8 +1,7 @@
 CMakeFiles/bpew.dir/src/core/window.cpp.o: \
- /home/nikolay/Projects/bpew-new/src/core/window.cpp \
- /usr/include/stdc-predef.h \
- /home/nikolay/Projects/bpew-new/src/core/window.h \
- /home/nikolay/Projects/bpew-new/src/core/platform.h \
+ /home/nikolay/Projects/bpew/src/core/window.cpp \
+ /usr/include/stdc-predef.h /home/nikolay/Projects/bpew/src/core/window.h \
+ /home/nikolay/Projects/bpew/src/core/platform.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -210,5 +209,5 @@ CMakeFiles/bpew.dir/src/core/window.cpp.o: \
  /usr/include/SDL2/SDL_version.h /usr/include/SDL2/SDL_locale.h \
  /usr/include/SDL2/SDL_misc.h /usr/include/SDL2/SDL_opengl.h \
  /usr/include/SDL2/SDL_opengl_glext.h \
- /home/nikolay/Projects/bpew-new/src/core/log.h \
+ /home/nikolay/Projects/bpew/src/core/log.h \
  /usr/include/c++/13.1.1/cstdio /usr/include/c++/13.1.1/cstring

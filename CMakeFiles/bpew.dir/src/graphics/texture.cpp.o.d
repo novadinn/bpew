@@ -1,7 +1,7 @@
 CMakeFiles/bpew.dir/src/graphics/texture.cpp.o: \
- /home/nikolay/Projects/bpew-new/src/graphics/texture.cpp \
+ /home/nikolay/Projects/bpew/src/graphics/texture.cpp \
  /usr/include/stdc-predef.h \
- /home/nikolay/Projects/bpew-new/src/graphics/texture.h \
+ /home/nikolay/Projects/bpew/src/graphics/texture.h \
  /usr/include/c++/13.1.1/string \
  /usr/include/c++/13.1.1/bits/requires_hosted.h \
  /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/c++config.h \
@@ -114,7 +114,7 @@ CMakeFiles/bpew.dir/src/graphics/texture.cpp.o: \
  /usr/include/c++/13.1.1/bits/stl_vector.h \
  /usr/include/c++/13.1.1/bits/stl_bvector.h \
  /usr/include/c++/13.1.1/bits/vector.tcc \
- /home/nikolay/Projects/bpew-new/include/stb/stb_image.h \
+ /home/nikolay/Projects/bpew/include/stb/stb_image.h \
  /usr/include/c++/13.1.1/stdlib.h /usr/include/string.h \
  /usr/include/strings.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/limits.h \
@@ -149,5 +149,5 @@ CMakeFiles/bpew.dir/src/graphics/texture.cpp.o: \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/xmmintrin.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/mmintrin.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/mm_malloc.h \
- /home/nikolay/Projects/bpew-new/include/glad/glad.h \
- /home/nikolay/Projects/bpew-new/include/KHR/khrplatform.h
+ /home/nikolay/Projects/bpew/include/glad/glad.h \
+ /home/nikolay/Projects/bpew/include/KHR/khrplatform.h

@@ -1,8 +1,8 @@
 CMakeFiles/bpew.dir/include/imgui/misc/cpp/imgui_stdlib.cpp.o: \
- /home/nikolay/Projects/bpew-new/include/imgui/misc/cpp/imgui_stdlib.cpp \
+ /home/nikolay/Projects/bpew/include/imgui/misc/cpp/imgui_stdlib.cpp \
  /usr/include/stdc-predef.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imgui.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imconfig.h \
+ /home/nikolay/Projects/bpew/include/imgui/imgui.h \
+ /home/nikolay/Projects/bpew/include/imgui/imconfig.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/float.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stdarg.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stddef.h \
@@ -13,7 +13,7 @@ CMakeFiles/bpew.dir/include/imgui/misc/cpp/imgui_stdlib.cpp.o: \
  /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
  /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
  /usr/include/strings.h /usr/include/assert.h \
- /home/nikolay/Projects/bpew-new/include/imgui/misc/cpp/imgui_stdlib.h \
+ /home/nikolay/Projects/bpew/include/imgui/misc/cpp/imgui_stdlib.h \
  /usr/include/c++/13.1.1/string \
  /usr/include/c++/13.1.1/bits/requires_hosted.h \
  /usr/include/c++/13.1.1/x86_64-pc-linux-gnu/bits/c++config.h \

@@ -4,16 +4,16 @@
 #include "shader_create_info.h"
 #include "../../shaders/infos/material_shader.h"
 
-void ShaderBuilder::build_shader_from_create_info(Shader& shader, const ShaderCreateInfo& create_info, const char* additional_info) {
+void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreateInfo& create_info, const char* additional_info) {
     std::stringstream ss;
 
     ss << "#version 460 core\n";
        
     for(auto& dep : create_info.info.deps) {
-	proceed_source(dep.c_str());
+	proceedSource(dep.c_str());
     }
 
-    include_libs(ss);
+    includeLibs(ss);
 
     for(auto& typedep : create_info.info.typedeps) {
 	std::ofstream src(std::string("datafiles/shaders/") + typedep);
@@ -45,11 +45,11 @@ void ShaderBuilder::build_shader_from_create_info(Shader& shader, const ShaderCr
     vs << ss.str();
 	       
     for(auto& vin : create_info.info.vins) {
-	vs << "layout (location = " << vin.location << ") in " << from_type(vin.type) << " " << vin.name << ";\n";
+	vs << "layout (location = " << vin.location << ") in " << fromType(vin.type) << " " << vin.name << ";\n";
     }
 
     for(auto& vout : create_info.info.vouts) {
-	vs << "out " << from_type(vout.type) << " " << vout.name << ";\n";
+	vs << "out " << fromType(vout.type) << " " << vout.name << ";\n";
     }
 	
     for(auto& interface : create_info.info.interfaces) {
@@ -72,11 +72,11 @@ void ShaderBuilder::build_shader_from_create_info(Shader& shader, const ShaderCr
     fs << ss.str();
 		
     for(auto& fin : create_info.info.fins) {
-	fs << "in " << from_type(fin.type) << " " << fin.name << ";\n";
+	fs << "in " << fromType(fin.type) << " " << fin.name << ";\n";
     }
 
     for(auto& fout : create_info.info.fouts) {
-	fs << "layout (location = " << fout.location << ") out " << from_type(fout.type) << " " << fout.name << ";\n";
+	fs << "layout (location = " << fout.location << ") out " << fromType(fout.type) << " " << fout.name << ";\n";
     }
 
     for(auto& interface : create_info.info.interfaces) {
@@ -100,8 +100,8 @@ void ShaderBuilder::build_shader_from_create_info(Shader& shader, const ShaderCr
     }
 }
 
-void ShaderBuilder::build_material_shader(Material& material) {
-    Sha new_sha = generate_material_sha(material);
+void ShaderBuilder::buildMaterialShader(Material& material) {
+    Sha new_sha = generateMaterialSha(material);
 
     if(sha.sha.size() != 0 && new_sha.sha == sha.sha) {
 	return;
@@ -118,7 +118,7 @@ void ShaderBuilder::build_material_shader(Material& material) {
 	    continue;
 	}
 	
-	const char* node_name = get_node_name(node.type);
+	const char* node_name = getNodeName(node.type);
 	
 	std::string node_src(node_name);
 	node_src.append(".glsl");
@@ -134,7 +134,7 @@ void ShaderBuilder::build_material_shader(Material& material) {
 	if(node.type == NodeType::MATERIAL_OUTPUT) {
 	    continue;
 	}
-	build_node_uniforms(info, &node);       	
+	buildNodeUniforms(info, &node);       	
     }       
     
     const Node* out = nullptr;
@@ -172,23 +172,23 @@ void ShaderBuilder::build_material_shader(Material& material) {
 	ss << "return vec4(0.5);\n";
     } else {	
 	Node& surface_node = material.nodes[surface->links[0].output_node];
-	build_node(ss, &surface_node, material);
+	buildNode(ss, &surface_node, material);
 	ss << "return output_" << surface_node.id.id << "_" << surface->links[0].output->id.id << ";\n";
     }
     ss << "}\n";
         
-    build_shader_from_create_info(material.shader, info, ss.str().c_str());
+    buildShaderFromCreateInfo(material.shader, info, ss.str().c_str());
 }
 
-void ShaderBuilder::build_node_uniforms(ShaderCreateInfo& info, const Node* node) {
+void ShaderBuilder::buildNodeUniforms(ShaderCreateInfo& info, const Node* node) {
     for(auto& input : node->inputs) {
 	if(input.links.size() == 0) {
-	    build_node_uniform(info, node, input);
+	    buildNodeUniform(info, node, input);
 	}
     }    
 }
 
-void ShaderBuilder::build_node_uniform(ShaderCreateInfo& info, const Node* node, const NodeProperty& prop) {
+void ShaderBuilder::buildNodeUniform(ShaderCreateInfo& info, const Node* node, const NodeProperty& prop) {
     std::string name = std::string("input_") + std::to_string(node->id.id) + std::string("_") + std::to_string(prop.id.id);
 
     ShaderType type;    
@@ -221,19 +221,19 @@ void ShaderBuilder::build_node_uniform(ShaderCreateInfo& info, const Node* node,
     info.uniform(type, name);
 }
 
-void ShaderBuilder::build_node(std::stringstream& ss, const Node* node, Material& material) {        
+void ShaderBuilder::buildNode(std::stringstream& ss, const Node* node, Material& material) {        
     for(auto& input : node->inputs) {
 	// TODO: should be only one link on input
 	if(input.links.size() > 0) {
-	    build_node(ss, &material.nodes[input.links[0].output_node], material);	
+	    buildNode(ss, &material.nodes[input.links[0].output_node], material);	
 	}
     }
 
     for(auto& output : node->outputs) {
-	ss << from_type(output.type) << " output_" << node->id.id << "_" << output.id.id << ";\n";
+	ss << fromType(output.type) << " output_" << node->id.id << "_" << output.id.id << ";\n";
     }
 
-    ss << get_node_name(node->type) << "(";
+    ss << getNodeName(node->type) << "(";
     for(auto& input : node->inputs) {
 	
 	ss << "input_" << node->id.id << "_" << input.id.id << ", ";
@@ -251,7 +251,7 @@ void ShaderBuilder::build_node(std::stringstream& ss, const Node* node, Material
     ss << ");\n";
 }
 
-const char* ShaderBuilder::get_node_name(NodeType type) {
+const char* ShaderBuilder::getNodeName(NodeType type) {
     const char* src = "";
     switch(type) {
     case NodeType::RGB:
@@ -264,7 +264,7 @@ const char* ShaderBuilder::get_node_name(NodeType type) {
     return src;
 }
 
-const char* ShaderBuilder::from_type(NodePropertyType type) {
+const char* ShaderBuilder::fromType(NodePropertyType type) {
     switch(type) {
     case NodePropertyType::COLOR:
 	return "vec4";
@@ -287,7 +287,7 @@ const char* ShaderBuilder::from_type(NodePropertyType type) {
     }
 }
 
-const char* ShaderBuilder::from_type(ShaderType type) {
+const char* ShaderBuilder::fromType(ShaderType type) {
     switch(type) {
     case ShaderType::VEC2:
 	return "vec2";
@@ -307,7 +307,7 @@ const char* ShaderBuilder::from_type(ShaderType type) {
     }
 }
 
-void ShaderBuilder::proceed_source(const char* dep) {
+void ShaderBuilder::proceedSource(const char* dep) {
     std::string lib(dep);    
     
     if(libs.contains(lib)) {
@@ -323,14 +323,14 @@ void ShaderBuilder::proceed_source(const char* dep) {
 	while(std::getline(src, line)) {
 	    Tokenizer tokenizer(line.c_str(), line.size());
 
-	    Token token = tokenizer.read_token();
+	    Token token = tokenizer.readToken();
 	    
 	    if(token.type == TokenType::DIRECTIVE) {
 		if(token.value == "include") {
-		    token = tokenizer.read_token();
+		    token = tokenizer.readToken();
 
 		    if(token.type == TokenType::STR) {			
-			proceed_source(token.value.c_str());
+			proceedSource(token.value.c_str());
 			continue;
 		    }
 		}
@@ -344,13 +344,13 @@ void ShaderBuilder::proceed_source(const char* dep) {
     }
 }
 
-void ShaderBuilder::include_libs(std::stringstream& ss) {
+void ShaderBuilder::includeLibs(std::stringstream& ss) {
     for(auto& lib : libs) {
-	include_lib(ss, lib.c_str());
+	includeLib(ss, lib.c_str());
     }
 }
 
-void ShaderBuilder::include_lib(std::stringstream& ss, const char* dep) {
+void ShaderBuilder::includeLib(std::stringstream& ss, const char* dep) {
     // TODO: extend filesystem to create path
     // e.g. in "dir/file" path "../shader" to "shader"
     std::ifstream src(std::string("datafiles/shaders/") + std::string(dep));
@@ -362,15 +362,11 @@ void ShaderBuilder::include_lib(std::stringstream& ss, const char* dep) {
 	while(std::getline(src, line)) {
 	    Tokenizer tokenizer(line.c_str(), line.size());
 
-	    Token token = tokenizer.read_token();
+	    Token token = tokenizer.readToken();
 	    
 	    if(token.type == TokenType::DIRECTIVE) {
-		if(token.value == "include") {
-		    token = tokenizer.read_token();
-
-		    if(token.type == TokenType::STR) {
-			continue;
-		    }
+		if(token.value == "include") {       
+		    continue;		    
 		}
 	    }
 
@@ -383,7 +379,7 @@ void ShaderBuilder::include_lib(std::stringstream& ss, const char* dep) {
     }
 }
 
-Sha ShaderBuilder::generate_material_sha(Material& material) {
+Sha ShaderBuilder::generateMaterialSha(Material& material) {
     Sha sha;
 
     std::stringstream material_info;

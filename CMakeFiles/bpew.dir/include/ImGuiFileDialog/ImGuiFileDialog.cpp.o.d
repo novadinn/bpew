@@ -1,10 +1,10 @@
 CMakeFiles/bpew.dir/include/ImGuiFileDialog/ImGuiFileDialog.cpp.o: \
- /home/nikolay/Projects/bpew-new/include/ImGuiFileDialog/ImGuiFileDialog.cpp \
+ /home/nikolay/Projects/bpew/include/ImGuiFileDialog/ImGuiFileDialog.cpp \
  /usr/include/stdc-predef.h \
- /home/nikolay/Projects/bpew-new/include/ImGuiFileDialog/ImGuiFileDialog.h \
- /home/nikolay/Projects/bpew-new/include/ImGuiFileDialog/ImGuiFileDialogConfig.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imgui.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imconfig.h \
+ /home/nikolay/Projects/bpew/include/ImGuiFileDialog/ImGuiFileDialog.h \
+ /home/nikolay/Projects/bpew/include/ImGuiFileDialog/ImGuiFileDialogConfig.h \
+ /home/nikolay/Projects/bpew/include/imgui/imgui.h \
+ /home/nikolay/Projects/bpew/include/imgui/imconfig.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/float.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stdarg.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stddef.h \
@@ -265,7 +265,7 @@ CMakeFiles/bpew.dir/include/ImGuiFileDialog/ImGuiFileDialog.cpp.o: \
  /usr/include/bits/types/struct_statx_timestamp.h \
  /usr/include/bits/types/struct_statx.h /usr/include/dirent.h \
  /usr/include/bits/dirent.h /usr/include/bits/dirent_ext.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imgui_internal.h \
+ /home/nikolay/Projects/bpew/include/imgui/imgui_internal.h \
  /usr/include/c++/13.1.1/stdlib.h /usr/include/c++/13.1.1/math.h \
  /usr/include/c++/13.1.1/cmath /usr/include/math.h \
  /usr/include/bits/math-vector.h /usr/include/bits/libm-simd-decl-stubs.h \
@@ -380,7 +380,7 @@ CMakeFiles/bpew.dir/include/ImGuiFileDialog/ImGuiFileDialog.cpp.o: \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/prfchwintrin.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/keylockerintrin.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/amxfp16intrin.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imstb_textedit.h \
+ /home/nikolay/Projects/bpew/include/imgui/imstb_textedit.h \
  /usr/include/c++/13.1.1/algorithm \
  /usr/include/c++/13.1.1/bits/ranges_algo.h \
  /usr/include/c++/13.1.1/pstl/glue_algorithm_defs.h \

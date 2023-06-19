@@ -8,7 +8,7 @@
 
 // TODO: is this needed?
 struct ShaderParser {
-    ShaderCreateInfo parse_custom_shader(const char* src);
+    ShaderCreateInfo parseCustomShader(const char* src);
 };
 
 #endif

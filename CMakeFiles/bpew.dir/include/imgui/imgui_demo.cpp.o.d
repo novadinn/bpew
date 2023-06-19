@@ -1,8 +1,8 @@
 CMakeFiles/bpew.dir/include/imgui/imgui_demo.cpp.o: \
- /home/nikolay/Projects/bpew-new/include/imgui/imgui_demo.cpp \
+ /home/nikolay/Projects/bpew/include/imgui/imgui_demo.cpp \
  /usr/include/stdc-predef.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imgui.h \
- /home/nikolay/Projects/bpew-new/include/imgui/imconfig.h \
+ /home/nikolay/Projects/bpew/include/imgui/imgui.h \
+ /home/nikolay/Projects/bpew/include/imgui/imconfig.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/float.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stdarg.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/stddef.h \

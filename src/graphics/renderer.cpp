@@ -13,7 +13,7 @@ static Shader render_shader;
 
 void Renderer::init() {
     ShaderBuilder builder;
-    builder.build_shader_from_create_info(solid_shader, solid_shader_create_info);  
+    builder.buildShaderFromCreateInfo(solid_shader, solid_shader_create_info);  
 }
 
 void Renderer::destroy() {
