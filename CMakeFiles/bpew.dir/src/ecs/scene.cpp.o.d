@@ -484,6 +484,7 @@ CMakeFiles/bpew.dir/src/ecs/scene.cpp.o: \
  /usr/include/c++/13.1.1/bits/locale_facets_nonio.tcc \
  /usr/include/c++/13.1.1/bits/locale_conv.h \
  /usr/include/c++/13.1.1/bits/quoted_string.h \
+ /home/nikolay/Projects/bpew/src/ecs/components/../../graphics/../core/sha.h \
  /usr/include/assimp/Importer.hpp /usr/include/assimp/types.h \
  /usr/include/assimp/defs.h /usr/include/assimp/config.h \
  /usr/include/assimp/vector2.h /usr/include/assimp/vector3.h \

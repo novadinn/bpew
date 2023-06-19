@@ -379,6 +379,7 @@ CMakeFiles/bpew.dir/src/graphics/shaders/shader_builder.cpp.o: \
  /home/nikolay/Projects/bpew/include/KHR/khrplatform.h \
  /home/nikolay/Projects/bpew/src/graphics/shaders/../../nodes/node.h \
  /home/nikolay/Projects/bpew/src/graphics/shaders/../shaders/shader_builder.h \
+ /home/nikolay/Projects/bpew/src/graphics/shaders/../../core/sha.h \
  /home/nikolay/Projects/bpew/src/graphics/shaders/shader_create_info.h \
  /home/nikolay/Projects/bpew/src/graphics/shaders/../../shaders/infos/material_shader.h \
  /home/nikolay/Projects/bpew/src/graphics/shaders/../../shaders/infos/../../graphics/shaders/shader_create_info.h \

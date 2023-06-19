@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <set>
 
 #include "../../core/platform.h"
 
@@ -61,11 +62,11 @@ struct ShaderInfo {
     std::vector<ShaderUniformArray> uniform_arrays;
     std::vector<ShaderDefine> defines;	
 
-    std::string fragment_source, vertex_source, compute_source;	
+    std::string fragment_source, vertex_source;	
     // NOTE: the difference between typedeps in that ShaderBuilder will
     // recursively search for other deps
-    std::vector<std::string> deps;    
-    std::vector<std::string> typedeps;
+    std::set<std::string> deps;    
+    std::set<std::string> typedeps;
 };
 
 

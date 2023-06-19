@@ -140,7 +140,7 @@ void Scene::onUpdate() {
 	auto& mesh = view.get<MeshComponent>(entity);
 
 	for(auto& material : mesh.materials) {
-	    material.shader_builder.buildMaterialShader(material);
+	    ShaderBuilder::buildMaterialShader(material);
 	}
     }
 }

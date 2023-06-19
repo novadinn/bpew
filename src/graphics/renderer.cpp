@@ -11,9 +11,8 @@
 static Shader solid_shader;
 static Shader render_shader;
 
-void Renderer::init() {
-    ShaderBuilder builder;
-    builder.buildShaderFromCreateInfo(solid_shader, solid_shader_create_info);  
+void Renderer::init() {    
+    ShaderBuilder::buildShaderFromCreateInfo(solid_shader, solid_shader_create_info);  
 }
 
 void Renderer::destroy() {

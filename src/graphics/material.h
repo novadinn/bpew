@@ -5,16 +5,17 @@
 #include "framebuffer.h"
 #include "../nodes/node.h"
 #include "shaders/shader_builder.h"
+#include "../core/sha.h"
 
 #include <vector>
 #include <string>
 
 struct Material {
-  std::string name;
-  std::vector<Node> nodes;
-  Shader shader;
-    ShaderBuilder shader_builder;
-  Framebuffer preview_texture;    
+    std::string name;
+    std::vector<Node> nodes;
+    Shader shader;    
+    Framebuffer preview_texture;
+    Sha sha;
 };
 
 #endif // MATERIAL_H

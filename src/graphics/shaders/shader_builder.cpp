@@ -4,16 +4,18 @@
 #include "shader_create_info.h"
 #include "../../shaders/infos/material_shader.h"
 
-void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreateInfo& create_info, const char* additional_info) {
+void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreateInfo& info, const char* additional_info) {
+    ShaderCreateInfo create_info = info;
+
     std::stringstream ss;
 
     ss << "#version 460 core\n";
        
     for(auto& dep : create_info.info.deps) {
-	proceedSource(dep.c_str());
+	proceedSource(dep.c_str(), create_info);
     }
 
-    includeLibs(ss);
+    includeLibs(ss, create_info);
 
     for(auto& typedep : create_info.info.typedeps) {
 	std::ofstream src(std::string("datafiles/shaders/") + typedep);
@@ -103,16 +105,16 @@ void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
 void ShaderBuilder::buildMaterialShader(Material& material) {
     Sha new_sha = generateMaterialSha(material);
 
-    if(sha.sha.size() != 0 && new_sha.sha == sha.sha) {
+    if(material.sha.sha.size() != 0 && new_sha.sha == material.sha.sha) {
 	return;
     }
 
-    sha = new_sha;
+    material.sha = new_sha;    
     
-    ShaderCreateInfo info = material_shader_create_info;
+    ShaderCreateInfo create_info = material_shader_create_info;
 
     std::stringstream ss;    
-      
+    
     for(auto& node : material.nodes) {
 	if(node.type == NodeType::MATERIAL_OUTPUT) {
 	    continue;
@@ -123,18 +125,18 @@ void ShaderBuilder::buildMaterialShader(Material& material) {
 	std::string node_src(node_name);
 	node_src.append(".glsl");
 	    
-	if(libs.contains(node_src)) {
+	if(create_info.info.deps.contains(node_src)) {
 	    continue; 
 	}
 	
-	info.dep(node_src);
+	create_info.dep(node_src);
     }
     
     for(auto& node : material.nodes) {
 	if(node.type == NodeType::MATERIAL_OUTPUT) {
 	    continue;
 	}
-	buildNodeUniforms(info, &node);       	
+	buildNodeUniforms(create_info, &node);       	
     }       
     
     const Node* out = nullptr;
@@ -169,7 +171,7 @@ void ShaderBuilder::buildMaterialShader(Material& material) {
 
     ss << "vec4 surface() {\n";
     if(surface == nullptr || surface->links.size() == 0) {
-	ss << "return vec4(0.5);\n";
+	ss << "return vec4(0.5, 0.5, 0.5, 1.0);\n";
     } else {	
 	Node& surface_node = material.nodes[surface->links[0].output_node];
 	buildNode(ss, &surface_node, material);
@@ -177,7 +179,7 @@ void ShaderBuilder::buildMaterialShader(Material& material) {
     }
     ss << "}\n";
         
-    buildShaderFromCreateInfo(material.shader, info, ss.str().c_str());
+    buildShaderFromCreateInfo(material.shader, create_info, ss.str().c_str());
 }
 
 void ShaderBuilder::buildNodeUniforms(ShaderCreateInfo& info, const Node* node) {
@@ -307,14 +309,14 @@ const char* ShaderBuilder::fromType(ShaderType type) {
     }
 }
 
-void ShaderBuilder::proceedSource(const char* dep) {
-    std::string lib(dep);    
+void ShaderBuilder::proceedSource(const char* dep, ShaderCreateInfo& create_info) {
+    std::string lib(dep);
     
-    if(libs.contains(lib)) {
+    if(create_info.info.deps.contains(lib)) {
 	return;
     }
 
-    auto it = libs.insert(lib);
+    create_info.dep(lib);
 
     std::ifstream src(std::string("datafiles/shaders/") + std::string(dep));
     
@@ -330,22 +332,26 @@ void ShaderBuilder::proceedSource(const char* dep) {
 		    token = tokenizer.readToken();
 
 		    if(token.type == TokenType::STR) {			
-			proceedSource(token.value.c_str());
-			continue;
+			proceedSource(token.value.c_str(), create_info);			
 		    }
+
+		    continue;
 		}
 	    }	    
 	}              	
 	
 	src.close();
     } else {
-	libs.erase(it.first);
+	create_info.removeDep(lib.c_str());
 	printf("failed to open dep: %s\n", dep);
     }
 }
 
-void ShaderBuilder::includeLibs(std::stringstream& ss) {
-    for(auto& lib : libs) {
+void ShaderBuilder::includeLibs(std::stringstream& ss, ShaderCreateInfo& create_info) {
+    for(auto& lib : create_info.info.typedeps) {
+	includeLib(ss, lib.c_str());
+    }
+    for(auto& lib : create_info.info.deps) {
 	includeLib(ss, lib.c_str());
     }
 }

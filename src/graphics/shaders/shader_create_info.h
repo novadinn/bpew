@@ -128,12 +128,23 @@ struct ShaderCreateInfo {
     }
 
     ShaderCreateInfo& typedep(std::string source) {
-	info.typedeps.push_back(source);
+	info.typedeps.insert(source);
 	return *this;
     }
 	
     ShaderCreateInfo& dep(std::string source) {
-	info.deps.push_back(source);
+	info.deps.insert(source);
+	return *this;
+    }
+
+    ShaderCreateInfo& removeDep(const char* dep) {
+	
+	for(std::set<std::string>::iterator it = info.deps.begin(); it != info.deps.end(); ++it) {
+	    if(strcmp(it->c_str(), dep) == 0) {
+		info.deps.erase(it);
+		break;
+	    }
+	}
 	return *this;
     }
 };

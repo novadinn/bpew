@@ -18,23 +18,21 @@ struct Material;
 struct ShaderCreateInfo;
 
 struct ShaderBuilder {
-    void buildShaderFromCreateInfo(Shader& shader, const ShaderCreateInfo& create_info, const char* additional_info = "");
-    void buildMaterialShader(Material& material);
+    static void buildShaderFromCreateInfo(Shader& shader, const ShaderCreateInfo& info, const char* additional_info = "");
+    static void buildMaterialShader(Material& material);
     static const char* fromType(ShaderType type);
     static const char* fromType(NodePropertyType type);
-    static const char* getNodeName(NodeType type);
-
-    std::set<std::string> libs;
-    Sha sha;
+    static const char* getNodeName(NodeType type);       
     
 private:
-    void includeLibs(std::stringstream& ss);
-    void includeLib(std::stringstream& ss, const char* dep);
-    void proceedSource(const char* dep);
-    void buildNode(std::stringstream& ss, const Node* node, Material& material);
-    void buildNodeUniforms(ShaderCreateInfo& info, const Node* node);
-    void buildNodeUniform(ShaderCreateInfo& info, const Node* node, const NodeProperty& prop);
-    Sha generateMaterialSha(Material& material);
+    static void includeLibs(std::stringstream& ss, ShaderCreateInfo& create_info);
+    static void includeLib(std::stringstream& ss, const char* dep);
+    static void proceedSource(const char* dep, ShaderCreateInfo& create_info);
+    static void buildNode(std::stringstream& ss, const Node* node, Material& material);
+    static void buildNodeUniforms(ShaderCreateInfo& info, const Node* node);
+    static void buildNodeUniform(ShaderCreateInfo& info, const Node* node, const NodeProperty& prop);
+    // TODO: should be placed at here?
+    static Sha generateMaterialSha(Material& material);
 }; 
 
 #endif
