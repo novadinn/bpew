@@ -8,19 +8,19 @@
 #include <vector>
 
 struct VertexArray {
-	void create();
-	void destroy();
+    void create();
+    void destroy();
 
-	void addVertexBuffer(VertexBuffer vb, const std::vector<VertexAttribute>& attribs);
-	void setIndexBuffer(IndexBuffer ib);
+    void addVertexBuffer(VertexBuffer vb, const std::vector<VertexAttribute>& attribs);
+    void setIndexBuffer(IndexBuffer ib);
 
-	void bind();
-	void unbind();
+    void bind();
+    void unbind();
 
-	inline uint getID() const { return id; }
+    inline uint getID() const { return id; }
 	
 private:
-	uint id;
+    uint id;
 };
 
 #endif

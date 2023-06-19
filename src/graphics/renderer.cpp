@@ -9,14 +9,41 @@
 #include <glad/glad.h>
 
 static Shader solid_shader;
-static Shader render_shader;
+static Shader outline_selected_mesh_shader;
 
-void Renderer::init() {    
+
+float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+    // positions   // texCoords
+    -1.0f,  1.0f,  0.0f, 1.0f,
+    -1.0f, -1.0f,  0.0f, 0.0f,
+    1.0f, -1.0f,  1.0f, 0.0f,
+
+    -1.0f,  1.0f,  0.0f, 1.0f,
+    1.0f, -1.0f,  1.0f, 0.0f,
+    1.0f,  1.0f,  1.0f, 1.0f
+};
+unsigned int quadVAO, quadVBO;
+
+
+void Renderer::init() {
     ShaderBuilder::buildShaderFromCreateInfo(solid_shader, solid_shader_create_info);  
+  outline_selected_mesh_shader.createFromFile("shaders/outline_selected_mesh_vert.glsl",
+			       "shaders/outline_selected_mesh_frag.glsl");
+
+  glGenVertexArrays(1, &quadVAO);
+  glGenBuffers(1, &quadVBO);
+  glBindVertexArray(quadVAO);
+  glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 }
 
 void Renderer::destroy() {
   solid_shader.destroy();
+  outline_selected_mesh_shader.destroy();
 }
 
 void Renderer::drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
@@ -95,6 +122,30 @@ void Renderer::drawMeshWireframe(uint32 entity_id, MeshComponent& mesh, CameraCo
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   drawMeshSolid(entity_id, mesh, camera, camera_transform, model);
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+void Renderer::outlineSelectedMesh(uint color_texture_id, uint entities_texture_id,
+				    uint32 selected_entity_id, glm::vec3 outline_color,
+				    float mix_factor) {
+
+    outline_selected_mesh_shader.bind();
+
+    outline_selected_mesh_shader.setInt("colorTexture", 0);
+    outline_selected_mesh_shader.setInt("entitiesTexture", 1);
+    outline_selected_mesh_shader.setInt("selectedEntityID", selected_entity_id);
+    outline_selected_mesh_shader.setVec3("outlineColor", outline_color);
+    outline_selected_mesh_shader.setFloat("mixFactor", mix_factor);
+
+    glBindVertexArray(quadVAO);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, color_texture_id);
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, entities_texture_id);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindVertexArray(0);
+    
+    outline_selected_mesh_shader.unbind();
 }
 
 void Renderer::clear() {

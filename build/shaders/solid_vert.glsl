@@ -21,5 +21,5 @@ void main() {
     vs_out.fragPos = vec3(worldPosition);
     vs_out.normal = mat3(transpose(inverse(model))) * aNormal;
 
-	gl_Position = projection * view * worldPosition;
+    gl_Position = projection * view * worldPosition;
 }

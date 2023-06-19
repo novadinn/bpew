@@ -12,14 +12,16 @@
 #include <vector>
 
 struct Model {
-	bool loadFromPath(const char* path);
+    bool loadFromPath(const char* path);
 	
-	void processNode(const std::string& directory, aiNode *node, const aiScene *scene);
+    void processNode(const std::string& directory, aiNode *node, const aiScene *scene);
     Mesh processMesh(const std::string& directory, aiMesh *mesh, const aiScene *scene);
-	
-	std::vector<Mesh> meshes;
-	// TODO: those are already stored in the mesh structures
-	// std::vector<std::pair<std::string, Texture2D>> loaded_textures;
+
+    void destroyMeshes();
+    
+    std::vector<Mesh> meshes;
+    // TODO: those are already stored in the mesh structures
+    // std::vector<std::pair<std::string, Texture2D>> loaded_textures;
 };
 
 #endif // MODEL_H

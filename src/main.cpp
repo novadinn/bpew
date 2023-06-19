@@ -30,8 +30,8 @@
 #include "ImGuizmo/ImGuizmo.h"
 #include "imnodes/imnodes.h"
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 800
+#define WINDOW_WIDTH 1920
+#define WINDOW_HEIGHT 1080
 #define NUM_SAMPLES 16
 #define CLEAR_COLOR glm::vec4{0.2, 0.2, 0.2, 1.0}
 
@@ -50,8 +50,8 @@ int main(int argc, char** argv) {
   // SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
   // SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, NUM_SAMPLES);
 	
-  Window window;
-  if(!window.create("BPew",
+  Window *window = new Window();
+  if(!window->create("BPew",
 		    SDL_WINDOWPOS_UNDEFINED,
 		    SDL_WINDOWPOS_UNDEFINED,
 		    WINDOW_WIDTH, WINDOW_HEIGHT,
@@ -59,7 +59,7 @@ int main(int argc, char** argv) {
     exit(1);
   }
 	
-  SDL_GLContext context = window.createContext();
+  SDL_GLContext context = window->createContext();
   if(!context) {
     exit(1);
   }
@@ -70,7 +70,7 @@ int main(int argc, char** argv) {
   io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
   io.ConfigDockingWithShift = true;
 	
-  SDL_Window* native_window = window.getNativeWindow();
+  SDL_Window *native_window = window->getNativeWindow();
   ImGui_ImplSDL2_InitForOpenGL(native_window, context);
   ImGui_ImplOpenGL3_Init("#version 460");
   
@@ -90,8 +90,8 @@ int main(int argc, char** argv) {
   Gizmos::init();
   Renderer::setClearColor(CLEAR_COLOR);
 
-  Editor editor;
-  editor.create();
+  Editor *editor = new Editor();
+  editor->create();
 	
   bool running = true;
   while(running) {
@@ -121,7 +121,7 @@ int main(int argc, char** argv) {
       case SDL_WINDOWEVENT: {
 	if(event.window.event == SDL_WINDOWEVENT_CLOSE) {
 	  uint32 window_id = event.window.windowID;
-	  if(window.getID() == window_id) {
+	  if(window->getID() == window_id) {
 	    running = false;
 	  }
 	}
@@ -131,12 +131,12 @@ int main(int argc, char** argv) {
 
     Time::beginFrame();
 		
-    editor.onUpdate();
+    editor->onUpdate();
 		
-    window.makeContextCurrent(context);
+    window->makeContextCurrent(context);
 		
     int w, h;
-    window.getViewport(&w, &h);
+    window->getViewport(&w, &h);
     glViewport(0, 0, w, h);
 		
     ImGui_ImplOpenGL3_NewFrame();
@@ -144,15 +144,20 @@ int main(int argc, char** argv) {
     ImGui::NewFrame();
     ImGuizmo::BeginFrame();
 
-    editor.onDraw();
+    editor->onDraw();
 		
     ImGuiIO& io = ImGui::GetIO();
     io.DisplaySize = ImVec2((float)w, (float)h);
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		
-    window.swap();
+    window->swap();
   }
+
+  window->destroy();
+  
+  delete editor;
+  delete window;
 
   Gizmos::destroy();
   Renderer::destroy();
@@ -164,7 +169,6 @@ int main(int argc, char** argv) {
   ImGui::DestroyContext();
 	
   SDL_GL_DeleteContext(context);
-  window.destroy();
 	
   return 0;
 }

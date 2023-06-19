@@ -15,12 +15,20 @@ struct Mesh {
 	va.bind();
 
 	vb.create(&vertices[0], vertices.size() * sizeof(float));
-	ib.create(&indices[0], indices.size() * sizeof(uint));
+	if(indices.size() > 0)
+	    ib.create(&indices[0], indices.size() * sizeof(uint));
 
 	va.addVertexBuffer(vb, attributes);
-	va.setIndexBuffer(ib);
+	if(indices.size() > 0)
+	    va.setIndexBuffer(ib);
     }
     
+    void destroy() {
+	ib.destroy();
+	vb.destroy();
+	va.destroy();
+    }
+
     // TODO: store a type of a vertex subdata in here (to identify position/normal..)
     std::vector<VertexAttribute> attributes;
     std::vector<float> vertices;

@@ -633,6 +633,78 @@ src/editor/editor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/editor.cpp.s
 .PHONY : src/editor/editor.cpp.s
 
+src/editor/space_layout.o: src/editor/space_layout.cpp.o
+.PHONY : src/editor/space_layout.o
+
+# target to build an object file
+src/editor/space_layout.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/space_layout.cpp.o
+.PHONY : src/editor/space_layout.cpp.o
+
+src/editor/space_layout.i: src/editor/space_layout.cpp.i
+.PHONY : src/editor/space_layout.i
+
+# target to preprocess a source file
+src/editor/space_layout.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/space_layout.cpp.i
+.PHONY : src/editor/space_layout.cpp.i
+
+src/editor/space_layout.s: src/editor/space_layout.cpp.s
+.PHONY : src/editor/space_layout.s
+
+# target to generate assembly for a file
+src/editor/space_layout.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/space_layout.cpp.s
+.PHONY : src/editor/space_layout.cpp.s
+
+src/editor/space_modeling.o: src/editor/space_modeling.cpp.o
+.PHONY : src/editor/space_modeling.o
+
+# target to build an object file
+src/editor/space_modeling.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/space_modeling.cpp.o
+.PHONY : src/editor/space_modeling.cpp.o
+
+src/editor/space_modeling.i: src/editor/space_modeling.cpp.i
+.PHONY : src/editor/space_modeling.i
+
+# target to preprocess a source file
+src/editor/space_modeling.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/space_modeling.cpp.i
+.PHONY : src/editor/space_modeling.cpp.i
+
+src/editor/space_modeling.s: src/editor/space_modeling.cpp.s
+.PHONY : src/editor/space_modeling.s
+
+# target to generate assembly for a file
+src/editor/space_modeling.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/space_modeling.cpp.s
+.PHONY : src/editor/space_modeling.cpp.s
+
+src/editor/space_shading.o: src/editor/space_shading.cpp.o
+.PHONY : src/editor/space_shading.o
+
+# target to build an object file
+src/editor/space_shading.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/space_shading.cpp.o
+.PHONY : src/editor/space_shading.cpp.o
+
+src/editor/space_shading.i: src/editor/space_shading.cpp.i
+.PHONY : src/editor/space_shading.i
+
+# target to preprocess a source file
+src/editor/space_shading.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/space_shading.cpp.i
+.PHONY : src/editor/space_shading.cpp.i
+
+src/editor/space_shading.s: src/editor/space_shading.cpp.s
+.PHONY : src/editor/space_shading.s
+
+# target to generate assembly for a file
+src/editor/space_shading.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/space_shading.cpp.s
+.PHONY : src/editor/space_shading.cpp.s
+
 src/glad.o: src/glad.c.o
 .PHONY : src/glad.o
 
@@ -1089,6 +1161,15 @@ help:
 	@echo "... src/editor/editor.o"
 	@echo "... src/editor/editor.i"
 	@echo "... src/editor/editor.s"
+	@echo "... src/editor/space_layout.o"
+	@echo "... src/editor/space_layout.i"
+	@echo "... src/editor/space_layout.s"
+	@echo "... src/editor/space_modeling.o"
+	@echo "... src/editor/space_modeling.i"
+	@echo "... src/editor/space_modeling.s"
+	@echo "... src/editor/space_shading.o"
+	@echo "... src/editor/space_shading.i"
+	@echo "... src/editor/space_shading.s"
 	@echo "... src/glad.o"
 	@echo "... src/glad.i"
 	@echo "... src/glad.s"

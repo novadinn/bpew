@@ -449,8 +449,11 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
  /usr/include/c++/13.1.1/bits/stl_numeric.h \
  /usr/include/c++/13.1.1/pstl/glue_numeric_defs.h \
  /home/nikolay/Projects/bpew/src/editor/../nodes/node_link.h \
- /home/nikolay/Projects/bpew/src/editor/../ecs/components/tag_component.h \
+ /home/nikolay/Projects/bpew/src/editor/space_layout.h \
  /home/nikolay/Projects/bpew/src/editor/../ecs/components/transform_component.h \
+ /home/nikolay/Projects/bpew/src/editor/space_modeling.h \
+ /home/nikolay/Projects/bpew/src/editor/space_shading.h \
+ /home/nikolay/Projects/bpew/src/editor/../ecs/components/tag_component.h \
  /home/nikolay/Projects/bpew/src/editor/../ecs/components/mesh_component.h \
  /home/nikolay/Projects/bpew/src/editor/../ecs/components/../../graphics/model.h \
  /home/nikolay/Projects/bpew/src/editor/../ecs/components/../../graphics/mesh.h \

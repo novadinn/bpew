@@ -672,6 +672,10 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /home/nikolay/Projects/bpew/src/editor/../graphics/camera.h \
  /home/nikolay/Projects/bpew/src/editor/../graphics/framebuffer.h \
  /home/nikolay/Projects/bpew/src/editor/../nodes/node.h \
+ /home/nikolay/Projects/bpew/src/editor/space_layout.h \
+ /home/nikolay/Projects/bpew/src/editor/../ecs/components/transform_component.h \
+ /home/nikolay/Projects/bpew/src/editor/space_modeling.h \
+ /home/nikolay/Projects/bpew/src/editor/space_shading.h \
  /home/nikolay/Projects/bpew/include/imgui/backends/imgui_impl_sdl2.h \
  /home/nikolay/Projects/bpew/include/imgui/backends/imgui_impl_opengl3.h \
  /home/nikolay/Projects/bpew/include/imnodes/imnodes.h

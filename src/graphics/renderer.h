@@ -30,7 +30,11 @@ struct Renderer {
 								 const glm::mat4& model);
 	static void drawMeshWireframe(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
 				      TransformComponent& camera_transform, const glm::mat4& model);
-	
+
+    static void outlineSelectedMesh(uint color_texture_id, uint entities_texture_id,
+				     uint32 selected_entity_id, glm::vec3 outline_color,
+				     float mix_factor);
+    
     static void clear();
 
     static void setClearColor(const glm::vec4& color);
