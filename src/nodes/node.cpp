@@ -1,7 +1,7 @@
 #include "node.h"
 
 #include "../core/log.h"
-#include "../graphics/shader.h"
+#include "../graphics/shaders/shader.h"
 
 #include <glm/glm.hpp>
 
@@ -25,7 +25,17 @@ void Node::create(NodeType node_type) {
     prop_value.vector3_value = glm::vec3(0.0f);
     
     prop.create(prop_value, "Color", NodePropertyType::VECTOR3);
+    node_inputs.push_back(prop);
+
+    // Color socket
+    prop = {};
+    prop_value = {};
+
+    prop_value.color_value = glm::vec4(0.0f);
+    
+    prop.create(prop_value, "Color", NodePropertyType::COLOR);
     node_outputs.push_back(prop);
+    
   } break;
   case NodeType::MATERIAL_OUTPUT: {
     node_name = "Material Output";

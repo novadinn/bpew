@@ -1,6 +1,6 @@
 #include "shader.h"
 
-#include "../core/log.h"
+#include "../../core/log.h"
 
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>

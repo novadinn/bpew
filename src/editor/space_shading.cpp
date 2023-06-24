@@ -243,7 +243,7 @@ void onDrawUISpaceShading(EditorContext *ctx) {
     // Update links
     int output_id, input_id;
     NodeProperty *output_prop = nullptr, *input_prop = nullptr;
-
+    uint output_node, input_node;
     if (ImNodes::IsLinkCreated(&output_id, &input_id)) {
 	// NOTE: assumes that material and mesh are there
 	MeshComponent& mesh = ctx->selected_entity.getComponent<MeshComponent>();
@@ -261,6 +261,7 @@ void onDrawUISpaceShading(EditorContext *ctx) {
 
 		if(prop->id.id == output_id) {
 		    output_prop = prop;
+		    output_node = i;
 		}
 	    }
 
@@ -269,6 +270,7 @@ void onDrawUISpaceShading(EditorContext *ctx) {
 	
 		if(prop->id.id == input_id) {
 		    input_prop = prop;
+		    input_node = i;
 		}
 	    }
 
@@ -282,7 +284,7 @@ void onDrawUISpaceShading(EditorContext *ctx) {
     if(output_prop && input_prop) {
 	// TODO: should we add this to both input and output node or not?
 	NodeLink link;
-	link.create(output_prop, input_prop);
+	link.create(output_prop, input_prop, output_node, input_node);
     
 	output_prop->links.push_back(link);
 	input_prop->links.push_back(link);

@@ -1,7 +1,7 @@
 #ifndef NODE_PROPERTY_H
 #define NODE_PROPERTY_H
 
-#include "../graphics/shader.h"
+#include "../graphics/shaders/shader.h"
 #include "../graphics/texture.h"
 #include "../core/id.h"
 #include "node_link.h"
@@ -40,7 +40,7 @@ struct NodeProperty {
     type = prop_type;
   }
 
-  ID id;
+  ID id;        
   std::vector<NodeLink> links;
   NodePropertyValue value;
   NodePropertyType type;

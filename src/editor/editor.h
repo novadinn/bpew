@@ -30,6 +30,8 @@ private:
     template<typename T> void showAddComponentPopup(const char* str);
     template<typename T> void showRemoveComponentPopup(const char* str);
 
+    void createNode(NodeType type);
+       
     EditorContext *ctx;
         
     glm::ivec2 previous_mouse{0, 0};

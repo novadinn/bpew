@@ -21,11 +21,12 @@ enum NodeType {
 };
 
 struct Node {
-  void create(NodeType node_type);
-  
+  void create(NodeType node_type);    
+    
   ID id;
   std::vector<NodeProperty> inputs;
-  std::vector<NodeProperty> outputs;
+  std::vector<NodeProperty> outputs;    
+    
   NodeType type;
 };
 

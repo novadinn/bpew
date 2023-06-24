@@ -35,7 +35,7 @@ void Editor::create() {
 	
     float near = 0.1f;
     float far = 50.0f;
-	
+
     ctx->scene = new Scene();
     Entity camera_entity = ctx->scene->createEntity("Camera");
     auto& camera_component = camera_entity.addComponent<CameraComponent>();
@@ -82,7 +82,7 @@ void Editor::onUpdate() {
 
     glm::ivec2 wheel_movement;
     Input::getWheelMovement(&wheel_movement.x, &wheel_movement.y);
-		
+
     if(Input::wasMouseButtonHeld(SDL_BUTTON_MIDDLE)) {
 	if(Input::wasKeyHeld(SDLK_LSHIFT)) {
 	    ctx->main_camera->pan(mouse_delta);

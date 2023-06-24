@@ -3,6 +3,7 @@
 
 #include "mesh.h"
 #include "texture.h"
+#include "material.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
