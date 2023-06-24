@@ -93,7 +93,7 @@ void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
     } else {
 	printf("failed to load fragment shader file: %s\n", create_info.info.fragment_source.c_str());
     }		   
-
+    
     shader.destroy();
     if(!shader.createFromSource(vs.str().c_str(), fs.str().c_str())) {
 	printf("Failed to build shader\n");
