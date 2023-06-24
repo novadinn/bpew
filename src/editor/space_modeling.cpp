@@ -74,19 +74,6 @@ void onUpdateSpaceModeling(EditorContext *ctx) {
     } else if(Input::wasKeyPressed(SDLK_s)) {
 	space_data->gizmo_operation = ImGuizmo::OPERATION::SCALE;
     }
-
-    // TODO: create imgui buttons instead of this
-    if(Input::wasKeyHeld(SDLK_z)) {
-	if(Input::wasKeyPressed(SDLK_1)) {
-	    space_data->draw_mode = DrawMode::WIREFRAME;
-	} else if(Input::wasKeyPressed(SDLK_2)) {
-	    space_data->draw_mode = DrawMode::RENDERED;
-	} else if(Input::wasKeyPressed(SDLK_3)) {
-	    space_data->draw_mode = DrawMode::SOLID;
-	} else if(Input::wasKeyPressed(SDLK_4)) {
-	    space_data->draw_mode = DrawMode::MATERIAL_PREVIEW;
-	}
-    }
 }
 
 void onResizeSpaceModeling(EditorContext *ctx) {
@@ -218,6 +205,25 @@ void onDrawUISpaceModeling(EditorContext *ctx) {
 	    transform.rotation = {rotation_result[0], rotation_result[1], rotation_result[2]};
 	    transform.scale = {scale_result[0], scale_result[1], scale_result[2]};
 	}
+    }
+
+    // Draw popup
+    if(Input::wasKeyHeld(SDLK_z)) {
+	ImGui::OpenPopup("DrawModeSpaceModelingMenu");
+    }
+    
+    if(ImGui::BeginPopup("DrawModeSpaceModelingMenu")) {
+	if(ImGui::Button("Wireframe")) {
+	    space_data->draw_mode = DrawMode::WIREFRAME;
+	} else if(ImGui::Button("Rendered")) {
+	    space_data->draw_mode = DrawMode::RENDERED;
+	} else if(ImGui::Button("Solid")) {
+	    space_data->draw_mode = DrawMode::SOLID;
+	} else if(ImGui::Button("Material Preview")) {
+	    space_data->draw_mode = DrawMode::MATERIAL_PREVIEW;
+	}
+	
+	ImGui::EndPopup();
     }
 }
 

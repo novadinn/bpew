@@ -4,13 +4,13 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-struct GLMExtensions {
-	static glm::vec3 modelToForward(const glm::mat4& model) {
-		glm::mat4 inverted = glm::inverse(model);
-		glm::vec3 forward = glm::normalize(glm::vec3(inverted[2]));
+namespace GLMExtensions {
+    static glm::vec3 modelToForward(const glm::mat4& model) {
+	glm::mat4 inverted = glm::inverse(model);
+	glm::vec3 forward = glm::normalize(glm::vec3(inverted[2]));
 
-		return forward;
-	}
+	return forward;
+    }
 };
 
 #endif // GLM_EXTENSIONS_H
