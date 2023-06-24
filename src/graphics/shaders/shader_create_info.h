@@ -12,10 +12,17 @@ struct ShaderCreateInfo {
 	return info;
     }
 
-    ShaderCreateInfo& fin(ShaderType type, uint location, std::string name) {
+    ShaderCreateInfo& fin(ShaderType type, std::string name) {
 	ShaderInOut fin;
-	fin.type = type;
-	fin.location = location;
+	fin.type = ShaderBuilder::fromType(type);	
+	fin.name = name;
+	info.fins.push_back(fin);
+	return *this;
+    }
+
+    ShaderCreateInfo& fin(std::string type, std::string name) {
+	ShaderInOut fin;
+	fin.type = type;	
 	fin.name = name;
 	info.fins.push_back(fin);
 	return *this;
@@ -23,36 +30,32 @@ struct ShaderCreateInfo {
 
     ShaderCreateInfo& vin(ShaderType type, uint location, std::string name) {
 	ShaderInOut vin;
-	vin.type = type;	    
+	vin.type = ShaderBuilder::fromType(type);	    
 	vin.location = location;
 	vin.name = name;
 	info.vins.push_back(vin);
 	return *this;
     }
 
-    ShaderCreateInfo& vout(ShaderType type, uint location, std::string name) {
+    ShaderCreateInfo& vout(ShaderType type, std::string name) {
 	ShaderInOut vout;
-	vout.type = type;
-	vout.location = location;
+	vout.type = ShaderBuilder::fromType(type);	
 	vout.name = name;
 	info.vouts.push_back(vout);
 	return *this;
     }
 
-    ShaderCreateInfo& interface(std::string type, std::string in_name,
-				std::string out_name, std::string body) {
-	ShaderInterface interface;
-	interface.type = type;
-	interface.in_name = in_name;
-	interface.out_name = out_name;
-	interface.body = body;
-	info.interfaces.push_back(interface);
+    ShaderCreateInfo& vout(std::string type, std::string name) {
+	ShaderInOut vout;
+	vout.type = type;	
+	vout.name = name;
+	info.vouts.push_back(vout);
 	return *this;
     }
 	
     ShaderCreateInfo& fout(ShaderType type, uint location, std::string name) {
 	ShaderInOut fout;
-	fout.type = type;
+	fout.type = ShaderBuilder::fromType(type);
 	fout.location = location;
 	fout.name = name;
 	info.fouts.push_back(fout);
@@ -103,10 +106,9 @@ struct ShaderCreateInfo {
 	return *this;
     }
 
-    ShaderCreateInfo& uniformBuffer(std::string name, uint binding, std::string body) {
+    ShaderCreateInfo& uniformBuffer(std::string name, uint binding) {
 	ShaderUniformBuffer buffer;
-	buffer.name = name;	
-	buffer.body = body;
+	buffer.name = name;		
 	buffer.binding = binding;
 	info.uniform_buffers.push_back(buffer);	
 	return *this;
@@ -137,15 +139,14 @@ struct ShaderCreateInfo {
 	return *this;
     }
 
-    ShaderCreateInfo& removeDep(const char* dep) {
+    void removeDep(const char* dep) {
 	
 	for(std::set<std::string>::iterator it = info.deps.begin(); it != info.deps.end(); ++it) {
 	    if(strcmp(it->c_str(), dep) == 0) {
 		info.deps.erase(it);
 		break;
 	    }
-	}
-	return *this;
+	}	
     }
 };
 

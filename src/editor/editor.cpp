@@ -116,6 +116,7 @@ void Editor::onUpdate() {
     }
 
     active_receiver->onUpdate(ctx);
+    ctx->scene->onUpdate();
 }
 
 void Editor::onDraw() {

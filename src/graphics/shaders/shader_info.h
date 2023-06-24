@@ -18,19 +18,12 @@ enum class ShaderType {
 };
     
 struct ShaderInOut {
-    ShaderType type;
+    std::string type;
 
     uint location;
     std::string name;
 };
    
-struct ShaderInterface {
-    std::string type;
-    std::string in_name;
-    std::string out_name;
-    std::string body;
-};
-
 struct ShaderUniform {
     std::string type;
 
@@ -44,8 +37,7 @@ struct ShaderUniformArray {
 };
 
 struct ShaderUniformBuffer {
-    std::string name;    
-    std::string body;
+    std::string name;        
     uint binding;
 };
 
@@ -56,7 +48,6 @@ struct ShaderDefine {
 
 struct ShaderInfo {        
     std::vector<ShaderInOut> vins, fins;    
-    std::vector<ShaderInterface> interfaces;
     std::vector<ShaderUniformBuffer> uniform_buffers;
     std::vector<ShaderInOut> vouts, fouts;    
     std::vector<ShaderUniform> uniforms;
