@@ -5,6 +5,7 @@
 #include "../core/log.h"
 #include "shaders/shader_builder.h"
 #include "../shaders/infos/solid_shader.h"
+#include "../shaders/infos/outline_selected_mesh_shader.h"
 
 #include <glad/glad.h>
 
@@ -27,8 +28,7 @@ unsigned int quadVAO, quadVBO;
 
 void Renderer::init() {
     ShaderBuilder::buildShaderFromCreateInfo(solid_shader, solid_shader_create_info);  
-    outline_selected_mesh_shader.createFromFile("shaders/outline_selected_mesh_vert.glsl",
-						"shaders/outline_selected_mesh_frag.glsl");
+    ShaderBuilder::buildShaderFromCreateInfo(outline_selected_mesh_shader, outline_selected_mesh_shader_create_info);
 
     glGenVertexArrays(1, &quadVAO);
     glGenBuffers(1, &quadVBO);

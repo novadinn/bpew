@@ -14,6 +14,7 @@ enum class ShaderType {
     MAT4,
     INT,
     FLOAT,
+    SAMPLER_2D,
 };
     
 struct ShaderInOut {

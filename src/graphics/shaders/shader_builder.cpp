@@ -301,6 +301,8 @@ const char* ShaderBuilder::fromType(ShaderType type) {
 	return "int";
     case ShaderType::FLOAT:
 	return "float";
+    case ShaderType::SAMPLER_2D:
+	return "sampler2D";
     default:
 	printf("unhandled type: %d\n", type);
 	return "";
