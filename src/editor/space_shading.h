@@ -3,6 +3,22 @@
 
 #include "../ecs/entity.h"
 #include "../nodes/node.h"
+#include "event_receiver.h"
+
+struct SpaceShadingData {
+    char unused;
+
+    void createNode(Entity selected_enity, NodeType type);
+};
+
+EventReceiver *createSpaceShadingReceiver();
+
+void onCreateSpaceShading(EditorContext *ctx);
+void onDestroySpaceShading(EditorContext *ctx);
+
+void onDrawUIBeginSpaceShading(EditorContext *ctx);
+void onDrawUISpaceShading(EditorContext *ctx);
+void onDrawUIEndSpaceShading(EditorContext *ctx);
 
 struct SpaceShading {
     void begin();
