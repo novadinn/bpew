@@ -11,9 +11,7 @@ struct Sha {
 	SHA256_CTX sha256;
 	unsigned char hash[SHA256_DIGEST_LENGTH];
     
-	SHA256_Init(&sha256);  	
-	SHA256_Update(&sha256, src, size);    
-	SHA256_Final(hash, &sha256);
+	SHA256((const unsigned char*)src, size, hash);
 
 	std::stringstream ss;
 
