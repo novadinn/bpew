@@ -4,7 +4,6 @@
 #include "shaders/shader.h"
 #include "vertex_array.h"
 #include "model.h"
-#include "camera.h"
 #include "../ecs/entity.h"
 #include "../ecs/components/mesh_component.h"
 #include "../ecs/components/light_component.h"
@@ -20,20 +19,24 @@ struct Renderer {
     static void destroy();
 
 	// TODO: can we pass a entt::view in here?
-    static void drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
+    static void drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, glm::mat4& view_mat,
+				 glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction,
 				 const glm::mat4& model);
-    static void drawMeshSolid(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
+    static void drawMeshSolid(uint32 entity_id, MeshComponent& mesh, glm::mat4& view_mat,
+			      glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction,
 			      const glm::mat4& model);
-	static void drawMeshRendered(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
-								 std::vector<LightComponent>& lights,
-								 std::vector<TransformComponent>& light_transforms,
-								 const glm::mat4& model);
-	static void drawMeshWireframe(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
-				      const glm::mat4& model);
+    static void drawMeshRendered(uint32 entity_id, MeshComponent& mesh, glm::mat4& view_mat, 
+				 glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction,
+				 std::vector<LightComponent>& lights,
+				 std::vector<TransformComponent>& light_transforms,
+				 const glm::mat4& model);
+    static void drawMeshWireframe(uint32 entity_id, MeshComponent& mesh, glm::mat4& view_mat,
+				  glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction,
+				  const glm::mat4& model);
 
     static void outlineSelectedMesh(uint color_texture_id, uint entities_texture_id,
-				     uint32 selected_entity_id, glm::vec3 outline_color,
-				     float mix_factor);
+				    uint32 selected_entity_id, glm::vec3 outline_color,
+				    float mix_factor);
     
     static void clear();
 

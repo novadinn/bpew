@@ -16,7 +16,6 @@
 #include "graphics/vertex_buffer.h"
 #include "graphics/vertex_array.h"
 #include "graphics/renderer.h"
-#include "graphics/camera.h"
 #include "graphics/mesh.h"
 #include "graphics/model.h"
 #include "graphics/framebuffer.h"

@@ -46,11 +46,12 @@ void Renderer::destroy() {
     outline_selected_mesh_shader.destroy();
 }
 
-void Renderer::drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
+void Renderer::drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, glm::mat4& view_mat,
+				glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction,
 				const glm::mat4& model) {    
     Material* material = mesh.getActiveMaterial();
     if(!material) {
-	drawMeshSolid(entity_id, mesh, camera, model);
+	drawMeshSolid(entity_id, mesh, view_mat, proj_mat, view_pos, direction, model);
 	return;
     }
 
@@ -59,13 +60,13 @@ void Renderer::drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, CameraCom
 	Mesh& target = mesh.model.meshes[i];
 	
 	material->shader.bind();
-	material->shader.setMatrix4("view", camera.camera.getViewMatrix());
-	material->shader.setMatrix4("projection", camera.camera.getProjectionMatrix());
+	material->shader.setMatrix4("view", view_mat);
+	material->shader.setMatrix4("projection", proj_mat);
 	material->shader.setMatrix4("model", model);
 
 	material->shader.setFloat("shininess", 0.2f);
-	material->shader.setVec3("viewPos", camera.camera.getPosition());
-	material->shader.setVec3("dirLight.direction", camera.camera.getForward());
+	material->shader.setVec3("viewPos", view_pos);
+	material->shader.setVec3("dirLight.direction", direction);	
 	material->shader.setVec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
 	material->shader.setVec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
 	material->shader.setVec3("dirLight.specilar", glm::vec3(0.5f, 0.5f, 0.5f));
@@ -83,44 +84,47 @@ void Renderer::drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, CameraCom
     }
 }
 
-void Renderer::drawMeshSolid(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
+void Renderer::drawMeshSolid(uint32 entity_id, MeshComponent& mesh, glm::mat4& view_mat,
+			     glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction,
 			     const glm::mat4& model) {
-    for(int i = 0; i < mesh.model.meshes.size(); ++i) {
-	solid_shader.bind();
-	solid_shader.setMatrix4("view", camera.camera.getViewMatrix());
-	solid_shader.setMatrix4("projection", camera.camera.getProjectionMatrix());
-	solid_shader.setMatrix4("model", model);
+  for(int i = 0; i < mesh.model.meshes.size(); ++i) {
+    solid_shader.bind();
+    solid_shader.setMatrix4("view", view_mat);
+    solid_shader.setMatrix4("projection", proj_mat);
+    solid_shader.setMatrix4("model", model);
 
-	solid_shader.setFloat("shininess", 0.2f);
-	solid_shader.setVec3("viewPos", camera.camera.getPosition());
-	solid_shader.setVec3("dirLight.direction", camera.camera.getForward());
-	solid_shader.setVec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
-	solid_shader.setVec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
-	solid_shader.setVec3("dirLight.specilar", glm::vec3(0.5f, 0.5f, 0.5f));
-	solid_shader.setInt("entity", (int)entity_id);
+    solid_shader.setFloat("shininess", 0.2f);
+    solid_shader.setVec3("viewPos", view_pos);
+    solid_shader.setVec3("dirLight.direction", direction);    
+    solid_shader.setVec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
+    solid_shader.setVec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
+    solid_shader.setVec3("dirLight.specilar", glm::vec3(0.5f, 0.5f, 0.5f));
+    solid_shader.setInt("entity", (int)entity_id);
 		
-	Mesh& target = mesh.model.meshes[i];
+    Mesh& target = mesh.model.meshes[i];
 		
-	target.va.bind();
-	glDrawElements(GL_TRIANGLES, target.indices.size(), GL_UNSIGNED_INT, 0);
-	target.va.unbind();
+    target.va.bind();
+    glDrawElements(GL_TRIANGLES, target.indices.size(), GL_UNSIGNED_INT, 0);
+    target.va.unbind();
 
-	solid_shader.unbind();
-    }
+    solid_shader.unbind();
+  }
 }
 
-void Renderer::drawMeshRendered(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
+void Renderer::drawMeshRendered(uint32 entity_id, MeshComponent& mesh, glm::mat4& view_mat,
+				glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction,
 				std::vector<LightComponent>& lights,
 				std::vector<TransformComponent>& light_transforms,
 				const glm::mat4& model) {
     // TODO: 
 }
 
-void Renderer::drawMeshWireframe(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
+void Renderer::drawMeshWireframe(uint32 entity_id, MeshComponent& mesh, glm::mat4& view_mat,
+				 glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction,
 				 const glm::mat4& model) {
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    drawMeshSolid(entity_id, mesh, camera, model);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  drawMeshSolid(entity_id, mesh, view_mat, proj_mat, view_pos, direction, model);
+  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void Renderer::outlineSelectedMesh(uint color_texture_id, uint entities_texture_id,

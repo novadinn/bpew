@@ -19,7 +19,7 @@ void Gizmos::destroy() {
 	line_shader.destroy();
 }
 
-void Gizmos::drawLine(Camera& camera, const glm::vec3& start,
+void Gizmos::drawLine(glm::mat4& view_mat, glm::mat4 proj_mat, const glm::vec3& start,
 		      const glm::vec3& end, const glm::vec3& color) {
 	// TODO: we dont need to create it every time
 	std::vector<float> line_vertices;
@@ -60,8 +60,8 @@ void Gizmos::drawLine(Camera& camera, const glm::vec3& start,
 	line_shader.bind();
 	line_va.bind(); 
 
-	line_shader.setMatrix4("projection", camera.getProjectionMatrix());
-	line_shader.setMatrix4("view", camera.getViewMatrix());
+	line_shader.setMatrix4("projection", proj_mat);
+	line_shader.setMatrix4("view", view_mat);
 
 	glDrawArrays(GL_LINES, 0, line_vertices.size());
 
