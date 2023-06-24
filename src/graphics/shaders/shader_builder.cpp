@@ -17,17 +17,6 @@ void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
 
     includeLibs(ss, create_info);
 
-    for(auto& typedep : create_info.info.typedeps) {
-	std::ofstream src(std::string("datafiles/shaders/") + typedep);
-	    
-	if(src.is_open()) {
-	    ss << src.rdbuf();
-	    src.close();
-	} else {
-	    printf("failed to open typedep: %s\n", typedep);
-	}	    
-    }
-
     for(auto& define : create_info.info.defines) {
 	ss << "#define " << define.name << " " << define.value << "\n";
     }
@@ -37,7 +26,7 @@ void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
     }
 
     for(auto& uniform_buffer : create_info.info.uniform_buffers) {
-	ss << "layout(std430, binding = " << uniform_buffer.binding << ") uniform " << uniform_buffer.name << " " << ";\n";
+	ss << "layout(std140, binding = " << uniform_buffer.binding << ") uniform " << uniform_buffer.name << " " << ";\n";
     }    
 
     ss << additional_info;
@@ -47,17 +36,13 @@ void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
     vs << ss.str();
 	       
     for(auto& vin : create_info.info.vins) {
-	vs << "layout (location = " << vin.location << ") in " << fromType(vin.type) << " " << vin.name << ";\n";
+	vs << "layout (location = " << vin.location << ") in " << vin.type << " " << vin.name << ";\n";
     }
 
     for(auto& vout : create_info.info.vouts) {
-	vs << "out " << fromType(vout.type) << " " << vout.name << ";\n";
+	vs << "out " << vout.type << " " << vout.name << ";\n";
     }
-	
-    for(auto& interface : create_info.info.interfaces) {
-	vs << "out " << interface.type << " " << interface.body << " " << interface.out_name << ";\n";
-    }
-			
+				
     std::ifstream file;
 
     file.open(std::string("datafiles/shaders/") + create_info.info.vertex_source);
@@ -74,17 +59,13 @@ void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
     fs << ss.str();
 		
     for(auto& fin : create_info.info.fins) {
-	fs << "in " << fromType(fin.type) << " " << fin.name << ";\n";
+	fs << "in " << fin.type << " " << fin.name << ";\n";
     }
 
     for(auto& fout : create_info.info.fouts) {
-	fs << "layout (location = " << fout.location << ") out " << fromType(fout.type) << " " << fout.name << ";\n";
+	fs << "layout (location = " << fout.location << ") out " << fout.type << " " << fout.name << ";\n";
     }
-
-    for(auto& interface : create_info.info.interfaces) {
-	fs << "in " << interface.type << " " << interface.body << " " << interface.in_name << ";\n";
-    }
-
+    
     file.open(std::string("datafiles/shaders/") + create_info.info.fragment_source);
 
     if(file.is_open()) {
@@ -93,7 +74,7 @@ void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
     } else {
 	printf("failed to load fragment shader file: %s\n", create_info.info.fragment_source.c_str());
     }		   
-    
+
     shader.destroy();
     if(!shader.createFromSource(vs.str().c_str(), fs.str().c_str())) {
 	printf("Failed to build shader\n");
@@ -301,6 +282,8 @@ const char* ShaderBuilder::fromType(ShaderType type) {
 	return "int";
     case ShaderType::FLOAT:
 	return "float";
+    case ShaderType::SAMPLER_2D:
+	return "sampler2D";
     default:
 	printf("unhandled type: %d\n", type);
 	return "";

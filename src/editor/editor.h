@@ -3,7 +3,6 @@
 
 #include "../ecs/scene.h"
 #include "../ecs/entity.h"
-#include "../graphics/camera.h"
 #include "../graphics/framebuffer.h"
 #include "../nodes/node.h"
 #include "space_layout.h"

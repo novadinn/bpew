@@ -101,19 +101,33 @@ void onRenderBeginSpaceModeling(EditorContext *ctx) {
 
 void onRenderSpaceModeling(EditorContext *ctx) {
     SpaceModelingData *space_data = ctx->space_modeling_data;
+
+    glm::mat4 view_mat = ctx->editor_camera->getViewMatrix();
+    glm::mat4 proj_mat = ctx->editor_camera->getProjectionMatrix();
+    glm::vec3 view_pos = ctx->editor_camera->position;
+    glm::vec3 direction = ctx->editor_camera->getForward();
+
+    if(ctx->active_camera) {
+	auto& camera_component = ctx->active_camera.getComponent<CameraComponent>();
+	auto& transform_component = ctx->active_camera.getComponent<TransformComponent>();
+	view_mat = camera_component.getViewMatrix(transform_component.position, transform_component.rotation);
+	proj_mat = camera_component.getProjectionMatrix();
+	view_pos = transform_component.position;
+	direction = camera_component.getForward(transform_component.rotation);
+    }
     
     switch(space_data->draw_mode) {
     case DrawMode::WIREFRAME: {
-	ctx->scene->onDrawWireframe();
+	ctx->scene->onDrawWireframe(view_mat, proj_mat, view_pos, direction);
     } break;
     case DrawMode::RENDERED: {
-	ctx->scene->onDrawRendered();
+	ctx->scene->onDrawRendered(view_mat, proj_mat, view_pos, direction);
     } break;
     case DrawMode::SOLID: {
-	ctx->scene->onDrawSolid();
+	ctx->scene->onDrawSolid(view_mat, proj_mat, view_pos, direction);
     } break;
     case DrawMode::MATERIAL_PREVIEW: {
-	ctx->scene->onDrawMaterialPreview();
+	ctx->scene->onDrawMaterialPreview(view_mat, proj_mat, view_pos, direction);
     } break;
     }
 
@@ -179,14 +193,21 @@ void onDrawUISpaceModeling(EditorContext *ctx) {
 		 ImVec2{ space_data->viewport_size.x, space_data->viewport_size.y },
 		 ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
+    glm::mat4 view = ctx->editor_camera->getViewMatrix();
+    glm::mat4 projection = ctx->editor_camera->getProjectionMatrix();    
+
+    if(ctx->active_camera) {
+	auto& camera_component = ctx->active_camera.getComponent<CameraComponent>();
+	auto& transform_component = ctx->active_camera.getComponent<TransformComponent>();
+	view = camera_component.getViewMatrix(transform_component.position, transform_component.rotation);
+	projection = camera_component.getProjectionMatrix();	
+    }    
+    
     // Draw gizmos
     if(ctx->selected_entity && space_data->gizmo_operation != -1 &&
        ctx->selected_entity.hasComponent<TransformComponent>()) {
 	TransformComponent& transform = ctx->selected_entity.getComponent<TransformComponent>();
-	glm::mat4 model = transform.getModelMatrix();
-	glm::mat4 view = ctx->main_camera->getViewMatrix();
-	glm::mat4 projection = ctx->main_camera->getProjectionMatrix();
-
+	glm::mat4 model = transform.getModelMatrix();	
 	bool snap = Input::wasKeyHeld(SDLK_LCTRL);
 	
 	Gizmos::drawManupilations((ImGuizmo::OPERATION)space_data->gizmo_operation,

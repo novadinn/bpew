@@ -1,6 +1,6 @@
 void main() {    
-    vec3 norm = normalize(vs_in.normal);
-    vec3 viewDir = normalize(viewPos - vs_in.fragPos);
+    vec3 norm = normalize(vs_inout.normal);
+    vec3 viewDir = normalize(viewPos - vs_inout.fragPos);
 
     vec3 result = calcDirLight(dirLight, norm, viewDir, shininess);
     
