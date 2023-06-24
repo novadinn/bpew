@@ -182,7 +182,7 @@ void onDrawUIBeginSpaceLayout(EditorContext *ctx) {
 
 void onDrawUISpaceLayout(EditorContext *ctx) {
     SpaceLayoutData *space_data = ctx->space_layout_data;
-
+    
     space_data->viewport_size = Utils::getAvailableViewportSize();
     space_data->viewport_bounds[0] = Utils::getAvailableViewportBoundsMin();
     space_data->viewport_bounds[1] = Utils::getAvailableViewportBoundsMax();
