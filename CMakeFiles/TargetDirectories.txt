@@ -1,3 +1,0 @@
-/home/nikolay/Projects/bpew/CMakeFiles/bpew.dir
-/home/nikolay/Projects/bpew/CMakeFiles/edit_cache.dir
-/home/nikolay/Projects/bpew/CMakeFiles/rebuild_cache.dir
