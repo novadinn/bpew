@@ -633,6 +633,30 @@ src/editor/editor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/editor.cpp.s
 .PHONY : src/editor/editor.cpp.s
 
+src/editor/event_receiver.o: src/editor/event_receiver.cpp.o
+.PHONY : src/editor/event_receiver.o
+
+# target to build an object file
+src/editor/event_receiver.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/event_receiver.cpp.o
+.PHONY : src/editor/event_receiver.cpp.o
+
+src/editor/event_receiver.i: src/editor/event_receiver.cpp.i
+.PHONY : src/editor/event_receiver.i
+
+# target to preprocess a source file
+src/editor/event_receiver.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/event_receiver.cpp.i
+.PHONY : src/editor/event_receiver.cpp.i
+
+src/editor/event_receiver.s: src/editor/event_receiver.cpp.s
+.PHONY : src/editor/event_receiver.s
+
+# target to generate assembly for a file
+src/editor/event_receiver.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bpew.dir/build.make CMakeFiles/bpew.dir/src/editor/event_receiver.cpp.s
+.PHONY : src/editor/event_receiver.cpp.s
+
 src/editor/space_layout.o: src/editor/space_layout.cpp.o
 .PHONY : src/editor/space_layout.o
 
@@ -1161,6 +1185,9 @@ help:
 	@echo "... src/editor/editor.o"
 	@echo "... src/editor/editor.i"
 	@echo "... src/editor/editor.s"
+	@echo "... src/editor/event_receiver.o"
+	@echo "... src/editor/event_receiver.i"
+	@echo "... src/editor/event_receiver.s"
 	@echo "... src/editor/space_layout.o"
 	@echo "... src/editor/space_layout.i"
 	@echo "... src/editor/space_layout.s"

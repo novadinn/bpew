@@ -47,10 +47,10 @@ void Renderer::destroy() {
 }
 
 void Renderer::drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
-				TransformComponent& camera_transform, const glm::mat4& model) {    
+				const glm::mat4& model) {    
     Material* material = mesh.getActiveMaterial();
     if(!material) {
-	drawMeshSolid(entity_id, mesh, camera, camera_transform, model);
+	drawMeshSolid(entity_id, mesh, camera, model);
 	return;
     }
 
@@ -64,7 +64,7 @@ void Renderer::drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, CameraCom
 	material->shader.setMatrix4("model", model);
 
 	material->shader.setFloat("shininess", 0.2f);
-	material->shader.setVec3("viewPos", camera_transform.position);
+	material->shader.setVec3("viewPos", camera.camera.getPosition());
 	material->shader.setVec3("dirLight.direction", camera.camera.getForward());
 	material->shader.setVec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
 	material->shader.setVec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
@@ -84,7 +84,6 @@ void Renderer::drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, CameraCom
 }
 
 void Renderer::drawMeshSolid(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
-			     TransformComponent& camera_transform,
 			     const glm::mat4& model) {
   for(int i = 0; i < mesh.model.meshes.size(); ++i) {
     solid_shader.bind();
@@ -93,7 +92,7 @@ void Renderer::drawMeshSolid(uint32 entity_id, MeshComponent& mesh, CameraCompon
     solid_shader.setMatrix4("model", model);
 
     solid_shader.setFloat("shininess", 0.2f);
-    solid_shader.setVec3("viewPos", camera_transform.position);
+    solid_shader.setVec3("viewPos", camera.camera.getPosition());
     solid_shader.setVec3("dirLight.direction", camera.camera.getForward());
     solid_shader.setVec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
     solid_shader.setVec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
@@ -118,9 +117,9 @@ void Renderer::drawMeshRendered(uint32 entity_id, MeshComponent& mesh, CameraCom
 }
 
 void Renderer::drawMeshWireframe(uint32 entity_id, MeshComponent& mesh, CameraComponent& camera,
-				 TransformComponent& camera_transform, const glm::mat4& model) {
+				 const glm::mat4& model) {
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-  drawMeshSolid(entity_id, mesh, camera, camera_transform, model);
+  drawMeshSolid(entity_id, mesh, camera, model);
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 

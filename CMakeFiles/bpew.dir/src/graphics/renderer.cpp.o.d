@@ -334,6 +334,8 @@ CMakeFiles/bpew.dir/src/graphics/renderer.cpp.o: \
  /usr/include/c++/13.1.1/bits/node_handle.h \
  /usr/include/c++/13.1.1/bits/erase_if.h /usr/include/c++/13.1.1/cstring \
  /usr/include/string.h /usr/include/strings.h \
+ /home/nikolay/Projects/bpew/include/imgui/imgui.h \
+ /home/nikolay/Projects/bpew/include/imgui/imconfig.h \
  /home/nikolay/Projects/bpew/src/graphics/../nodes/node_link.h \
  /home/nikolay/Projects/bpew/src/graphics/shaders/shader_builder.h \
  /usr/include/c++/13.1.1/sstream /usr/include/c++/13.1.1/istream \

@@ -397,6 +397,8 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /usr/include/c++/13.1.1/bits/enable_special_members.h \
  /usr/include/c++/13.1.1/bits/node_handle.h \
  /usr/include/c++/13.1.1/bits/erase_if.h \
+ /home/nikolay/Projects/bpew/include/imgui/imgui.h \
+ /home/nikolay/Projects/bpew/include/imgui/imconfig.h \
  /home/nikolay/Projects/bpew/src/core/window.h /usr/include/SDL2/SDL.h \
  /usr/include/SDL2/SDL_main.h /usr/include/SDL2/SDL_stdinc.h \
  /usr/include/SDL2/SDL_config.h /usr/include/SDL2/SDL_platform.h \
@@ -661,8 +663,6 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /home/nikolay/Projects/bpew/src/graphics/model.h \
  /home/nikolay/Projects/bpew/src/graphics/framebuffer.h \
  /home/nikolay/Projects/bpew/src/graphics/gizmos.h \
- /home/nikolay/Projects/bpew/include/imgui/imgui.h \
- /home/nikolay/Projects/bpew/include/imgui/imconfig.h \
  /home/nikolay/Projects/bpew/include/ImGuizmo/ImGuizmo.h \
  /home/nikolay/Projects/bpew/src/ecs/scene.h \
  /home/nikolay/Projects/bpew/src/ecs/entity.h \
@@ -674,6 +674,9 @@ CMakeFiles/bpew.dir/src/main.cpp.o: \
  /home/nikolay/Projects/bpew/src/editor/../nodes/node.h \
  /home/nikolay/Projects/bpew/src/editor/space_layout.h \
  /home/nikolay/Projects/bpew/src/editor/../ecs/components/transform_component.h \
+ /home/nikolay/Projects/bpew/src/editor/event_receiver.h \
+ /home/nikolay/Projects/bpew/src/editor/editor_context.h \
+ /home/nikolay/Projects/bpew/src/editor/draw_mode.h \
  /home/nikolay/Projects/bpew/src/editor/space_modeling.h \
  /home/nikolay/Projects/bpew/src/editor/space_shading.h \
  /home/nikolay/Projects/bpew/include/imgui/backends/imgui_impl_sdl2.h \

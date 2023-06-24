@@ -358,6 +358,8 @@ CMakeFiles/bpew.dir/src/graphics/shaders/shader_parser.cpp.o: \
  /usr/include/c++/13.1.1/bits/hashtable.h \
  /usr/include/c++/13.1.1/bits/hashtable_policy.h \
  /usr/include/c++/13.1.1/bits/enable_special_members.h \
+ /home/nikolay/Projects/bpew/include/imgui/imgui.h \
+ /home/nikolay/Projects/bpew/include/imgui/imconfig.h \
  /home/nikolay/Projects/bpew/src/graphics/shaders/../../nodes/node_link.h \
  /home/nikolay/Projects/bpew/src/graphics/shaders/../../nodes/node_property.h \
  /home/nikolay/Projects/bpew/src/graphics/shaders/../../core/sha.h \

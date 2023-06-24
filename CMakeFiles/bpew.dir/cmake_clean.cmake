@@ -41,6 +41,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/bpew.dir/src/ecs/scene.cpp.o.d"
   "CMakeFiles/bpew.dir/src/editor/editor.cpp.o"
   "CMakeFiles/bpew.dir/src/editor/editor.cpp.o.d"
+  "CMakeFiles/bpew.dir/src/editor/event_receiver.cpp.o"
+  "CMakeFiles/bpew.dir/src/editor/event_receiver.cpp.o.d"
   "CMakeFiles/bpew.dir/src/editor/space_layout.cpp.o"
   "CMakeFiles/bpew.dir/src/editor/space_layout.cpp.o.d"
   "CMakeFiles/bpew.dir/src/editor/space_modeling.cpp.o"

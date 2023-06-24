@@ -30,6 +30,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/nikolay/Projects/bpew/src/core/window.cpp" "CMakeFiles/bpew.dir/src/core/window.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/core/window.cpp.o.d"
   "/home/nikolay/Projects/bpew/src/ecs/scene.cpp" "CMakeFiles/bpew.dir/src/ecs/scene.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/ecs/scene.cpp.o.d"
   "/home/nikolay/Projects/bpew/src/editor/editor.cpp" "CMakeFiles/bpew.dir/src/editor/editor.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/editor/editor.cpp.o.d"
+  "/home/nikolay/Projects/bpew/src/editor/event_receiver.cpp" "CMakeFiles/bpew.dir/src/editor/event_receiver.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/editor/event_receiver.cpp.o.d"
   "/home/nikolay/Projects/bpew/src/editor/space_layout.cpp" "CMakeFiles/bpew.dir/src/editor/space_layout.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/editor/space_layout.cpp.o.d"
   "/home/nikolay/Projects/bpew/src/editor/space_modeling.cpp" "CMakeFiles/bpew.dir/src/editor/space_modeling.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/editor/space_modeling.cpp.o.d"
   "/home/nikolay/Projects/bpew/src/editor/space_shading.cpp" "CMakeFiles/bpew.dir/src/editor/space_shading.cpp.o" "gcc" "CMakeFiles/bpew.dir/src/editor/space_shading.cpp.o.d"

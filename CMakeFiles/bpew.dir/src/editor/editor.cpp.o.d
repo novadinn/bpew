@@ -448,9 +448,14 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
  /usr/include/c++/13.1.1/bits/random.tcc /usr/include/c++/13.1.1/numeric \
  /usr/include/c++/13.1.1/bits/stl_numeric.h \
  /usr/include/c++/13.1.1/pstl/glue_numeric_defs.h \
+ /home/nikolay/Projects/bpew/include/imgui/imgui.h \
+ /home/nikolay/Projects/bpew/include/imgui/imconfig.h \
  /home/nikolay/Projects/bpew/src/editor/../nodes/node_link.h \
  /home/nikolay/Projects/bpew/src/editor/space_layout.h \
  /home/nikolay/Projects/bpew/src/editor/../ecs/components/transform_component.h \
+ /home/nikolay/Projects/bpew/src/editor/event_receiver.h \
+ /home/nikolay/Projects/bpew/src/editor/editor_context.h \
+ /home/nikolay/Projects/bpew/src/editor/draw_mode.h \
  /home/nikolay/Projects/bpew/src/editor/space_modeling.h \
  /home/nikolay/Projects/bpew/src/editor/space_shading.h \
  /home/nikolay/Projects/bpew/src/editor/../ecs/components/tag_component.h \
@@ -526,8 +531,6 @@ CMakeFiles/bpew.dir/src/editor/editor.cpp.o: \
  /home/nikolay/Projects/bpew/src/editor/../graphics/../ecs/components/transform_component.h \
  /home/nikolay/Projects/bpew/src/editor/../graphics/../ecs/components/camera_component.h \
  /home/nikolay/Projects/bpew/src/editor/../graphics/gizmos.h \
- /home/nikolay/Projects/bpew/include/imgui/imgui.h \
- /home/nikolay/Projects/bpew/include/imgui/imconfig.h \
  /home/nikolay/Projects/bpew/include/ImGuizmo/ImGuizmo.h \
  /home/nikolay/Projects/bpew/src/editor/../core/input.h \
  /home/nikolay/Projects/bpew/src/editor/../core/platform.h \

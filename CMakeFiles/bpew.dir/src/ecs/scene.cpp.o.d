@@ -456,6 +456,8 @@ CMakeFiles/bpew.dir/src/ecs/scene.cpp.o: \
  /usr/include/c++/13.1.1/bits/random.tcc /usr/include/c++/13.1.1/numeric \
  /usr/include/c++/13.1.1/bits/stl_numeric.h \
  /usr/include/c++/13.1.1/pstl/glue_numeric_defs.h \
+ /home/nikolay/Projects/bpew/include/imgui/imgui.h \
+ /home/nikolay/Projects/bpew/include/imgui/imconfig.h \
  /home/nikolay/Projects/bpew/src/ecs/components/../../graphics/../nodes/node_link.h \
  /home/nikolay/Projects/bpew/src/ecs/components/../../graphics/shaders/shader_builder.h \
  /usr/include/c++/13.1.1/sstream /usr/include/c++/13.1.1/istream \
