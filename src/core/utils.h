@@ -75,8 +75,7 @@ namespace Utils {
     
     static bool isViewportHovered() {
 	return ImGui::IsWindowHovered();
-    }
-    
+    }    
 };
 
 #endif // UUID_H
