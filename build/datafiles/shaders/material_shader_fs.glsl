@@ -5,5 +5,5 @@ void main() {
     vec3 result = calcDirLight(dirLight, norm, viewDir, shininess);
     
 	fragColor = surface() + vec4(result, 0.0f);
-    entityID = entity;
+    entityID = vec4(float(entity), 0.0f, 0.0f, 0.0f);
 }
