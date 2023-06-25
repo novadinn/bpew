@@ -13,8 +13,10 @@ const ShaderCreateInfo outline_selected_mesh_shader_create_info = ShaderCreateIn
     .uniform(ShaderType::SAMPLER_2D, "entitiesTexture")
     .uniform(ShaderType::INT, "selectedEntityID")
     .uniform(ShaderType::VEC3, "outlineColor")
+    .uniform(ShaderType::VEC2, "viewportSize")
     .uniform(ShaderType::FLOAT, "mixFactor")
-    .typedep("outline_selected_mesh_shader_defines.glsl")    
+    .typedep("outline_selected_mesh_shader_defines.glsl")
+    .dep("fxaa_lib.glsl")
     .vertex("outline_selected_mesh_vs.glsl")
     .fragment("outline_selected_mesh_fs.glsl");
 

@@ -14,11 +14,10 @@
 #include <vector>
 
 struct Renderer {
-
     static void init();
     static void destroy();
 
-	// TODO: can we pass a entt::view in here?
+    // TODO: can we pass an entt::view in here?
     static void drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, glm::mat4& view_mat,
 				 glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction,
 				 const glm::mat4& model);
@@ -35,6 +34,7 @@ struct Renderer {
 				  const glm::mat4& model);
 
     static void outlineSelectedMesh(uint color_texture_id, uint entities_texture_id,
+				    glm::vec2 viewport_size,
 				    uint32 selected_entity_id, glm::vec3 outline_color,
 				    float mix_factor);
     

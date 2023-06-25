@@ -46,10 +46,10 @@ struct ShaderDefine {
     std::string value;
 };
 
-struct ShaderInfo {        
+struct ShaderInfo {
     std::vector<ShaderInOut> vins, fins;    
     std::vector<ShaderUniformBuffer> uniform_buffers;
-    std::vector<ShaderInOut> vouts, fouts;    
+    std::vector<ShaderInOut> vouts, fouts;
     std::vector<ShaderUniform> uniforms;
     std::vector<ShaderUniformArray> uniform_arrays;
     std::vector<ShaderDefine> defines;	

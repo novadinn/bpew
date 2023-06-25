@@ -166,6 +166,7 @@ void onRenderPostProcessingSpaceModeling(EditorContext *ctx) {
     Renderer::clear();
     Renderer::outlineSelectedMesh(space_data->framebuffer.getColorAttachmentID(0),
 				  space_data->framebuffer.getColorAttachmentID(1),
+				  space_data->viewport_size,
 				  (uint32)ctx->selected_entity,
 				  glm::vec3(0.0f, 0.0f, 1.0f), 0.5f);
 

@@ -128,6 +128,7 @@ void Renderer::drawMeshWireframe(uint32 entity_id, MeshComponent& mesh, glm::mat
 }
 
 void Renderer::outlineSelectedMesh(uint color_texture_id, uint entities_texture_id,
+				   glm::vec2 viewport_size,
 				   uint32 selected_entity_id, glm::vec3 outline_color,
 				   float mix_factor) {
 
@@ -137,6 +138,7 @@ void Renderer::outlineSelectedMesh(uint color_texture_id, uint entities_texture_
     outline_selected_mesh_shader.setInt("entitiesTexture", 1);
     outline_selected_mesh_shader.setInt("selectedEntityID", selected_entity_id);
     outline_selected_mesh_shader.setVec3("outlineColor", outline_color);
+    outline_selected_mesh_shader.setVec2("viewportSize", viewport_size);
     outline_selected_mesh_shader.setFloat("mixFactor", mix_factor);
 
     glBindVertexArray(quadVAO);
