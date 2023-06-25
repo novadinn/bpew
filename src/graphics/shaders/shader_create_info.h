@@ -4,6 +4,43 @@
 #include "shader_info.h"
 #include "shader_builder.h"
 
+struct ShaderInterfaceCreateInfo {
+    ShaderInterfaceInfo interface;
+
+    static ShaderInterfaceCreateInfo& create(std::string type) {
+	ShaderInterfaceCreateInfo* info = new ShaderInterfaceCreateInfo();
+	info->interface.type = type;
+	return *info;
+    }
+
+    ShaderInterfaceCreateInfo& flat(ShaderType type, std::string name) {
+	ShaderInterfaceField field;
+	field.inter = InterpolationType::FLAT;
+	field.type = type;
+	field.name = name;
+	interface.fields.push_back(field);
+	return *this;
+    }
+
+    ShaderInterfaceCreateInfo& noperspective(ShaderType type, std::string name) {
+	ShaderInterfaceField field;
+	field.inter = InterpolationType::NOPERSPECTIVE;
+	field.type = type;
+	field.name = name;
+	interface.fields.push_back(field);
+	return *this;
+    }
+
+    ShaderInterfaceCreateInfo& smooth(ShaderType type, std::string name) {
+	ShaderInterfaceField field;
+	field.inter = InterpolationType::SMOOTH;
+	field.type = type;
+	field.name = name;
+	interface.fields.push_back(field);
+	return *this;
+    }
+};
+
 struct ShaderCreateInfo {	
     ShaderInfo info;
 
@@ -106,10 +143,11 @@ struct ShaderCreateInfo {
 	return *this;
     }
 
-    ShaderCreateInfo& uniformBuffer(std::string name, uint binding) {
+    ShaderCreateInfo& uniformBuffer(ShaderInterfaceCreateInfo interface, std::string name, uint binding) {
 	ShaderUniformBuffer buffer;
-	buffer.name = name;		
+	buffer.interface = interface.interface;	
 	buffer.binding = binding;
+	buffer.interface.name = name;
 	info.uniform_buffers.push_back(buffer);	
 	return *this;
     }
@@ -136,6 +174,12 @@ struct ShaderCreateInfo {
 	
     ShaderCreateInfo& dep(std::string source) {
 	info.deps.insert(source);
+	return *this;
+    }
+
+    ShaderCreateInfo& interface(ShaderInterfaceCreateInfo interface, std::string name) {
+	interface.interface.name = name;
+	info.interfaces.push_back(interface.interface);
 	return *this;
     }
 

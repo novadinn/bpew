@@ -16,6 +16,24 @@ enum class ShaderType {
     FLOAT,
     SAMPLER_2D,
 };
+
+enum class InterpolationType {
+    SMOOTH,
+    FLAT,
+    NOPERSPECTIVE,
+};
+
+struct ShaderInterfaceField {
+    InterpolationType inter;
+    ShaderType type;
+    std::string name;
+};
+
+struct ShaderInterfaceInfo {
+    std::string name;
+    std::string type;
+    std::vector<ShaderInterfaceField> fields;
+};
     
 struct ShaderInOut {
     std::string type;
@@ -37,8 +55,8 @@ struct ShaderUniformArray {
 };
 
 struct ShaderUniformBuffer {
-    std::string name;        
-    uint binding;
+    ShaderInterfaceInfo interface;
+    uint binding;    
 };
 
 struct ShaderDefine {	
@@ -52,7 +70,8 @@ struct ShaderInfo {
     std::vector<ShaderInOut> vouts, fouts;    
     std::vector<ShaderUniform> uniforms;
     std::vector<ShaderUniformArray> uniform_arrays;
-    std::vector<ShaderDefine> defines;	
+    std::vector<ShaderDefine> defines;
+    std::vector<ShaderInterfaceInfo> interfaces;
 
     std::string fragment_source, vertex_source;	
     // NOTE: the difference between typedeps in that ShaderBuilder will

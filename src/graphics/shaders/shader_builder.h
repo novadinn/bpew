@@ -16,12 +16,14 @@
 
 struct Material;
 struct ShaderCreateInfo;
+struct ShaderInterfaceCreateInfo;
 
 struct ShaderBuilder {
     static void buildShaderFromCreateInfo(Shader& shader, const ShaderCreateInfo& info, const char* additional_info = "");
     static void buildMaterialShader(Material& material);
     static const char* fromType(ShaderType type);
     static const char* fromType(NodePropertyType type);
+    static const char* fromType(InterpolationType type);
     static const char* getNodeName(NodeType type);       
     
 private:
@@ -33,6 +35,7 @@ private:
     static void buildNodeUniform(ShaderCreateInfo& info, const Node* node, const NodeProperty& prop);
     // TODO: should be placed at here?
     static Sha generateMaterialSha(Material& material);
+    static void buildInterface(std::stringstream& ss, ShaderInterfaceInfo& interface_info);
 }; 
 
 #endif
