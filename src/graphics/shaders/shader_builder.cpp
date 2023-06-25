@@ -26,7 +26,8 @@ void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
     }
 
     for(auto& uniform_buffer : create_info.info.uniform_buffers) {
-	ss << "layout(std140, binding = " << uniform_buffer.binding << ") uniform " << uniform_buffer.name << " " << ";\n";
+	ss << "layout(std140, binding = " << uniform_buffer.binding << ") uniform ";
+	buildInterface(ss, uniform_buffer.interface);
     }    
 
     ss << additional_info;
@@ -41,6 +42,11 @@ void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
 
     for(auto& vout : create_info.info.vouts) {
 	vs << "out " << vout.type << " " << vout.name << ";\n";
+    }
+
+    for(auto& interface : create_info.info.interfaces) {
+	vs << "out ";
+	buildInterface(vs, interface);
     }
 				
     std::ifstream file;
@@ -65,6 +71,11 @@ void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
     for(auto& fout : create_info.info.fouts) {
 	fs << "layout (location = " << fout.location << ") out " << fout.type << " " << fout.name << ";\n";
     }
+
+    for(auto& interface : create_info.info.interfaces) {
+	fs << "in ";
+	buildInterface(fs, interface);
+    }
     
     file.open(std::string("datafiles/shaders/") + create_info.info.fragment_source);
 
@@ -73,7 +84,7 @@ void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
 	file.close();
     } else {
 	printf("failed to load fragment shader file: %s\n", create_info.info.fragment_source.c_str());
-    }		   
+    }
 
     shader.destroy();
     if(!shader.createFromSource(vs.str().c_str(), fs.str().c_str())) {
@@ -290,6 +301,20 @@ const char* ShaderBuilder::fromType(ShaderType type) {
     }
 }
 
+const char* ShaderBuilder::fromType(InterpolationType type) {
+    switch(type) {
+    case InterpolationType::NOPERSPECTIVE:
+	return "noperspective";
+    case InterpolationType::SMOOTH:
+	return "smooth";
+    case InterpolationType::FLAT:
+	return "flat";
+    default:
+	printf("unhandled type: %d\n", type);
+	return "";
+    }
+}
+
 void ShaderBuilder::proceedSource(const char* dep, ShaderCreateInfo& create_info) {
     std::string lib(dep);
     
@@ -396,4 +421,15 @@ Sha ShaderBuilder::generateMaterialSha(Material& material) {
     std::string value = material_info.str();
     sha.create(value.c_str(), value.size());
     return sha;
+}
+
+void ShaderBuilder::buildInterface(
+    std::stringstream& ss, ShaderInterfaceInfo& interface_info) {
+    ss << interface_info.type << " " << "{\n";
+
+    for(auto& field : interface_info.fields) {
+	ss << fromType(field.inter) << " " << fromType(field.type) << " " << field.name << ";\n";
+    }
+
+    ss << "} " << interface_info.name << ";\n";
 }

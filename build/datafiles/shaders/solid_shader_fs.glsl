@@ -1,3 +1,8 @@
+
+in S {
+    noperspective vec2 s;
+} s;
+
 void main() {
     vec3 norm = normalize(vs_inout.normal);
     vec3 viewDir = normalize(viewPos - vs_inout.fragPos);
