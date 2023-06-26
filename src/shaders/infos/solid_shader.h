@@ -20,7 +20,7 @@ const ShaderCreateInfo solid_shader_create_info = ShaderCreateInfo::create()
     .uniform("DirLight", "dirLight")
     .uniform(ShaderType::FLOAT, "shininess")
     .uniform(ShaderType::INT, "entity")
-    .uniform(ShaderType::VEC3, "viewPos")    
+    .uniform(ShaderType::VEC3, "viewPos")
     .dep("lights_lib.glsl")
     .vertex("solid_shader_vs.glsl")
     .fragment("solid_shader_fs.glsl");		    

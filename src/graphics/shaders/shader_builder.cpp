@@ -28,7 +28,11 @@ void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
     for(auto& uniform_buffer : create_info.info.uniform_buffers) {
 	ss << "layout(std140, binding = " << uniform_buffer.binding << ") uniform ";
 	buildInterface(ss, uniform_buffer.interface);
-    }    
+    }
+
+    for(auto& uniform_array : create_info.info.uniform_arrays) {
+	ss << "uniform " << uniform_array.type << " " << uniform_array.name << "[" << uniform_array.size << "];\n";
+    }
 
     ss << additional_info;
     
