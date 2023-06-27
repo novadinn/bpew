@@ -14,12 +14,12 @@ void main() {
 #endif
 #ifdef NUM_POINT_LIGHTS
     for(int i = 0; i < NUM_POINT_LIGHTS; ++i) {
-	result += calcPointLight(pointLights[i], norm, normalize(vs_inout.fragPos), viewDir, shininess);
+	result += calcPointLight(pointLights[i], norm, vs_inout.fragPos, viewDir, shininess);
     }
 #endif
 #ifdef NUM_SPOT_LIGHTS
     for(int i = 0; i < NUM_SPOT_LIGHTS; ++i) {
-	result += calcSpotLight(spotLights[i], norm, normalize(vs_inout.fragPos), viewDir, shininess);
+	result += calcSpotLight(spotLights[i], norm, vs_inout.fragPos, viewDir, shininess);
     }
 #endif    
 #endif // USE_RENDERED_SHADER

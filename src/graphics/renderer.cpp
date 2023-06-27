@@ -6,7 +6,6 @@
 #include "shaders/shader_builder.h"
 #include "../shaders/infos/solid_shader.h"
 #include "../shaders/infos/outline_selected_mesh_shader.h"
-#include "../shaders/infos/rendered_shader.h"
 
 #include <glad/glad.h>
 
