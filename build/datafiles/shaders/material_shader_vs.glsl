@@ -3,6 +3,7 @@ void main() {
 
     vs_inout.fragPos = vec3(worldPosition);
     vs_inout.normal = mat3(transpose(inverse(model))) * aNormal;
+    vs_inout.texCoord = aTexCoord;
 
-	gl_Position = projection * view * worldPosition;
+    gl_Position = projection * view * worldPosition;
 }

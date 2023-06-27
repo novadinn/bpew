@@ -11,6 +11,8 @@
 #include "../core/input.h"
 #include "../core/time.h"
 #include "editor_camera.h"
+#include "../graphics/material.h"
+#include "../graphics/shaders/shader_container.h"
 
 #include "imgui/imgui.h"
 #include "ImGuizmo/ImGuizmo.h"
@@ -49,6 +51,8 @@ void Editor::create() {
 
     auto& mesh = object.addComponent<MeshComponent>();
     mesh.model = model;
+    Material material;
+    mesh.default_material = material;
 	
     Entity object2 = ctx->scene->createEntity("Monkey2");
     auto& mesh2 = object2.addComponent<MeshComponent>();
@@ -115,8 +119,7 @@ void Editor::onUpdate() {
 	}
     }
 
-    active_receiver->onUpdate(ctx);
-    ctx->scene->onUpdate();
+    active_receiver->onUpdate(ctx);       
 }
 
 void Editor::onDraw() {
@@ -378,28 +381,43 @@ void Editor::showInspectorPanel() {
 
 		const char* types[] = { "Spot", "Point", "Directional" };
 		int type = light.type;
-		float color[3] = { light.color.x, light.color.y, light.color.z };
-		float intensity = light.intensity;
-		float intensity_multiplier = light.intensity_multiplier;
+		float ambient[3] = { light.ambient.x, light.ambient.y, light.ambient.z };
+		float diffuse[3] = { light.diffuse.x, light.diffuse.y, light.diffuse.z };
+		float specular[3] = { light.specular.x, light.specular.y, light.specular.z };
 				
 		if(ImGui::Combo("Type", &type, types, 3))
 		    light.type = (LightComponent::LightType)type;
-		if(ImGui::DragFloat3("Color", color, 0.1f, 0.0f, 0.0f, "%.2f"))
-		    light.color = glm::vec3(color[0], color[1], color[2]);
-		if(ImGui::DragFloat("Intensity", &intensity, 0.1f, 0.0f, 0.0f, "%.2f"))
-		    light.intensity = intensity;
-		if(ImGui::DragFloat("Intensity Multiplier", &intensity_multiplier, 0.1f, 0.0f, 0.0f, "%.2f"))
-		    light.intensity_multiplier = intensity_multiplier;
+		if(ImGui::DragFloat3("Ambient", ambient, 0.1f, 0.0f, 0.0f, "%.2f"))
+		    light.ambient = glm::vec3(ambient[0], ambient[1], ambient[2]);
+		if(ImGui::DragFloat3("Diffuse", diffuse, 0.1f, 0.0f, 0.0f, "%.2f"))
+		    light.diffuse = glm::vec3(diffuse[0], diffuse[1], diffuse[2]);
+		if(ImGui::DragFloat3("Specular", specular, 0.1f, 0.0f, 0.0f, "%.2f"))
+		    light.specular = glm::vec3(specular[0], specular[1], specular[2]);
+		
 		switch(light.type) {
-		case LightComponent::LightType::SPOT: {
-		    float spot_angle = light.spot_angle;
-		    if(ImGui::DragFloat("Spot Angle", &spot_angle, 0.1f, 0.0f, 0.0f, "%.2f"))
-			light.spot_angle = spot_angle;
-		} break;
 		case LightComponent::LightType::POINT: {
-		    float range = light.range;
-		    if(ImGui::DragFloat("Range", &range, 0.1f, 0.0f, 0.0f, "%.2f"))
-			light.range = range;
+		    float constant = light.properties.point_light.constant;
+		    float linear = light.properties.point_light.linear;
+		    float quadratic = light.properties.point_light.quadratic;
+		    if(ImGui::DragFloat("Constant", &constant, 0.1f, 0.0f, 0.0f, "%.2f"))
+			light.properties.point_light.constant = constant;
+		    if(ImGui::DragFloat("Linear", &linear, 0.1f, 0.0f, 0.0f, "%.2f"))
+			light.properties.point_light.linear = linear;
+		    if(ImGui::DragFloat("Quadratic", &quadratic, 0.1f, 0.0f, 0.0f, "%.2f"))
+			light.properties.point_light.quadratic = quadratic;
+		} break;
+		case LightComponent::LightType::SPOT: {
+		    float cut_off = light.properties.spot_light.cut_off;
+		    float outer_cut_off = light.properties.spot_light.outer_cut_off;
+		    float constant = light.properties.spot_light.constant;
+		    float linear = light.properties.spot_light.linear;
+		    float quadratic = light.properties.spot_light.quadratic;
+		    if(ImGui::DragFloat("Constant", &constant, 0.1f, 0.0f, 0.0f, "%.2f"))
+			light.properties.spot_light.constant = constant;
+		    if(ImGui::DragFloat("Linear", &linear, 0.1f, 0.0f, 0.0f, "%.2f"))
+			light.properties.spot_light.linear = linear;
+		    if(ImGui::DragFloat("Quadratic", &quadratic, 0.1f, 0.0f, 0.0f, "%.2f"))
+			light.properties.spot_light.quadratic = quadratic;
 		} break;
 		};
 	    }

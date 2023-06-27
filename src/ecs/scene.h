@@ -18,7 +18,8 @@ struct Scene {
     void onDrawSolid(glm::mat4& view_mat, glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction);
     void onDrawMaterialPreview(glm::mat4& view_mat, glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction);
 
-    void onUpdate();
+    void onUpdateMaterialPreview();
+    void onUpdateRendered();
     
     void onResize(uint width, uint height);
 

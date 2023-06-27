@@ -3,32 +3,47 @@
 
 #include "glm/glm.hpp"
 
+struct DirectionalLightProperties {
+    char unused;
+};
+
+struct PointLightProperties {
+    float constant;
+    float linear;
+    float quadratic;
+};
+
+struct SpotLightProperties {
+    float cut_off;
+    float outer_cut_off;
+
+    float constant;
+    float linear;
+    float quadratic;
+};
+
+union LightProperties {
+    DirectionalLightProperties dir_light;
+    PointLightProperties point_light;
+    SpotLightProperties spot_light;
+};
+
 struct LightComponent {
-	enum LightType {
-		SPOT,
-		POINT,
-		DIRECTIONAL
-		// TODO: area
-	};
-	// TODO:
-	enum ShadowsType {
-		NO_SHADOW,
-		HARD_SHADOWS,
-		SOFT_SHADOWS
-	};
+    enum LightType {
+	SPOT,
+	POINT,
+	DIRECTIONAL
+	// TODO: area
+    };
 
-	LightType type;
-	glm::vec3 color = {1.0f, 1.0f, 0.8f};
-	float intensity = 0.5f;
-	float intensity_multiplier = 0.75f;
+    LightType type;
+    
+    glm::vec3 ambient;
+    glm::vec3 diffuse;
+    glm::vec3 specular;
+    LightProperties properties;
 
-	// Spot light properties
-	float spot_angle = 30.0f;
-
-	// Point light properies
-	float range = 10.0f;
-
-	// TODO: cookie texture
+    // TODO: cookie texture
 	
 };
 

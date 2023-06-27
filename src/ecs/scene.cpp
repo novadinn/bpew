@@ -75,15 +75,55 @@ void Scene::onDrawMaterialPreview(glm::mat4& view_mat, glm::mat4& proj_mat, glm:
     }    
 }
 
-void Scene::onUpdate() {
+void Scene::onUpdateRendered() {
+    std::vector<LightComponent> lights;
+    uint num_point_lights = 0;
+    uint num_spot_lights = 0;
+    uint num_dir_lights = 0;
+    
+    auto light_view = registry.view<LightComponent>();
+    for(auto entity : light_view) {
+	auto& light = light_view.get<LightComponent>(entity);
+
+	switch(light.type) {
+	case LightComponent::LightType::SPOT:
+	    num_spot_lights++;
+	    break;
+	case LightComponent::LightType::POINT:
+	    num_point_lights++;
+	    break;
+	case LightComponent::LightType::DIRECTIONAL:
+	    num_dir_lights++;
+	    break;
+	}	
+    }
+    
     auto view = registry.view<MeshComponent>();
     for(auto entity : view) {
 	auto& mesh = view.get<MeshComponent>(entity);
 
+	ShaderBuilder::buildMaterialRenderedShader(mesh.default_material, num_spot_lights,
+						  num_point_lights, num_dir_lights);
+	
 	for(auto& material : mesh.materials) {
-	    ShaderBuilder::buildMaterialShader(material);
+	    // TODO: update only when material is changed
+	    ShaderBuilder::buildMaterialRenderedShader(material, num_spot_lights,
+						       num_point_lights, num_dir_lights);	    
 	}
-    }
+    }    
+}
+
+void Scene::onUpdateMaterialPreview() {
+    auto view = registry.view<MeshComponent>();
+    for(auto entity : view) {
+	auto& mesh = view.get<MeshComponent>(entity);
+
+	ShaderBuilder::buildMaterialShader(mesh.default_material);
+	
+	for(auto& material : mesh.materials) {
+	    ShaderBuilder::buildMaterialShader(material);	    
+	}
+    }    
 }
 
 void Scene::onResize(uint width, uint height) {

@@ -74,6 +74,15 @@ void onUpdateSpaceLayout(EditorContext *ctx) {
     } else if(Input::wasKeyPressed(SDLK_s)) {
 	space_data->gizmo_operation = ImGuizmo::OPERATION::SCALE;
     }
+
+    switch(space_data->draw_mode) {
+    case DrawMode::RENDERED:
+	ctx->scene->onUpdateRendered();
+	break;
+    case DrawMode::MATERIAL_PREVIEW:
+	ctx->scene->onUpdateMaterialPreview();
+	break;   	
+    }
 }
 
 void onResizeSpaceLayout(EditorContext *ctx) {

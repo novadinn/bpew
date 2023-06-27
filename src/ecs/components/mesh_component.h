@@ -24,6 +24,7 @@ struct MeshComponent {
   
   Model model;
   std::vector<Material> materials;
+    Material default_material;
   int active_material_index = -1;
 };
 

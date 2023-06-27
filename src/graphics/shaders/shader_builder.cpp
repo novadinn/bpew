@@ -2,9 +2,12 @@
 
 #include "../material.h"
 #include "shader_create_info.h"
+#include "shader_container.h"
 #include "../../shaders/infos/material_shader.h"
 
-void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreateInfo& info, const char* additional_info) {
+std::map<std::string, ShaderContainer> ShaderBuilder::shaders;    
+
+bool ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreateInfo& info, const char* additional_info) {
     ShaderCreateInfo create_info = info;
 
     std::stringstream ss;
@@ -62,6 +65,7 @@ void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
 	file.close();
     } else {
 	printf("failed to load vertex shader file: %s\n", create_info.info.vertex_source.c_str());
+	return false;
     }
 	
     std::stringstream fs;
@@ -88,27 +92,129 @@ void ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
 	file.close();
     } else {
 	printf("failed to load fragment shader file: %s\n", create_info.info.fragment_source.c_str());
+	return false;
     }
 
     shader.destroy();
     if(!shader.createFromSource(vs.str().c_str(), fs.str().c_str())) {
 	printf("Failed to build shader\n");
+	return false;
     }
+
+    return true;
 }
 
 void ShaderBuilder::buildMaterialShader(Material& material) {
     Sha new_sha = generateMaterialSha(material);
 
-    if(material.sha.sha.size() != 0 && new_sha.sha == material.sha.sha) {
+    if(material.shader_container && material.shader_container->sha.sha.size() != 0 && new_sha.sha == material.shader_container->sha.sha) {
 	return;
     }
 
-    material.sha = new_sha;    
+    if(getShaderContainer(new_sha.sha)) {
+	ShaderContainer& shader = shaders[new_sha.sha];
+	increaseUsage(shader);	
+	if(material.shader_container) {
+	    decreaseUsage(new_sha.sha, (*material.shader_container));
+	}
+	material.shader_container = &shader;
+	return;
+    }
+
+    ShaderCreateInfo create_info = material_shader_create_info;
+
+    std::stringstream ss;
+    
+    buildNodeTree(ss, create_info, material);
+    create_info.define("USE_PREVIEW_SHADER");
+        
+    ShaderContainer container;
+    container.additional_info = ss.str();
+    container.create_info = create_info;
+    container.users = 1;
+    container.sha = new_sha;
+    const auto [it, suc] = shaders.insert({new_sha.sha, container});
+    material.shader_container = &it->second;
+
+    buildShaderFromShaderContainer(material.shader_container);
+}
+
+void ShaderBuilder::buildShaderFromShaderContainer(ShaderContainer* shader_container) {
+    if(buildShaderFromCreateInfo(
+	   shader_container->shader,
+	   shader_container->create_info,
+	   shader_container->additional_info.c_str())) {
+	shader_container->compiled = true;
+    }    
+}
+
+void ShaderBuilder::buildMaterialRenderedShader(Material& material, uint num_spot_lights,
+							 uint num_point_lights, uint num_dir_lights) {
+    Sha new_sha = generateMaterialRenderedSha(material, num_spot_lights, num_point_lights, num_dir_lights);
+
+    if(material.shader_container && material.shader_container->sha.sha.size() != 0 && new_sha.sha == material.shader_container->sha.sha) {
+	return;
+    }
+
+    if(shaders.contains(new_sha.sha)) {
+	ShaderContainer& shader = shaders[new_sha.sha];
+	increaseUsage(shader);
+	if(material.shader_container) {
+	    decreaseUsage(new_sha.sha, (*material.shader_container));
+	}
+	material.shader_container = &shader;
+	return;
+    } 
     
     ShaderCreateInfo create_info = material_shader_create_info;
 
-    std::stringstream ss;    
+    std::stringstream ss;
+
+    buildNodeTree(ss, create_info, material);
+        
+    create_info.dep("lights_lib.glsl");
+    create_info.define("USE_RENDERED_SHADER");
+    if(num_spot_lights > 0) {
+	create_info.define("NUM_SPOT_LIGHTS", std::to_string(num_spot_lights));
+	create_info.uniformArray("SpotLight", "spotLights", num_spot_lights);
+    }
+    if(num_point_lights > 0) {
+	create_info.define("NUM_POINT_LIGHTS", std::to_string(num_point_lights));
+	create_info.uniformArray("PointLight", "pointLights", num_point_lights);
+    }
+    if(num_dir_lights > 0) {
+	create_info.define("NUM_DIR_LIGHTS", std::to_string(num_dir_lights));
+	create_info.uniformArray("DirectionalLight", "dirLights", num_dir_lights);
+    }
     
+    ShaderContainer container;
+    container.additional_info = ss.str();
+    container.create_info = create_info;
+    container.users = 1;
+    container.sha = new_sha;
+    const auto [it, suc] = shaders.insert({new_sha.sha, container});
+    material.shader_container = &it->second;
+
+    buildShaderFromShaderContainer(material.shader_container);
+}
+
+void ShaderBuilder::buildNodeUniforms(ShaderCreateInfo& info, const Node* node) {
+    for(auto& input : node->inputs) {
+	if(input.links.size() == 0) {
+	    buildNodeUniform(info, node, input);
+	}
+    }    
+}
+
+ShaderContainer* ShaderBuilder::getShaderContainer(std::string& hash) {
+    if(!shaders.contains(hash)) {
+	return nullptr;
+    }
+
+    return &shaders[hash];
+}
+
+void ShaderBuilder::buildNodeTree(std::stringstream& ss, ShaderCreateInfo& create_info, Material& material) {
     for(auto& node : material.nodes) {
 	if(node.type == NodeType::MATERIAL_OUTPUT) {
 	    continue;
@@ -118,10 +224,6 @@ void ShaderBuilder::buildMaterialShader(Material& material) {
 	
 	std::string node_src(node_name);
 	node_src.append(".glsl");
-	    
-	if(create_info.info.deps.contains(node_src)) {
-	    continue; 
-	}
 	
 	create_info.dep(node_src);
     }
@@ -131,7 +233,7 @@ void ShaderBuilder::buildMaterialShader(Material& material) {
 	    continue;
 	}
 	buildNodeUniforms(create_info, &node);       	
-    }       
+    }
     
     const Node* out = nullptr;
 
@@ -143,23 +245,24 @@ void ShaderBuilder::buildMaterialShader(Material& material) {
     }
 
     if(!out) {
-	printf("WARNING: material \"%s\" output not found\n", material.name.c_str());
-	return;
+	printf("WARNING: material \"%s\" output not found\n", material.name.c_str());	
     }    
     
     const NodeProperty* surface = nullptr;
     const NodeProperty* volume = nullptr;
     const NodeProperty* displacement = nullptr;    
 
-    for(auto& input : out->inputs) {	
-	if(input.id.name == "Surface") {
-	    surface = &input;
-	}
-	if(input.id.name == "Volume") {
-	    volume = &input;
-	}
-	if(input.id.name == "Displacement") {
-	    displacement = &input;
+    if(out) {
+	for(auto& input : out->inputs) {	
+	    if(input.id.name == "Surface") {
+		surface = &input;
+	    }
+	    if(input.id.name == "Volume") {
+		volume = &input;
+	    }
+	    if(input.id.name == "Displacement") {
+		displacement = &input;
+	    }
 	}
     }
 
@@ -172,49 +275,36 @@ void ShaderBuilder::buildMaterialShader(Material& material) {
 	ss << "return output_" << surface_node.id.id << "_" << surface->links[0].output->id.id << ";\n";
     }
     ss << "}\n";
-        
-    buildShaderFromCreateInfo(material.shader, create_info, ss.str().c_str());
-}
-
-void ShaderBuilder::buildNodeUniforms(ShaderCreateInfo& info, const Node* node) {
-    for(auto& input : node->inputs) {
-	if(input.links.size() == 0) {
-	    buildNodeUniform(info, node, input);
-	}
-    }    
 }
 
 void ShaderBuilder::buildNodeUniform(ShaderCreateInfo& info, const Node* node, const NodeProperty& prop) {
     std::string name = std::string("input_") + std::to_string(node->id.id) + std::string("_") + std::to_string(prop.id.id);
 
-    ShaderType type;    
-    switch(prop.type) {
+    ShaderType type = toType(prop.type);    
+    
+    info.uniform(type, name);
+}
+
+ShaderType ShaderBuilder::toType(NodePropertyType type) {
+    switch(type) {
     case NodePropertyType::COLOR:
-	type = ShaderType::VEC4;
-	break;
+	return ShaderType::VEC4;	
     case NodePropertyType::VECTOR3:
-	type = ShaderType::VEC3;
-	break;
+	return ShaderType::VEC3;	
     case NodePropertyType::VECTOR2:
-	type = ShaderType::VEC2;
-	break;
+	return ShaderType::VEC2;	
     case NodePropertyType::FLOAT:
-	type = ShaderType::FLOAT;
-	break;
+	return ShaderType::FLOAT;	
     case NodePropertyType::INT:	
     case NodePropertyType::ENUM:
     case NodePropertyType::TEXTURE:
-	type = ShaderType::INT;
-	break;
+	return ShaderType::INT;	
     case NodePropertyType::SHADER:
-	// TODO: what we should do?
-	break;	
-    default:
+	// TODO: what we should do?	
+    default:	
 	printf("Unhandled node property type\n");
-	return;
+	return ShaderType::INT;
     }
-
-    info.uniform(type, name);
 }
 
 void ShaderBuilder::buildNode(std::stringstream& ss, const Node* node, Material& material) {        
@@ -400,6 +490,7 @@ Sha ShaderBuilder::generateMaterialSha(Material& material) {
 
     std::stringstream material_info;
 
+    // TODO: sort nodes
     for(auto& node : material.nodes) {	
 	material_info << node.id.id;
 
@@ -427,6 +518,19 @@ Sha ShaderBuilder::generateMaterialSha(Material& material) {
     return sha;
 }
 
+Sha ShaderBuilder::generateMaterialRenderedSha(Material& material, uint num_spot_lights,
+					       uint num_point_lights, uint num_dir_lights) {
+    Sha sha = generateMaterialSha(material);
+      
+    std::stringstream ss;
+    ss << sha.sha << num_spot_lights << num_point_lights << num_dir_lights;
+
+    std::string value = ss.str();
+    
+    sha.create(value.c_str(), value.size());
+    return sha;
+}
+
 void ShaderBuilder::buildInterface(
     std::stringstream& ss, ShaderInterfaceInfo& interface_info) {
     ss << interface_info.type << " " << "{\n";
@@ -436,4 +540,20 @@ void ShaderBuilder::buildInterface(
     }
 
     ss << "} " << interface_info.name << ";\n";
+}
+
+void ShaderBuilder::decreaseUsage(std::string& key, ShaderContainer& container) {
+    container.users--;
+    if(container.users == 0) {
+	// TODO: clear unused shaders
+	// if(container.compiled) {	    
+	//     container.shader.destroy();
+	// }
+
+	// shaders.erase(key);
+    }
+}
+
+void ShaderBuilder::increaseUsage(ShaderContainer& container) {
+    container.users++;
 }
