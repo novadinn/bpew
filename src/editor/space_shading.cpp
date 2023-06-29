@@ -50,6 +50,50 @@ void onDrawUIBeginSpaceShading(EditorContext *ctx) {
     ImGui::Begin("Shading");
 }
 
+void drawNodeCustomAttribute(NodeInput& input) {
+    ImGui::PushItemWidth(150);
+    switch(input.type) {
+    case NodePropertyType::COLOR: {
+	float p[4] = { input.value.color_value.x, input.value.color_value.y, input.value.color_value.z, input.value.color_value.w };
+	if(ImGui::DragFloat4(input.id.name.c_str(), p, 0.001f))
+	    input.value.color_value = glm::vec4(p[0], p[1], p[2], p[3]);
+    }
+	break;
+    case NodePropertyType::VECTOR3: {
+	float p[3] = { input.value.vector3_value.x, input.value.vector3_value.y, input.value.vector3_value.z };	
+	if(ImGui::DragFloat3(input.id.name.c_str(), p, 0.001f))
+	    input.value.vector3_value = glm::vec3(p[0], p[1], p[2]);
+    }
+	break;
+    case NodePropertyType::VECTOR2: {
+	float p[2] = { input.value.vector2_value.x, input.value.vector2_value.y };
+	if(ImGui::DragFloat2(input.id.name.c_str(), p, 0.001f))
+	    input.value.vector2_value = glm::vec2(p[0], p[1]);
+    }
+	break;
+    case NodePropertyType::FLOAT: {
+	float p = input.value.float_value;
+	if(ImGui::DragFloat(input.id.name.c_str(), &p, 0.001f))
+	    input.value.float_value = p;
+    }
+	break;
+    case NodePropertyType::INT: {
+	int p = input.value.int_value;
+	if(ImGui::DragInt(input.id.name.c_str(), &p))
+	    input.value.int_value = p;
+    }
+	break;
+    case NodePropertyType::ENUM:		
+	break;
+    case NodePropertyType::SHADER:
+	break;
+    case NodePropertyType::TEXTURE:	
+	break;
+    default:
+	printf("unknown node property type\n");
+    }
+}
+
 void onDrawUISpaceShading(EditorContext *ctx) {
     SpaceShadingData *space_data = ctx->space_shading_data;
     
@@ -108,8 +152,8 @@ void onDrawUISpaceShading(EditorContext *ctx) {
 	if(mat) {
 	    for(int i = 0; i < mat->nodes.size(); ++i) {
 		Node& node = mat->nodes[i];
-		std::vector<NodeProperty>& outputs = node.outputs;
-		std::vector<NodeProperty>& inputs = node.inputs;
+		std::vector<NodeOutput>& outputs = node.outputs;
+		std::vector<NodeInput>& inputs = node.inputs;
 
 		ImNodes::BeginNode(node.id.id);
 	
@@ -119,7 +163,7 @@ void onDrawUISpaceShading(EditorContext *ctx) {
 	
 		// Outputs
 		for(int j = 0; j < outputs.size(); ++j) {
-		    NodeProperty& prop = outputs[j];
+		    NodeOutput& prop = outputs[j];
 	  
 		    ImNodes::BeginOutputAttribute(prop.id.id);
 		    ImGui::Text("%s", prop.id.name.c_str());
@@ -128,17 +172,21 @@ void onDrawUISpaceShading(EditorContext *ctx) {
 
 		// Inputs
 		for(int j = 0; j < inputs.size(); ++j) {
-		    NodeProperty& prop = inputs[j];
+		    NodeInput& prop = inputs[j];
 
-		    ImNodes::BeginInputAttribute(prop.id.id);
-		    ImGui::Text("%s", prop.id.name.c_str());
-		    ImNodes::EndInputAttribute();
+		    if(prop.source == NodePropertySource::ATTR) {
+			ImNodes::BeginInputAttribute(prop.id.id);
+			ImGui::Text("%s", prop.id.name.c_str());
+			ImNodes::EndInputAttribute();
+		    } else if(prop.source == NodePropertySource::UNIFORM) {
+			drawNodeCustomAttribute(prop);
+		    }
 		}
 	
 		ImNodes::EndNode();
-	    }
-	}
-    }
+	    }	    
+	}	
+    }    
 
     // Context menu
     // TODO: not all of those are set right now
@@ -220,19 +268,19 @@ void onDrawUISpaceShading(EditorContext *ctx) {
 	    for(int i = 0; i < mat->nodes.size(); ++i) {
 		Node& node = mat->nodes[i];
 		// Draw Link only from output nodes - dont need to do this twice
-		std::vector<NodeProperty>& outputs = node.outputs;
+		std::vector<NodeOutput>& outputs = node.outputs;
 
 		for(int j = 0; j < outputs.size(); ++j) {
-		    NodeProperty& prop = outputs[j];
-		    std::vector<NodeLink>& links = prop.links;
+		    NodeOutput& prop = outputs[j];
+		    NodeLink* link = prop.link;
 
-		    for(int k = 0; k < links.size(); ++k) {
-			int link_id = links[k].id.id;
-			int output_id = links[k].output->id.id;
-			int input_id = links[k].input->id.id;
-
+		    if(link) {
+			int link_id = link->id.id;
+			int output_id = link->output->id.id;
+			int input_id = link->input->id.id;
+		    
 			ImNodes::Link(link_id, output_id, input_id);
-		    }
+		    }		    		   		    
 		}
 	    }
 	}
@@ -242,7 +290,8 @@ void onDrawUISpaceShading(EditorContext *ctx) {
 
     // Update links
     int output_id, input_id;
-    NodeProperty *output_prop = nullptr, *input_prop = nullptr;
+    NodeOutput *output_prop = nullptr;
+    NodeInput *input_prop = nullptr;
     uint output_node, input_node;
     if (ImNodes::IsLinkCreated(&output_id, &input_id)) {
 	// NOTE: assumes that material and mesh are there
@@ -253,11 +302,11 @@ void onDrawUISpaceShading(EditorContext *ctx) {
 	// TODO: slow linear search
 	for(int i = 0; i < nodes.size(); ++i) {
 	    Node& node = nodes[i];
-	    std::vector<NodeProperty>& node_outputs = node.outputs;
-	    std::vector<NodeProperty>& node_inputs = node.inputs;
+	    std::vector<NodeOutput>& node_outputs = node.outputs;
+	    std::vector<NodeInput>& node_inputs = node.inputs;
 
 	    for(int j = 0; j < node_outputs.size(); ++j) {
-		NodeProperty* prop = &node_outputs[j];
+		NodeOutput* prop = &node_outputs[j];
 
 		if(prop->id.id == output_id) {
 		    output_prop = prop;
@@ -266,7 +315,7 @@ void onDrawUISpaceShading(EditorContext *ctx) {
 	    }
 
 	    for(int j = 0; j < node_inputs.size(); ++j) {
-		NodeProperty* prop = &node_inputs[j];
+		NodeInput* prop = &node_inputs[j];
 	
 		if(prop->id.id == input_id) {
 		    input_prop = prop;
@@ -283,11 +332,19 @@ void onDrawUISpaceShading(EditorContext *ctx) {
 
     if(output_prop && input_prop) {
 	// TODO: should we add this to both input and output node or not?
-	NodeLink link;
-	link.create(output_prop, input_prop, output_node, input_node);
-    
-	output_prop->links.push_back(link);
-	input_prop->links.push_back(link);
+	NodeLink* link = new NodeLink();
+	link->create(output_prop, input_prop, output_node, input_node);
+	
+	if(output_prop->link) {
+	    output_prop->link->input->link = nullptr;
+	    delete output_prop->link;	    
+	}
+	output_prop->link = link;
+	if(input_prop->link) {
+	    input_prop->link->output->link = nullptr;
+	    delete input_prop->link;	    
+	}
+	input_prop->link = link;
     }
 
     // TODO: ImNodes::IsLinkDestroyed is not impelemted on the imnodes side (or thats just me stupid),
@@ -307,33 +364,30 @@ void onDrawUISpaceShading(EditorContext *ctx) {
       
 	    for(int j = 0; j < nodes.size(); ++j) {
 		Node& node = nodes[j];
-		std::vector<NodeProperty>& node_outputs = node.outputs;
-		std::vector<NodeProperty>& node_inputs = node.inputs;
+		std::vector<NodeOutput>& node_outputs = node.outputs;
+		std::vector<NodeInput>& node_inputs = node.inputs;
 
 		for(int k = 0; k < node_outputs.size(); ++k) {
-		    NodeProperty* prop = &node_outputs[k];
-		    std::vector<NodeLink>& links = prop->links;
-
-		    for(int q = 0; q < links.size(); ++q) {
-			NodeLink link = links[q];
-
-			if(link.id.id == destroyed_link_id) {
-			    links.erase(links.begin() + q);
-			}
-		    }
+		    NodeOutput* prop = &node_outputs[k];
+		    NodeLink* link = prop->link;
+		    
+		    if(prop->link && link->id.id == destroyed_link_id) {
+			prop->link->input->link = nullptr;
+			delete prop->link;
+			prop->link = nullptr;
+			return;
+		    }		   
 		}
 
 		for(int k = 0; k < node_inputs.size(); ++k) {
-		    NodeProperty* prop = &node_inputs[k];
-		    std::vector<NodeLink>& links = prop->links;
-
-		    for(int q = 0; q < links.size(); ++q) {
-			NodeLink link = links[q];
-
-			if(link.id.id == destroyed_link_id) {
-			    links.erase(links.begin() + q);
-			}
-		    }
+		    NodeInput* prop = &node_inputs[k];		    		    
+		    
+		    if(prop->link && prop->link->id.id == destroyed_link_id) {
+			prop->link->output->link = nullptr;
+			delete prop->link;
+			prop->link = nullptr;
+			return;
+		    }		    
 		}
 	    }
 	}

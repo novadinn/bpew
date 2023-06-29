@@ -10,7 +10,6 @@
 #include "shader_info.h"
 #include "../../core/tokenizer.h"
 #include "../../nodes/node.h"
-#include "../../nodes/node_property.h"
 #include "../../core/sha.h"
 
 struct Material;
@@ -38,7 +37,7 @@ private:
     static void proceedSource(const char* dep, ShaderCreateInfo& create_info);
     static void buildNode(std::stringstream& ss, const Node* node, Material& material);
     static void buildNodeUniforms(ShaderCreateInfo& info, const Node* node);
-    static void buildNodeUniform(ShaderCreateInfo& info, const Node* node, const NodeProperty& prop);
+    static void buildNodeUniform(ShaderCreateInfo& info, const Node* node, const NodeInput& prop);
     // TODO: should be placed at here?
     static Sha generateMaterialSha(Material& material);
     static Sha generateMaterialRenderedSha(Material& material, uint num_spot_lights,

@@ -200,7 +200,7 @@ void ShaderBuilder::buildMaterialRenderedShader(Material& material, uint num_spo
 
 void ShaderBuilder::buildNodeUniforms(ShaderCreateInfo& info, const Node* node) {
     for(auto& input : node->inputs) {
-	if(input.links.size() == 0) {
+	if(!input.link) {
 	    buildNodeUniform(info, node, input);
 	}
     }    
@@ -248,9 +248,9 @@ void ShaderBuilder::buildNodeTree(std::stringstream& ss, ShaderCreateInfo& creat
 	printf("WARNING: material \"%s\" output not found\n", material.name.c_str());	
     }    
     
-    const NodeProperty* surface = nullptr;
-    const NodeProperty* volume = nullptr;
-    const NodeProperty* displacement = nullptr;    
+    const NodeInput* surface = nullptr;
+    const NodeInput* volume = nullptr;
+    const NodeInput* displacement = nullptr;    
 
     if(out) {
 	for(auto& input : out->inputs) {	
@@ -267,17 +267,17 @@ void ShaderBuilder::buildNodeTree(std::stringstream& ss, ShaderCreateInfo& creat
     }
 
     ss << "vec4 surface() {\n";
-    if(surface == nullptr || surface->links.size() == 0) {
+    if(surface == nullptr || !surface->link) {
 	ss << "return vec4(0.5, 0.5, 0.5, 1.0);\n";
     } else {	
-	Node& surface_node = material.nodes[surface->links[0].output_node];
+	Node& surface_node = material.nodes[surface->link->output_node];
 	buildNode(ss, &surface_node, material);
-	ss << "return output_" << surface_node.id.id << "_" << surface->links[0].output->id.id << ";\n";
+	ss << "return output_" << surface_node.id.id << "_" << surface->link->output->id.id << ";\n";
     }
     ss << "}\n";
 }
 
-void ShaderBuilder::buildNodeUniform(ShaderCreateInfo& info, const Node* node, const NodeProperty& prop) {
+void ShaderBuilder::buildNodeUniform(ShaderCreateInfo& info, const Node* node, const NodeInput& prop) {
     std::string name = std::string("input_") + std::to_string(node->id.id) + std::string("_") + std::to_string(prop.id.id);
 
     ShaderType type = toType(prop.type);    
@@ -310,8 +310,8 @@ ShaderType ShaderBuilder::toType(NodePropertyType type) {
 void ShaderBuilder::buildNode(std::stringstream& ss, const Node* node, Material& material) {        
     for(auto& input : node->inputs) {
 	// TODO: should be only one link on input
-	if(input.links.size() > 0) {
-	    buildNode(ss, &material.nodes[input.links[0].output_node], material);	
+	if(input.link) {
+	    buildNode(ss, &material.nodes[input.link->output_node], material);		
 	}
     }
 
@@ -497,19 +497,19 @@ Sha ShaderBuilder::generateMaterialSha(Material& material) {
 	for(auto& input : node.inputs) {
 	    material_info << input.id.id;
 
-	    for(auto& link : input.links) {
-		material_info << link.output->id.id;
-		material_info << link.input->id.id;
-	    }
+	    if(input.link) {
+		material_info << input.link->output->id.id;
+		material_info << input.link->input->id.id;
+	    }		    	    
 	}
 
 	for(auto& output : node.outputs) {
 	    material_info << output.id.id;
 
-	    for(auto& link : output.links) {
-		material_info << link.output->id.id;
-		material_info << link.input->id.id;
-	    }
+	    if(output.link) {
+		material_info << output.link->output->id.id;
+		material_info << output.link->input->id.id;
+	    }	    
 	}
     }
 

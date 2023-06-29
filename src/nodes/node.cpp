@@ -8,39 +8,37 @@
 void Node::create(NodeType node_type) {
 
   std::string node_name;
-  std::vector<NodeProperty> node_inputs;
-  std::vector<NodeProperty> node_outputs;
+  std::vector<NodeInput> node_inputs;
+  std::vector<NodeOutput> node_outputs;
   
   switch(node_type) {
   case NodeType::RGB: {    
     node_name = "RGB";
 
-    NodeProperty prop;
+    NodeInput input;
+    NodeOutput output;
     NodePropertyValue prop_value;
 
     // Color socket
-    prop = {};
+    input = {};
     prop_value = {};
     
     prop_value.vector3_value = glm::vec3(0.0f);
     
-    prop.create(prop_value, "Color", NodePropertyType::VECTOR3);
-    node_inputs.push_back(prop);
+    input.create(prop_value, "Color", NodePropertyType::VECTOR3, NodePropertySource::UNIFORM);
+    node_inputs.push_back(input);
 
     // Color socket
-    prop = {};
-    prop_value = {};
-
-    prop_value.color_value = glm::vec4(0.0f);
+    output = {};
     
-    prop.create(prop_value, "Color", NodePropertyType::COLOR);
-    node_outputs.push_back(prop);
+    output.create(prop_value, "Color", NodePropertyType::COLOR);
+    node_outputs.push_back(output);
     
   } break;
   case NodeType::MATERIAL_OUTPUT: {
     node_name = "Material Output";
 
-    NodeProperty prop;
+    NodeInput prop;    
     NodePropertyValue prop_value;
 
     // Surface socket
@@ -49,7 +47,7 @@ void Node::create(NodeType node_type) {
     
     prop_value.shader_value = Shader{};
     
-    prop.create(prop_value, "Surface", NodePropertyType::SHADER);
+    prop.create(prop_value, "Surface", NodePropertyType::SHADER, NodePropertySource::ATTR);
     node_inputs.push_back(prop);
 
     // Volume socket
@@ -58,7 +56,7 @@ void Node::create(NodeType node_type) {
 
     prop_value.shader_value = Shader{};
     
-    prop.create(prop_value, "Volume", NodePropertyType::SHADER);
+    prop.create(prop_value, "Volume", NodePropertyType::SHADER, NodePropertySource::ATTR);
     node_inputs.push_back(prop);
 
     // Displacement socket
@@ -67,7 +65,7 @@ void Node::create(NodeType node_type) {
 
     prop_value.vector3_value = glm::vec3(0.0f);;
     
-    prop.create(prop_value, "Displacement", NodePropertyType::VECTOR3);
+    prop.create(prop_value, "Displacement", NodePropertyType::VECTOR3, NodePropertySource::ATTR);
     node_inputs.push_back(prop);
   } break;
   default: {

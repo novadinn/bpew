@@ -1,8 +1,8 @@
 #include "node_link.h"
 
-#include "node_property.h"
+#include "node.h"
 
-void NodeLink::create(NodeProperty* prop_output, NodeProperty* prop_input,
+void NodeLink::create(NodeOutput* prop_output, NodeInput* prop_input,
 		      uint out_node, uint in_node) {
   // TODO: use more reasonable names
   id.create(prop_output->id.name + prop_input->id.name);

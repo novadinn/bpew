@@ -19,6 +19,7 @@ void onDestroySpaceShading(EditorContext *ctx);
 void onDrawUIBeginSpaceShading(EditorContext *ctx);
 void onDrawUISpaceShading(EditorContext *ctx);
 void onDrawUIEndSpaceShading(EditorContext *ctx);
+void drawNodeCustomAttribute(NodeInput& input);
 
 struct SpaceShading {
     void begin();

@@ -252,13 +252,13 @@ void Renderer::setClearColor(const glm::vec4& color) {
 void Renderer::setMaterialNodeUniforms(Shader& shader, Node& node) {    
     for(auto& input : node.inputs) {
 	// check if should be uniform
-	if(input.links.size() == 0) {	    	   	   
+	if(!input.link) {	    	   	   
 	    setMaterialNodeUniform(shader, node, input);
 	}
     }    
 }
 
-void Renderer::setMaterialNodeUniform(Shader& shader, Node& node, NodeProperty& prop) {    
+void Renderer::setMaterialNodeUniform(Shader& shader, Node& node, NodeInput& prop) {    
     std::string name = std::string("input_") + std::to_string(node.id.id) + std::string("_") + std::to_string(prop.id.id);    
     switch(prop.type) {
     case NodePropertyType::COLOR:

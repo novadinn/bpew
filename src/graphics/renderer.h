@@ -44,7 +44,7 @@ struct Renderer {
 
 private:
     static void setMaterialNodeUniforms(Shader& shader, Node& node);
-    static void setMaterialNodeUniform(Shader& shader, Node& node, NodeProperty& prop);
+    static void setMaterialNodeUniform(Shader& shader, Node& node, NodeInput& prop);
 };
 
 #endif // RENDERER_H
