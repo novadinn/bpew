@@ -53,8 +53,8 @@ void Renderer::drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, glm::mat4
    }
 
     // TODO: each mesh has its own material
-    for(int i = 0; i < mesh.model.meshes.size(); ++i) {
-	Mesh& target = mesh.model.meshes[i];
+    for(int i = 0; i < mesh.meshes.size(); ++i) {
+	Mesh& target = mesh.meshes[i];
 	
 	material->shader_container->shader.bind();
 	material->shader_container->shader.setMatrix4("view", view_mat);
@@ -84,7 +84,7 @@ void Renderer::drawMeshMaterial(uint32 entity_id, MeshComponent& mesh, glm::mat4
 void Renderer::drawMeshSolid(uint32 entity_id, MeshComponent& mesh, glm::mat4& view_mat,
 			     glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction,
 			     const glm::mat4& model) {
-    for(int i = 0; i < mesh.model.meshes.size(); ++i) {
+    for(int i = 0; i < mesh.meshes.size(); ++i) {
 	solid_shader.bind();
 	solid_shader.setMatrix4("view", view_mat);
 	solid_shader.setMatrix4("projection", proj_mat);
@@ -98,7 +98,7 @@ void Renderer::drawMeshSolid(uint32 entity_id, MeshComponent& mesh, glm::mat4& v
 	solid_shader.setVec3("dirLight.specular", glm::vec3(0.1f, 0.1f, 0.1f));
 	solid_shader.setInt("entity", (int)entity_id);
 		
-	Mesh& target = mesh.model.meshes[i];
+	Mesh& target = mesh.meshes[i];
 		
 	target.va.bind();
 	glDrawElements(GL_TRIANGLES, target.indices.size(), GL_UNSIGNED_INT, 0);
@@ -118,7 +118,7 @@ void Renderer::drawMeshRendered(uint32 entity_id, MeshComponent& mesh, glm::mat4
 	material = &mesh.default_material;
     }    
 
-    for(int i = 0; i < mesh.model.meshes.size(); ++i) {
+    for(int i = 0; i < mesh.meshes.size(); ++i) {
 	material->shader_container->shader.bind();
 	material->shader_container->shader.setMatrix4("view", view_mat);
 	material->shader_container->shader.setMatrix4("projection", proj_mat);
@@ -196,7 +196,7 @@ void Renderer::drawMeshRendered(uint32 entity_id, MeshComponent& mesh, glm::mat4
 	    setMaterialNodeUniforms(material->shader_container->shader, node);
 	}
 		
-	Mesh& target = mesh.model.meshes[i];
+	Mesh& target = mesh.meshes[i];
        	
 	target.va.bind();
 	glDrawElements(GL_TRIANGLES, target.indices.size(), GL_UNSIGNED_INT, 0);

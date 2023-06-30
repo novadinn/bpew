@@ -3,7 +3,6 @@
 
 #include "shaders/shader.h"
 #include "vertex_array.h"
-#include "model.h"
 #include "../ecs/entity.h"
 #include "../ecs/components/mesh_component.h"
 #include "../ecs/components/light_component.h"

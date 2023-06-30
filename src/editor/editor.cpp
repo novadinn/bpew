@@ -5,7 +5,6 @@
 #include "../ecs/components/mesh_component.h"
 #include "../ecs/components/camera_component.h"
 #include "../ecs/components/light_component.h"
-#include "../graphics/model.h"
 #include "../graphics/renderer.h"
 #include "../graphics/gizmos.h"
 #include "../core/input.h"
@@ -32,10 +31,7 @@ void Editor::create() {
     for(EventReceiver *recv : receivers) {
 	recv->onCreate(ctx);
     }
-    
-    Model model;
-    model.loadFromPath("datafiles/monkey/monkey.obj");
-	
+    	
     float near = 0.1f;
     float far = 50.0f;
 
@@ -50,13 +46,13 @@ void Editor::create() {
     Entity object = ctx->scene->createEntity("Monkey");
 
     auto& mesh = object.addComponent<MeshComponent>();
-    mesh.model = model;
+    mesh.loadFromPath("datafiles/monkey/monkey.obj");
     Material material;
     mesh.default_material = material;
 	
     Entity object2 = ctx->scene->createEntity("Monkey2");
     auto& mesh2 = object2.addComponent<MeshComponent>();
-    mesh2.model = model;
+    mesh2.loadFromPath("datafiles/monkey/monkey.obj");
     auto& tr = object2.getComponent<TransformComponent>();
     tr.position = glm::vec3(3.0, 0, 0);
     tr.scale = glm::vec3(0.5, 0.5, 0.5);
@@ -69,7 +65,7 @@ void Editor::create() {
     tr1.rotation.x = -100;
 
     auto& tr2 = camera_entity.getComponent<TransformComponent>();
-    tr2.position = glm::vec3(0, 0, 3);         
+    tr2.position = glm::vec3(0, 0, 3);
 }
 
 void Editor::destroy() {
@@ -284,7 +280,7 @@ void Editor::showMenuBar() {
 	    if(ctx->selected_entity) {
 		if(ctx->selected_entity.hasComponent<MeshComponent>()) {
 		    MeshComponent& mesh = ctx->selected_entity.getComponent<MeshComponent>();
-		    mesh.model.loadFromPath(path.c_str());
+		    mesh.loadFromPath(path.c_str());
 		}
 	    }
 	}
