@@ -5,6 +5,7 @@
 #include "../ecs/entity.h"
 #include "../graphics/camera.h"
 #include "../graphics/framebuffer.h"
+#include "../graphics/renderer_context.h"
 #include "editor_camera.h"
 
 #include "glm/glm.hpp"
@@ -13,7 +14,8 @@ struct SpaceLayoutData;
 struct SpaceModelingData;
 struct SpaceShadingData;
 
-struct EditorContext {    
+struct EditorContext {
+    RendererContext *renderer_context;
     Scene *scene;
     EditorCamera* editor_camera;
     Entity active_camera;

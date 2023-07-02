@@ -19,10 +19,14 @@ const ShaderCreateInfo solid_shader_create_info = ShaderCreateInfo::create()
     .uniform(ShaderType::MAT4, "projection")
     .uniform("DirectionalLight", "dirLight")
     .uniform(ShaderType::FLOAT, "shininess")
-    .uniform(ShaderType::INT, "entity")
     .uniform(ShaderType::VEC3, "viewPos")
+    .uniform(ShaderType::FLOAT, "mixFactor")
+    .uniform(ShaderType::INT, "currentEntityID")
+    .uniform(ShaderType::INT, "selectedEntityID")
+    .uniform(ShaderType::VEC3, "outlineColor")
     .dep("lights_lib.glsl")
+    .dep("common_lib.glsl")
     .vertex("solid_shader_vs.glsl")
-    .fragment("solid_shader_fs.glsl");		    
+    .fragment("solid_shader_fs.glsl");
 
 #endif

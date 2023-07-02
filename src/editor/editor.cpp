@@ -28,6 +28,8 @@ void Editor::create() {
     receivers.push_back(createSpaceShadingReceiver());
     active_receiver = receivers[0]; // Set space layout as active
 
+    ctx->renderer_context = new RendererContext();
+    
     for(EventReceiver *recv : receivers) {
 	recv->onCreate(ctx);
     }
@@ -73,7 +75,8 @@ void Editor::destroy() {
 	recv->onDestroy(ctx);
 	delete recv;
     }
-    
+
+    delete ctx->renderer_context;
     delete ctx->scene;
     delete ctx;
 }
