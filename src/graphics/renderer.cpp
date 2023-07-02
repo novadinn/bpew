@@ -6,10 +6,12 @@
 #include "shaders/shader_builder.h"
 #include "../shaders/infos/solid_shader.h"
 #include "../shaders/infos/fxaa_shader.h"
+#include "../shaders/infos/outline_selected_mesh_shader.h"
 
 #include <glad/glad.h>
 
 static Shader solid_shader;
+static Shader outline_selected_mesh_shader;
 static Shader fxaa_shader;
 
 static Mesh quad_mesh; 
@@ -17,6 +19,8 @@ static Mesh quad_mesh;
 void Renderer::init() {
     ShaderBuilder::buildShaderFromCreateInfo(solid_shader, solid_shader_create_info);  
     ShaderBuilder::buildShaderFromCreateInfo(fxaa_shader, fxaa_shader_create_info);
+    ShaderBuilder::buildShaderFromCreateInfo(outline_selected_mesh_shader,
+					     outline_selected_mesh_shader_create_info);
 
     std::vector<float> quad_vertices = {
 	// positions   // texCoords
@@ -37,7 +41,8 @@ void Renderer::init() {
 void Renderer::destroy() {
     solid_shader.destroy();
     fxaa_shader.destroy();
-
+    outline_selected_mesh_shader.destroy();
+    
     quad_mesh.destroy();
 }
 
@@ -63,9 +68,6 @@ void Renderer::drawMeshMaterial(RendererContext *context) {
 	material->shader_container->shader.setVec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
 	material->shader_container->shader.setVec3("dirLight.specilar", glm::vec3(0.5f, 0.5f, 0.5f));
 	material->shader_container->shader.setInt("currentEntityID", (int)context->current_entity_id);
-	material->shader_container->shader.setInt("selectedEntityID", (int)context->selected_entity_id);
-	material->shader_container->shader.setVec3("outlineColor", context->outline_color);
-	material->shader_container->shader.setFloat("mixFactor", context->mix_factor);
 
 	for(auto& node : material->nodes) {
 	    setMaterialNodeUniforms(material->shader_container->shader, node);
@@ -93,9 +95,6 @@ void Renderer::drawMeshSolid(RendererContext *context) {
 	solid_shader.setVec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
 	solid_shader.setVec3("dirLight.specular", glm::vec3(0.1f, 0.1f, 0.1f));
 	solid_shader.setInt("currentEntityID", (int)context->current_entity_id);
-	solid_shader.setInt("selectedEntityID", (int)context->selected_entity_id);
-	solid_shader.setVec3("outlineColor", context->outline_color);
-	solid_shader.setFloat("mixFactor", context->mix_factor);
 		
 	Mesh& target = context->mesh->meshes[i];
 		
@@ -122,9 +121,6 @@ void Renderer::drawMeshRendered(RendererContext *context) {
 	material->shader_container->shader.setFloat("shininess", 0.2f);
 	material->shader_container->shader.setVec3("viewPos", context->view_pos);
 	material->shader_container->shader.setInt("currentEntityID", (int)context->current_entity_id);
-	material->shader_container->shader.setInt("selectedEntityID", (int)context->selected_entity_id);
-	material->shader_container->shader.setVec3("outlineColor", context->outline_color);
-	material->shader_container->shader.setFloat("mixFactor", context->mix_factor);
 	
 	uint num_spot_lights = 0;
 	uint num_point_lights = 0;
@@ -226,6 +222,27 @@ void Renderer::applyFXAA(RendererContext *context) {
     quad_mesh.va.unbind();
     
     fxaa_shader.unbind();
+}
+
+void Renderer::applyMeshOutline(RendererContext *context) {
+    outline_selected_mesh_shader.bind();
+
+    outline_selected_mesh_shader.setInt("colorTexture", 0);
+    outline_selected_mesh_shader.setInt("entitiesTexture", 1);
+    outline_selected_mesh_shader.setInt("selectedEntityID", (int)context->selected_entity_id);
+    outline_selected_mesh_shader.setVec3("selectionColor", context->outline_color);
+    outline_selected_mesh_shader.setFloat("mixFactor", context->mix_factor);
+
+    quad_mesh.va.bind();
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, context->color_texture_id);
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, context->entities_texture_id);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    quad_mesh.va.unbind();
+    
+    outline_selected_mesh_shader.unbind();
 }
 
 void Renderer::clear() {

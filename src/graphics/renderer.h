@@ -23,6 +23,7 @@ struct Renderer {
     static void drawMeshWireframe(RendererContext *context);
 
     static void applyFXAA(RendererContext *context);
+    static void applyMeshOutline(RendererContext *context);
     
     static void clear();
     static void setClearColor(const glm::vec4& color);

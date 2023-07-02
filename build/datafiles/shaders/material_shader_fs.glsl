@@ -26,8 +26,4 @@ void main() {
     fragColor = surface() + vec4(result, 0.0f);    
 
     entityID = vec4(float(currentEntityID), 0.0f, 0.0f, 0.0f);
-
-    fragColor = outlineSelectedMesh(fragColor, vec4(outlineColor, fragColor.a),
-				currentEntityID, selectedEntityID,
-				mixFactor);
 }

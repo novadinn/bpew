@@ -128,8 +128,6 @@ void onRenderSpaceModeling(EditorContext *ctx) {
 
     renderer_context->setCameraData(view, projection);
     renderer_context->setEditorLightData(view_pos, direction);
-    renderer_context->setOutlineData((uint32)ctx->selected_entity,
-				     glm::vec3(0.0f, 0.0f, 1.0f), 0.5f);
     
     switch(space_data->draw_mode) {
     case DrawMode::WIREFRAME: {
@@ -145,7 +143,7 @@ void onRenderSpaceModeling(EditorContext *ctx) {
 	ctx->scene->onDrawMaterialPreview(renderer_context);
     } break;
     }
-
+    
     auto[mx, my] = ImGui::GetMousePos();
     mx -= space_data->viewport_bounds[0].x;
     my -= space_data->viewport_bounds[0].y;
@@ -168,18 +166,17 @@ void onRenderSpaceModeling(EditorContext *ctx) {
 	} else {
 	    space_data->hovered_entity = {};
 	}
-			
+	
 	space_data->framebuffer.bindReadAttachment(0);
     }
 }
 
 void onRenderPostProcessingSpaceModeling(EditorContext *ctx) {
     SpaceModelingData *space_data = ctx->space_modeling_data;
-    RendererContext *renderer_context = ctx->renderer_context;
+    RendererContext *renderer_context = ctx->renderer_context;    
 
     renderer_context->setFXAAData(space_data->viewport_size,
-				  space_data->framebuffer.getColorAttachmentID(0),
-				  space_data->framebuffer.getColorAttachmentID(1));
+				  space_data->framebuffer.getColorAttachmentID(0));
     
     space_data->pp_framebuffer.bind();
     Renderer::clear();

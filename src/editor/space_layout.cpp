@@ -128,8 +128,6 @@ void onRenderSpaceLayout(EditorContext *ctx) {
 
     renderer_context->setCameraData(view, projection);
     renderer_context->setEditorLightData(view_pos, direction);
-    renderer_context->setOutlineData((uint32)ctx->selected_entity,
-				     glm::vec3(0.0f, 0.0f, 1.0f), 0.5f);
     
     switch(space_data->draw_mode) {
     case DrawMode::WIREFRAME: {
@@ -177,14 +175,21 @@ void onRenderPostProcessingSpaceLayout(EditorContext *ctx) {
     SpaceLayoutData *space_data = ctx->space_layout_data;
     RendererContext *renderer_context = ctx->renderer_context;
 
+    renderer_context->setOutlineData(space_data->framebuffer.getColorAttachmentID(0),
+				     space_data->framebuffer.getColorAttachmentID(1),
+				     (uint32)ctx->selected_entity,
+				     glm::vec3(0.0f, 0.0f, 1.0f), 0.5f);
+    
+    space_data->framebuffer.bind();
+    Renderer::applyMeshOutline(renderer_context);
+    space_data->framebuffer.unbind();
+    
     renderer_context->setFXAAData(space_data->viewport_size,
-				  space_data->framebuffer.getColorAttachmentID(0),
-				  space_data->framebuffer.getColorAttachmentID(1));
+				  space_data->framebuffer.getColorAttachmentID(0));
     
     space_data->pp_framebuffer.bind();
     Renderer::clear();
     Renderer::applyFXAA(renderer_context);
-
 }
 
 void onRenderEndSpaceLayout(EditorContext *ctx) {
