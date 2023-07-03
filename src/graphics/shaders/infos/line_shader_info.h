@@ -1,7 +1,7 @@
-#ifndef LINE_SHADER_H
-#define LINE_SHADER_H
+#ifndef LINE_SHADER_INFO_H
+#define LINE_SHADER_INFO_H
 
-#include "../../graphics/shaders/shader_create_info.h"
+#include "../shader_create_info.h"
 
 const ShaderCreateInfo line_shader_create_info = ShaderCreateInfo::create()
     .vin(ShaderType::VEC3, 0, "aPos")

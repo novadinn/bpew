@@ -3,7 +3,7 @@
 #include "../material.h"
 #include "shader_create_info.h"
 #include "shader_container.h"
-#include "../../shaders/infos/material_shader.h"
+#include "infos/material_shader_info.h"
 
 std::map<std::string, ShaderContainer> ShaderBuilder::shaders;    
 

@@ -1,9 +1,11 @@
-#ifndef SOLID_SHADER_H
-#define SOLID_SHADER_H
+#ifndef SOLID_SHADER_INFO_H
+#define SOLID_SHADER_INFO_H
 
-#include "../../graphics/shaders/shader_create_info.h"
+#include "../shader_create_info.h"
 
-#include "shader_interface_info.h"
+const ShaderInterfaceCreateInfo solid_vs_out = ShaderInterfaceCreateInfo::create("VS_OUT")
+    .smooth(ShaderType::VEC3, "fragPos")
+    .smooth(ShaderType::VEC3, "normal");
 
 const ShaderCreateInfo solid_shader_create_info = ShaderCreateInfo::create()
     .vin(ShaderType::VEC3, 0, "aPos")
@@ -11,7 +13,7 @@ const ShaderCreateInfo solid_shader_create_info = ShaderCreateInfo::create()
     .vin(ShaderType::VEC2, 2, "aTexCoord")
     .vin(ShaderType::VEC3, 3, "aTangent")
     .vin(ShaderType::VEC3, 4, "aBitangent")
-    .interface(vs_out, "vs_inout")
+    .interface(solid_vs_out, "vs_inout")
     .fout(ShaderType::VEC4, 0, "fragColor")
     .fout(ShaderType::VEC4, 1, "entityID")  
     .uniform(ShaderType::MAT4, "model")

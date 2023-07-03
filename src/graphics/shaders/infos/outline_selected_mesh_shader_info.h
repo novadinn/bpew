@@ -1,7 +1,7 @@
-#ifndef OUTLINE_SELECTED_MESH_SHADER_H
-#define OUTLINE_SELECTED_MESH_SHADER_H
+#ifndef OUTLINE_SELECTED_MESH_SHADER_INFO_H
+#define OUTLINE_SELECTED_MESH_SHADER_INFO_H
 
-#include "../../graphics/shaders/shader_create_info.h"
+#include "../shader_create_info.h"
 
 const ShaderInterfaceCreateInfo outline_selected_mesh_vs_out =
     ShaderInterfaceCreateInfo::create("VS_OUT")
@@ -20,4 +20,4 @@ const ShaderCreateInfo outline_selected_mesh_shader_create_info = ShaderCreateIn
     .vertex("outline_selected_mesh_vs.glsl")
     .fragment("outline_selected_mesh_fs.glsl");
 
-#endif // OUTLINE_SELECTED_MESH_SHADER_H
+#endif // OUTLINE_SELECTED_MESH_SHADER_INFO_H

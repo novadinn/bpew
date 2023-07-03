@@ -1,7 +1,7 @@
-#ifndef MATERIAL_SHADER_H
-#define MATERIAL_SHADER_H
+#ifndef MATERIAL_SHADER_INFO_H
+#define MATERIAL_SHADER_INFO_H
 
-#include "../../graphics/shaders/shader_create_info.h"
+#include "../shader_create_info.h"
 
 const ShaderInterfaceCreateInfo material_vs_out = ShaderInterfaceCreateInfo::create("VS_OUT")
     .smooth(ShaderType::VEC3, "fragPos")
