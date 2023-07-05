@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "../core/platform.h"
 
 struct Texture2D {
 	void createFromFile(const char* p);

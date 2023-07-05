@@ -9,6 +9,7 @@
 #include "../graphics/gizmos.h"
 #include "../core/input.h"
 #include "../core/time.h"
+#include "../core/utils.h"
 #include "editor_camera.h"
 #include "../graphics/material.h"
 #include "../graphics/shaders/shader_container.h"
@@ -40,7 +41,7 @@ void Editor::create() {
     ctx->scene = new Scene();    
     
     ctx->editor_camera = new EditorCamera();
-    ctx->editor_camera->create(45, 1.778f, near, far);    
+    ctx->editor_camera->create(45, 1.778f, near, far);
     
     Entity camera_entity = ctx->scene->createEntity("Camera");
     auto& camera_component = camera_entity.addComponent<CameraComponent>();        
@@ -48,13 +49,13 @@ void Editor::create() {
     Entity object = ctx->scene->createEntity("Monkey");
 
     auto& mesh = object.addComponent<MeshComponent>();
-    mesh.loadFromPath("datafiles/monkey/monkey.obj");
+    mesh.loadFromPath(Utils::joinPath("./datafiles/monkey/monkey.obj").c_str());
     Material material;
     mesh.default_material = material;
 	
     Entity object2 = ctx->scene->createEntity("Monkey2");
     auto& mesh2 = object2.addComponent<MeshComponent>();
-    mesh2.loadFromPath("datafiles/monkey/monkey.obj");
+    mesh2.loadFromPath(Utils::joinPath("./datafiles/monkey/monkey.obj").c_str());
     auto& tr = object2.getComponent<TransformComponent>();
     tr.position = glm::vec3(3.0, 0, 0);
     tr.scale = glm::vec3(0.5, 0.5, 0.5);

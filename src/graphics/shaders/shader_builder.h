@@ -12,6 +12,7 @@
 #include "../../nodes/node.h"
 #include "../../nodes/node_property.h"
 #include "../../core/sha.h"
+#include "../../core/utils.h"
 
 struct Material;
 struct ShaderCreateInfo;

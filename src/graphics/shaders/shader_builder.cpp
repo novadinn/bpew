@@ -3,7 +3,7 @@
 #include "../material.h"
 #include "shader_create_info.h"
 #include "shader_container.h"
-#include "../../shaders/infos/material_shader.h"
+#include "infos/material_shader_info.h"
 
 std::map<std::string, ShaderContainer> ShaderBuilder::shaders;    
 
@@ -459,7 +459,7 @@ void ShaderBuilder::includeLibs(std::stringstream& ss, ShaderCreateInfo& create_
 void ShaderBuilder::includeLib(std::stringstream& ss, const char* dep) {
     // TODO: extend filesystem to create path
     // e.g. in "dir/file" path "../shader" to "shader"
-    std::ifstream src(std::string("datafiles/shaders/") + std::string(dep));
+    std::ifstream src(Utils::joinPath("./datafiles/shaders/") + std::string(dep));
 
     std::string lib(dep);    
     
