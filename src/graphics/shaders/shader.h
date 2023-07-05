@@ -2,6 +2,7 @@
 #define SHADER_H
 
 #include <glm/glm.hpp>
+#include "../../core/platform.h"
 
 struct Shader {
 	bool createFromFile(const char* vert_path, const char* frag_path);

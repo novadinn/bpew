@@ -11,6 +11,7 @@
 #include "../../core/tokenizer.h"
 #include "../../nodes/node.h"
 #include "../../core/sha.h"
+#include "../../core/utils.h"
 
 struct Material;
 struct ShaderCreateInfo;

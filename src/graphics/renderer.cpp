@@ -4,8 +4,9 @@
 #include "../core/glm_extensions.h"
 #include "../core/log.h"
 #include "shaders/shader_builder.h"
-#include "../shaders/infos/solid_shader.h"
-#include "../shaders/infos/outline_selected_mesh_shader.h"
+#include "shaders/infos/solid_shader_info.h"
+#include "shaders/infos/fxaa_shader_info.h"
+#include "shaders/infos/outline_selected_mesh_shader_info.h"
 
 #include <glad/glad.h>
 

@@ -352,7 +352,7 @@ void onDrawUISpaceShading(EditorContext *ctx) {
     int num_selected = ImNodes::NumSelectedLinks();
     // TODO: dont check for input in here - use update method
     if(num_selected > 0 && Input::wasKeyReleased(SDLK_DELETE)) {
-	int selected_links[num_selected];
+	int* selected_links = new int[num_selected];
 	ImNodes::GetSelectedLinks(&selected_links[0]);
 
 	// TODO: slow linear search

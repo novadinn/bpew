@@ -2,6 +2,7 @@
 #define TOKENIZER_H
 
 #include <string>
+#include "../core/platform.h"
 
 enum TokenType {
     STR,

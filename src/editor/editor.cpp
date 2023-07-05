@@ -10,6 +10,7 @@
 #include "../graphics/gizmos.h"
 #include "../core/input.h"
 #include "../core/time.h"
+#include "../core/utils.h"
 #include "editor_camera.h"
 #include "../graphics/material.h"
 #include "../graphics/shaders/shader_container.h"
@@ -34,7 +35,7 @@ void Editor::create() {
     }
     
     Model model;
-    model.loadFromPath("datafiles/monkey/monkey.obj");
+    model.loadFromPath(Utils::joinPath("datafiles/monkey/monkey.obj"));
 	
     float near = 0.1f;
     float far = 50.0f;
@@ -42,7 +43,7 @@ void Editor::create() {
     ctx->scene = new Scene();    
     
     ctx->editor_camera = new EditorCamera();
-    ctx->editor_camera->create(45, 1.778f, near, far);    
+    ctx->editor_camera->create(45, 1.778f, near, far);
     
     Entity camera_entity = ctx->scene->createEntity("Camera");
     auto& camera_component = camera_entity.addComponent<CameraComponent>();        
