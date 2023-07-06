@@ -1,7 +1,3 @@
-out S {
-    noperspective vec2 s;
-} s;
-
 void main() {
     vec4 worldPosition = model* vec4(aPos, 1.0f);
 

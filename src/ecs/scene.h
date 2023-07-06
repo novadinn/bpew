@@ -8,15 +8,16 @@
 #include <string>
 
 struct Entity;
+struct RendererContext;
 
 struct Scene {
     Entity createEntity(const std::string& name = std::string());
     void destroyEntity(Entity entity);
 	
-    void onDrawWireframe(glm::mat4& view_mat, glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction);
-    void onDrawRendered(glm::mat4& view_mat, glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction);
-    void onDrawSolid(glm::mat4& view_mat, glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction);
-    void onDrawMaterialPreview(glm::mat4& view_mat, glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction);
+    void onDrawWireframe(RendererContext *context);
+    void onDrawRendered(RendererContext *context);
+    void onDrawSolid(RendererContext *context);
+    void onDrawMaterialPreview(RendererContext *context);
 
     void onUpdateMaterialPreview();
     void onUpdateRendered();

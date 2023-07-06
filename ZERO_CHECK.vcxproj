@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ResolveNugetPackages>false</ResolveNugetPackages>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E3F2B4D6-57A8-3D6C-B8A5-A82830E876DD}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>ZERO_CHECK</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Mi\vcpkg\installed\x64-windows\include;C:\Users\Mi\vcpkg\installed\x64-windows\include\SDL2;C:\Users\Mi\projects\bpew\include;C:\Users\Mi\projects\bpew\include\glm;C:\Users\Mi\projects\bpew\include\imgui;C:\Users\Mi\projects\bpew\include\entt\single_include;C:\Users\Mi\projects\bpew\include\openssl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Mi\vcpkg\installed\x64-windows\include;C:\Users\Mi\vcpkg\installed\x64-windows\include\SDL2;C:\Users\Mi\projects\bpew\include;C:\Users\Mi\projects\bpew\include\glm;C:\Users\Mi\projects\bpew\include\imgui;C:\Users\Mi\projects\bpew\include\entt\single_include;C:\Users\Mi\projects\bpew\include\openssl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Mi\vcpkg\installed\x64-windows\include;C:\Users\Mi\vcpkg\installed\x64-windows\include\SDL2;C:\Users\Mi\projects\bpew\include;C:\Users\Mi\projects\bpew\include\glm;C:\Users\Mi\projects\bpew\include\imgui;C:\Users\Mi\projects\bpew\include\entt\single_include;C:\Users\Mi\projects\bpew\include\openssl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Mi\vcpkg\installed\x64-windows\include;C:\Users\Mi\vcpkg\installed\x64-windows\include\SDL2;C:\Users\Mi\projects\bpew\include;C:\Users\Mi\projects\bpew\include\glm;C:\Users\Mi\projects\bpew\include\imgui;C:\Users\Mi\projects\bpew\include\entt\single_include;C:\Users\Mi\projects\bpew\include\openssl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Mi\projects\bpew\CMakeFiles\412930672f78a7e0e8387ea7d1ee4193\generate.stamp.rule">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildInParallel>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Mi/projects/bpew -BC:/Users/Mi/projects/bpew --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/Mi/projects/bpew/bpew.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeFindDependencyMacro.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FeatureSummary.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindOpenSSL.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\SelectLibraryConfigurations.cmake;C:\Users\Mi\projects\bpew\CMakeFiles\3.27.0-rc4\CMakeCCompiler.cmake;C:\Users\Mi\projects\bpew\CMakeFiles\3.27.0-rc4\CMakeCXXCompiler.cmake;C:\Users\Mi\projects\bpew\CMakeFiles\3.27.0-rc4\CMakeRCCompiler.cmake;C:\Users\Mi\projects\bpew\CMakeFiles\3.27.0-rc4\CMakeSystem.cmake;C:\Users\Mi\projects\bpew\CMakeLists.txt;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpConfig.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpConfigVersion.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpTargets-debug.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpTargets-release.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpTargets.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\openssl\vcpkg-cmake-wrapper.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-config-version.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-config.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-targets-debug.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-targets-release.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-targets.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2Config.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2ConfigVersion.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2Targets-debug.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2Targets-release.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2Targets.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2mainTargets-debug.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2mainTargets-release.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2mainTargets.cmake;C:\Users\Mi\vcpkg\scripts\buildsystems\vcpkg.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Mi\projects\bpew\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BuildInParallel>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Mi/projects/bpew -BC:/Users/Mi/projects/bpew --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/Mi/projects/bpew/bpew.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeFindDependencyMacro.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FeatureSummary.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindOpenSSL.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\SelectLibraryConfigurations.cmake;C:\Users\Mi\projects\bpew\CMakeFiles\3.27.0-rc4\CMakeCCompiler.cmake;C:\Users\Mi\projects\bpew\CMakeFiles\3.27.0-rc4\CMakeCXXCompiler.cmake;C:\Users\Mi\projects\bpew\CMakeFiles\3.27.0-rc4\CMakeRCCompiler.cmake;C:\Users\Mi\projects\bpew\CMakeFiles\3.27.0-rc4\CMakeSystem.cmake;C:\Users\Mi\projects\bpew\CMakeLists.txt;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpConfig.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpConfigVersion.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpTargets-debug.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpTargets-release.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpTargets.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\openssl\vcpkg-cmake-wrapper.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-config-version.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-config.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-targets-debug.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-targets-release.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-targets.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2Config.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2ConfigVersion.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2Targets-debug.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2Targets-release.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2Targets.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2mainTargets-debug.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2mainTargets-release.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2mainTargets.cmake;C:\Users\Mi\vcpkg\scripts\buildsystems\vcpkg.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Mi\projects\bpew\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</BuildInParallel>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Mi/projects/bpew -BC:/Users/Mi/projects/bpew --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/Mi/projects/bpew/bpew.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeFindDependencyMacro.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FeatureSummary.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindOpenSSL.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\SelectLibraryConfigurations.cmake;C:\Users\Mi\projects\bpew\CMakeFiles\3.27.0-rc4\CMakeCCompiler.cmake;C:\Users\Mi\projects\bpew\CMakeFiles\3.27.0-rc4\CMakeCXXCompiler.cmake;C:\Users\Mi\projects\bpew\CMakeFiles\3.27.0-rc4\CMakeRCCompiler.cmake;C:\Users\Mi\projects\bpew\CMakeFiles\3.27.0-rc4\CMakeSystem.cmake;C:\Users\Mi\projects\bpew\CMakeLists.txt;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpConfig.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpConfigVersion.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpTargets-debug.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpTargets-release.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpTargets.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\openssl\vcpkg-cmake-wrapper.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-config-version.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-config.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-targets-debug.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-targets-release.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-targets.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2Config.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2ConfigVersion.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2Targets-debug.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2Targets-release.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2Targets.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2mainTargets-debug.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2mainTargets-release.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2mainTargets.cmake;C:\Users\Mi\vcpkg\scripts\buildsystems\vcpkg.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Mi\projects\bpew\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</BuildInParallel>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Mi/projects/bpew -BC:/Users/Mi/projects/bpew --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/Mi/projects/bpew/bpew.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeFindDependencyMacro.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FeatureSummary.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindOpenSSL.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\SelectLibraryConfigurations.cmake;C:\Users\Mi\projects\bpew\CMakeFiles\3.27.0-rc4\CMakeCCompiler.cmake;C:\Users\Mi\projects\bpew\CMakeFiles\3.27.0-rc4\CMakeCXXCompiler.cmake;C:\Users\Mi\projects\bpew\CMakeFiles\3.27.0-rc4\CMakeRCCompiler.cmake;C:\Users\Mi\projects\bpew\CMakeFiles\3.27.0-rc4\CMakeSystem.cmake;C:\Users\Mi\projects\bpew\CMakeLists.txt;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpConfig.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpConfigVersion.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpTargets-debug.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpTargets-release.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\assimp\assimpTargets.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\openssl\vcpkg-cmake-wrapper.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-config-version.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-config.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-targets-debug.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-targets-release.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\pugixml\pugixml-targets.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2Config.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2ConfigVersion.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2Targets-debug.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2Targets-release.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2Targets.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2mainTargets-debug.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2mainTargets-release.cmake;C:\Users\Mi\vcpkg\installed\x64-windows\share\sdl2\SDL2mainTargets.cmake;C:\Users\Mi\vcpkg\scripts\buildsystems\vcpkg.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Mi\projects\bpew\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

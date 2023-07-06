@@ -17,7 +17,6 @@
 #include "graphics/vertex_array.h"
 #include "graphics/renderer.h"
 #include "graphics/mesh.h"
-#include "graphics/model.h"
 #include "graphics/framebuffer.h"
 #include "graphics/gizmos.h"
 #include "ecs/scene.h"

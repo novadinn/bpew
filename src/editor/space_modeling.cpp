@@ -110,36 +110,40 @@ void onRenderBeginSpaceModeling(EditorContext *ctx) {
 
 void onRenderSpaceModeling(EditorContext *ctx) {
     SpaceModelingData *space_data = ctx->space_modeling_data;
-
-    glm::mat4 view_mat = ctx->editor_camera->getViewMatrix();
-    glm::mat4 proj_mat = ctx->editor_camera->getProjectionMatrix();
+    RendererContext *renderer_context = ctx->renderer_context;
+    
+    glm::mat4 view = ctx->editor_camera->getViewMatrix();
+    glm::mat4 projection = ctx->editor_camera->getProjectionMatrix();
     glm::vec3 view_pos = ctx->editor_camera->position;
     glm::vec3 direction = ctx->editor_camera->getForward();
 
     if(ctx->active_camera) {
 	auto& camera_component = ctx->active_camera.getComponent<CameraComponent>();
 	auto& transform_component = ctx->active_camera.getComponent<TransformComponent>();
-	view_mat = camera_component.getViewMatrix(transform_component.position, transform_component.rotation);
-	proj_mat = camera_component.getProjectionMatrix();
+	view = camera_component.getViewMatrix(transform_component.position, transform_component.rotation);
+	projection = camera_component.getProjectionMatrix();
 	view_pos = transform_component.position;
 	direction = camera_component.getForward(transform_component.rotation);
     }
+
+    renderer_context->setCameraData(view, projection);
+    renderer_context->setEditorLightData(view_pos, direction);
     
     switch(space_data->draw_mode) {
     case DrawMode::WIREFRAME: {
-	ctx->scene->onDrawWireframe(view_mat, proj_mat, view_pos, direction);
+	ctx->scene->onDrawWireframe(renderer_context);
     } break;
     case DrawMode::RENDERED: {
-	ctx->scene->onDrawRendered(view_mat, proj_mat, view_pos, direction);
+	ctx->scene->onDrawRendered(renderer_context);
     } break;
     case DrawMode::SOLID: {
-	ctx->scene->onDrawSolid(view_mat, proj_mat, view_pos, direction);
+	ctx->scene->onDrawSolid(renderer_context);
     } break;
     case DrawMode::MATERIAL_PREVIEW: {
-	ctx->scene->onDrawMaterialPreview(view_mat, proj_mat, view_pos, direction);
+	ctx->scene->onDrawMaterialPreview(renderer_context);
     } break;
     }
-
+    
     auto[mx, my] = ImGui::GetMousePos();
     mx -= space_data->viewport_bounds[0].x;
     my -= space_data->viewport_bounds[0].y;
@@ -162,23 +166,21 @@ void onRenderSpaceModeling(EditorContext *ctx) {
 	} else {
 	    space_data->hovered_entity = {};
 	}
-			
+	
 	space_data->framebuffer.bindReadAttachment(0);
     }
-
 }
 
 void onRenderPostProcessingSpaceModeling(EditorContext *ctx) {
     SpaceModelingData *space_data = ctx->space_modeling_data;
+    RendererContext *renderer_context = ctx->renderer_context;    
+
+    renderer_context->setFXAAData(space_data->viewport_size,
+				  space_data->framebuffer.getColorAttachmentID(0));
     
     space_data->pp_framebuffer.bind();
     Renderer::clear();
-    Renderer::outlineSelectedMesh(space_data->framebuffer.getColorAttachmentID(0),
-				  space_data->framebuffer.getColorAttachmentID(1),
-				  space_data->viewport_size,
-				  (uint32)ctx->selected_entity,
-				  glm::vec3(0.0f, 0.0f, 1.0f), 0.5f);
-
+    Renderer::applyFXAA(renderer_context);
 }
 
 void onRenderEndSpaceModeling(EditorContext *ctx) {

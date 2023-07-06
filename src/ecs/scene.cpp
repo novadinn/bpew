@@ -24,17 +24,19 @@ void Scene::destroyEntity(Entity entity) {
 	registry.destroy(entity);
 }
 
-void Scene::onDrawWireframe(glm::mat4& view_mat, glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction) {    	    
+void Scene::onDrawWireframe(RendererContext *context) {    	    
     auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
     for(auto entity : group) {
 	auto [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
 
-	Renderer::drawMeshWireframe((uint32)entity, mesh, view_mat, proj_mat, view_pos, direction, transform.getModelMatrix());
-    }
-    
+	context->setCommonData((uint32)entity);
+	context->setMeshData(&mesh, transform.getModelMatrix());
+
+	Renderer::drawMeshWireframe(context);
+    }    
 }
 
-void Scene::onDrawRendered(glm::mat4& view_mat, glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction) {		
+void Scene::onDrawRendered(RendererContext *context) {		
     std::vector<LightComponent> lights;
     std::vector<TransformComponent> light_transforms;
 
@@ -49,29 +51,37 @@ void Scene::onDrawRendered(glm::mat4& view_mat, glm::mat4& proj_mat, glm::vec3& 
     auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
     for(auto entity : group) {
 	auto [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
-			
-	Renderer::drawMeshRendered((uint32)entity, mesh, view_mat, proj_mat, view_pos, direction,
-				   lights, light_transforms,
-				   transform.getModelMatrix());
+
+	context->setCommonData((uint32)entity);
+	context->setMeshData(&mesh, transform.getModelMatrix());
+	context->setLightData(lights, light_transforms);
+	
+	Renderer::drawMeshRendered(context);
     }
 	
 }
 
-void Scene::onDrawSolid(glm::mat4& view_mat, glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction) {       
+void Scene::onDrawSolid(RendererContext *context) {       
     auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
     for(auto entity : group) {
 	auto [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
-			
-	Renderer::drawMeshSolid((uint32)entity, mesh, view_mat, proj_mat, view_pos, direction, transform.getModelMatrix());
+
+	context->setCommonData((uint32)entity);
+	context->setMeshData(&mesh, transform.getModelMatrix());
+	
+	Renderer::drawMeshSolid(context);
     }    
 }
 
-void Scene::onDrawMaterialPreview(glm::mat4& view_mat, glm::mat4& proj_mat, glm::vec3& view_pos, glm::vec3& direction) {        
+void Scene::onDrawMaterialPreview(RendererContext *context) {        
     auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
     for(auto entity : group) {
 	auto [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
-			
-	Renderer::drawMeshMaterial((uint32)entity, mesh, view_mat, proj_mat, view_pos, direction, transform.getModelMatrix());
+
+	context->setCommonData((uint32)entity);
+	context->setMeshData(&mesh, transform.getModelMatrix());
+	
+	Renderer::drawMeshMaterial(context);
     }    
 }
 
