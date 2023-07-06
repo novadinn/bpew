@@ -85,6 +85,17 @@ void Scene::onDrawMaterialPreview(RendererContext *context) {
     }    
 }
 
+void Scene::onDrawMeshVertices(RendererContext *context) {
+    auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
+    for(auto entity : group) {
+	auto [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
+
+	context->setMeshData(&mesh, transform.getModelMatrix());
+	
+	Renderer::drawMeshVertices(context);
+    }    
+}
+
 void Scene::onUpdateRendered() {
     std::vector<LightComponent> lights;
     uint num_point_lights = 0;

@@ -29,6 +29,15 @@ struct Mesh {
 	va.destroy();
     }
 
+    int totalAttributesCount() const {
+	int total_count = 0;
+	for(int i = 0; i < attributes.size(); ++i) {
+	    total_count += attributes[i].getCount();
+	}
+
+	return total_count;
+    }
+
     // TODO: store a type of a vertex subdata in here (to identify position/normal..)
     std::vector<VertexAttribute> attributes;
     std::vector<float> vertices;

@@ -19,6 +19,7 @@
 struct MeshComponent {
 
     bool loadFromPath(const char* path) {
+	// TODO: delete meshes data if they are not empty
 	meshes.clear();
 	
 	Assimp::Importer importer;
@@ -95,7 +96,7 @@ struct MeshComponent {
 		result.vertices.push_back(mesh->mBitangents[i].y);
 		result.vertices.push_back(mesh->mBitangents[i].z);
 	    }
-		
+
 	    // TODO: HasVertexColors(), HasFaces(), HasBones()
 	}
 

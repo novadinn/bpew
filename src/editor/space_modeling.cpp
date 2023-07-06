@@ -61,8 +61,10 @@ void onUpdateSpaceModeling(EditorContext *ctx) {
     SpaceModelingData *space_data = ctx->space_modeling_data;
 
     if(Input::wasMouseButtonPressed(SDL_BUTTON_LEFT)) {
-	if(space_data->viewport_hovered && !ImGuizmo::IsOver())
+	if(space_data->viewport_hovered && !ImGuizmo::IsOver()) {
 	    ctx->selected_entity = space_data->hovered_entity;
+	    ctx->selected_vertex = space_data->hovered_vertex;
+	}
     }
     
     if(Input::wasKeyPressed(SDLK_q)) {
@@ -169,12 +171,47 @@ void onRenderSpaceModeling(EditorContext *ctx) {
 	
 	space_data->framebuffer.bindReadAttachment(0);
     }
+
+    // Draw vertices
+    space_data->framebuffer.clearRGBA8ColorAttachment(1, glm::vec4(-1, 0, 0, 0));
+    
+    renderer_context->setCameraData(view, projection);
+    renderer_context->setVerticesData(glm::vec3(0.0), (uint32)space_data->hovered_entity);
+
+    ctx->scene->onDrawMeshVertices(renderer_context);
+
+    if (mouse_x >= 0 && mouse_y >= 0 &&
+	mouse_x < (int)viewport_size.x && mouse_y < (int)viewport_size.y) {
+
+	space_data->framebuffer.bindReadAttachment(1);
+			
+	glm::vec4 pixel_data = space_data->framebuffer.readRGBA8Pixel(mouse_x, mouse_y);
+	int id = (int)pixel_data.y;
+	if(id != -1) {
+	    space_data->hovered_vertex = id;
+	} else {
+	    space_data->hovered_vertex = -1;
+	}
+	
+	space_data->framebuffer.bindReadAttachment(0);
+    }
+
 }
 
 void onRenderPostProcessingSpaceModeling(EditorContext *ctx) {
     SpaceModelingData *space_data = ctx->space_modeling_data;
     RendererContext *renderer_context = ctx->renderer_context;    
 
+    renderer_context->setVertexOutlineData(space_data->framebuffer.getColorAttachmentID(0),
+					   space_data->framebuffer.getColorAttachmentID(1),
+					   (uint32)ctx->selected_entity,
+					   (uint32)ctx->selected_vertex,
+					   glm::vec3(0.0f, 0.0f, 1.0f), 1);
+    
+    space_data->framebuffer.bind();
+    Renderer::applyVertexOutline(renderer_context);
+    space_data->framebuffer.unbind();
+    
     renderer_context->setFXAAData(space_data->viewport_size,
 				  space_data->framebuffer.getColorAttachmentID(0));
     
@@ -216,27 +253,64 @@ void onDrawUISpaceModeling(EditorContext *ctx) {
     }    
     
     // Draw gizmos
-    if(ctx->selected_entity && space_data->gizmo_operation != -1 &&
-       ctx->selected_entity.hasComponent<TransformComponent>()) {
-	TransformComponent& transform = ctx->selected_entity.getComponent<TransformComponent>();
-	glm::mat4 model = transform.getModelMatrix();	
-	bool snap = Input::wasKeyHeld(SDLK_LCTRL);
+    if(ctx->selected_entity &&
+       ctx->selected_vertex != -1 && space_data->gizmo_operation != -1 &&
+       ctx->selected_entity.hasComponent<TransformComponent>() &&
+       ctx->selected_entity.hasComponent<MeshComponent>()) {
 	
-	Gizmos::drawManupilations((ImGuizmo::OPERATION)space_data->gizmo_operation,
-				  glm::value_ptr(view), glm::value_ptr(projection),
-				  glm::value_ptr(model), snap);
-		
-	if(ImGuizmo::IsUsing()) {
-	    float* model_ptr = glm::value_ptr(model);
-	    float scale_result[3];
-	    float rotation_result[3];
-	    float translation_result[3];
-	    ImGuizmo::DecomposeMatrixToComponents(model_ptr, translation_result,
-						  rotation_result, scale_result);
+	TransformComponent& transform = ctx->selected_entity.getComponent<TransformComponent>();
+	MeshComponent& mesh_component = ctx->selected_entity.getComponent<MeshComponent>();
+	
+	for(int i = 0; i < mesh_component.meshes.size(); ++i) {
+	    Mesh& mesh = mesh_component.meshes[i];
+	    int attribs_count = mesh.totalAttributesCount();
+	    int index = ctx->selected_vertex * attribs_count;
+	    
+	    // TODO: not sure if this will work in case there is more that 1 mesh
+	    if(index < mesh.vertices.size()) {
+		float *vertex = &mesh.vertices[index];
 
-	    transform.position = {translation_result[0], translation_result[1], translation_result[2]};
-	    transform.rotation = {rotation_result[0], rotation_result[1], rotation_result[2]};
-	    transform.scale = {scale_result[0], scale_result[1], scale_result[2]};
+		glm::vec3 vertex_position = glm::vec3(vertex[0], vertex[1], vertex[2]);
+		glm::vec4 world_space_position = transform.getModelMatrix() * glm::vec4(vertex_position, 1.0);
+		glm::mat4 model = transform.getModelMatrix();
+		// Override translation
+		model[3] = world_space_position;
+		
+		bool snap = Input::wasKeyHeld(SDLK_LCTRL);
+
+		// TODO: gizmos are a bit wrong
+		Gizmos::drawManupilations((ImGuizmo::OPERATION)space_data->gizmo_operation,
+					  glm::value_ptr(view), glm::value_ptr(projection),
+					  glm::value_ptr(model), snap);
+		
+		if(ImGuizmo::IsUsing()) {
+		    float* model_ptr = glm::value_ptr(model);
+		    float scale_result[3];
+		    float rotation_result[3];
+		    float translation_result[3];
+		    ImGuizmo::DecomposeMatrixToComponents(model_ptr, translation_result,
+							  rotation_result, scale_result);
+
+		    glm::vec3 local_space_position = glm::vec3(translation_result[0],
+						       translation_result[1],
+						       translation_result[2]);
+		    local_space_position = glm::vec3(glm::inverse(transform.getModelMatrix()) * glm::vec4(local_space_position, 1.0f));
+		    
+		    vertex[0] = local_space_position.x;
+		    vertex[1] = local_space_position.y;
+		    vertex[2] = local_space_position.z;
+
+		    // TODO: find a better way to update vertices data,
+		    // since we dont need to recreate it every time
+		    mesh.destroy();
+		    mesh.generateVertexArray();
+		    
+		    // TODO: those operations should change vertex normals
+		    // transform.rotation = {rotation_result[0], rotation_result[1], rotation_result[2]};
+		    // transform.scale = {scale_result[0], scale_result[1], scale_result[2]};
+		    break;
+		}
+	    }
 	}
     }
 
