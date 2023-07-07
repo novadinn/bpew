@@ -17,7 +17,6 @@ struct SpaceModelingData {
     DrawMode draw_mode = DrawMode::SOLID;
     bool viewport_hovered = false;
     Entity hovered_entity;
-    int hovered_vertex;
 };
 
 EventReceiver *createSpaceModelingReceiver();

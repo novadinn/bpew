@@ -30,14 +30,11 @@ struct RendererContext {
 
     uint entities_texture_id;
     uint32 selected_entity_id;
-    uint32 selected_vertex_id;
     glm::vec3 outline_color;
     float mix_factor;
 
     glm::vec2 viewport_size;
     uint color_texture_id;
-
-    glm::vec3 vertices_color;
     
     void setCommonData(uint32 current_entity_id_) {
 	current_entity_id = current_entity_id_;
@@ -64,7 +61,7 @@ struct RendererContext {
 	light_transforms = light_transforms_;
     }
     
-    void setMeshOutlineData(uint color_texture_id_, uint32 entities_texture_id_,
+    void setOutlineData(uint color_texture_id_, uint32 entities_texture_id_,
 			uint32 selected_entity_id_,
 			glm::vec3 outline_color_, float mix_factor_) {
 	color_texture_id = color_texture_id_;
@@ -73,28 +70,11 @@ struct RendererContext {
 	outline_color = outline_color_;
 	mix_factor = mix_factor_;
     }
-    
+
     void setFXAAData(glm::vec2 viewport_size_, uint color_texture_id_) {
 	viewport_size = viewport_size_;
 	color_texture_id = color_texture_id_;
     }
-
-    void setVerticesData(glm::vec3 vertices_color_, uint32 current_entity_id_) {
-	vertices_color = vertices_color_;
-	current_entity_id = current_entity_id_;
-    }
-
-    void setVertexOutlineData(uint color_texture_id_, uint32 entities_texture_id_,
-			      uint32 selected_entity_id_, uint32 selected_vertex_id_,
-			      glm::vec3 outline_color_, float mix_factor_) {
-	color_texture_id = color_texture_id_;
-	entities_texture_id = entities_texture_id_;
-	selected_entity_id = selected_entity_id_;
-	selected_vertex_id = selected_vertex_id_;
-	outline_color = outline_color_;
-	mix_factor = mix_factor_;
-    }
-
 };
 
 
