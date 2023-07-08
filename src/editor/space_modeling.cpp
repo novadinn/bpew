@@ -74,6 +74,19 @@ void onUpdateSpaceModeling(EditorContext *ctx) {
     } else if(Input::wasKeyPressed(SDLK_s)) {
 	space_data->gizmo_operation = ImGuizmo::OPERATION::SCALE;
     }
+
+    if(Input::wasKeyHeld(SDLK_z)) {
+	if(Input::wasKeyPressed(SDLK_1)) {
+	    space_data->draw_mode = DrawMode::WIREFRAME;
+	} else if(Input::wasKeyPressed(SDLK_2)) {
+	    space_data->draw_mode = DrawMode::RENDERED;
+	} else if(Input::wasKeyPressed(SDLK_3)) {
+	    space_data->draw_mode = DrawMode::SOLID;
+	} else if(Input::wasKeyPressed(SDLK_4)) {
+	    space_data->draw_mode = DrawMode::MATERIAL_PREVIEW;
+	}
+    }
+
     
     switch(space_data->draw_mode) {
     case DrawMode::RENDERED:
@@ -222,6 +235,48 @@ void onDrawUISpaceModeling(EditorContext *ctx) {
 	view = camera_component.getViewMatrix(transform_component.position, transform_component.rotation);
 	projection = camera_component.getProjectionMatrix();	
     }    
+
+    /* Draw settings */
+    if(ImGui::Begin("Modeling Settings")) {
+	ImGui::Text("Render Mode");
+	/* TODO: use icons instead of words */
+	if(ImGui::Button("Wireframe")) {
+	    space_data->draw_mode = DrawMode::WIREFRAME;
+	}
+	ImGui::SameLine();
+	if(ImGui::Button("Rendered")) {
+	    space_data->draw_mode = DrawMode::RENDERED;
+	}
+	ImGui::SameLine();
+	if(ImGui::Button("Solid")) {
+	    space_data->draw_mode = DrawMode::SOLID;
+	}
+	ImGui::SameLine();
+	if(ImGui::Button("Material")) {
+	    space_data->draw_mode = DrawMode::MATERIAL_PREVIEW;
+	}
+
+	ImGui::Text("Gizmos Type");
+	if(ImGui::Button("Translate")) {
+	    space_data->gizmo_operation = ImGuizmo::OPERATION::TRANSLATE;
+	}
+	ImGui::SameLine();
+	if(ImGui::Button("Rotate")) {
+	    space_data->gizmo_operation = ImGuizmo::OPERATION::ROTATE;
+	}
+	ImGui::SameLine();
+	if(ImGui::Button("Scale")) {
+	    space_data->gizmo_operation = ImGuizmo::OPERATION::SCALE;
+	}
+	ImGui::SameLine();
+	if(ImGui::Button("None")) {
+	    space_data->gizmo_operation = -1;
+	}
+	ImGui::SameLine();
+	
+	ImGui::End();
+    }
+
     
     // Draw gizmos
     if(ctx->selected_entity && space_data->gizmo_operation != -1 &&
@@ -246,25 +301,6 @@ void onDrawUISpaceModeling(EditorContext *ctx) {
 	    transform.rotation = {rotation_result[0], rotation_result[1], rotation_result[2]};
 	    transform.scale = {scale_result[0], scale_result[1], scale_result[2]};
 	}
-    }
-
-    // Draw popup
-    if(Input::wasKeyHeld(SDLK_z)) {
-	ImGui::OpenPopup("DrawModeSpaceModelingMenu");
-    }
-    
-    if(ImGui::BeginPopup("DrawModeSpaceModelingMenu")) {
-	if(ImGui::Button("Wireframe")) {
-	    space_data->draw_mode = DrawMode::WIREFRAME;
-	} else if(ImGui::Button("Rendered")) {
-	    space_data->draw_mode = DrawMode::RENDERED;
-	} else if(ImGui::Button("Solid")) {
-	    space_data->draw_mode = DrawMode::SOLID;
-	} else if(ImGui::Button("Material Preview")) {
-	    space_data->draw_mode = DrawMode::MATERIAL_PREVIEW;
-	}
-	
-	ImGui::EndPopup();
     }
 }
 
