@@ -17,6 +17,7 @@ struct SpaceModelingData {
     DrawMode draw_mode = DrawMode::SOLID;
     bool viewport_hovered = false;
     Entity hovered_entity;
+    glm::ivec2 mouse_position;
 };
 
 EventReceiver *createSpaceModelingReceiver();

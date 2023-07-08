@@ -22,8 +22,7 @@ struct MeshComponent {
 	meshes.clear();
 	
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate |
-						 aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace);
+	const aiScene* scene = importer.ReadFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 
 	if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
 	    LOG_ERROR("Error while loading model at path %s: %s", path, importer.GetErrorString());

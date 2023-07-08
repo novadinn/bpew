@@ -20,7 +20,8 @@ struct EditorContext {
     EditorCamera* editor_camera;
     Entity active_camera;
     Entity selected_entity;
-
+    int selected_vertex_id;
+    
     SpaceLayoutData *space_layout_data;
     SpaceModelingData *space_modeling_data;
     SpaceShadingData *space_shading_data;

@@ -35,6 +35,9 @@ struct RendererContext {
 
     glm::vec2 viewport_size;
     uint color_texture_id;
+
+    glm::vec3 color;
+    int selected_vertex_id;
     
     void setCommonData(uint32 current_entity_id_) {
 	current_entity_id = current_entity_id_;
@@ -69,6 +72,15 @@ struct RendererContext {
 	selected_entity_id = selected_entity_id_;
 	outline_color = outline_color_;
 	mix_factor = mix_factor_;
+    }
+
+    void setMeshVerticesData(glm::vec3 color_, glm::vec3 outline_color_, float mix_factor_,
+			     uint32 selected_entity_id_, int selected_vertex_id_) {
+	color = color_;
+	outline_color = outline_color_;
+	mix_factor = mix_factor_;
+	selected_entity_id = selected_entity_id_;
+	selected_vertex_id = selected_vertex_id_;
     }
 
     void setFXAAData(glm::vec2 viewport_size_, uint color_texture_id_) {

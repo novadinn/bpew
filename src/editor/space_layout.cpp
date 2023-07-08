@@ -88,6 +88,7 @@ void onUpdateSpaceLayout(EditorContext *ctx) {
 void onResizeSpaceLayout(EditorContext *ctx) {
     SpaceLayoutData *space_data = ctx->space_layout_data;
 
+    ctx->editor_camera->setViewportSize(space_data->viewport_size.x, space_data->viewport_size.y);
     ctx->scene->onResize(space_data->viewport_size.x, space_data->viewport_size.y);
 
     FramebufferData data = space_data->framebuffer.getFramebufferData();

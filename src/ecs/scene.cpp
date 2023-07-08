@@ -136,6 +136,18 @@ void Scene::onUpdateMaterialPreview() {
     }    
 }
 
+void Scene::onDrawMeshVerticesOutlined(RendererContext *context) {
+    auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
+    for(auto entity : group) {
+	auto [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
+
+	context->setCommonData((uint32)entity);
+	context->setMeshData(&mesh, transform.getModelMatrix());
+	
+	Renderer::drawMeshVerticesOutlined(context);
+    }
+}
+
 void Scene::onResize(uint width, uint height) {
     auto view = registry.view<CameraComponent>();
     for(auto entity : view) {

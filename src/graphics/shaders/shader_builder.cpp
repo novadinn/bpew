@@ -4,6 +4,7 @@
 #include "shader_create_info.h"
 #include "shader_container.h"
 #include "infos/material_shader_info.h"
+#include "../../core/log.h"
 
 std::map<std::string, ShaderContainer> ShaderBuilder::shaders;    
 
@@ -64,7 +65,7 @@ bool ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
 	vs << file.rdbuf();
 	file.close();
     } else {
-	printf("failed to load vertex shader file: %s\n", create_info.info.vertex_source.c_str());
+	LOG_ERROR("failed to load vertex shader file: %s\n", create_info.info.vertex_source.c_str());
 	return false;
     }
 	
@@ -91,13 +92,13 @@ bool ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
 	fs << file.rdbuf();
 	file.close();
     } else {
-	printf("failed to load fragment shader file: %s\n", create_info.info.fragment_source.c_str());
+	LOG_ERROR("failed to load fragment shader file: %s\n", create_info.info.fragment_source.c_str());
 	return false;
     }
 
     shader.destroy();
     if(!shader.createFromSource(vs.str().c_str(), fs.str().c_str())) {
-	printf("Failed to build shader\n");
+	LOG_ERROR("Failed to build shader\n");
 	return false;
     }
 
@@ -245,7 +246,7 @@ void ShaderBuilder::buildNodeTree(std::stringstream& ss, ShaderCreateInfo& creat
     }
 
     if(!out) {
-	printf("WARNING: material \"%s\" output not found\n", material.name.c_str());	
+	LOG_ERROR("WARNING: material \"%s\" output not found\n", material.name.c_str());	
     }    
     
     const NodeProperty* surface = nullptr;
@@ -302,7 +303,7 @@ ShaderType ShaderBuilder::toType(NodePropertyType type) {
     case NodePropertyType::SHADER:
 	// TODO: what we should do?	
     default:	
-	printf("Unhandled node property type\n");
+	LOG_ERROR("Unhandled node property type\n");
 	return ShaderType::INT;
     }
 }
@@ -344,7 +345,7 @@ const char* ShaderBuilder::getNodeName(NodeType type) {
 	src = "node_rgb";
 	break;
     default:
-	printf("Unknown node type: %d\n", type);	
+	LOG_ERROR("Unknown node type: %d\n", type);	
     }
 
     return src;
@@ -368,7 +369,7 @@ const char* ShaderBuilder::fromType(NodePropertyType type) {
     case NodePropertyType::TEXTURE:
 	return "sampler2D";
     default:
-	printf("Unknown node property type: %d\n", type);
+	LOG_ERROR("Unknown node property type: %d\n", type);
 	return "";
     }
 }
@@ -390,7 +391,7 @@ const char* ShaderBuilder::fromType(ShaderType type) {
     case ShaderType::SAMPLER_2D:
 	return "sampler2D";
     default:
-	printf("unhandled type: %d\n", type);
+	LOG_ERROR("unhandled type: %d\n", (int)type);
 	return "";
     }
 }
@@ -404,7 +405,7 @@ const char* ShaderBuilder::fromType(InterpolationType type) {
     case InterpolationType::FLAT:
 	return "flat";
     default:
-	printf("unhandled type: %d\n", type);
+	LOG_ERROR("unhandled type: %d\n", (int)type);
 	return "";
     }
 }
@@ -443,7 +444,7 @@ void ShaderBuilder::proceedSource(const char* dep, ShaderCreateInfo& create_info
 	src.close();
     } else {
 	create_info.removeDep(lib.c_str());
-	printf("failed to open dep: %s\n", dep);
+	LOG_ERROR("failed to open dep: %s\n", dep);
     }
 }
 
@@ -481,7 +482,7 @@ void ShaderBuilder::includeLib(std::stringstream& ss, const char* dep) {
 	
 	src.close();
     } else {
-	printf("failed to open dep: %s\n", dep);
+	LOG_ERROR("failed to open dep: %s\n", dep);
     }
 }
 

@@ -88,8 +88,9 @@ void onUpdateSpaceModeling(EditorContext *ctx) {
 void onResizeSpaceModeling(EditorContext *ctx) {
     SpaceModelingData *space_data = ctx->space_modeling_data;
 
+    ctx->editor_camera->setViewportSize(space_data->viewport_size.x, space_data->viewport_size.y);
     ctx->scene->onResize(space_data->viewport_size.x, space_data->viewport_size.y);
-
+    
     FramebufferData data = space_data->framebuffer.getFramebufferData();
     
     if(space_data->viewport_size.x > 0.0f && space_data->viewport_size.y > 0.0f &&
@@ -143,6 +144,12 @@ void onRenderSpaceModeling(EditorContext *ctx) {
 	ctx->scene->onDrawMaterialPreview(renderer_context);
     } break;
     }
+
+    renderer_context->setCameraData(view, projection);
+    renderer_context->setMeshVerticesData(glm::vec3(0.0f), glm::vec3(0.0f, 0.0f, 1.0f),
+					  0.8f, (uint32)ctx->selected_entity,
+					  ctx->selected_vertex_id);
+    ctx->scene->onDrawMeshVerticesOutlined(renderer_context);
     
     auto[mx, my] = ImGui::GetMousePos();
     mx -= space_data->viewport_bounds[0].x;
@@ -151,6 +158,7 @@ void onRenderSpaceModeling(EditorContext *ctx) {
     my = viewport_size.y - my;
     int mouse_x = (int)mx;
     int mouse_y = (int)my;
+    space_data->mouse_position = {mouse_x, mouse_y};
 
     if (mouse_x >= 0 && mouse_y >= 0 &&
 	mouse_x < (int)viewport_size.x && mouse_y < (int)viewport_size.y) {
