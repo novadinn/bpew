@@ -2,12 +2,13 @@
 
 #include "node.h"
 
-void NodeLink::create(NodeOutput* prop_output, NodeInput* prop_input,
-		      uint out_node, uint in_node) {
-  // TODO: use more reasonable names
-  id.create(prop_output->id.name + prop_input->id.name);
-  output = prop_output;
-  input = prop_input;
-  output_node = out_node;
-  input_node = in_node;
+void NodeLink::create(uint prop_output, uint prop_input,
+		      uint out_node, uint in_node) {    
+    std::stringstream name;
+    name << "link" << out_node << in_node << prop_output << prop_input;
+    id.create(name.str());
+    output = prop_output;
+    input = prop_input;
+    output_node = out_node;
+    input_node = in_node;
 }

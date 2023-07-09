@@ -31,7 +31,7 @@ void Node::create(NodeType node_type) {
     // Color socket
     output = {};
     
-    output.create(prop_value, "Color", NodePropertyType::COLOR);
+    output.create("Color", NodePropertyType::COLOR);
     node_outputs.push_back(output);
     
   } break;
@@ -67,6 +67,59 @@ void Node::create(NodeType node_type) {
     
     prop.create(prop_value, "Displacement", NodePropertyType::VECTOR3, NodePropertySource::ATTR);
     node_inputs.push_back(prop);
+  } break;
+  case NodeType::IMAGE_TEXTURE: {
+      node_name = "Image Texture";
+
+      NodeInput input;
+      NodeOutput output;
+      NodePropertyValue input_value;
+
+      input = {};
+      input_value = {};
+      
+      input_value.vector2_value = glm::vec2(0.0f);
+
+      input.create(input_value, "Texture", NodePropertyType::TEXTURE, NodePropertySource::UNIFORM);
+      node_inputs.push_back(input);
+      
+      input.create(input_value, "Vector", NodePropertyType::VECTOR2, NodePropertySource::ATTR);
+      node_inputs.push_back(input);
+
+      input = {};
+      input_value = {};
+
+      input_value.texture_value = Texture2D{};           
+
+      output = {};      
+
+      output.create("Color", NodePropertyType::COLOR);
+      node_outputs.push_back(output);
+
+      output = {};
+      
+      output.create("Alpha", NodePropertyType::FLOAT);
+      node_outputs.push_back(output);
+  } break;
+  case NodeType::TEXTURE_COORDINATE: {
+      node_name = "Texture Coordinate";
+
+      NodeOutput output;
+      NodeInput input;
+      NodePropertyValue input_value;
+
+      input = {};
+      input_value = {};
+
+      input_value.vector2_value = glm::vec2(0.0f);
+
+      input.create(input_value, "texCoord", NodePropertyType::VECTOR2, NodePropertySource::VS_OUT);      
+      node_inputs.push_back(input);
+      
+      output = {};
+
+      output.create("UV", NodePropertyType::VECTOR2);
+      node_outputs.push_back(output);
   } break;
   default: {
     LOG_ERROR("Undefined node type\n");

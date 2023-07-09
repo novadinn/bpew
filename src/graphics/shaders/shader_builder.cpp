@@ -36,9 +36,7 @@ bool ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
     for(auto& uniform_array : create_info.info.uniform_arrays) {
 	ss << "uniform " << uniform_array.type << " " << uniform_array.name << "[" << uniform_array.size << "];\n";
     }
-
-    ss << additional_info;
-    
+   
     std::stringstream vs;
 
     vs << ss.str();
@@ -55,7 +53,9 @@ bool ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
 	vs << "out ";
 	buildInterface(vs, interface);
     }
-				
+
+    vs << additional_info;
+
     std::ifstream file;
 
     file.open(std::string("datafiles/shaders/") + create_info.info.vertex_source);
@@ -84,6 +84,8 @@ bool ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
 	fs << "in ";
 	buildInterface(fs, interface);
     }
+
+    fs << additional_info;
     
     file.open(std::string("datafiles/shaders/") + create_info.info.fragment_source);
 
@@ -198,10 +200,10 @@ void ShaderBuilder::buildMaterialRenderedShader(Material& material, uint num_spo
     buildShaderFromShaderContainer(material.shader_container);
 }
 
-void ShaderBuilder::buildNodeUniforms(ShaderCreateInfo& info, const Node* node) {
+void ShaderBuilder::buildNodeUniforms(ShaderCreateInfo& info, Node* node) {
     for(auto& input : node->inputs) {
-	if(!input.link) {
-	    buildNodeUniform(info, node, input);
+	if(input.source == NodePropertySource::UNIFORM) {
+	    buildNodeUniform(info, node, input);	
 	}
     }    
 }
@@ -215,7 +217,27 @@ ShaderContainer* ShaderBuilder::getShaderContainer(std::string& hash) {
 }
 
 void ShaderBuilder::buildNodeTree(std::stringstream& ss, ShaderCreateInfo& create_info, Material& material) {
+    std::vector<int> prev_ids;    
+    int id = 0;
+    
+    // generate ids
+    // NOTE: We don't need to regenerate shader when only ids have changed
     for(auto& node : material.nodes) {
+	prev_ids.push_back(node.id.id);
+	node.id.id = id++;
+
+	for(auto& input : node.inputs) {
+	    prev_ids.push_back(input.id.id);
+	    input.id.id = id++;
+	}
+
+	for(auto& output : node.outputs) {
+	    prev_ids.push_back(output.id.id);
+	    output.id.id = id++;
+	}
+    }
+
+    for(auto& node : material.nodes) {	
 	if(node.type == NodeType::MATERIAL_OUTPUT) {
 	    continue;
 	}
@@ -270,15 +292,28 @@ void ShaderBuilder::buildNodeTree(std::stringstream& ss, ShaderCreateInfo& creat
     if(surface == nullptr || !surface->link) {
 	ss << "return vec4(0.5, 0.5, 0.5, 1.0);\n";
     } else {	
-	Node& surface_node = material.nodes[surface->link->output_node];
-	buildNode(ss, &surface_node, material);
-	ss << "return output_" << surface_node.id.id << "_" << surface->link->output->id.id << ";\n";
+	Node* surface_node = &material.nodes[surface->link->output_node];
+	buildNode(ss, surface_node, material);
+	ss << "return output_" << surface_node->outputs[surface->link->output].id.id << ";\n";
     }
     ss << "}\n";
+
+    // revert ids
+    for(auto& node : material.nodes) {	
+	node.id.id = prev_ids[node.id.id];
+
+	for(auto& input : node.inputs) {	 
+	    input.id.id = prev_ids[input.id.id];
+	}
+
+	for(auto& output : node.outputs) {	    
+	    output.id.id = prev_ids[output.id.id];
+	}
+    }
 }
 
-void ShaderBuilder::buildNodeUniform(ShaderCreateInfo& info, const Node* node, const NodeInput& prop) {
-    std::string name = std::string("input_") + std::to_string(node->id.id) + std::string("_") + std::to_string(prop.id.id);
+void ShaderBuilder::buildNodeUniform(ShaderCreateInfo& info, Node* node, const NodeInput& prop) {
+    std::string name = std::string("input_") + std::to_string(prop.id.id);
 
     ShaderType type = toType(prop.type);    
     
@@ -297,8 +332,9 @@ ShaderType ShaderBuilder::toType(NodePropertyType type) {
 	return ShaderType::FLOAT;	
     case NodePropertyType::INT:	
     case NodePropertyType::ENUM:
-    case NodePropertyType::TEXTURE:
 	return ShaderType::INT;	
+    case NodePropertyType::TEXTURE:
+	return ShaderType::SAMPLER_2D;
     case NodePropertyType::SHADER:
 	// TODO: what we should do?	
     default:	
@@ -307,27 +343,48 @@ ShaderType ShaderBuilder::toType(NodePropertyType type) {
     }
 }
 
-void ShaderBuilder::buildNode(std::stringstream& ss, const Node* node, Material& material) {        
+void ShaderBuilder::buildNode(std::stringstream& ss, Node* node, Material& material) {        
     for(auto& input : node->inputs) {
 	// TODO: should be only one link on input
 	if(input.link) {
 	    buildNode(ss, &material.nodes[input.link->output_node], material);		
 	}
+
+	if(input.source == NodePropertySource::ATTR && !input.link) {
+	    ss << fromType(input.type) << " input_" << input.id.id << ";\n";
+	}
     }
 
-    for(auto& output : node->outputs) {
-	ss << fromType(output.type) << " output_" << node->id.id << "_" << output.id.id << ";\n";
+    for(int i = 0; i < node->outputs.size(); ++i) {
+	auto& output = node->outputs[i];
+	ss << fromType(output.type) << " output_" << output.id.id << ";\n";
     }
 
     ss << getNodeName(node->type) << "(";
-    for(auto& input : node->inputs) {
-	
-	ss << "input_" << node->id.id << "_" << input.id.id << ", ";
+    for(int i = 0; i < node->inputs.size(); ++i) {	
+	auto& input = node->inputs[i];
+
+	switch(input.source) {
+	case UNIFORM:
+	    ss << "input_" << input.id.id;
+	    break;
+	case ATTR:
+	    if(input.link)
+		ss << "output_" << material.nodes[input.link->output_node].outputs[input.link->output].id.id;
+	    else
+		ss << "input_" << input.id.id;
+	    break;
+	case VS_OUT:
+	    ss << "vs_inout." << input.id.name;
+	    break;	
+	}
+
+	ss << ", ";	    
     }
     for(int i = 0; i < node->outputs.size(); ++i) {
 	auto& output = node->outputs[i];
 	
-	ss << "output_" << node->id.id << "_" << output.id.id;
+	ss << "output_" << output.id.id;
 
 	if(i != node->outputs.size() - 1) {
 	    ss << ", ";
@@ -342,6 +399,12 @@ const char* ShaderBuilder::getNodeName(NodeType type) {
     switch(type) {
     case NodeType::RGB:
 	src = "node_rgb";
+	break;
+    case NodeType::IMAGE_TEXTURE:
+	src = "node_image_texture";
+	break;
+    case NodeType::TEXTURE_COORDINATE:
+	src = "node_texture_coordinate";
 	break;
     default:
 	printf("Unknown node type: %d\n", type);	
@@ -492,24 +555,14 @@ Sha ShaderBuilder::generateMaterialSha(Material& material) {
 
     // TODO: sort nodes
     for(auto& node : material.nodes) {	
-	material_info << node.id.id;
+	material_info << (int)node.type;
 
 	for(auto& input : node.inputs) {
-	    material_info << input.id.id;
-
 	    if(input.link) {
-		material_info << input.link->output->id.id;
-		material_info << input.link->input->id.id;
+		material_info << input.link->output;
+		material_info << (int)material.nodes[input.link->output_node].type;
+		material_info << (int)material.nodes[input.link->input_node].type;		
 	    }		    	    
-	}
-
-	for(auto& output : node.outputs) {
-	    material_info << output.id.id;
-
-	    if(output.link) {
-		material_info << output.link->output->id.id;
-		material_info << output.link->input->id.id;
-	    }	    
 	}
     }
 

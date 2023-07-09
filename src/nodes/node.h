@@ -13,10 +13,12 @@
 enum NodeType {
   // Input
   RGB,
+  TEXTURE_COORDINATE,
   // Output
-  MATERIAL_OUTPUT
+  MATERIAL_OUTPUT,
   // Shader
   // Texture
+  IMAGE_TEXTURE,
   // Color
   // Vector
   // Converter
@@ -31,12 +33,13 @@ enum NodePropertyType {
   INT,
   ENUM,
   SHADER,
-  TEXTURE
+  TEXTURE,
 };
 
 enum NodePropertySource {
     UNIFORM,
     ATTR,
+    VS_OUT,
 };
 
 union NodePropertyValue {
@@ -67,14 +70,14 @@ struct NodeInput {
 };
 
 struct NodeOutput {
-    void create(NodePropertyValue prop_value, std::string prop_name,
+    void create(std::string prop_name,
 		NodePropertyType prop_type) {
 	id.create(prop_name);	
 	type = prop_type;
     }
 
     ID id;
-    NodeLink* link = nullptr;
+    std::vector<NodeLink> links;
     NodePropertyType type;
 };
 

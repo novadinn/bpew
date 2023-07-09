@@ -36,10 +36,9 @@ private:
     static void includeLibs(std::stringstream& ss, ShaderCreateInfo& create_info);
     static void includeLib(std::stringstream& ss, const char* dep);
     static void proceedSource(const char* dep, ShaderCreateInfo& create_info);
-    static void buildNode(std::stringstream& ss, const Node* node, Material& material);
-    static void buildNodeUniforms(ShaderCreateInfo& info, const Node* node);
-    static void buildNodeUniform(ShaderCreateInfo& info, const Node* node, const NodeInput& prop);
-    // TODO: should be placed at here?
+    static void buildNode(std::stringstream& ss, Node* node, Material& material);
+    static void buildNodeUniforms(ShaderCreateInfo& info, Node* node);
+    static void buildNodeUniform(ShaderCreateInfo& info, Node* node, const NodeInput& prop);
     static Sha generateMaterialSha(Material& material);
     static Sha generateMaterialRenderedSha(Material& material, uint num_spot_lights,
 					   uint num_point_lights, uint num_dir_lights);    
@@ -47,7 +46,7 @@ private:
     static void decreaseUsage(std::string& hash, ShaderContainer& container);
     static void increaseUsage(ShaderContainer& container);
 
-    static std::map<std::string, ShaderContainer> shaders;    
+    static std::map<std::string, ShaderContainer> shaders;       
 }; 
 
 #endif

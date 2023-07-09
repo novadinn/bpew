@@ -29,8 +29,8 @@ struct Renderer {
     static void setClearColor(const glm::vec4& color);
     
 private:
-    static void setMaterialNodeUniforms(Shader& shader, Node& node);
-    static void setMaterialNodeUniform(Shader& shader, Node& node, NodeInput& prop);
+    static void bindMaterialUniforms(Material& material);
+    static void unbindMaterialUniforms(Material& material);
 };
 
 #endif // RENDERER_H

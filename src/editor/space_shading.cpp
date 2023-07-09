@@ -2,6 +2,7 @@
 
 #include "../ecs/components/mesh_component.h"
 
+#include "ImGuiFileDialog/ImGuiFileDialog.h"
 #include "imgui/imgui.h"
 #include "imnodes/imnodes.h"
 #include "../core/input.h"
@@ -50,47 +51,53 @@ void onDrawUIBeginSpaceShading(EditorContext *ctx) {
     ImGui::Begin("Shading");
 }
 
-void drawNodeCustomAttribute(NodeInput& input) {
+void drawNodeRGBAttribute(NodeInput& input) {
+    if(input.id.name == "Color") {
+	static ImGuiColorEditFlags flags = ImGuiColorEditFlags_PickerHueBar	    	   
+	    | ImGuiColorEditFlags_NoAlpha;
+
+	static float color[3] = {
+	    input.value.vector3_value.x,
+	    input.value.vector3_value.y,
+	    input.value.vector3_value.z
+	};
+	
+	ImGui::ColorPicker3("##MyColor##5", color, flags);
+    }
+}
+
+void drawNodeImageTextureAttribute(NodeInput& input) {
+    if(input.id.name == "Texture") {
+	ImGui::Text("Image path");
+	ImGui::SameLine();
+	if(ImGui::Button("...")) {
+	    ImGuiFileDialog::Instance()->OpenDialog("LoadTexture", "Choose File", ".png,.jpg", ".");
+	}
+
+	if(ImGuiFileDialog::Instance()->Display("LoadTexture"))  {
+	    if(ImGuiFileDialog::Instance()->IsOk()) {
+		std::string path = ImGuiFileDialog::Instance()->GetFilePathName();
+		std::string name = ImGuiFileDialog::Instance()->GetCurrentFileName();
+		
+		input.value.texture_value.createFromFile(path.c_str());
+	    }
+
+	    ImGuiFileDialog::Instance()->Close();
+	}
+    }
+}
+
+void drawNodeAttribute(NodeType node_type, NodeInput& input) {
     ImGui::PushItemWidth(150);
-    switch(input.type) {
-    case NodePropertyType::COLOR: {
-	float p[4] = { input.value.color_value.x, input.value.color_value.y, input.value.color_value.z, input.value.color_value.w };
-	if(ImGui::DragFloat4(input.id.name.c_str(), p, 0.001f))
-	    input.value.color_value = glm::vec4(p[0], p[1], p[2], p[3]);
-    }
+    switch(node_type) {
+    case NodeType::RGB:
+	drawNodeRGBAttribute(input);
 	break;
-    case NodePropertyType::VECTOR3: {
-	float p[3] = { input.value.vector3_value.x, input.value.vector3_value.y, input.value.vector3_value.z };	
-	if(ImGui::DragFloat3(input.id.name.c_str(), p, 0.001f))
-	    input.value.vector3_value = glm::vec3(p[0], p[1], p[2]);
-    }
-	break;
-    case NodePropertyType::VECTOR2: {
-	float p[2] = { input.value.vector2_value.x, input.value.vector2_value.y };
-	if(ImGui::DragFloat2(input.id.name.c_str(), p, 0.001f))
-	    input.value.vector2_value = glm::vec2(p[0], p[1]);
-    }
-	break;
-    case NodePropertyType::FLOAT: {
-	float p = input.value.float_value;
-	if(ImGui::DragFloat(input.id.name.c_str(), &p, 0.001f))
-	    input.value.float_value = p;
-    }
-	break;
-    case NodePropertyType::INT: {
-	int p = input.value.int_value;
-	if(ImGui::DragInt(input.id.name.c_str(), &p))
-	    input.value.int_value = p;
-    }
-	break;
-    case NodePropertyType::ENUM:		
-	break;
-    case NodePropertyType::SHADER:
-	break;
-    case NodePropertyType::TEXTURE:	
+    case NodeType::IMAGE_TEXTURE:
+	drawNodeImageTextureAttribute(input);
 	break;
     default:
-	printf("unknown node property type\n");
+	printf("unknown node type\n");
     }
 }
 
@@ -179,7 +186,7 @@ void onDrawUISpaceShading(EditorContext *ctx) {
 			ImGui::Text("%s", prop.id.name.c_str());
 			ImNodes::EndInputAttribute();
 		    } else if(prop.source == NodePropertySource::UNIFORM) {
-			drawNodeCustomAttribute(prop);
+			drawNodeAttribute(node.type, prop);
 		    }
 		}
 	
@@ -193,8 +200,11 @@ void onDrawUISpaceShading(EditorContext *ctx) {
     if(ImGui::BeginPopupContextWindow()) {
 	if(ImGui::BeginMenu("Add")) {
 	    if(ImGui::BeginMenu("Input")) {
-		if(ImGui::Button("RGB")) {
+		if(ImGui::Button("RGB")) {		    
 		    space_data->createNode(ctx->selected_entity, NodeType::RGB);
+		}
+		if(ImGui::Button("Texture Coordinate")) {
+		    space_data->createNode(ctx->selected_entity, NodeType::TEXTURE_COORDINATE);
 		}
 	
 		ImGui::EndMenu();
@@ -211,7 +221,10 @@ void onDrawUISpaceShading(EditorContext *ctx) {
 		ImGui::EndMenu();
 	    }
 	    if(ImGui::BeginMenu("Texture")) {
-	
+		if(ImGui::Button("Image Texture")) {
+		    space_data->createNode(ctx->selected_entity, NodeType::IMAGE_TEXTURE);		    
+		}
+		
 		ImGui::EndMenu();
 	    }
 	    if(ImGui::BeginMenu("Color")) {
@@ -258,7 +271,7 @@ void onDrawUISpaceShading(EditorContext *ctx) {
     
 	ImGui::EndPopup();
     }
-
+    
     // Links should be drawn after the nodes
     if(ctx->selected_entity && ctx->selected_entity.hasComponent<MeshComponent>()) {
 	MeshComponent& mesh = ctx->selected_entity.getComponent<MeshComponent>();
@@ -267,32 +280,31 @@ void onDrawUISpaceShading(EditorContext *ctx) {
 	if(mat) {
 	    for(int i = 0; i < mat->nodes.size(); ++i) {
 		Node& node = mat->nodes[i];
-		// Draw Link only from output nodes - dont need to do this twice
+		// Draw Link only from output nodes - dont need to do this twice		
 		std::vector<NodeOutput>& outputs = node.outputs;
-
+		
 		for(int j = 0; j < outputs.size(); ++j) {
 		    NodeOutput& prop = outputs[j];
-		    NodeLink* link = prop.link;
 
-		    if(link) {
-			int link_id = link->id.id;
-			int output_id = link->output->id.id;
-			int input_id = link->input->id.id;
+		    for(auto& link : prop.links) {			
+			int link_id = link.id.id;
+			Node& output_node = mat->nodes[link.output_node];
+			Node& input_node = mat->nodes[link.input_node];
+			int output_id = output_node.outputs[link.output].id.id;
+			int input_id = input_node.inputs[link.input].id.id;			
 		    
-			ImNodes::Link(link_id, output_id, input_id);
-		    }		    		   		    
+			ImNodes::Link(link_id, output_id, input_id);				   		    		       
+		    }
 		}
 	    }
 	}
     }
-  
     ImNodes::EndNodeEditor();
 
     // Update links
     int output_id, input_id;
-    NodeOutput *output_prop = nullptr;
-    NodeInput *input_prop = nullptr;
     uint output_node, input_node;
+    int output_prop = -1, input_prop = -1;    
     if (ImNodes::IsLinkCreated(&output_id, &input_id)) {
 	// NOTE: assumes that material and mesh are there
 	MeshComponent& mesh = ctx->selected_entity.getComponent<MeshComponent>();
@@ -309,7 +321,7 @@ void onDrawUISpaceShading(EditorContext *ctx) {
 		NodeOutput* prop = &node_outputs[j];
 
 		if(prop->id.id == output_id) {
-		    output_prop = prop;
+		    output_prop = j;
 		    output_node = i;
 		}
 	    }
@@ -318,33 +330,40 @@ void onDrawUISpaceShading(EditorContext *ctx) {
 		NodeInput* prop = &node_inputs[j];
 	
 		if(prop->id.id == input_id) {
-		    input_prop = prop;
+		    input_prop = j;
 		    input_node = i;
 		}
 	    }
 
-	    if(output_prop && input_prop) {
+	    if(output_prop != -1 && input_prop != -1) {
 		break;
-	    }
-      
+	    }     
 	}
     }
 
-    if(output_prop && input_prop) {
+    if(output_prop != -1 && input_prop != -1) {
+	MeshComponent& mesh = ctx->selected_entity.getComponent<MeshComponent>();
+	Material *mat = mesh.getActiveMaterial();
+	
 	// TODO: should we add this to both input and output node or not?
 	NodeLink* link = new NodeLink();
 	link->create(output_prop, input_prop, output_node, input_node);
-	
-	if(output_prop->link) {
-	    output_prop->link->input->link = nullptr;
-	    delete output_prop->link;	    
+		       
+	mat->nodes[output_node].outputs[output_prop].links.push_back(*link);
+	if(mat->nodes[input_node].inputs[input_prop].link) {	    
+	    NodeLink* link = mat->nodes[input_node].inputs[input_prop].link;
+	    Node& prev_output_node = mat->nodes[link->output_node];
+	    for(int i = 0; i < prev_output_node.outputs[link->output].links.size(); ++i) {
+		NodeLink& l = prev_output_node.outputs[link->output].links[i];
+		
+		if(l.id.id == link->id.id) {
+		    prev_output_node.outputs[link->output].links.erase(prev_output_node.outputs[link->output].links.begin() + i);
+		    break;
+		}
+	    }
+	    delete link;
 	}
-	output_prop->link = link;
-	if(input_prop->link) {
-	    input_prop->link->output->link = nullptr;
-	    delete input_prop->link;	    
-	}
-	input_prop->link = link;
+	mat->nodes[input_node].inputs[input_prop].link = link;
     }
 
     // TODO: ImNodes::IsLinkDestroyed is not impelemted on the imnodes side (or thats just me stupid),
@@ -357,36 +376,29 @@ void onDrawUISpaceShading(EditorContext *ctx) {
 
 	// TODO: slow linear search
 	for(int i = 0; i < num_selected; ++i) {
-	    int destroyed_link_id = selected_links[i];
+	    int destroyed_link_id = selected_links[i];	    
 	    MeshComponent& mesh = ctx->selected_entity.getComponent<MeshComponent>();
 	    Material *mat = mesh.getActiveMaterial();
 	    std::vector<Node>& nodes = mat->nodes;
-      
-	    for(int j = 0; j < nodes.size(); ++j) {
+	    
+	    for(int j = 0; j < nodes.size(); ++j) {		
 		Node& node = nodes[j];
 		std::vector<NodeOutput>& node_outputs = node.outputs;
 		std::vector<NodeInput>& node_inputs = node.inputs;
-
-		for(int k = 0; k < node_outputs.size(); ++k) {
+		
+		for(int k = 0; k < node_outputs.size(); ++k) {		    
 		    NodeOutput* prop = &node_outputs[k];
-		    NodeLink* link = prop->link;
-		    
-		    if(prop->link && link->id.id == destroyed_link_id) {
-			prop->link->input->link = nullptr;
-			delete prop->link;
-			prop->link = nullptr;
-			return;
-		    }		   
-		}
+		    std::vector<NodeLink>& links = prop->links;
 
-		for(int k = 0; k < node_inputs.size(); ++k) {
-		    NodeInput* prop = &node_inputs[k];		    		    
-		    
-		    if(prop->link && prop->link->id.id == destroyed_link_id) {
-			prop->link->output->link = nullptr;
-			delete prop->link;
-			prop->link = nullptr;
-			return;
+		    for(int m = 0; m < links.size(); ++m) {
+			NodeLink& link = links[m];
+			
+			if(link.id.id == destroyed_link_id) {			
+			    delete nodes[link.input_node].inputs[link.input].link;
+			    nodes[link.input_node].inputs[link.input].link = nullptr;
+			    links.erase(links.begin() + m);
+			    return;
+			}		   
 		    }		    
 		}
 	    }

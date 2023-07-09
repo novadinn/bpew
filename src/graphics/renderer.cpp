@@ -52,6 +52,26 @@ void Renderer::drawMeshMaterial(RendererContext *context) {
 	material = &context->mesh->default_material;
    }
 
+    std::vector<int> prev_ids;    
+    int id = 0;
+    
+
+    // generate ids    
+    for(auto& node : material->nodes) {
+	prev_ids.push_back(node.id.id);
+	node.id.id = id++;
+
+	for(auto& input : node.inputs) {
+	    prev_ids.push_back(input.id.id);
+	    input.id.id = id++;
+	}
+
+	for(auto& output : node.outputs) {
+	    prev_ids.push_back(output.id.id);
+	    output.id.id = id++;
+	}
+    }
+
     // TODO: each mesh has its own material
     for(int i = 0; i < context->mesh->meshes.size(); ++i) {
 	Mesh& target = context->mesh->meshes[i];
@@ -69,15 +89,28 @@ void Renderer::drawMeshMaterial(RendererContext *context) {
 	material->shader_container->shader.setVec3("dirLight.specilar", glm::vec3(0.5f, 0.5f, 0.5f));
 	material->shader_container->shader.setInt("currentEntityID", (int)context->current_entity_id);
 
-	for(auto& node : material->nodes) {
-	    setMaterialNodeUniforms(material->shader_container->shader, node);
-	}
+	bindMaterialUniforms(*material);	
 
 	target.va.bind();
 	glDrawElements(GL_TRIANGLES, target.indices.size(), GL_UNSIGNED_INT, 0);
 	target.va.unbind();
+
+	unbindMaterialUniforms(*material);	
 	
 	material->shader_container->shader.unbind();
+    }
+
+    // revert ids
+    for(auto& node : material->nodes) {	
+	node.id.id = prev_ids[node.id.id];
+
+	for(auto& input : node.inputs) {	 
+	    input.id.id = prev_ids[input.id.id];
+	}
+
+	for(auto& output : node.outputs) {	    
+	    output.id.id = prev_ids[output.id.id];
+	}
     }
 }
 
@@ -111,6 +144,25 @@ void Renderer::drawMeshRendered(RendererContext *context) {
     if(!material || !material->shader_container || !material->shader_container->compiled) {
 	material = &context->mesh->default_material;
     }    
+
+    std::vector<int> prev_ids;    
+    int id = 0;
+    
+    // generate ids    
+    for(auto& node : material->nodes) {
+	prev_ids.push_back(node.id.id);
+	node.id.id = id++;
+
+	for(auto& input : node.inputs) {
+	    prev_ids.push_back(input.id.id);
+	    input.id.id = id++;
+	}
+
+	for(auto& output : node.outputs) {
+	    prev_ids.push_back(output.id.id);
+	    output.id.id = id++;
+	}
+    }
 
     for(int i = 0; i < context->mesh->meshes.size(); ++i) {
 	material->shader_container->shader.bind();
@@ -185,10 +237,8 @@ void Renderer::drawMeshRendered(RendererContext *context) {
 	    } break;
 	    };
 	}
-
-	for(auto& node : material->nodes) {
-	    setMaterialNodeUniforms(material->shader_container->shader, node);
-	}
+	
+	bindMaterialUniforms(*material);	
 		
 	Mesh& target = context->mesh->meshes[i];
        	
@@ -196,7 +246,22 @@ void Renderer::drawMeshRendered(RendererContext *context) {
 	glDrawElements(GL_TRIANGLES, target.indices.size(), GL_UNSIGNED_INT, 0);
 	target.va.unbind();
 
+	unbindMaterialUniforms(*material);	
+
 	material->shader_container->shader.unbind();
+    }
+
+    // revert ids
+    for(auto& node : material->nodes) {	
+	node.id.id = prev_ids[node.id.id];
+
+	for(auto& input : node.inputs) {	 
+	    input.id.id = prev_ids[input.id.id];
+	}
+
+	for(auto& output : node.outputs) {	    
+	    output.id.id = prev_ids[output.id.id];
+	}
     }
 }
 
@@ -253,43 +318,63 @@ void Renderer::setClearColor(const glm::vec4& color) {
     glClearColor(color.x, color.y, color.z, color.w);
 }
 
-void Renderer::setMaterialNodeUniforms(Shader& shader, Node& node) {    
-    for(auto& input : node.inputs) {
-	// check if should be uniform
-	if(!input.link) {	    	   	   
-	    setMaterialNodeUniform(shader, node, input);
-	}
-    }    
+void Renderer::bindMaterialUniforms(Material& material) {
+    uint texture_count = 0;
+
+    Shader& shader = material.shader_container->shader;
+
+    for(auto& node : material.nodes) {
+	for(auto& input : node.inputs) {	    
+	    if(input.source == NodePropertySource::UNIFORM) {
+		std::string name = std::string("input_") + std::to_string(input.id.id);    
+		switch(input.type) {
+		case NodePropertyType::COLOR:
+		    shader.setVec4(name.c_str(), input.value.color_value);
+		    break;
+		case NodePropertyType::VECTOR3:
+		    shader.setVec3(name.c_str(), input.value.vector3_value);
+		    break;
+		case NodePropertyType::VECTOR2:
+		    shader.setVec2(name.c_str(), input.value.vector2_value);
+		    break;
+		case NodePropertyType::FLOAT:
+		    shader.setFloat(name.c_str(), input.value.float_value);
+		    break;
+		case NodePropertyType::INT:
+		    shader.setInt(name.c_str(), input.value.int_value);
+		    break;
+		case NodePropertyType::ENUM:
+		    shader.setInt(name.c_str(), input.value.enum_value);
+		    break;
+		case NodePropertyType::SHADER:
+		    // TODO: what we should do?
+		    break;
+		case NodePropertyType::TEXTURE:
+		    shader.setUInt(name.c_str(), texture_count);
+		    glActiveTexture(GL_TEXTURE0 + texture_count++);
+		    input.value.texture_value.bind();	
+		    break;
+		default:
+		    printf("Unhandled node property type\n");
+		}
+	    }
+	}    
+    }
 }
 
-void Renderer::setMaterialNodeUniform(Shader& shader, Node& node, NodeInput& prop) {    
-    std::string name = std::string("input_") + std::to_string(node.id.id) + std::string("_") + std::to_string(prop.id.id);    
-    switch(prop.type) {
-    case NodePropertyType::COLOR:
-	shader.setVec4(name.c_str(), prop.value.color_value);
-	break;
-    case NodePropertyType::VECTOR3:
-	shader.setVec3(name.c_str(), prop.value.vector3_value);
-	break;
-    case NodePropertyType::VECTOR2:
-	shader.setVec2(name.c_str(), prop.value.vector2_value);
-	break;
-    case NodePropertyType::FLOAT:
-	shader.setFloat(name.c_str(), prop.value.float_value);
-	break;
-    case NodePropertyType::INT:
-	shader.setInt(name.c_str(), prop.value.int_value);
-	break;
-    case NodePropertyType::ENUM:
-	shader.setInt(name.c_str(), prop.value.enum_value);
-	break;
-    case NodePropertyType::SHADER:
-	// TODO: what we should do?
-	break;
-    case NodePropertyType::TEXTURE:
-	shader.setInt(name.c_str(), prop.value.texture_value.getID());
-	break;
-    default:
-	printf("Unhandled node property type\n");
+void Renderer::unbindMaterialUniforms(Material& material) {
+    uint texture_count = 0;
+    
+    for(auto& node : material.nodes) {
+	for(auto& input : node.inputs) {
+	    if(input.source == NodePropertySource::UNIFORM) {
+		switch(input.type) {
+		case NodePropertyType::TEXTURE:
+		    glActiveTexture(GL_TEXTURE0 + texture_count++);
+		    input.value.texture_value.unbind();
+		    break;
+		}
+	    }
+	}
     }
 }

@@ -19,7 +19,10 @@ void onDestroySpaceShading(EditorContext *ctx);
 void onDrawUIBeginSpaceShading(EditorContext *ctx);
 void onDrawUISpaceShading(EditorContext *ctx);
 void onDrawUIEndSpaceShading(EditorContext *ctx);
-void drawNodeCustomAttribute(NodeInput& input);
+
+void drawNodeAttribute(NodeType node_type, NodeInput& input);
+void drawNodeRGBAttribute(NodeInput& input);
+void drawNodeImageTextureAttribute(NodeInput& input);
 
 struct SpaceShading {
     void begin();
