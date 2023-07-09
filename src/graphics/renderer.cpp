@@ -7,12 +7,14 @@
 #include "shaders/infos/solid_shader_info.h"
 #include "shaders/infos/fxaa_shader_info.h"
 #include "shaders/infos/outline_selected_mesh_shader_info.h"
+#include "shaders/infos/mesh_vertices_info.h"
 
 #include <glad/glad.h>
 
 static Shader solid_shader;
 static Shader outline_selected_mesh_shader;
 static Shader fxaa_shader;
+static Shader mesh_vertices_shader;
 
 static Mesh quad_mesh; 
 
@@ -21,7 +23,9 @@ void Renderer::init() {
     ShaderBuilder::buildShaderFromCreateInfo(fxaa_shader, fxaa_shader_create_info);
     ShaderBuilder::buildShaderFromCreateInfo(outline_selected_mesh_shader,
 					     outline_selected_mesh_shader_create_info);
-
+    ShaderBuilder::buildShaderFromCreateInfo(mesh_vertices_shader,
+					     mesh_vertices_shader_create_info);
+    
     std::vector<float> quad_vertices = {
 	// positions   // texCoords
 	-1.0f,  1.0f,  0.0f, 1.0f,
@@ -42,6 +46,7 @@ void Renderer::destroy() {
     solid_shader.destroy();
     fxaa_shader.destroy();
     outline_selected_mesh_shader.destroy();
+    mesh_vertices_shader.destroy();
     
     quad_mesh.destroy();
 }
@@ -266,11 +271,41 @@ void Renderer::drawMeshRendered(RendererContext *context) {
 }
 
 void Renderer::drawMeshWireframe(RendererContext *context) {
-    // TODO: need to create our own shader, since mouse picking is not working correctly with
-    // this kind of wireframe
+    /* TODO: need to create our own shader, since mouse picking is not working correctly with
+    this kind of wireframe */
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     drawMeshSolid(context);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+void Renderer::drawMeshVerticesOutlined(RendererContext *context) {
+    /* TODO: move that to shader, since gl_PointSize is overritable from vertex shader */
+    glm::vec3 camera_position = glm::inverse(context->view)[3];
+    glm::vec3 model_position = context->model[3];
+    float distance = glm::distance(camera_position, model_position);
+    glPointSize(1/distance * 45.0f);
+    
+    for(int i = 0; i < context->mesh->meshes.size(); ++i) {
+	mesh_vertices_shader.bind();
+	mesh_vertices_shader.setMatrix4("model", context->model);
+	mesh_vertices_shader.setMatrix4("view", context->view);
+	mesh_vertices_shader.setMatrix4("projection", context->projection);
+
+	mesh_vertices_shader.setVec3("color", context->color);
+	mesh_vertices_shader.setVec3("selectionColor", context->outline_color);
+	mesh_vertices_shader.setFloat("mixFactor", context->mix_factor);
+	mesh_vertices_shader.setInt("currentEntityID", (int)context->current_entity_id);
+	mesh_vertices_shader.setInt("selectedEntityID", (int)context->selected_entity_id);
+	mesh_vertices_shader.setInt("selectedVertexID", (int)context->selected_vertex_id);
+		
+	Mesh& target = context->mesh->meshes[i];
+		
+	target.va.bind();
+	glDrawElements(GL_POINTS, target.indices.size(), GL_UNSIGNED_INT, 0);
+	target.va.unbind();
+
+	mesh_vertices_shader.unbind();
+    }
 }
 
 void Renderer::applyFXAA(RendererContext *context) {

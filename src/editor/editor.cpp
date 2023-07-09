@@ -49,18 +49,10 @@ void Editor::create() {
     Entity object = ctx->scene->createEntity("Monkey");
 
     auto& mesh = object.addComponent<MeshComponent>();
-    mesh.loadFromPath(Utils::joinPath("./datafiles/monkey/monkey.obj").c_str());
+    mesh.loadFromPath(Utils::joinPath("datafiles/primitives/cube.obj").c_str());
     Material material;
     mesh.default_material = material;
 	
-    Entity object2 = ctx->scene->createEntity("Monkey2");
-    auto& mesh2 = object2.addComponent<MeshComponent>();
-    mesh2.loadFromPath(Utils::joinPath("./datafiles/monkey/monkey.obj").c_str());
-    auto& tr = object2.getComponent<TransformComponent>();
-    tr.position = glm::vec3(3.0, 0, 0);
-    tr.scale = glm::vec3(0.5, 0.5, 0.5);
-    tr.rotation = glm::vec3(36, 80, 170);    
-
     Entity dir_light = ctx->scene->createEntity("DirectionalLight");
     auto& light_dir = dir_light.addComponent<LightComponent>();
     light_dir.type = LightComponent::LightType::DIRECTIONAL;
@@ -171,7 +163,7 @@ void Editor::onDraw() {
 	    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     }
 
-    static bool show_demo = true;
+    static bool show_demo = false;
     if(show_demo) ImGui::ShowDemoWindow(&show_demo);
 
     showMenuBar();

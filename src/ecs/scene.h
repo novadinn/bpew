@@ -19,6 +19,8 @@ struct Scene {
     void onDrawSolid(RendererContext *context);
     void onDrawMaterialPreview(RendererContext *context);
 
+    void onDrawMeshVerticesOutlined(RendererContext *context);
+    
     void onUpdateMaterialPreview();
     void onUpdateRendered();
     

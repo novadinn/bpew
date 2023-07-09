@@ -22,6 +22,9 @@ struct Renderer {
     static void drawMeshRendered(RendererContext *context);
     static void drawMeshWireframe(RendererContext *context);
 
+    /* NOTE: unlike meshes drawing code, outlining is done in a single pass here */
+    static void drawMeshVerticesOutlined(RendererContext *context);
+    
     static void applyFXAA(RendererContext *context);
     static void applyMeshOutline(RendererContext *context);
     
