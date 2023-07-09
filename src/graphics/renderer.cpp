@@ -206,15 +206,19 @@ void Renderer::drawMeshRendered(RendererContext *context) {
 }
 
 void Renderer::drawMeshWireframe(RendererContext *context) {
-    // TODO: need to create our own shader, since mouse picking is not working correctly with
-    // this kind of wireframe
+    /* TODO: need to create our own shader, since mouse picking is not working correctly with
+    this kind of wireframe */
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     drawMeshSolid(context);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void Renderer::drawMeshVerticesOutlined(RendererContext *context) {
-    glPointSize(5.0f);
+    /* TODO: move that to shader, since gl_PointSize is overritable from vertex shader */
+    glm::vec3 camera_position = glm::inverse(context->view)[3];
+    glm::vec3 model_position = context->model[3];
+    float distance = glm::distance(camera_position, model_position);
+    glPointSize(1/distance * 45.0f);
     
     for(int i = 0; i < context->mesh->meshes.size(); ++i) {
 	mesh_vertices_shader.bind();
