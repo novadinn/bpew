@@ -13,7 +13,7 @@ struct ID {
     static int global_id = 0;
     id = global_id++;
   }
-  
+
   std::string name;
   int id;
 };

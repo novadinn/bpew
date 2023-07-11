@@ -6,9 +6,9 @@
 #include "event_receiver.h"
 
 struct SpaceShadingData {
-    char unused;
+  char unused;
 
-    void createNode(Entity selected_enity, NodeType type);
+  void createNode(Entity selected_enity, NodeType type);
 };
 
 EventReceiver *createSpaceShadingReceiver();
@@ -21,17 +21,17 @@ void onDrawUISpaceShading(EditorContext *ctx);
 void onDrawUIEndSpaceShading(EditorContext *ctx);
 
 struct SpaceShading {
-    void begin();
+  void begin();
 
-    void drawHeader(Entity selected_entity);
-    void drawNodeEditor(Entity selected_entity);
+  void drawHeader(Entity selected_entity);
+  void drawNodeEditor(Entity selected_entity);
 
-    void end();
+  void end();
 
 private:
-    void drawContextMenu(Entity selected_entity);
-    void updateLinks(Entity selected_entity);
-    void createNode(Entity selected_enity, NodeType type);
+  void drawContextMenu(Entity selected_entity);
+  void updateLinks(Entity selected_entity);
+  void createNode(Entity selected_enity, NodeType type);
 };
 
 #endif // SPACE_SHADING_H
