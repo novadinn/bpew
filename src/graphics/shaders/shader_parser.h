@@ -3,12 +3,12 @@
 
 #include <fstream>
 
-#include "shader_create_info.h"
 #include "../../core/tokenizer.h"
+#include "shader_create_info.h"
 
 // TODO: is this needed?
 struct ShaderParser {
-    ShaderCreateInfo parseCustomShader(const char* src);
+  ShaderCreateInfo parseCustomShader(const char *src);
 };
 
 #endif

@@ -4,7 +4,7 @@
 #include <string>
 
 struct TagComponent {
-	std::string tag;
+  std::string tag;
 };
 
-#endif // TAG_COMPONENT_H
+#endif  // TAG_COMPONENT_H

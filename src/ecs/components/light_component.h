@@ -4,47 +4,46 @@
 #include "glm/glm.hpp"
 
 struct DirectionalLightProperties {
-    char unused;
+  char unused;
 };
 
 struct PointLightProperties {
-    float constant;
-    float linear;
-    float quadratic;
+  float constant;
+  float linear;
+  float quadratic;
 };
 
 struct SpotLightProperties {
-    float cut_off;
-    float outer_cut_off;
+  float cut_off;
+  float outer_cut_off;
 
-    float constant;
-    float linear;
-    float quadratic;
+  float constant;
+  float linear;
+  float quadratic;
 };
 
 union LightProperties {
-    DirectionalLightProperties dir_light;
-    PointLightProperties point_light;
-    SpotLightProperties spot_light;
+  DirectionalLightProperties dir_light;
+  PointLightProperties point_light;
+  SpotLightProperties spot_light;
 };
 
 struct LightComponent {
-    enum LightType {
-	SPOT,
-	POINT,
-	DIRECTIONAL
-	// TODO: area
-    };
+  enum LightType {
+    SPOT,
+    POINT,
+    DIRECTIONAL
+    /* TODO: area */
+  };
 
-    LightType type;
-    
-    glm::vec3 ambient;
-    glm::vec3 diffuse;
-    glm::vec3 specular;
-    LightProperties properties;
+  LightType type;
 
-    // TODO: cookie texture
-	
+  glm::vec3 ambient;
+  glm::vec3 diffuse;
+  glm::vec3 specular;
+  LightProperties properties;
+
+  /* TODO: cookie texture */
 };
 
-#endif // LIGHT_COMPONENT_H
+#endif  // LIGHT_COMPONENT_H
