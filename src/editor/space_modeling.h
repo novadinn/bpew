@@ -16,7 +16,6 @@ struct SpaceModelingData {
     int gizmo_operation = -1;
     DrawMode draw_mode = DrawMode::SOLID;
     bool viewport_hovered = false;
-    Entity hovered_entity;
     glm::ivec2 mouse_position;
 };
 

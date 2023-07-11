@@ -19,11 +19,7 @@ const ShaderCreateInfo mesh_vertices_shader_create_info = ShaderCreateInfo::crea
     .uniform(ShaderType::MAT4, "view")
     .uniform(ShaderType::MAT4, "projection")
     .uniform(ShaderType::VEC3, "color")
-    .uniform(ShaderType::VEC3, "selectionColor")
-    .uniform(ShaderType::FLOAT, "mixFactor")
     .uniform(ShaderType::INT, "currentEntityID")
-    .uniform(ShaderType::INT, "selectedEntityID")
-    .uniform(ShaderType::INT, "selectedVertexID")
     .vertex("mesh_vertices_vs.glsl")
     .fragment("mesh_vertices_fs.glsl");
 

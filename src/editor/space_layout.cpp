@@ -118,7 +118,7 @@ void onRenderBeginSpaceLayout(EditorContext *ctx) {
     
     space_data->framebuffer.bind();
     Renderer::clear();
-    space_data->framebuffer.clearRGBA8ColorAttachment(1, glm::vec4(-1, 0, 0, 0));
+    space_data->framebuffer.clearRGBA8ColorAttachment(1, glm::vec4(-1));
 }
 
 void onRenderSpaceLayout(EditorContext *ctx) {
@@ -188,7 +188,7 @@ void onRenderPostProcessingSpaceLayout(EditorContext *ctx) {
     SpaceLayoutData *space_data = ctx->space_layout_data;
     RendererContext *renderer_context = ctx->renderer_context;
 
-    renderer_context->setOutlineData(space_data->framebuffer.getColorAttachmentID(0),
+    renderer_context->setMeshOutlineData(space_data->framebuffer.getColorAttachmentID(0),
 				     space_data->framebuffer.getColorAttachmentID(1),
 				     (uint32)ctx->selected_entity,
 				     glm::vec3(0.0f, 0.0f, 1.0f), 0.5f);

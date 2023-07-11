@@ -19,10 +19,13 @@ struct Scene {
     void onDrawSolid(RendererContext *context);
     void onDrawMaterialPreview(RendererContext *context);
 
-    void onDrawMeshVerticesOutlined(RendererContext *context);
+    void onDrawMeshVertices(RendererContext *context);
     
     void onUpdateMaterialPreview();
     void onUpdateRendered();
+
+    void searchIntersectedVertices(uint32 *entity_id, int *vertex_id,
+				   glm::vec3 ray_position, glm::vec3 ray_direction);
     
     void onResize(uint width, uint height);
 
