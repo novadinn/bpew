@@ -5,17 +5,15 @@
 
 #include <string>
 
-/* TODO: this is temporary struct, since it is used only for nodes and only
-   because of imnodes library */
 struct ID {
   void create(std::string id_name) {
     name = id_name;
-    /* TODO: cannot do this right now, since imgui and imnodes uses ints as ids
-       id = Utils::generateUUID(); */
+    // TODO: cannot do this right now, since imgui and imnodes uses ints as ids
+    // id = Utils::generateUUID();
     static int global_id = 0;
     id = global_id++;
   }
-
+  
   std::string name;
   int id;
 };

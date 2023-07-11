@@ -1,14 +1,14 @@
 #ifndef NODE_PROPERTY_H
 #define NODE_PROPERTY_H
 
-#include "../core/id.h"
 #include "../graphics/shaders/shader.h"
 #include "../graphics/texture.h"
+#include "../core/id.h"
 #include "node_link.h"
 
 #include <glm/glm.hpp>
-#include <string>
 #include <vector>
+#include <string>
 
 enum NodePropertyType {
   COLOR,
@@ -34,13 +34,13 @@ union NodePropertyValue {
 
 struct NodeProperty {
   void create(NodePropertyValue prop_value, std::string prop_name,
-              NodePropertyType prop_type) {
+	      NodePropertyType prop_type) {
     id.create(prop_name);
     value = prop_value;
     type = prop_type;
   }
 
-  ID id;
+  ID id;        
   std::vector<NodeLink> links;
   NodePropertyValue value;
   NodePropertyType type;

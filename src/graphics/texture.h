@@ -5,19 +5,19 @@
 #include <vector>
 
 struct Texture2D {
-  void createFromFile(const char *p);
-  void destroy();
+	void createFromFile(const char* p);
+	void destroy();
 
-  void bind();
-  void unbind();
+	void bind();
+	void unbind();
 
-  inline uint getID() const { return id; }
-  inline uint getWidth() const { return width; }
-  inline uint getHeight() const { return height; }
-
+	inline uint getID() const { return id; }
+	inline uint getWidth() const { return width; }
+	inline uint getHeight() const { return height; }
+	
 private:
-  uint id;
-  uint width, height;
+	uint id;
+	uint width, height;
 };
 
 #endif

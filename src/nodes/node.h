@@ -1,12 +1,12 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include "../core/id.h"
 #include "node_property.h"
+#include "../core/id.h"
 
 #include <glm/glm.hpp>
-#include <string>
 #include <vector>
+#include <string>
 
 enum NodeType {
   // Input
@@ -21,12 +21,12 @@ enum NodeType {
 };
 
 struct Node {
-  void create(NodeType node_type);
-
+  void create(NodeType node_type);    
+    
   ID id;
   std::vector<NodeProperty> inputs;
-  std::vector<NodeProperty> outputs;
-
+  std::vector<NodeProperty> outputs;    
+    
   NodeType type;
 };
 
