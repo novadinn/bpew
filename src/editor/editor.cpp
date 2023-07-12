@@ -415,31 +415,14 @@ void Editor::showInspectorPanel() {
           light.specular = glm::vec3(specular[0], specular[1], specular[2]);
 
         switch (light.type) {
-        case LightComponent::LightType::POINT: {
-          float constant = light.properties.point_light.constant;
-          float linear = light.properties.point_light.linear;
-          float quadratic = light.properties.point_light.quadratic;
-          if (ImGui::DragFloat("Constant", &constant, 0.1f, 0.0f, 0.0f, "%.2f"))
-            light.properties.point_light.constant = constant;
-          if (ImGui::DragFloat("Linear", &linear, 0.1f, 0.0f, 0.0f, "%.2f"))
-            light.properties.point_light.linear = linear;
-          if (ImGui::DragFloat("Quadratic", &quadratic, 0.1f, 0.0f, 0.0f,
-                               "%.2f"))
-            light.properties.point_light.quadratic = quadratic;
-        } break;
         case LightComponent::LightType::SPOT: {
           float cut_off = light.properties.spot_light.cut_off;
           float outer_cut_off = light.properties.spot_light.outer_cut_off;
-          float constant = light.properties.spot_light.constant;
-          float linear = light.properties.spot_light.linear;
-          float quadratic = light.properties.spot_light.quadratic;
-          if (ImGui::DragFloat("Constant", &constant, 0.1f, 0.0f, 0.0f, "%.2f"))
-            light.properties.spot_light.constant = constant;
-          if (ImGui::DragFloat("Linear", &linear, 0.1f, 0.0f, 0.0f, "%.2f"))
-            light.properties.spot_light.linear = linear;
-          if (ImGui::DragFloat("Quadratic", &quadratic, 0.1f, 0.0f, 0.0f,
+          if (ImGui::DragFloat("Cutoff", &cut_off, 0.1f, 0.0f, 0.0f, "%.2f"))
+            light.properties.spot_light.cut_off = cut_off;
+          if (ImGui::DragFloat("Outer Cutoff", &outer_cut_off, 0.1f, 0.0f, 0.0f,
                                "%.2f"))
-            light.properties.spot_light.quadratic = quadratic;
+            light.properties.spot_light.outer_cut_off = outer_cut_off;
         } break;
         };
       }

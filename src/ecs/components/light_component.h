@@ -4,22 +4,18 @@
 #include "glm/glm.hpp"
 
 struct DirectionalLightProperties {
+  /* this is here to avoid msvc empty-struct error */
   char unused;
 };
 
 struct PointLightProperties {
-  float constant;
-  float linear;
-  float quadratic;
+  /* this is here to avoid msvc empty-struct error */
+  char unused;
 };
 
 struct SpotLightProperties {
   float cut_off;
   float outer_cut_off;
-
-  float constant;
-  float linear;
-  float quadratic;
 };
 
 union LightProperties {
@@ -38,9 +34,9 @@ struct LightComponent {
 
   LightType type;
 
-  glm::vec3 ambient;
-  glm::vec3 diffuse;
-  glm::vec3 specular;
+  glm::vec3 ambient = glm::vec3(0.05f, 0.05f, 0.05f);
+  glm::vec3 diffuse = glm::vec3(0.4f, 0.4f, 0.4f);
+  glm::vec3 specular = glm::vec3(0.1f, 0.1f, 0.1f);
   LightProperties properties;
 
   // TODO: cookie texture

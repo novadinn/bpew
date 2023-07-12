@@ -152,7 +152,7 @@ void onRenderSpaceModeling(EditorContext *ctx) {
   glm::vec3 view_pos = ctx->editor_camera->position;
   glm::vec3 direction = ctx->editor_camera->getForward();
 
-  if (ctx->active_camera) {
+  if (ctx->active_camera && space_data->draw_mode == DrawMode::RENDERED) {
     auto &camera_component = ctx->active_camera.getComponent<CameraComponent>();
     auto &transform_component =
         ctx->active_camera.getComponent<TransformComponent>();
@@ -248,15 +248,6 @@ void onDrawUISpaceModeling(EditorContext *ctx) {
 
   glm::mat4 view = ctx->editor_camera->getViewMatrix();
   glm::mat4 projection = ctx->editor_camera->getProjectionMatrix();
-
-  if (ctx->active_camera) {
-    auto &camera_component = ctx->active_camera.getComponent<CameraComponent>();
-    auto &transform_component =
-        ctx->active_camera.getComponent<TransformComponent>();
-    view = camera_component.getViewMatrix(transform_component.position,
-                                          transform_component.rotation);
-    projection = camera_component.getProjectionMatrix();
-  }
 
   /* draw gizmos */
   if (ctx->selected_entity && ctx->selected_vertex != -1 &&

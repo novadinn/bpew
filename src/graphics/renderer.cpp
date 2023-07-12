@@ -183,15 +183,6 @@ void Renderer::drawMeshRendered(RendererContext *context) {
         value = element + ".specular";
         material->shader_container->shader.setVec3(value.c_str(),
                                                    context->lights[j].specular);
-        value = element + ".constant";
-        material->shader_container->shader.setFloat(
-            value.c_str(), context->lights[j].properties.point_light.constant);
-        value = element + ".linear";
-        material->shader_container->shader.setFloat(
-            value.c_str(), context->lights[j].properties.point_light.linear);
-        value = element + ".quadratic";
-        material->shader_container->shader.setFloat(
-            value.c_str(), context->lights[j].properties.point_light.quadratic);
       } break;
       case LightComponent::LightType::SPOT: {
         std::string element =
@@ -220,15 +211,6 @@ void Renderer::drawMeshRendered(RendererContext *context) {
         value = element + ".specular";
         material->shader_container->shader.setVec3(value.c_str(),
                                                    context->lights[j].specular);
-        value = element + ".constant";
-        material->shader_container->shader.setFloat(
-            value.c_str(), context->lights[j].properties.spot_light.constant);
-        value = element + ".linear";
-        material->shader_container->shader.setFloat(
-            value.c_str(), context->lights[j].properties.spot_light.linear);
-        value = element + ".quadratic";
-        material->shader_container->shader.setFloat(
-            value.c_str(), context->lights[j].properties.spot_light.quadratic);
       } break;
       };
     }
