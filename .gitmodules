@@ -19,3 +19,6 @@
 [submodule "include/imnodes"]
 	path = include/imnodes
 	url = git@github.com:Nelarius/imnodes.git
+[submodule "include/yaml-cpp"]
+	path = include/yaml-cpp
+	url = git@github.com:jbeder/yaml-cpp.git

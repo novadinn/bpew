@@ -7,12 +7,23 @@
 #include "components/mesh_component.h"
 #include "components/tag_component.h"
 #include "components/transform_component.h"
+#include "components/uuid_component.h"
 #include "entity.h"
 
 Entity Scene::createEntity(const std::string &name) {
+  UUID uuid;
+  uuid.create();
+
+  return createEntityFromUUID(uuid, name);
+}
+
+Entity Scene::createEntityFromUUID(UUID uuid, const std::string &name) {
+
   Entity entity;
   entity.create(registry.create(), this);
 
+  UUIDComponent &uuid_component = entity.addComponent<UUIDComponent>();
+  uuid_component.id = uuid;
   entity.addComponent<TransformComponent>();
   TagComponent &tag = entity.addComponent<TagComponent>();
   // TODO: check if name doesnt already exists in the scene

@@ -7,6 +7,7 @@
 #include "../ecs/components/mesh_component.h"
 #include "../ecs/components/tag_component.h"
 #include "../ecs/components/transform_component.h"
+#include "../ecs/scene_serializer.h"
 #include "../graphics/gizmos.h"
 #include "../graphics/material.h"
 #include "../graphics/renderer.h"
@@ -189,14 +190,14 @@ void Editor::showMenuBar() {
       if (ImGui::MenuItem("New")) {
       }
       if (ImGui::MenuItem("Open")) {
-        // ImGuiFileDialog::Instance()->OpenDialog("LoadSceneDlgKey", "Choose
-        // File", ".scene", ".");
+        ImGuiFileDialog::Instance()->OpenDialog("LoadSceneDlgKey",
+                                                "Choose File", ".bpew", ".");
       }
 
       ImGui::Separator();
-      if (ImGui::MenuItem("Save", "Ctrl+S")) {
-        // ImGuiFileDialog::Instance()->OpenDialog("SaveSceneDlgKey", "Choose
-        // File", ".scene", ".");
+      if (ImGui::MenuItem("Save")) {
+        ImGuiFileDialog::Instance()->OpenDialog("SaveSceneDlgKey",
+                                                "Choose File", ".bpew", ".");
       }
 
       ImGui::Separator();
@@ -269,24 +270,38 @@ void Editor::showMenuBar() {
     ImGui::EndMainMenuBar();
   }
 
-  // if(ImGuiFileDialog::Instance()->Display("LoadSceneDlgKey"))  {
-  // 	if(ImGuiFileDialog::Instance()->IsOk()) {
-  // 		std::string fp = ImGuiFileDialog::Instance()->GetFilePathName();
-  // 		std::string name =
-  // ImGuiFileDialog::Instance()->GetCurrentFileName();
-  // 	}
+  if (ImGuiFileDialog::Instance()->Display("LoadSceneDlgKey")) {
+    if (ImGuiFileDialog::Instance()->IsOk()) {
+      std::string fp = ImGuiFileDialog::Instance()->GetFilePathName();
+      std::string name = ImGuiFileDialog::Instance()->GetCurrentFileName();
 
-  // 	ImGuiFileDialog::Instance()->Close();
-  // }
+      /* TODO: ensure we dont want to save the current scene */
 
-  // if(ImGuiFileDialog::Instance()->Display("SaveSceneDlgKey"))  {
-  // 	if(ImGuiFileDialog::Instance()->IsOk()) {
-  // 		std::string fp = ImGuiFileDialog::Instance()->GetFilePathName();
+      /* TODO: just delete entities, we dont need to reallocate the scene */
+      delete ctx->scene;
+      ctx->scene = new Scene();
+      ctx->selected_entity = {};
+      ctx->selected_vertex = -1;
+      /* TODO: since we are restoring context, we need to store the active
+       * camera elsewhere (in scene, for example */
+      ctx->active_camera = {};
+      ctx->space_layout_data->hovered_entity = {};
 
-  // 	}
+      SceneSerializer::deserialize(ctx->scene, fp);
+    }
 
-  // 	ImGuiFileDialog::Instance()->Close();
-  // }
+    ImGuiFileDialog::Instance()->Close();
+  }
+
+  if (ImGuiFileDialog::Instance()->Display("SaveSceneDlgKey")) {
+    if (ImGuiFileDialog::Instance()->IsOk()) {
+      std::string fp = ImGuiFileDialog::Instance()->GetFilePathName();
+
+      SceneSerializer::serialize(ctx->scene, fp);
+    }
+
+    ImGuiFileDialog::Instance()->Close();
+  }
 
   if (ImGuiFileDialog::Instance()->Display("LoadMeshDlgKey")) {
     if (ImGuiFileDialog::Instance()->IsOk()) {

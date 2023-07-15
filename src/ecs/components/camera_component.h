@@ -1,6 +1,10 @@
 #ifndef CAMERA_COMPONENT_H
 #define CAMERA_COMPONENT_H
 
+#include <glm/glm.hpp>
+#define GLM_ENABLE_EXPERIMENTAL
+#include "glm/gtx/quaternion.hpp"
+
 struct CameraComponent {
   glm::mat4 getProjectionMatrix() {
     aspect_ratio = viewport_width / viewport_height;
@@ -49,8 +53,6 @@ struct CameraComponent {
   }
 
   float fov = 45.0f, near = 0.1f, far = 1000.0f;
-
-private:
   glm::vec3 focal_point = {0, 0, 0};
   float aspect_ratio = 1.778f;
   float distance = 10.0f;

@@ -1,5 +1,5 @@
-#ifndef UUID_H
-#define UUID_H
+#ifndef UTILS_H
+#define UTILS_H
 
 #include "platform.h"
 
@@ -19,13 +19,6 @@
 #endif
 
 namespace Utils {
-static std::random_device random_device;
-static std::mt19937_64 mtprng(random_device());
-;
-static std::uniform_int_distribution<uint64_t> uniform_distribution;
-
-static uint64 generateUUID() { return uniform_distribution(mtprng); }
-
 // TODO: move those to the platform.h
 static std::string joinPath(const char *path) {
   std::string result;
@@ -79,4 +72,4 @@ static glm::vec2 getAvailableViewportBoundsMax() {
 static bool isViewportHovered() { return ImGui::IsWindowHovered(); }
 }; // namespace Utils
 
-#endif // UUID_H
+#endif // UTILS_H

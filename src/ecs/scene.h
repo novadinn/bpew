@@ -2,6 +2,7 @@
 #define SCENE_H
 
 #include "../core/platform.h"
+#include "../core/uuid.h"
 #include "entt/entt.hpp"
 
 #include <glm/glm.hpp>
@@ -12,6 +13,8 @@ struct RendererContext;
 
 struct Scene {
   Entity createEntity(const std::string &name = std::string());
+  Entity createEntityFromUUID(UUID uuid,
+                              const std::string &name = std::string());
   void destroyEntity(Entity entity);
 
   void onDrawWireframe(RendererContext *context);
