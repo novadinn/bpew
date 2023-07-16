@@ -5,10 +5,7 @@
 bool Window::create(const char *title, int x, int y, int width, int height,
                     uint32 flags) {
   window = SDL_CreateWindow(title, x, y, width, height, flags);
-  if (!window) {
-    LOG_ERROR("Failed to create SDL window\n");
-    return false;
-  }
+  ASSERT(window != nullptr);
 
   return true;
 }
@@ -17,10 +14,7 @@ void Window::destroy() { SDL_DestroyWindow(window); }
 
 SDL_GLContext Window::createContext() {
   SDL_GLContext context = SDL_GL_CreateContext(window);
-  if (!context) {
-    LOG_ERROR("Failed to create OpenGL context\n");
-    return nullptr;
-  }
+  ASSERT(context != nullptr);
 
   return context;
 }

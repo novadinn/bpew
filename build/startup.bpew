@@ -1,6 +1,6 @@
 Scene: Untitled
 Entities:
-  - Entity: 13290246461328426300
+  - Entity: 16438809423444565152
     TagComponent:
       Tag: DirectionalLight
     TransformComponent:
@@ -12,7 +12,7 @@ Entities:
       Ambient: [0.0500000007, 0.0500000007, 0.0500000007]
       Diffuse: [0.400000006, 0.400000006, 0.400000006]
       Specular: [0.100000001, 0.100000001, 0.100000001]
-  - Entity: 5379365960285969132
+  - Entity: 4583348106348353770
     TagComponent:
       Tag: Monkey
     TransformComponent:
@@ -58,7 +58,7 @@ Entities:
             - 0
             - 1
             - -1
-            - 2.99817801
+            - 1
             - 1
             - -0
             - 1
@@ -113,7 +113,7 @@ Entities:
             - -1
             - 0
             - 0
-            - 0.334190577
+            - -1
             - 1
             - 1
             - -0
@@ -155,7 +155,7 @@ Entities:
             - 0
             - 0
             - -1
-            - -1.87020588
+            - -1
             - 1
             - 1
             - -1
@@ -402,7 +402,7 @@ Entities:
             - 20
             - 22
             - 23
-  - Entity: 17887976963303295980
+  - Entity: 15099762365370574695
     TagComponent:
       Tag: Camera
     TransformComponent:

@@ -114,18 +114,24 @@ void Editor::onUpdate() {
     }
   }
 
+  ASSERT(active_receiver->onUpdate != NULL);
   active_receiver->onUpdate(ctx);
 }
 
 void Editor::onDraw() {
+  ASSERT(active_receiver->onResize != NULL);
   active_receiver->onResize(ctx);
 
+  ASSERT(active_receiver->onRenderBegin != NULL);
   active_receiver->onRenderBegin(ctx);
+  ASSERT(active_receiver->onRender != NULL);
   active_receiver->onRender(ctx);
 
   showLines();
 
+  ASSERT(active_receiver->onRenderPostProcessing != NULL);
   active_receiver->onRenderPostProcessing(ctx);
+  ASSERT(active_receiver->onRenderEnd != NULL);
   active_receiver->onRenderEnd(ctx);
 
   static bool dockspace_open = true;
@@ -176,8 +182,11 @@ void Editor::onDraw() {
   showHierarchyPanel();
   showInspectorPanel();
 
+  ASSERT(active_receiver->onDrawUIBegin != NULL);
   active_receiver->onDrawUIBegin(ctx);
+  ASSERT(active_receiver->onDrawUI != NULL);
   active_receiver->onDrawUI(ctx);
+  ASSERT(active_receiver->onDrawUIEnd != NULL);
   active_receiver->onDrawUIEnd(ctx);
 
   // NOTE: dockspace end
@@ -252,14 +261,17 @@ void Editor::showMenuBar() {
 
     if (ImGui::BeginTabBar("EditorTabBar")) {
       if (ImGui::BeginTabItem("Layout")) {
+        ASSERT(receivers.size() > 0);
         active_receiver = receivers[0];
         ImGui::EndTabItem();
       }
       if (ImGui::BeginTabItem("Modeling")) {
+        ASSERT(receivers.size() > 1);
         active_receiver = receivers[1];
         ImGui::EndTabItem();
       }
       if (ImGui::BeginTabItem("Shading")) {
+        ASSERT(receivers.size() > 2);
         active_receiver = receivers[2];
         ImGui::EndTabItem();
       }
@@ -355,35 +367,34 @@ void Editor::showInspectorPanel() {
   ImGui::Begin("Inspector");
 
   if (ctx->selected_entity) {
-    if (ctx->selected_entity.hasComponent<TagComponent>()) {
-      ImGui::Text("Tag");
-      TagComponent &tag = ctx->selected_entity.getComponent<TagComponent>();
-      char buff[256];
-      memset(buff, 0, sizeof(buff));
-      strncpy(buff, tag.tag.c_str(), sizeof(buff));
-      if (ImGui::InputText("##Tag", buff, sizeof(buff))) {
-        tag.tag = std::string(buff);
-      }
+    /* those 2 components always exists, dont need to check for them */
+    ASSERT(ctx->selected_entity.hasComponent<TagComponent>());
+    ImGui::Text("Tag");
+    TagComponent &tag = ctx->selected_entity.getComponent<TagComponent>();
+    char buff[256];
+    memset(buff, 0, sizeof(buff));
+    strncpy(buff, tag.tag.c_str(), sizeof(buff));
+    if (ImGui::InputText("##Tag", buff, sizeof(buff))) {
+      tag.tag = std::string(buff);
     }
 
-    if (ctx->selected_entity.hasComponent<TransformComponent>()) {
-      if (ImGui::CollapsingHeader("Transform")) {
-        TransformComponent &transform =
-            ctx->selected_entity.getComponent<TransformComponent>();
+    ASSERT(ctx->selected_entity.hasComponent<TransformComponent>());
+    if (ImGui::CollapsingHeader("Transform")) {
+      TransformComponent &transform =
+          ctx->selected_entity.getComponent<TransformComponent>();
 
-        float p[3] = {transform.position.x, transform.position.y,
-                      transform.position.z};
-        float s[3] = {transform.scale.x, transform.scale.y, transform.scale.z};
-        float r[3] = {transform.rotation.x, transform.rotation.y,
-                      transform.rotation.z};
+      float p[3] = {transform.position.x, transform.position.y,
+                    transform.position.z};
+      float s[3] = {transform.scale.x, transform.scale.y, transform.scale.z};
+      float r[3] = {transform.rotation.x, transform.rotation.y,
+                    transform.rotation.z};
 
-        if (ImGui::DragFloat3("Position", p, 0.1f, 0.0f, 0.0f, "%.2f"))
-          transform.position = glm::vec3(p[0], p[1], p[2]);
-        if (ImGui::DragFloat3("Scale", s, 0.1f, 0.0f, 0.0f, "%.2f"))
-          transform.scale = glm::vec3(s[0], s[1], s[2]);
-        if (ImGui::DragFloat3("Rotation", r, 0.1f, 0.0f, 0.0f, "%.2f"))
-          transform.rotation = glm::vec3(r[0], r[1], r[2]);
-      }
+      if (ImGui::DragFloat3("Position", p, 0.1f, 0.0f, 0.0f, "%.2f"))
+        transform.position = glm::vec3(p[0], p[1], p[2]);
+      if (ImGui::DragFloat3("Scale", s, 0.1f, 0.0f, 0.0f, "%.2f"))
+        transform.scale = glm::vec3(s[0], s[1], s[2]);
+      if (ImGui::DragFloat3("Rotation", r, 0.1f, 0.0f, 0.0f, "%.2f"))
+        transform.rotation = glm::vec3(r[0], r[1], r[2]);
     }
 
     if (ctx->selected_entity.hasComponent<CameraComponent>()) {
@@ -446,7 +457,6 @@ void Editor::showInspectorPanel() {
     if (ImGui::Button("Add Component"))
       ImGui::OpenPopup("AddComponent");
     if (ImGui::BeginPopup("AddComponent")) {
-      showAddComponentPopup<TransformComponent>("Transform");
       showAddComponentPopup<CameraComponent>("Camera");
       showAddComponentPopup<MeshComponent>("Mesh");
       showAddComponentPopup<LightComponent>("Light");
@@ -457,7 +467,6 @@ void Editor::showInspectorPanel() {
     if (ImGui::Button("Remove Component"))
       ImGui::OpenPopup("RemoveComponent");
     if (ImGui::BeginPopup("RemoveComponent")) {
-      showRemoveComponentPopup<TransformComponent>("Transform");
       showRemoveComponentPopup<CameraComponent>("Camera");
       showRemoveComponentPopup<MeshComponent>("Mesh");
       showRemoveComponentPopup<LightComponent>("Light");

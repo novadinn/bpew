@@ -164,8 +164,12 @@ bool SceneSerializer::deserialize(Scene *scene, const std::string &filepath) {
   auto entities = data["Entities"];
   if (entities) {
     for (auto entity : entities) {
-      /* those 3 components always exists, dont need check for them.
-         TODO: add assertions */
+      /* those 3 components always exists, dont need check for them. */
+
+      ASSERT(entity["TagComponent"]);
+      ASSERT(entity["TransformComponent"]);
+      ASSERT(entity["Entity"]);
+
       std::string name;
       auto tag = entity["TagComponent"];
       name = tag["Tag"].as<std::string>();
@@ -244,31 +248,32 @@ bool SceneSerializer::deserialize(Scene *scene, const std::string &filepath) {
 void SceneSerializer::serializeEntity(YAML::Emitter &out, Entity entity) {
   out << YAML::BeginMap;
 
+  /* those 3 always exists */
+  ASSERT(entity.hasComponent<UUIDComponent>());
+  ASSERT(entity.hasComponent<TagComponent>());
+  ASSERT(entity.hasComponent<TransformComponent>());
+
   UUIDComponent &uuid = entity.getComponent<UUIDComponent>();
 
   out << YAML::Key << "Entity" << YAML::Value << (uint64)uuid.id;
 
-  if (entity.hasComponent<TagComponent>()) {
-    out << YAML::Key << "TagComponent";
-    out << YAML::BeginMap;
+  out << YAML::Key << "TagComponent";
+  out << YAML::BeginMap;
 
-    std::string &tag = entity.getComponent<TagComponent>().tag;
-    out << YAML::Key << "Tag" << YAML::Value << tag;
+  std::string &tag = entity.getComponent<TagComponent>().tag;
+  out << YAML::Key << "Tag" << YAML::Value << tag;
 
-    out << YAML::EndMap;
-  }
+  out << YAML::EndMap;
 
-  if (entity.hasComponent<TransformComponent>()) {
-    out << YAML::Key << "TransformComponent";
-    out << YAML::BeginMap;
+  out << YAML::Key << "TransformComponent";
+  out << YAML::BeginMap;
 
-    auto &tc = entity.getComponent<TransformComponent>();
-    out << YAML::Key << "Position" << YAML::Value << tc.position;
-    out << YAML::Key << "Scale" << YAML::Value << tc.scale;
-    out << YAML::Key << "Rotation" << YAML::Value << tc.rotation;
+  auto &tc = entity.getComponent<TransformComponent>();
+  out << YAML::Key << "Position" << YAML::Value << tc.position;
+  out << YAML::Key << "Scale" << YAML::Value << tc.scale;
+  out << YAML::Key << "Rotation" << YAML::Value << tc.rotation;
 
-    out << YAML::EndMap;
-  }
+  out << YAML::EndMap;
 
   if (entity.hasComponent<CameraComponent>()) {
     out << YAML::Key << "CameraComponent";

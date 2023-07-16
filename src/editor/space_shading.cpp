@@ -62,6 +62,7 @@ void onDrawUISpaceShading(EditorContext *ctx) {
   }
 
   if (ImGui::BeginPopup("MaterialsMenu")) {
+    ASSERT(ctx->selected_entity.hasComponent<MeshComponent>());
     MeshComponent &mesh = ctx->selected_entity.getComponent<MeshComponent>();
     std::vector<Material> &materials = mesh.materials;
 
@@ -242,9 +243,10 @@ void onDrawUISpaceShading(EditorContext *ctx) {
   NodeProperty *output_prop = nullptr, *input_prop = nullptr;
   uint output_node, input_node;
   if (ImNodes::IsLinkCreated(&output_id, &input_id)) {
-    // NOTE: assumes that material and mesh are there
+    ASSERT(ctx->selected_entity.hasComponent<MeshComponent>());
     MeshComponent &mesh = ctx->selected_entity.getComponent<MeshComponent>();
     Material *mat = mesh.getActiveMaterial();
+    ASSERT(mat != nullptr);
     std::vector<Node> &nodes = mat->nodes;
 
     // TODO: slow linear search
@@ -297,6 +299,7 @@ void onDrawUISpaceShading(EditorContext *ctx) {
     // TODO: slow linear search
     for (int i = 0; i < num_selected; ++i) {
       int destroyed_link_id = selected_links[i];
+      ASSERT(ctx->selected_entity.hasComponent<MeshComponent>());
       MeshComponent &mesh = ctx->selected_entity.getComponent<MeshComponent>();
       Material *mat = mesh.getActiveMaterial();
       std::vector<Node> &nodes = mat->nodes;

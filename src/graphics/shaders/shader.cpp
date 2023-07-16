@@ -37,7 +37,6 @@ bool Shader::createFromFile(const char *vert_path, const char *frag_path) {
   }
 
   return createFromSource(vert_code.c_str(), frag_code.c_str());
-  ;
 }
 
 bool Shader::createFromSource(const char *vsrc, const char *fsrc) {

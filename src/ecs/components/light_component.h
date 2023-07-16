@@ -38,8 +38,6 @@ struct LightComponent {
   glm::vec3 diffuse = glm::vec3(0.4f, 0.4f, 0.4f);
   glm::vec3 specular = glm::vec3(0.1f, 0.1f, 0.1f);
   LightProperties properties;
-
-  // TODO: cookie texture
 };
 
 #endif // LIGHT_COMPONENT_H

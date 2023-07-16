@@ -1,6 +1,7 @@
 #include "space_modeling.h"
 
 #include "../core/input.h"
+#include "../core/log.h"
 #include "../core/utils.h"
 #include "../graphics/gizmos.h"
 #include "../graphics/renderer.h"
@@ -153,7 +154,9 @@ void onRenderSpaceModeling(EditorContext *ctx) {
   glm::vec3 direction = ctx->editor_camera->getForward();
 
   if (ctx->active_camera && space_data->draw_mode == DrawMode::RENDERED) {
+    ASSERT(ctx->active_camera.hasComponent<CameraComponent>());
     auto &camera_component = ctx->active_camera.getComponent<CameraComponent>();
+    ASSERT(ctx->active_camera.hasComponent<TransformComponent>());
     auto &transform_component =
         ctx->active_camera.getComponent<TransformComponent>();
     view = camera_component.getViewMatrix(transform_component.position,
@@ -252,9 +255,9 @@ void onDrawUISpaceModeling(EditorContext *ctx) {
   /* draw gizmos */
   if (ctx->selected_entity && ctx->selected_vertex != -1 &&
       space_data->gizmo_operation != -1 &&
-      ctx->selected_entity.hasComponent<TransformComponent>() &&
       ctx->selected_entity.hasComponent<MeshComponent>()) {
 
+    ASSERT(ctx->selected_entity.hasComponent<TransformComponent>());
     TransformComponent &transform =
         ctx->selected_entity.getComponent<TransformComponent>();
     MeshComponent &mesh_component =

@@ -138,7 +138,9 @@ void onRenderSpaceLayout(EditorContext *ctx) {
 
   /* we shouldnt render from not-editor camera if it is not a rendered mode */
   if (ctx->active_camera && space_data->draw_mode == DrawMode::RENDERED) {
+    ASSERT(ctx->active_camera.hasComponent<CameraComponent>());
     auto &camera_component = ctx->active_camera.getComponent<CameraComponent>();
+    ASSERT(ctx->active_camera.hasComponent<TransformComponent>());
     auto &transform_component =
         ctx->active_camera.getComponent<TransformComponent>();
     view = camera_component.getViewMatrix(transform_component.position,
@@ -283,8 +285,8 @@ void onDrawUISpaceLayout(EditorContext *ctx) {
   }
 
   // Draw gizmos
-  if (ctx->selected_entity && space_data->gizmo_operation != -1 &&
-      ctx->selected_entity.hasComponent<TransformComponent>()) {
+  if (ctx->selected_entity && space_data->gizmo_operation != -1) {
+    ASSERT(ctx->selected_entity.hasComponent<TransformComponent>());
     TransformComponent &transform =
         ctx->selected_entity.getComponent<TransformComponent>();
     glm::mat4 model = transform.getModelMatrix();
