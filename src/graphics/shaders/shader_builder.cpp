@@ -97,7 +97,7 @@ bool ShaderBuilder::buildShaderFromCreateInfo(Shader& shader, const ShaderCreate
 	LOG_ERROR("failed to load fragment shader file: %s\n", create_info.info.fragment_source.c_str());
 	return false;
     }
-
+   
     shader.destroy();
     if(!shader.createFromSource(vs.str().c_str(), fs.str().c_str())) {
 	LOG_ERROR("Failed to build shader\n");
@@ -201,9 +201,12 @@ void ShaderBuilder::buildMaterialRenderedShader(Material& material, uint num_spo
     buildShaderFromShaderContainer(material.shader_container);
 }
 
-void ShaderBuilder::buildNodeUniforms(ShaderCreateInfo& info, Node* node) {
+void ShaderBuilder::buildNodeUniforms(ShaderCreateInfo& info, Node* node, Material *material) {
     for(auto& input : node->inputs) {
-	if(input.source == NodePropertySource::UNIFORM) {
+	if(input.enabled
+	   && (input.source == NodePropertySource::INPUT_UNIFORM
+	       || input.source == NodePropertySource::UNIFORM
+	       || (input.source == NodePropertySource::OUTPUT_UNIFORM && (!input.link || !input.link->output(material)->enabled)))) {
 	    buildNodeUniform(info, node, input);	
 	}
     }    
@@ -255,7 +258,7 @@ void ShaderBuilder::buildNodeTree(std::stringstream& ss, ShaderCreateInfo& creat
 	if(node.type == NodeType::MATERIAL_OUTPUT) {
 	    continue;
 	}
-	buildNodeUniforms(create_info, &node);       	
+	buildNodeUniforms(create_info, &node, &material);       	
     }
     
     const Node* out = nullptr;
@@ -293,9 +296,9 @@ void ShaderBuilder::buildNodeTree(std::stringstream& ss, ShaderCreateInfo& creat
     if(surface == nullptr || !surface->link) {
 	ss << "return vec4(0.5, 0.5, 0.5, 1.0);\n";
     } else {	
-	Node* surface_node = &material.nodes[surface->link->output_node];
+	Node* surface_node = surface->link->outputNode(&material);
 	buildNode(ss, surface_node, material);
-	ss << "return output_" << surface_node->outputs[surface->link->output].id.id << ";\n";
+	ss << "return output_" << surface->link->output(&material)->id.id << ";\n";
     }
     ss << "}\n";
 
@@ -323,8 +326,9 @@ void ShaderBuilder::buildNodeUniform(ShaderCreateInfo& info, Node* node, const N
 
 ShaderType ShaderBuilder::toType(NodePropertyType type) {
     switch(type) {
+    case NodePropertyType::VECTOR4:
+	return ShaderType::VEC4;
     case NodePropertyType::COLOR:
-	return ShaderType::VEC4;	
     case NodePropertyType::VECTOR3:
 	return ShaderType::VEC3;	
     case NodePropertyType::VECTOR2:
@@ -336,8 +340,6 @@ ShaderType ShaderBuilder::toType(NodePropertyType type) {
 	return ShaderType::INT;	
     case NodePropertyType::TEXTURE:
 	return ShaderType::SAMPLER_2D;
-    case NodePropertyType::SHADER:
-	// TODO: what we should do?	
     default:	
 	LOG_ERROR("Unhandled node property type\n");
 	return ShaderType::INT;
@@ -345,13 +347,13 @@ ShaderType ShaderBuilder::toType(NodePropertyType type) {
 }
 
 void ShaderBuilder::buildNode(std::stringstream& ss, Node* node, Material& material) {        
-    for(auto& input : node->inputs) {
-	// TODO: should be only one link on input
-	if(input.link) {
-	    buildNode(ss, &material.nodes[input.link->output_node], material);		
+    for(auto& input : node->inputs) {	
+	if(input.link && input.enabled && input.link->output(&material)->enabled) {
+	    buildNode(ss, input.link->outputNode(&material), material);
 	}
 
-	if(input.source == NodePropertySource::ATTR && !input.link) {
+	if(input.source == NodePropertySource::OUTPUT && (!input.link || !input.enabled)
+	   || (input.source == NodePropertySource::OUTPUT_UNIFORM && !input.enabled)) {
 	    ss << fromType(input.type) << " input_" << input.id.id << ";\n";
 	}
     }
@@ -366,18 +368,22 @@ void ShaderBuilder::buildNode(std::stringstream& ss, Node* node, Material& mater
 	auto& input = node->inputs[i];
 
 	switch(input.source) {
-	case UNIFORM:
+	case INPUT_UNIFORM:
 	    ss << "input_" << input.id.id;
-	    break;
-	case ATTR:
-	    if(input.link)
-		ss << "output_" << material.nodes[input.link->output_node].outputs[input.link->output].id.id;
+	    break;	    
+	case OUTPUT:
+	case OUTPUT_UNIFORM:
+	    if(input.link && input.enabled && input.link->output(&material)->enabled)
+		ss << "output_" << input.link->output(&material)->id.id;
 	    else
 		ss << "input_" << input.id.id;
 	    break;
 	case VS_OUT:
 	    ss << "vs_inout." << input.id.name;
-	    break;	
+	    break;
+	case UNIFORM:
+	    ss << input.id.name;
+	    break;
 	}
 
 	ss << ", ";	    
@@ -407,6 +413,12 @@ const char* ShaderBuilder::getNodeName(NodeType type) {
     case NodeType::TEXTURE_COORDINATE:
 	src = "node_texture_coordinate";
 	break;
+    case NodeType::PRINCIPLED_BSDF:
+	src = "node_principled_bsdf";
+	break;
+    case NodeType::MIX:
+	src = "node_mix";
+	break;
     default:
 	LOG_ERROR("Unknown node type: %d\n", type);	
     }
@@ -416,8 +428,9 @@ const char* ShaderBuilder::getNodeName(NodeType type) {
 
 const char* ShaderBuilder::fromType(NodePropertyType type) {
     switch(type) {
-    case NodePropertyType::COLOR:
+    case NodePropertyType::VECTOR4:
 	return "vec4";
+    case NodePropertyType::COLOR:	
     case NodePropertyType::VECTOR3:
 	return "vec3";
     case NodePropertyType::VECTOR2:
@@ -427,8 +440,6 @@ const char* ShaderBuilder::fromType(NodePropertyType type) {
     case NodePropertyType::INT:
     case NodePropertyType::ENUM:
 	return "int";	
-    case NodePropertyType::SHADER:
-	return "";
     case NodePropertyType::TEXTURE:
 	return "sampler2D";
     default:
@@ -559,10 +570,12 @@ Sha ShaderBuilder::generateMaterialSha(Material& material) {
 	material_info << (int)node.type;
 
 	for(auto& input : node.inputs) {
+	    material_info << input.enabled;
 	    if(input.link) {
-		material_info << input.link->output;
-		material_info << (int)material.nodes[input.link->output_node].type;
-		material_info << (int)material.nodes[input.link->input_node].type;		
+		material_info << input.link->output(&material)->enabled;
+		material_info << input.link->output_index;
+		material_info << (int)input.link->outputNode(&material)->type;
+		material_info << (int)input.link->inputNode(&material)->type;		
 	    }		    	    
 	}
     }

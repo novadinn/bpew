@@ -139,37 +139,144 @@ struct MeshComponent {
 	return result;
 
     }
+    Material processMaterial(const std::string& directory, aiMaterial* aimat, const aiScene *scene) {
+	aiString name;
+	aiColor3D diffuse;
+	aiColor3D specular;
+	aiColor3D ambient;
+	aiColor3D emissive;
+	aiColor3D transparent;
+	int wireframe;
+	int blend_mode;
+	float opacity;
+	float shininess_strength;
+	if(AI_SUCCESS != aimat->Get(AI_MATKEY_NAME, name)) {
+	    printf("Failed to get material name\n");        
+	}
+	if(AI_SUCCESS != aimat->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse)) {
+	    printf("Failed to get material color diffuse\n");
+	}
+	aimat->Get(AI_MATKEY_COLOR_SPECULAR, specular);
+	aimat->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
+	aimat->Get(AI_MATKEY_COLOR_EMISSIVE, emissive);
+	aimat->Get(AI_MATKEY_COLOR_TRANSPARENT, transparent);           
+	aimat->Get(AI_MATKEY_BLEND_FUNC, blend_mode);
+	aimat->Get(AI_MATKEY_OPACITY, opacity);        
+	aimat->Get(AI_MATKEY_SHININESS_STRENGTH, shininess_strength);
+    
+	Material material;
+	material.createDefault();
+	material.name = name.C_Str();
+	
+	// material.diffuse = glm::vec3(diffuse[0], diffuse[1], diffuse[2]);
+	// material.specular = glm::vec3(specular[0], specular[1], specular[2]);
+	// material.ambient = glm::vec3(ambient[0], ambient[1], ambient[2]);
+	// material.emissive = glm::vec3(emissive[0], emissive[1], emissive[2]);
+	// material.transparent = glm::vec3(transparent[0], transparent[1], transparent[2]);       
+	// material.blend_mode = blend_mode;
+	// material.opacity = opacity;     
+	// material.shininess_strength = shininess_strength;
+
+	Node* prev_diffuse_node = nullptr;
+	for(int i = aiTextureType_DIFFUSE; i < aiTextureType_UNKNOWN; ++i) {
+	    for(int j = 0; j < aimat->GetTextureCount((aiTextureType)i); ++j) {
+		aiString str;
+		float strength = 1.0f;
+		int operation = 0;      
+
+		if(AI_SUCCESS != aimat->Get(AI_MATKEY_TEXTURE((aiTextureType)i, j), str)) {
+		    printf("Failed to get material texture\n");
+		    continue;
+		}
+		std::string path = str.C_Str();                
+            
+		if(AI_SUCCESS != aimat->Get(AI_MATKEY_TEXBLEND((aiTextureType)i, j), strength)) {
+		    printf("Failed to get material texblend\n");
+		}      
+		if(AI_SUCCESS != aimat->Get(AI_MATKEY_TEXOP((aiTextureType)i, j), operation)) {
+		    printf("Failed to get material texop\n");
+		}
+            
+		std::string full_path = Utils::connectPathWithDirectory(directory, path);
+                        
+		bool skip = false;
+
+		Texture2D* tex = Texture2D::getTexture(full_path);
+		
+		if(!tex) {
+		    tex = new Texture2D();
+
+		    tex->createFromFile(full_path.c_str());		    
+		}
+		
+		switch((aiTextureType)i) {
+		case aiTextureType_DIFFUSE: {
+		    if(prev_diffuse_node) {
+			
+		    }
+		} break;		    
+		// case aiTextureType_SPECULAR:
+		//     break;
+		default:
+		    // TODO: handle other types of textures
+		    break;
+		}
+	    }
+	}	
+	
+	return material;
+    }
 
     void destroyMeshes() {
 	for(int i = 0; i < meshes.size(); ++i) {
 	    meshes[i].destroy();
 	}
+    }
 
+    // NOTE: this is temporary
+    void setMaterial(uint index) {
+	for (int i = 0; i < meshes.size(); ++i) {
+	    meshes[i].active_material_index = index;
+	}
     }
-    
-    bool hasMaterials() const {
-	return materials.size() > 0;
-    }
-    
-    bool validMaterialIndex() const {
-	return active_material_index >= 0 && active_material_index < materials.size();
-    }
-    
-    Material* getActiveMaterial() {
-	if(!validMaterialIndex()) {
-	    return nullptr;
+
+    int getMaterial(int index) {
+	for (int i = 0; i < materials.size(); ++i) {
+	    if (materials[i] == index) {
+		return i;
+	    }
 	}
 
-	return &materials[active_material_index];
+	return -1;
+    }
+
+    bool hasMaterial(int index) {
+	return getMaterial(index) != -1;
+    }
+
+
+    void addMaterial(int index) {
+	if(!hasMaterial(index)) {
+	    materials.push_back(index);
+	}
+    }
+
+    void removeMaterial(int index) {
+	int i = getMaterial(index);
+
+	if(i != -1) {
+	    for (auto& mesh : meshes) {
+		if(mesh.active_material_index == index) {
+		    return;
+		}
+	    }
+	    materials.erase(materials.begin() + i);
+	}
     }
   
-    std::vector<Material> materials;
-    Material default_material;
-    int active_material_index = -1;
+    std::vector<uint> materials;    
 
-    std::vector<Mesh> meshes;
-    // TODO: those are already stored in the mesh structures
-    // std::vector<std::pair<std::string, Texture2D>> loaded_textures;
+    std::vector<Mesh> meshes;       
 };
 
 #endif // MESH_COMPONENT_H

@@ -11,10 +11,12 @@
 #include <string>
 
 struct Material {
+    void createDefault();
+    
     std::string name;
     std::vector<Node> nodes;
     ShaderContainer* shader_container = nullptr;    
-    Framebuffer preview_texture;
+    Framebuffer preview_texture;    
 };
 
 #endif // MATERIAL_H

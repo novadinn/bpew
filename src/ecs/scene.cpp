@@ -107,31 +107,38 @@ void Scene::onUpdateRendered() {
 	    break;
 	}	
     }
+
+    ShaderBuilder::buildMaterialRenderedShader(MaterialManager::default_material, num_spot_lights,
+						  num_point_lights, num_dir_lights);
     
     auto view = registry.view<MeshComponent>();
     for(auto entity : view) {
-	auto& mesh = view.get<MeshComponent>(entity);
-
-	ShaderBuilder::buildMaterialRenderedShader(mesh.default_material, num_spot_lights,
-						  num_point_lights, num_dir_lights);
+	auto& mesh = view.get<MeshComponent>(entity);	
 	
 	for(auto& material : mesh.materials) {
-	    // TODO: update only when material is changed
-	    ShaderBuilder::buildMaterialRenderedShader(material, num_spot_lights,
-						       num_point_lights, num_dir_lights);	    
+	    // TODO: update only when material is changed	    
+	    Material* mat = MaterialManager::getMaterial(material);
+	    if(mat) {
+		ShaderBuilder::buildMaterialRenderedShader(*mat, num_spot_lights,
+							   num_point_lights, num_dir_lights);	    
+	    }	    	    
 	}
     }    
 }
 
 void Scene::onUpdateMaterialPreview() {
     auto view = registry.view<MeshComponent>();
+
+    ShaderBuilder::buildMaterialShader(MaterialManager::default_material);
+    
     for(auto entity : view) {
 	auto& mesh = view.get<MeshComponent>(entity);
-
-	ShaderBuilder::buildMaterialShader(mesh.default_material);
-	
+       	
 	for(auto& material : mesh.materials) {
-	    ShaderBuilder::buildMaterialShader(material);	    
+	    Material* mat = MaterialManager::getMaterial(material);
+	    if(mat) {
+		ShaderBuilder::buildMaterialShader(*mat);	    
+	    }
 	}
     }    
 }

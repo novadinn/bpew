@@ -37,7 +37,7 @@ private:
     static void includeLib(std::stringstream& ss, const char* dep);
     static void proceedSource(const char* dep, ShaderCreateInfo& create_info);
     static void buildNode(std::stringstream& ss, Node* node, Material& material);
-    static void buildNodeUniforms(ShaderCreateInfo& info, Node* node);
+    static void buildNodeUniforms(ShaderCreateInfo& info, Node* node, Material* material);
     static void buildNodeUniform(ShaderCreateInfo& info, Node* node, const NodeInput& prop);
     static Sha generateMaterialSha(Material& material);
     static Sha generateMaterialRenderedSha(Material& material, uint num_spot_lights,

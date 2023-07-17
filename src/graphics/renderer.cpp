@@ -51,35 +51,30 @@ void Renderer::destroy() {
     quad_mesh.destroy();
 }
 
-void Renderer::drawMeshMaterial(RendererContext *context) {
-    Material* material = context->mesh->getActiveMaterial();
-    if(!material || !material->shader_container || !material->shader_container->compiled) {
-	material = &context->mesh->default_material;
-   }
-
-    std::vector<int> prev_ids;    
-    int id = 0;
-    
-
-    // generate ids    
-    for(auto& node : material->nodes) {
-	prev_ids.push_back(node.id.id);
-	node.id.id = id++;
-
-	for(auto& input : node.inputs) {
-	    prev_ids.push_back(input.id.id);
-	    input.id.id = id++;
-	}
-
-	for(auto& output : node.outputs) {
-	    prev_ids.push_back(output.id.id);
-	    output.id.id = id++;
-	}
-    }
-
-    // TODO: each mesh has its own material
-    for(int i = 0; i < context->mesh->meshes.size(); ++i) {
+void Renderer::drawMeshMaterial(RendererContext *context) {            
+    for(int i = 0; i < context->mesh->meshes.size(); ++i) {	
 	Mesh& target = context->mesh->meshes[i];
+	
+	Material* material = target.getActiveMaterial();
+
+	std::vector<int> prev_ids;    
+	int id = 0;	
+	
+	// generate ids    
+	for(auto& node : material->nodes) {
+	    prev_ids.push_back(node.id.id);
+	    node.id.id = id++;
+
+	    for(auto& input : node.inputs) {
+		prev_ids.push_back(input.id.id);
+		input.id.id = id++;
+	    }
+
+	    for(auto& output : node.outputs) {
+		prev_ids.push_back(output.id.id);
+		output.id.id = id++;
+	    }
+	}
 	
 	material->shader_container->shader.bind();
 	material->shader_container->shader.setMatrix4("model", context->model);
@@ -103,20 +98,20 @@ void Renderer::drawMeshMaterial(RendererContext *context) {
 	unbindMaterialUniforms(*material);	
 	
 	material->shader_container->shader.unbind();
-    }
 
-    // revert ids
-    for(auto& node : material->nodes) {	
-	node.id.id = prev_ids[node.id.id];
+	// revert ids
+	for(auto& node : material->nodes) {	
+	    node.id.id = prev_ids[node.id.id];
 
-	for(auto& input : node.inputs) {	 
-	    input.id.id = prev_ids[input.id.id];
+	    for(auto& input : node.inputs) {	 
+		input.id.id = prev_ids[input.id.id];
+	    }
+
+	    for(auto& output : node.outputs) {	    
+		output.id.id = prev_ids[output.id.id];
+	    }
 	}
-
-	for(auto& output : node.outputs) {	    
-	    output.id.id = prev_ids[output.id.id];
-	}
-    }
+    }    
 }
 
 void Renderer::drawMeshSolid(RendererContext *context) {
@@ -144,32 +139,31 @@ void Renderer::drawMeshSolid(RendererContext *context) {
     }
 }
 
-void Renderer::drawMeshRendered(RendererContext *context) {
-    Material* material = context->mesh->getActiveMaterial();
-    if(!material || !material->shader_container || !material->shader_container->compiled) {
-	material = &context->mesh->default_material;
-    }    
-
-    std::vector<int> prev_ids;    
-    int id = 0;
-    
-    // generate ids    
-    for(auto& node : material->nodes) {
-	prev_ids.push_back(node.id.id);
-	node.id.id = id++;
-
-	for(auto& input : node.inputs) {
-	    prev_ids.push_back(input.id.id);
-	    input.id.id = id++;
-	}
-
-	for(auto& output : node.outputs) {
-	    prev_ids.push_back(output.id.id);
-	    output.id.id = id++;
-	}
-    }
-
+void Renderer::drawMeshRendered(RendererContext *context) {    
     for(int i = 0; i < context->mesh->meshes.size(); ++i) {
+	Mesh& target = context->mesh->meshes[i];
+	
+	Material* material = target.getActiveMaterial();
+
+	std::vector<int> prev_ids;    
+	int id = 0;
+    
+	// generate ids    
+	for(auto& node : material->nodes) {
+	    prev_ids.push_back(node.id.id);
+	    node.id.id = id++;
+
+	    for(auto& input : node.inputs) {
+		prev_ids.push_back(input.id.id);
+		input.id.id = id++;
+	    }
+
+	    for(auto& output : node.outputs) {
+		prev_ids.push_back(output.id.id);
+		output.id.id = id++;
+	    }
+	}
+	
 	material->shader_container->shader.bind();
 	material->shader_container->shader.setMatrix4("model", context->model);
 	material->shader_container->shader.setMatrix4("view", context->view);
@@ -244,8 +238,6 @@ void Renderer::drawMeshRendered(RendererContext *context) {
 	}
 	
 	bindMaterialUniforms(*material);	
-		
-	Mesh& target = context->mesh->meshes[i];
        	
 	target.va.bind();
 	glDrawElements(GL_TRIANGLES, target.indices.size(), GL_UNSIGNED_INT, 0);
@@ -254,20 +246,20 @@ void Renderer::drawMeshRendered(RendererContext *context) {
 	unbindMaterialUniforms(*material);	
 
 	material->shader_container->shader.unbind();
-    }
 
-    // revert ids
-    for(auto& node : material->nodes) {	
-	node.id.id = prev_ids[node.id.id];
+	// revert ids
+	for(auto& node : material->nodes) {	
+	    node.id.id = prev_ids[node.id.id];
 
-	for(auto& input : node.inputs) {	 
-	    input.id.id = prev_ids[input.id.id];
+	    for(auto& input : node.inputs) {	 
+		input.id.id = prev_ids[input.id.id];
+	    }
+
+	    for(auto& output : node.outputs) {	    
+		output.id.id = prev_ids[output.id.id];
+	    }
 	}
-
-	for(auto& output : node.outputs) {	    
-	    output.id.id = prev_ids[output.id.id];
-	}
-    }
+    }   
 }
 
 void Renderer::drawMeshWireframe(RendererContext *context) {
@@ -360,12 +352,13 @@ void Renderer::bindMaterialUniforms(Material& material) {
 
     for(auto& node : material.nodes) {
 	for(auto& input : node.inputs) {	    
-	    if(input.source == NodePropertySource::UNIFORM) {
+	    if(input.useUniform(&material)) {
 		std::string name = std::string("input_") + std::to_string(input.id.id);    
 		switch(input.type) {
-		case NodePropertyType::COLOR:
-		    shader.setVec4(name.c_str(), input.value.color_value);
+		case NodePropertyType::VECTOR4:
+		    shader.setVec4(name.c_str(), input.value.vector4_value);
 		    break;
+		case NodePropertyType::COLOR:		    
 		case NodePropertyType::VECTOR3:
 		    shader.setVec3(name.c_str(), input.value.vector3_value);
 		    break;
@@ -380,9 +373,6 @@ void Renderer::bindMaterialUniforms(Material& material) {
 		    break;
 		case NodePropertyType::ENUM:
 		    shader.setInt(name.c_str(), input.value.enum_value);
-		    break;
-		case NodePropertyType::SHADER:
-		    // TODO: what we should do?
 		    break;
 		case NodePropertyType::TEXTURE:
 		    shader.setUInt(name.c_str(), texture_count);
@@ -402,7 +392,7 @@ void Renderer::unbindMaterialUniforms(Material& material) {
     
     for(auto& node : material.nodes) {
 	for(auto& input : node.inputs) {
-	    if(input.source == NodePropertySource::UNIFORM) {
+	    if(input.useUniform(&material)) {
 		switch(input.type) {
 		case NodePropertyType::TEXTURE:
 		    glActiveTexture(GL_TEXTURE0 + texture_count++);
