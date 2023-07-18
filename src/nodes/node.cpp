@@ -22,7 +22,7 @@ void Node::create(NodeType node_type) {
     // Color socket
     input = {};
     prop_value = {};
-    
+
     prop_value.vector3_value = glm::vec3(0.0f);
 
     input.create(prop_value, "Color", NodePropertyType::COLOR,
@@ -255,7 +255,7 @@ void Node::create(NodeType node_type) {
     LOG_ERROR("Undefined node type\n");
   } break;
   }
-  
+
   id.create(node_name);
   inputs = node_inputs;
   outputs = node_outputs;

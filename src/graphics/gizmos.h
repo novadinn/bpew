@@ -1,8 +1,10 @@
 #ifndef GIZMOS_H
 #define GIZMOS_H
 
+// clang-format off
 #include "imgui/imgui.h"
 #include "ImGuizmo/ImGuizmo.h"
+// clang-format on
 #include <glm/glm.hpp>
 
 struct Gizmos {

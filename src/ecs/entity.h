@@ -1,10 +1,10 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "scene.h"
 #include "../core/log.h"
 #include "../core/platform.h"
 #include "entt/entt.hpp"
+#include "scene.h"
 
 struct Entity {
   void create(entt::entity handle, Scene *new_scene) {

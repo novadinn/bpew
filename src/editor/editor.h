@@ -14,27 +14,27 @@
 #include <vector>
 
 struct Editor {
-    void create();
-    void destroy();
+  void create();
+  void destroy();
 
-    void onUpdate();
-    void onDraw();
+  void onUpdate();
+  void onDraw();
 
-private:	
-    void showMenuBar();
-    void showHierarchyPanel();
-    void showInspectorPanel();
-    void showLines();
+private:
+  void showMenuBar();
+  void showHierarchyPanel();
+  void showInspectorPanel();
+  void showLines();
 
-    template<typename T> void showAddComponentPopup(const char* str);
-    template<typename T> void showRemoveComponentPopup(const char* str);
+  template <typename T> void showAddComponentPopup(const char *str);
+  template <typename T> void showRemoveComponentPopup(const char *str);
 
-    EditorContext *ctx;
-        
-    glm::ivec2 previous_mouse{0, 0};
+  EditorContext *ctx;
 
-    std::vector<EventReceiver *>receivers;
-    EventReceiver *active_receiver;
+  glm::ivec2 previous_mouse{0, 0};
+
+  std::vector<EventReceiver *> receivers;
+  EventReceiver *active_receiver;
 };
 
 #endif // EDITOR_H

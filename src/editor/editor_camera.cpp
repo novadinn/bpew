@@ -14,7 +14,7 @@ glm::mat4 EditorCamera::getProjectionMatrix() {
 }
 
 glm::mat4 EditorCamera::getViewMatrix() {
-  glm::vec3 position = focal_point - getForward() * distance;
+  position = focal_point - getForward() * distance;
 
   glm::quat orientation = getOrientation();
   glm::mat4 view =
@@ -38,6 +38,22 @@ glm::vec3 EditorCamera::getForward() const {
 
 glm::quat EditorCamera::getOrientation() const {
   return glm::quat(glm::vec3(-pitch, -yaw, 0.0f));
+}
+
+glm::vec3 EditorCamera::screenToWorldDirection(glm::vec2 point) {
+
+  glm::vec3 ndc = {(2.0f * point.x) / viewport_width - 1.0f,
+                   (2.0f * point.y) / viewport_height - 1.0f, 1.0f};
+
+  glm::vec4 clip = glm::vec4(ndc.x, ndc.y, -1.0f, 1.0f);
+
+  glm::vec4 eye = glm::inverse(getProjectionMatrix()) * clip;
+  eye = glm::vec4(eye.x, eye.y, -1.0f, 0.0f);
+
+  glm::vec3 world = glm::vec3(glm::inverse(getViewMatrix()) * eye);
+  world = glm::normalize(world);
+
+  return world;
 }
 
 void EditorCamera::pan(const glm::vec2 &delta) {

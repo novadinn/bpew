@@ -378,84 +378,84 @@ void onDrawUISpaceShading(EditorContext *ctx) {
     // Context menu
     // TODO: not all of those are set right now
     if(ImGui::BeginPopupContextWindow()) {
-	if(ImGui::BeginMenu("Add")) {
-	    if(ImGui::BeginMenu("Input")) {
-              if (ImGui::Button("RGB")) {
-                space_data->createNode(mat, NodeType::RGB);
-              }
-              if (ImGui::Button("Texture Coordinate")) {
-                space_data->createNode(mat, NodeType::TEXTURE_COORDINATE);
-              }
+			if(ImGui::BeginMenu("Add")) {
+				if(ImGui::BeginMenu("Input")) {
+					if (ImGui::Button("RGB")) {
+						space_data->createNode(mat, NodeType::RGB);
+					}
+					if (ImGui::Button("Texture Coordinate")) {
+						space_data->createNode(mat, NodeType::TEXTURE_COORDINATE);
+					}
 
-                ImGui::EndMenu();
-	    }
-	    if(ImGui::BeginMenu("Output")) {
-		if(ImGui::Button("Material Output")) {
-                  space_data->createNode(mat, NodeType::MATERIAL_OUTPUT);
-                }
+					ImGui::EndMenu();
+				}
+				if(ImGui::BeginMenu("Output")) {
+					if(ImGui::Button("Material Output")) {
+						space_data->createNode(mat, NodeType::MATERIAL_OUTPUT);
+					}
 	
-		ImGui::EndMenu();
-	    }
-	    if(ImGui::BeginMenu("Shader")) {
-              if (ImGui::Button("Principled BSDF")) {
-                space_data->createNode(mat, NodeType::PRINCIPLED_BSDF);
-              }
+					ImGui::EndMenu();
+				}
+				if(ImGui::BeginMenu("Shader")) {
+					if (ImGui::Button("Principled BSDF")) {
+						space_data->createNode(mat, NodeType::PRINCIPLED_BSDF);
+					}
 
-                ImGui::EndMenu();
-	    }
-	    if(ImGui::BeginMenu("Texture")) {
-              if (ImGui::Button("Image Texture")) {
-                space_data->createNode(mat, NodeType::IMAGE_TEXTURE);
-              }
+					ImGui::EndMenu();
+				}
+				if(ImGui::BeginMenu("Texture")) {
+					if (ImGui::Button("Image Texture")) {
+						space_data->createNode(mat, NodeType::IMAGE_TEXTURE);
+					}
 
-                ImGui::EndMenu();
-	    }
-	    if(ImGui::BeginMenu("Color")) {
+					ImGui::EndMenu();
+				}
+				if(ImGui::BeginMenu("Color")) {
 	
-		ImGui::EndMenu();
-	    }
-	    if(ImGui::BeginMenu("Vector")) {
+					ImGui::EndMenu();
+				}
+				if(ImGui::BeginMenu("Vector")) {
 	
-		ImGui::EndMenu();
-	    }
-	    if(ImGui::BeginMenu("Converter")) {
-              if (ImGui::Button("Mix")) {
-                space_data->createNode(mat, NodeType::MIX);
-              }
+					ImGui::EndMenu();
+				}
+				if(ImGui::BeginMenu("Converter")) {
+					if (ImGui::Button("Mix")) {
+						space_data->createNode(mat, NodeType::MIX);
+					}
 
-                ImGui::EndMenu();
-	    }
+					ImGui::EndMenu();
+				}
 
-	    ImGui::EndMenu();
-	}
+				ImGui::EndMenu();
+			}
 
-	if(ImGui::BeginMenu("Node")) {
-	    if(ImGui::Button("Delete")) {
+			if(ImGui::BeginMenu("Node")) {
+				if(ImGui::Button("Delete")) {
 	
-	    }
-	    if(ImGui::Button("Duplicate")) {
+				}
+				if(ImGui::Button("Duplicate")) {
 	
-	    }
-	    if(ImGui::Button("Copy")) {
+				}
+				if(ImGui::Button("Copy")) {
 	
-	    }
-	    if(ImGui::Button("Paste")) {
+				}
+				if(ImGui::Button("Paste")) {
 	
-	    }
+				}
 
-	    ImGui::Separator();
+				ImGui::Separator();
       
-	    if(ImGui::Button("Resize")) {
+				if(ImGui::Button("Resize")) {
 	
-	    }
-	    if(ImGui::Button("Move")) {
+				}
+				if(ImGui::Button("Move")) {
 	
-	    }
+				}
       
-	    ImGui::EndMenu();
-	}
+				ImGui::EndMenu();
+			}
     
-	ImGui::EndPopup();
+			ImGui::EndPopup();
     }
 
     // Links should be drawn after the nodes

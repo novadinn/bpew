@@ -7,6 +7,7 @@
 #include <sstream>
 #include <string>
 
+#include "shader.h"
 #include "../../core/sha.h"
 #include "../../core/tokenizer.h"
 #include "../../core/utils.h"

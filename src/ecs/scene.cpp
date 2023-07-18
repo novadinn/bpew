@@ -1,28 +1,38 @@
 #include "scene.h"
 
-#include "entity.h"
-#include "components/tag_component.h"
-#include "components/transform_component.h"
-#include "components/mesh_component.h"
+#include "../graphics/renderer.h"
+#include "../physics/physics_utils.h"
 #include "components/camera_component.h"
 #include "components/light_component.h"
-#include "../graphics/renderer.h"
+#include "components/mesh_component.h"
+#include "components/tag_component.h"
+#include "components/transform_component.h"
+#include "components/uuid_component.h"
+#include "entity.h"
 
-Entity Scene::createEntity(const std::string& name) {
-	Entity entity;
-	entity.create(registry.create(), this);
-	
-	entity.addComponent<TransformComponent>();
-	TagComponent& tag = entity.addComponent<TagComponent>();
-	// TODO: check if name doesnt already exists in the scene
-	tag.tag = name.empty() ? "Entity" : name;
+Entity Scene::createEntity(const std::string &name) {
+  UUID uuid;
+  uuid.create();
 
-	return entity;
+  return createEntityFromUUID(uuid, name);
 }
 
-void Scene::destroyEntity(Entity entity) {
-	registry.destroy(entity);
+Entity Scene::createEntityFromUUID(UUID uuid, const std::string &name) {
+
+  Entity entity;
+  entity.create(registry.create(), this);
+
+  UUIDComponent &uuid_component = entity.addComponent<UUIDComponent>();
+  uuid_component.id = uuid;
+  entity.addComponent<TransformComponent>();
+  TagComponent &tag = entity.addComponent<TagComponent>();
+  // TODO: check if name doesnt already exists in the scene
+  tag.tag = name.empty() ? "Entity" : name;
+
+  return entity;
 }
+
+void Scene::destroyEntity(Entity entity) { registry.destroy(entity); }
 
 void Scene::onDrawWireframe(RendererContext *context) {
   auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
@@ -149,7 +159,7 @@ void Scene::onUpdateMaterialPreview() {
   }
 }
 
-void Scene::onDrawMeshVerticesOutlined(RendererContext *context) {
+void Scene::onDrawMeshVertices(RendererContext *context) {
   auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
   for (auto entity : group) {
     auto [transform, mesh] =
@@ -158,7 +168,45 @@ void Scene::onDrawMeshVerticesOutlined(RendererContext *context) {
     context->setCommonData((uint32)entity);
     context->setMeshData(&mesh, transform.getModelMatrix());
 
-    Renderer::drawMeshVerticesOutlined(context);
+    Renderer::drawMeshVertices(context);
+  }
+}
+
+void Scene::searchIntersectedVertices(uint32 *entity_id, int *vertex_id,
+                                      glm::vec3 ray_position,
+                                      glm::vec3 ray_direction) {
+
+  *entity_id = 0;
+  *vertex_id = -1;
+
+  /* TODO: no sorting by the distance occurs here */
+  auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
+  for (auto entity : group) {
+    auto [transform_component, mesh_component] =
+        group.get<TransformComponent, MeshComponent>(entity);
+
+    for (int i = 0; i < mesh_component.meshes.size(); ++i) {
+      Mesh &mesh = mesh_component.meshes[i];
+      int total_attribs_count = mesh.totalAttributesCount();
+
+      for (int j = 0; j < mesh.vertices.size(); j += total_attribs_count) {
+        float *vertex = &mesh.vertices[j];
+
+        glm::vec4 vertex_position = {vertex[0], vertex[1], vertex[2], 1.0f};
+        /* convert vertex to world space */
+        vertex_position =
+            transform_component.getModelMatrix() * vertex_position;
+
+        if (PhysicsUtils::raySphereIntersect(ray_position, ray_direction,
+                                             vertex_position, 0.1f)) {
+
+          *entity_id = (uint32)entity;
+          *vertex_id = int(j / mesh.totalAttributesCount());
+
+          return;
+        }
+      }
+    }
   }
 }
 

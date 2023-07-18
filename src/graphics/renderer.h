@@ -1,17 +1,14 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "../ecs/components/camera_component.h"
-#include "../ecs/components/light_component.h"
-#include "../ecs/components/mesh_component.h"
-#include "../ecs/components/transform_component.h"
-#include "../ecs/entity.h"
+// clang-format off
 #include "renderer_context.h"
 #include "shaders/shader.h"
 #include "vertex_array.h"
 
 #include <glm/glm.hpp>
 #include <vector>
+// clang-format on
 
 struct Renderer {
   static void init();
@@ -22,12 +19,11 @@ struct Renderer {
   static void drawMeshRendered(RendererContext *context);
   static void drawMeshWireframe(RendererContext *context);
 
-  /* NOTE: unlike meshes drawing code, outlining is done in a single pass here
-   */
-  static void drawMeshVerticesOutlined(RendererContext *context);
+  static void drawMeshVertices(RendererContext *context);
 
   static void applyFXAA(RendererContext *context);
   static void applyMeshOutline(RendererContext *context);
+  static void applyVertexOutline(RendererContext *context);
 
   static void clear();
   static void setClearColor(const glm::vec4 &color);

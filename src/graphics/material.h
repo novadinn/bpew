@@ -7,8 +7,8 @@
 #include "shaders/shader_builder.h"
 #include "shaders/shader_container.h"
 
-#include <vector>
 #include <string>
+#include <vector>
 
 struct Material {
   void createDefault();

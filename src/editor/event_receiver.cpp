@@ -3,18 +3,18 @@
 void emptyEvent(EditorContext *ctx) {}
 
 void EventReceiver::clearEvents() {
-    onCreate = emptyEvent;
-    onDestroy = emptyEvent;
+  onCreate = emptyEvent;
+  onDestroy = emptyEvent;
 
-    onUpdate = emptyEvent;
-    onResize = emptyEvent;
+  onUpdate = emptyEvent;
+  onResize = emptyEvent;
 
-    onRenderBegin = emptyEvent;
-    onRender = emptyEvent;
-    onRenderPostProcessing = emptyEvent;
-    onRenderEnd = emptyEvent;
+  onRenderBegin = emptyEvent;
+  onRender = emptyEvent;
+  onRenderPostProcessing = emptyEvent;
+  onRenderEnd = emptyEvent;
 
-    onDrawUIBegin = emptyEvent;
-    onDrawUI = emptyEvent;
-    onDrawUIEnd = emptyEvent;
+  onDrawUIBegin = emptyEvent;
+  onDrawUI = emptyEvent;
+  onDrawUIEnd = emptyEvent;
 }

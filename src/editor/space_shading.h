@@ -57,17 +57,17 @@ void drawNodeInputSelect(SpaceShadingData *ctx, NodeInput &input,
                          const char *title, const char **names, uint size);
 
 struct SpaceShading {
-    void begin();
+  void begin();
 
-    void drawHeader(Entity selected_entity);
-    void drawNodeEditor(Entity selected_entity);
+  void drawHeader(Entity selected_entity);
+  void drawNodeEditor(Entity selected_entity);
 
-    void end();
+  void end();
 
 private:
-    void drawContextMenu(Entity selected_entity);
-    void updateLinks(Entity selected_entity);
-    void createNode(Entity selected_enity, NodeType type);
+  void drawContextMenu(Entity selected_entity);
+  void updateLinks(Entity selected_entity);
+  void createNode(Entity selected_enity, NodeType type);
 };
 
 #endif // SPACE_SHADING_H

@@ -20,6 +20,8 @@ struct EditorCamera {
   glm::vec3 getForward() const;
   glm::quat getOrientation() const;
 
+  glm::vec3 screenToWorldDirection(glm::vec2 point);
+
   float getDistance() const { return distance; }
 
   void pan(const glm::vec2 &delta);
@@ -27,6 +29,8 @@ struct EditorCamera {
   void zoom(float delta);
 
   float fov = 45.0f, near = 0.1f, far = 1000.0f;
+  /* TODO: get rid of this variable, since position is always accessible from
+   * the view matrix */
   glm::vec3 position;
 
 private:

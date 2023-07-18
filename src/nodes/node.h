@@ -2,13 +2,12 @@
 #define NODE_H
 
 #include "../core/id.h"
-#include "../graphics/shaders/shader.h"
 #include "../graphics/texture.h"
 #include "node_link.h"
 
 #include <glm/glm.hpp>
-#include <vector>
 #include <string>
+#include <vector>
 
 enum NodeType {
   // Input

@@ -21,3 +21,16 @@ bld/
 .vs/
 out/
 bpew.dir/
+src/.vscode/c_cpp_properties.json
+src/.vscode/settings.json
+src/build/.cmake/api/v1/query/client-vscode/query.json
+src/build/.cmake/api/v1/reply/cache-v2-2309762cc103ef9494d8.json
+src/build/.cmake/api/v1/reply/cmakeFiles-v1-f64a9c845b04a95e1f89.json
+src/build/.cmake/api/v1/reply/codemodel-v2-96119a5bb7fe1498a280.json
+src/build/.cmake/api/v1/reply/directory-.-Debug-f5ebdc15457944623624.json
+src/build/.cmake/api/v1/reply/index-2023-07-12T02-39-25-0806.json
+src/build/.cmake/api/v1/reply/target-bpew-Debug-82ccecd5c503d7f11548.json
+src/build/.cmake/api/v1/reply/toolchains-v1-074db5775ec40502811a.json
+src/build/compile_commands.json
+.vscode/c_cpp_properties.json
+.vscode/settings.json
