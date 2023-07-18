@@ -11,8 +11,8 @@ void Node::create(NodeType node_type) {
   std::vector<NodeInput> node_inputs;
   std::vector<NodeOutput> node_outputs;
 
-  switch(node_type) {
-  case NodeType::RGB: {    
+  switch (node_type) {
+  case NodeType::RGB: {
     node_name = "RGB";
 
     NodeInput input;

@@ -8,11 +8,11 @@
 #include "event_receiver.h"
 
 struct SpaceShadingData {
-    char unused;
-    int active_material_index = -1;
+  char unused;
+  int active_material_index = -1;
 
-    void createNode(Material *mat, NodeType type);
-    Material *activeMaterial();
+  void createNode(Material *mat, NodeType type);
+  Material *activeMaterial();
 };
 
 EventReceiver *createSpaceShadingReceiver();

@@ -45,7 +45,7 @@ void Texture2D::createFromFile(const char *p) {
 
   stbi_image_free(data);
 
-	addTexture(std::string(p), *this);
+  addTexture(std::string(p), *this);
 }
 
 void Texture2D::destroy() { glDeleteTextures(1, &id); }

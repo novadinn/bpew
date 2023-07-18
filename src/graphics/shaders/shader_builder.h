@@ -7,11 +7,11 @@
 #include <sstream>
 #include <string>
 
-#include "shader.h"
 #include "../../core/sha.h"
 #include "../../core/tokenizer.h"
 #include "../../core/utils.h"
 #include "../../nodes/node.h"
+#include "shader.h"
 #include "shader_info.h"
 
 struct Material;

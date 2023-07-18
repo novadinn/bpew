@@ -36,14 +36,14 @@ struct Mesh {
     for (int i = 0; i < attributes.size(); ++i) {
       total_count += attributes[i].getCount();
     }
-		return total_count;
+    return total_count;
   }
 
-	Material *getActiveMaterial() {
-		return MaterialManager::getMaterialOrDefault(active_material_index);
-	}
+  Material *getActiveMaterial() {
+    return MaterialManager::getMaterialOrDefault(active_material_index);
+  }
 
-	int active_material_index = -1;
+  int active_material_index = -1;
 
   // TODO: store a type of a vertex subdata in here (to identify
   // position/normal..)
