@@ -72,10 +72,8 @@ namespace Utils {
     
 	return {viewport_max_region.x + viewport_offset.x, viewport_max_region.y + viewport_offset.y};
     }
-    
-    static bool isViewportHovered() {
-	return ImGui::IsWindowHovered();
-    }    
+
+    static bool isViewportHovered() { return ImGui::IsWindowHovered(); }
 };
 
 #endif // UUID_H

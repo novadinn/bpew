@@ -1,18 +1,18 @@
 #include "editor.h"
 
-#include "../ecs/components/tag_component.h"
-#include "../ecs/components/transform_component.h"
-#include "../ecs/components/mesh_component.h"
-#include "../ecs/components/camera_component.h"
-#include "../ecs/components/light_component.h"
-#include "../graphics/renderer.h"
-#include "../graphics/gizmos.h"
 #include "../core/input.h"
 #include "../core/time.h"
 #include "../core/utils.h"
-#include "editor_camera.h"
+#include "../ecs/components/camera_component.h"
+#include "../ecs/components/light_component.h"
+#include "../ecs/components/mesh_component.h"
+#include "../ecs/components/tag_component.h"
+#include "../ecs/components/transform_component.h"
+#include "../graphics/gizmos.h"
 #include "../graphics/material.h"
+#include "../graphics/renderer.h"
 #include "../graphics/shaders/shader_container.h"
+#include "editor_camera.h"
 
 #include "imgui/imgui.h"
 #include "ImGuizmo/ImGuizmo.h"
@@ -30,34 +30,34 @@ void Editor::create() {
     active_receiver = receivers[0]; // Set space layout as active
 
     ctx->renderer_context = new RendererContext();
-    
+
     for(EventReceiver *recv : receivers) {
 	recv->onCreate(ctx);
     }
-	
+
     float near = 0.1f;
     float far = 50.0f;
 
-    ctx->scene = new Scene();    
-    
+    ctx->scene = new Scene();
+
     ctx->editor_camera = new EditorCamera();
     ctx->editor_camera->create(45, 1.778f, near, far);
-    
+
     Entity camera_entity = ctx->scene->createEntity("Camera");
-    auto& camera_component = camera_entity.addComponent<CameraComponent>();        
-    
+    auto &camera_component = camera_entity.addComponent<CameraComponent>();
+
     Entity object = ctx->scene->createEntity("Monkey");
 
     auto& mesh = object.addComponent<MeshComponent>();
-    mesh.loadFromPath(Utils::joinPath("datafiles/primitives/cube.obj").c_str());    
-	
+    mesh.loadFromPath(Utils::joinPath("datafiles/primitives/cube.obj").c_str());
+
     Entity dir_light = ctx->scene->createEntity("DirectionalLight");
     auto& light_dir = dir_light.addComponent<LightComponent>();
     light_dir.type = LightComponent::LightType::DIRECTIONAL;
     auto& tr1 = dir_light.getComponent<TransformComponent>();
     tr1.rotation.x = -100;
 
-    auto& tr2 = camera_entity.getComponent<TransformComponent>();
+    auto &tr2 = camera_entity.getComponent<TransformComponent>();
     tr2.position = glm::vec3(0, 0, 3);
 }
 
@@ -81,35 +81,38 @@ void Editor::onUpdate() {
     previous_mouse = current_mouse;
 
     glm::ivec2 wheel_movement;
-    Input::getWheelMovement(&wheel_movement.x, &wheel_movement.y);    
-    
+    Input::getWheelMovement(&wheel_movement.x, &wheel_movement.y);
+
     if(Input::wasMouseButtonHeld(SDL_BUTTON_MIDDLE)) {
 	if(Input::wasKeyHeld(SDLK_LSHIFT)) {
-	    if(!ctx->active_camera) {
-		ctx->editor_camera->pan(mouse_delta);
-	    }
-	} else {	    
-	    if(!ctx->active_camera) {
-		ctx->editor_camera->rotate(mouse_delta);
-	    }
-	}
+          if (!ctx->active_camera) {
+            ctx->editor_camera->pan(mouse_delta);
+          }
+        } else {
+          if (!ctx->active_camera) {
+            ctx->editor_camera->rotate(mouse_delta);
+          }
+        }
     }
-    if(Input::wasWheelMoved()) {	
-	if(ctx->active_camera) {
-	    auto& camera_component = ctx->active_camera.getComponent<CameraComponent>();
-	    auto& transform_component = ctx->active_camera.getComponent<TransformComponent>();
-	    camera_component.zoom(delta_time * wheel_movement.y, transform_component.rotation);
-	} else {
-	    ctx->editor_camera->zoom(delta_time * wheel_movement.y);
-	}
-    }    
-    if(Input::wasKeyPressed(SDLK_ESCAPE)) {
-	if(ctx->active_camera) {
-	    ctx->active_camera = {};
-	}
+    if (Input::wasWheelMoved()) {
+      if (ctx->active_camera) {
+        auto &camera_component =
+            ctx->active_camera.getComponent<CameraComponent>();
+        auto &transform_component =
+            ctx->active_camera.getComponent<TransformComponent>();
+        camera_component.zoom(delta_time * wheel_movement.y,
+                              transform_component.rotation);
+      } else {
+        ctx->editor_camera->zoom(delta_time * wheel_movement.y);
+      }
+    }
+    if (Input::wasKeyPressed(SDLK_ESCAPE)) {
+      if (ctx->active_camera) {
+        ctx->active_camera = {};
+      }
     }
 
-    active_receiver->onUpdate(ctx);       
+    active_receiver->onUpdate(ctx);
 }
 
 void Editor::onDraw() {
@@ -274,8 +277,8 @@ void Editor::showMenuBar() {
 	    if(ctx->selected_entity) {
 		if(ctx->selected_entity.hasComponent<MeshComponent>()) {
 		    MeshComponent& mesh = ctx->selected_entity.getComponent<MeshComponent>();
-		    mesh.loadFromPath(path.c_str());
-		}
+                    mesh.loadFromPath(path.c_str());
+                }
 	    }
 	}
 
@@ -347,10 +350,10 @@ void Editor::showInspectorPanel() {
 
 	if(ctx->selected_entity.hasComponent<CameraComponent>()) {
 	    if(ImGui::CollapsingHeader("Camera")) {
-		if(ImGui::Button("Select as active")) {		    
-		    ctx->active_camera = ctx->selected_entity;
-		}		    		
-	    }
+              if (ImGui::Button("Select as active")) {
+                ctx->active_camera = ctx->selected_entity;
+              }
+            }
 	}
 
 	if(ctx->selected_entity.hasComponent<MeshComponent>()) {
@@ -365,101 +368,116 @@ void Editor::showInspectorPanel() {
 	    }
 	}
 
-	if(ctx->selected_entity.hasComponent<MeshComponent>()) {
-	    if(ImGui::CollapsingHeader("Material")) {
-		MeshComponent& mesh = ctx->selected_entity.getComponent<MeshComponent>();
+        if (ctx->selected_entity.hasComponent<MeshComponent>()) {
+          if (ImGui::CollapsingHeader("Material")) {
+            MeshComponent &mesh =
+                ctx->selected_entity.getComponent<MeshComponent>();
 
-		static int active_material = -1;
-		if(ImGui::BeginListBox("Active Materials")) {
-		    for (int i = 0; i < mesh.materials.size(); ++i) {
-			Material *mat = MaterialManager::getMaterial(mesh.materials[i]);
+            static int active_material = -1;
+            if (ImGui::BeginListBox("Active Materials")) {
+              for (int i = 0; i < mesh.materials.size(); ++i) {
+                Material *mat = MaterialManager::getMaterial(mesh.materials[i]);
 
-			if(mat) {
-			    const bool selected = active_material == mesh.materials[i];
-			    if (ImGui::Selectable(mat->name.c_str(), selected)) {
-				active_material = mesh.materials[i];
+                if (mat) {
+                  const bool selected = active_material == mesh.materials[i];
+                  if (ImGui::Selectable(mat->name.c_str(), selected)) {
+                    active_material = mesh.materials[i];
 
-				mesh.setMaterial(active_material);
-			    }
+                    mesh.setMaterial(active_material);
+                  }
 
-			    if (selected)
-				ImGui::SetItemDefaultFocus();
-			}
-		    }
+                  if (selected)
+                    ImGui::SetItemDefaultFocus();
+                }
+              }
 
-		    ImGui::EndListBox();
-		}
+              ImGui::EndListBox();
+            }
 
-		if(ImGui::Button("+"))
-		    ImGui::OpenPopup("add_material_popup");		
+            if (ImGui::Button("+"))
+              ImGui::OpenPopup("add_material_popup");
 
-		if(ImGui::BeginPopup("add_material_popup")) {
-		    std::vector<Material> &materials = MaterialManager::materials;
-		    for (int i = 0; i < materials.size(); i++) {
-			Material &material = materials[i];
-			if(ImGui::Selectable(materials[i].name.c_str()))
-			    mesh.addMaterial(i);
-		    }
-		    
-		    ImGui::EndPopup();
-		}
+            if (ImGui::BeginPopup("add_material_popup")) {
+              std::vector<Material> &materials = MaterialManager::materials;
+              for (int i = 0; i < materials.size(); i++) {
+                Material &material = materials[i];
+                if (ImGui::Selectable(materials[i].name.c_str()))
+                  mesh.addMaterial(i);
+              }
 
-		ImGui::SameLine();
-		
-		if(ImGui::Button("-")) {
-		    if(active_material != -1) {
-			mesh.removeMaterial(active_material);
-		    }		    
-		}		    	       		
-	    }
-	}
+              ImGui::EndPopup();
+            }
 
-	if(ctx->selected_entity.hasComponent<LightComponent>()) {
+            ImGui::SameLine();
+
+            if (ImGui::Button("-")) {
+              if (active_material != -1) {
+                mesh.removeMaterial(active_material);
+              }
+            }
+          }
+        }
+
+        if(ctx->selected_entity.hasComponent<LightComponent>()) {
 	    if(ImGui::CollapsingHeader("Light")) {
 		LightComponent& light = ctx->selected_entity.getComponent<LightComponent>();
 
 		const char* types[] = { "Spot", "Point", "Directional" };
 		int type = light.type;
-		float ambient[3] = { light.ambient.x, light.ambient.y, light.ambient.z };
-		float diffuse[3] = { light.diffuse.x, light.diffuse.y, light.diffuse.z };
-		float specular[3] = { light.specular.x, light.specular.y, light.specular.z };
-				
-		if(ImGui::Combo("Type", &type, types, 3))
+                float ambient[3] = {light.ambient.x, light.ambient.y,
+                                    light.ambient.z};
+                float diffuse[3] = {light.diffuse.x, light.diffuse.y,
+                                    light.diffuse.z};
+                float specular[3] = {light.specular.x, light.specular.y,
+                                     light.specular.z};
+
+                if(ImGui::Combo("Type", &type, types, 3))
 		    light.type = (LightComponent::LightType)type;
-		if(ImGui::DragFloat3("Ambient", ambient, 0.1f, 0.0f, 0.0f, "%.2f"))
-		    light.ambient = glm::vec3(ambient[0], ambient[1], ambient[2]);
-		if(ImGui::DragFloat3("Diffuse", diffuse, 0.1f, 0.0f, 0.0f, "%.2f"))
-		    light.diffuse = glm::vec3(diffuse[0], diffuse[1], diffuse[2]);
-		if(ImGui::DragFloat3("Specular", specular, 0.1f, 0.0f, 0.0f, "%.2f"))
-		    light.specular = glm::vec3(specular[0], specular[1], specular[2]);
-		
-		switch(light.type) {
-		case LightComponent::LightType::POINT: {
-		    float constant = light.properties.point_light.constant;
-		    float linear = light.properties.point_light.linear;
-		    float quadratic = light.properties.point_light.quadratic;
-		    if(ImGui::DragFloat("Constant", &constant, 0.1f, 0.0f, 0.0f, "%.2f"))
-			light.properties.point_light.constant = constant;
-		    if(ImGui::DragFloat("Linear", &linear, 0.1f, 0.0f, 0.0f, "%.2f"))
-			light.properties.point_light.linear = linear;
-		    if(ImGui::DragFloat("Quadratic", &quadratic, 0.1f, 0.0f, 0.0f, "%.2f"))
-			light.properties.point_light.quadratic = quadratic;
-		} break;
-		case LightComponent::LightType::SPOT: {
-		    float cut_off = light.properties.spot_light.cut_off;
-		    float outer_cut_off = light.properties.spot_light.outer_cut_off;
-		    float constant = light.properties.spot_light.constant;
-		    float linear = light.properties.spot_light.linear;
-		    float quadratic = light.properties.spot_light.quadratic;
-		    if(ImGui::DragFloat("Constant", &constant, 0.1f, 0.0f, 0.0f, "%.2f"))
-			light.properties.spot_light.constant = constant;
-		    if(ImGui::DragFloat("Linear", &linear, 0.1f, 0.0f, 0.0f, "%.2f"))
-			light.properties.spot_light.linear = linear;
-		    if(ImGui::DragFloat("Quadratic", &quadratic, 0.1f, 0.0f, 0.0f, "%.2f"))
-			light.properties.spot_light.quadratic = quadratic;
-		} break;
-		};
-	    }
+                if (ImGui::DragFloat3("Ambient", ambient, 0.1f, 0.0f, 0.0f,
+                                      "%.2f"))
+                  light.ambient = glm::vec3(ambient[0], ambient[1], ambient[2]);
+                if (ImGui::DragFloat3("Diffuse", diffuse, 0.1f, 0.0f, 0.0f,
+                                      "%.2f"))
+                  light.diffuse = glm::vec3(diffuse[0], diffuse[1], diffuse[2]);
+                if (ImGui::DragFloat3("Specular", specular, 0.1f, 0.0f, 0.0f,
+                                      "%.2f"))
+                  light.specular =
+                      glm::vec3(specular[0], specular[1], specular[2]);
+
+                switch (light.type) {
+                case LightComponent::LightType::POINT: {
+                  float constant = light.properties.point_light.constant;
+                  float linear = light.properties.point_light.linear;
+                  float quadratic = light.properties.point_light.quadratic;
+                  if (ImGui::DragFloat("Constant", &constant, 0.1f, 0.0f, 0.0f,
+                                       "%.2f"))
+                    light.properties.point_light.constant = constant;
+                  if (ImGui::DragFloat("Linear", &linear, 0.1f, 0.0f, 0.0f,
+                                       "%.2f"))
+                    light.properties.point_light.linear = linear;
+                  if (ImGui::DragFloat("Quadratic", &quadratic, 0.1f, 0.0f,
+                                       0.0f, "%.2f"))
+                    light.properties.point_light.quadratic = quadratic;
+                } break;
+                case LightComponent::LightType::SPOT: {
+                  float cut_off = light.properties.spot_light.cut_off;
+                  float outer_cut_off =
+                      light.properties.spot_light.outer_cut_off;
+                  float constant = light.properties.spot_light.constant;
+                  float linear = light.properties.spot_light.linear;
+                  float quadratic = light.properties.spot_light.quadratic;
+                  if (ImGui::DragFloat("Constant", &constant, 0.1f, 0.0f, 0.0f,
+                                       "%.2f"))
+                    light.properties.spot_light.constant = constant;
+                  if (ImGui::DragFloat("Linear", &linear, 0.1f, 0.0f, 0.0f,
+                                       "%.2f"))
+                    light.properties.spot_light.linear = linear;
+                  if (ImGui::DragFloat("Quadratic", &quadratic, 0.1f, 0.0f,
+                                       0.0f, "%.2f"))
+                    light.properties.spot_light.quadratic = quadratic;
+                } break;
+                };
+            }
 	}
 
 	if(ImGui::Button("Add Component"))
@@ -507,20 +525,22 @@ template<typename T> void Editor::showRemoveComponentPopup(const char* str) {
 }
 
 void Editor::showLines() {
-    glm::mat4 view_mat = ctx->editor_camera->getViewMatrix();
-    glm::mat4 proj_mat = ctx->editor_camera->getProjectionMatrix();    
-    glm::vec3 cam_pos = ctx->editor_camera->position;
-    float far = ctx->editor_camera->far;
-    
-    if(ctx->active_camera) {
-	auto& camera_component = ctx->active_camera.getComponent<CameraComponent>();
-	auto& transform_component = ctx->active_camera.getComponent<TransformComponent>();
-	view_mat = camera_component.getViewMatrix(transform_component.position, transform_component.rotation);
-	proj_mat = camera_component.getProjectionMatrix();
-	cam_pos = transform_component.position;
-	far = camera_component.far;
-    }
-           
+  glm::mat4 view_mat = ctx->editor_camera->getViewMatrix();
+  glm::mat4 proj_mat = ctx->editor_camera->getProjectionMatrix();
+  glm::vec3 cam_pos = ctx->editor_camera->position;
+  float far = ctx->editor_camera->far;
+
+  if (ctx->active_camera) {
+    auto &camera_component = ctx->active_camera.getComponent<CameraComponent>();
+    auto &transform_component =
+        ctx->active_camera.getComponent<TransformComponent>();
+    view_mat = camera_component.getViewMatrix(transform_component.position,
+                                              transform_component.rotation);
+    proj_mat = camera_component.getProjectionMatrix();
+    cam_pos = transform_component.position;
+    far = camera_component.far;
+  }
+
     for(float x = cam_pos.x - far; x < cam_pos.x + far; x += 0.5f) {
 	glm::vec3 start = glm::vec3((int)x, 0, (int)(cam_pos.z - far));
 	glm::vec3 end = glm::vec3((int)x, 0, (int)(cam_pos.z + far));
@@ -529,7 +549,7 @@ void Editor::showLines() {
 	    color = glm::vec3(1, 0.4, 0.4);
 	}
 
-	Gizmos::drawLine(view_mat, proj_mat, start, end, color);
+        Gizmos::drawLine(view_mat, proj_mat, start, end, color);
     }
 
     for(float z = cam_pos.z - far; z < cam_pos.z + far; z += 0.5f) {
@@ -540,6 +560,6 @@ void Editor::showLines() {
 	    color = glm::vec3(0.55, 0.8, 0.9);
 	}
 
-	Gizmos::drawLine(view_mat, proj_mat, start, end, color);
+        Gizmos::drawLine(view_mat, proj_mat, start, end, color);
     }
 }

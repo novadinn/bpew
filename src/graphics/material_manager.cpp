@@ -3,38 +3,38 @@
 std::vector<Material> MaterialManager::materials;
 Material MaterialManager::default_material;
 
-Material* MaterialManager::getMaterial(uint index) {
-    if(validMaterialIndex(index)) {
-	return &materials[index];
-    }
+Material *MaterialManager::getMaterial(uint index) {
+  if (validMaterialIndex(index)) {
+    return &materials[index];
+  }
 
-    return nullptr;
+  return nullptr;
 }
 
-Material* MaterialManager::getMaterialOrDefault(uint index) {
-    Material* material = getMaterial(index);
+Material *MaterialManager::getMaterialOrDefault(uint index) {
+  Material *material = getMaterial(index);
 
-    if(!material || !material->shader_container->compiled) {
-	return &default_material;
-    }
+  if (!material || !material->shader_container->compiled) {
+    return &default_material;
+  }
 
-    return material;
+  return material;
 }
 
 void MaterialManager::addMaterial(std::string name) {
-    Material material;
-    material.createDefault();
-    material.name = name;
-    
-    materials.push_back(material);
+  Material material;
+  material.createDefault();
+  material.name = name;
+
+  materials.push_back(material);
 }
 
 bool MaterialManager::validMaterialIndex(uint index) {
-    return index >= 0 && index < materials.size();
+  return index >= 0 && index < materials.size();
 }
 
 void MaterialManager::removeMaterial(uint index) {
-    if(validMaterialIndex(index)) {
-	materials.erase(materials.begin() + index);
-    }
+  if (validMaterialIndex(index)) {
+    materials.erase(materials.begin() + index);
+  }
 }

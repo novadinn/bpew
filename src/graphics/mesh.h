@@ -1,11 +1,11 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include "vertex_attribute.h"
-#include "vertex_array.h"
 #include "../core/platform.h"
 #include "material.h"
 #include "material_manager.h"
+#include "vertex_array.h"
+#include "vertex_attribute.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -32,24 +32,24 @@ struct Mesh {
     }
 
     int totalAttributesCount() const {
-	int total_count = 0;
-	for(int i = 0; i < attributes.size(); ++i) {
-	    total_count += attributes[i].getCount();
-	}
+      int total_count = 0;
+      for (int i = 0; i < attributes.size(); ++i) {
+        total_count += attributes[i].getCount();
+      }
 
-	return total_count;
+      return total_count;
     }
 
-    Material* getActiveMaterial() {
-	return MaterialManager::getMaterialOrDefault(active_material_index);
+    Material *getActiveMaterial() {
+      return MaterialManager::getMaterialOrDefault(active_material_index);
     }
-    
+
     // TODO: store a type of a vertex subdata in here (to identify position/normal..)
     std::vector<VertexAttribute> attributes;
     std::vector<float> vertices;
-    std::vector<uint> indices;    
+    std::vector<uint> indices;
 
-    int active_material_index = -1;    
+    int active_material_index = -1;
 
     VertexArray va;
     VertexBuffer vb;

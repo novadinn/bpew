@@ -1,14 +1,14 @@
 #ifndef EDITOR_H
 #define EDITOR_H
 
-#include "../ecs/scene.h"
 #include "../ecs/entity.h"
+#include "../ecs/scene.h"
 #include "../graphics/framebuffer.h"
 #include "../nodes/node.h"
+#include "event_receiver.h"
 #include "space_layout.h"
 #include "space_modeling.h"
 #include "space_shading.h"
-#include "event_receiver.h"
 
 #include "glm/glm.hpp"
 #include <vector>

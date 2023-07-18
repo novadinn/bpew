@@ -6,16 +6,16 @@
 #include "shader_create_info.h"
 
 struct ShaderContainer {
-    Sha sha;
-    uint users = 0;
+  Sha sha;
+  uint users = 0;
 
-    Shader shader;
+  Shader shader;
 
-    bool compiled = false;
+  bool compiled = false;
 
-    ShaderCreateInfo create_info;
+  ShaderCreateInfo create_info;
 
-    std::string additional_info;
+  std::string additional_info;
 };
 
 #endif

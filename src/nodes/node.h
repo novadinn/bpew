@@ -2,9 +2,9 @@
 #define NODE_H
 
 #include "../core/id.h"
-#include "node_link.h"
 #include "../graphics/shaders/shader.h"
 #include "../graphics/texture.h"
+#include "node_link.h"
 
 #include <glm/glm.hpp>
 #include <vector>
@@ -26,7 +26,6 @@ enum NodeType {
   MIX,
 };
 
-
 enum NodePropertyType {
   COLOR,
   VECTOR4,
@@ -35,15 +34,15 @@ enum NodePropertyType {
   FLOAT,
   INT,
   ENUM,
-  TEXTURE,  
+  TEXTURE,
 };
 
 enum NodePropertySource {
-    UNIFORM,
-    INPUT_UNIFORM,
-    OUTPUT,    
-    VS_OUT,
-    OUTPUT_UNIFORM,    
+  UNIFORM,
+  INPUT_UNIFORM,
+  OUTPUT,
+  VS_OUT,
+  OUTPUT_UNIFORM,
 };
 
 union NodePropertyValue {
@@ -57,44 +56,43 @@ union NodePropertyValue {
 };
 
 struct NodeInput {
-    void create(NodePropertyValue prop_value, std::string prop_name,
-		NodePropertyType prop_type, NodePropertySource prop_source) {
-	id.create(prop_name);
-	value = prop_value;
-	type = prop_type;
-	source = prop_source;
-    }
+  void create(NodePropertyValue prop_value, std::string prop_name,
+              NodePropertyType prop_type, NodePropertySource prop_source) {
+    id.create(prop_name);
+    value = prop_value;
+    type = prop_type;
+    source = prop_source;
+  }
 
-    ID id;
-    NodeLink* link = nullptr;
-    NodePropertyValue value;
-    NodePropertyType type;
-    NodePropertySource source;
-    bool enabled = true;
+  ID id;
+  NodeLink *link = nullptr;
+  NodePropertyValue value;
+  NodePropertyType type;
+  NodePropertySource source;
+  bool enabled = true;
 
-    bool useUniform(Material *material);
+  bool useUniform(Material *material);
 };
 
 struct NodeOutput {
-    void create(std::string prop_name,
-		NodePropertyType prop_type) {
-	id.create(prop_name);	
-	type = prop_type;
-    }
-    
-    ID id;
-    std::vector<NodeLink> links;
-    NodePropertyType type;
-    bool enabled = true;   
+  void create(std::string prop_name, NodePropertyType prop_type) {
+    id.create(prop_name);
+    type = prop_type;
+  }
+
+  ID id;
+  std::vector<NodeLink> links;
+  NodePropertyType type;
+  bool enabled = true;
 };
 
 struct Node {
-  void create(NodeType node_type);    
-    
+  void create(NodeType node_type);
+
   ID id;
   std::vector<NodeInput> inputs;
-  std::vector<NodeOutput> outputs;    
-    
+  std::vector<NodeOutput> outputs;
+
   NodeType type;
 };
 

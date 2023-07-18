@@ -87,23 +87,23 @@ void onUpdateSpaceModeling(EditorContext *ctx) {
 	}
     }
 
-    
-    switch(space_data->draw_mode) {
+    switch (space_data->draw_mode) {
     case DrawMode::RENDERED:
-	ctx->scene->onUpdateRendered();
-	break;
+      ctx->scene->onUpdateRendered();
+      break;
     case DrawMode::MATERIAL_PREVIEW:
-	ctx->scene->onUpdateMaterialPreview();
-	break;   	
+      ctx->scene->onUpdateMaterialPreview();
+      break;
     }
 }
 
 void onResizeSpaceModeling(EditorContext *ctx) {
     SpaceModelingData *space_data = ctx->space_modeling_data;
 
-    ctx->editor_camera->setViewportSize(space_data->viewport_size.x, space_data->viewport_size.y);
+    ctx->editor_camera->setViewportSize(space_data->viewport_size.x,
+                                        space_data->viewport_size.y);
     ctx->scene->onResize(space_data->viewport_size.x, space_data->viewport_size.y);
-    
+
     FramebufferData data = space_data->framebuffer.getFramebufferData();
     
     if(space_data->viewport_size.x > 0.0f && space_data->viewport_size.y > 0.0f &&
@@ -125,45 +125,48 @@ void onRenderBeginSpaceModeling(EditorContext *ctx) {
 void onRenderSpaceModeling(EditorContext *ctx) {
     SpaceModelingData *space_data = ctx->space_modeling_data;
     RendererContext *renderer_context = ctx->renderer_context;
-    
+
     glm::mat4 view = ctx->editor_camera->getViewMatrix();
     glm::mat4 projection = ctx->editor_camera->getProjectionMatrix();
     glm::vec3 view_pos = ctx->editor_camera->position;
     glm::vec3 direction = ctx->editor_camera->getForward();
 
-    if(ctx->active_camera) {
-	auto& camera_component = ctx->active_camera.getComponent<CameraComponent>();
-	auto& transform_component = ctx->active_camera.getComponent<TransformComponent>();
-	view = camera_component.getViewMatrix(transform_component.position, transform_component.rotation);
-	projection = camera_component.getProjectionMatrix();
-	view_pos = transform_component.position;
-	direction = camera_component.getForward(transform_component.rotation);
+    if (ctx->active_camera) {
+      auto &camera_component =
+          ctx->active_camera.getComponent<CameraComponent>();
+      auto &transform_component =
+          ctx->active_camera.getComponent<TransformComponent>();
+      view = camera_component.getViewMatrix(transform_component.position,
+                                            transform_component.rotation);
+      projection = camera_component.getProjectionMatrix();
+      view_pos = transform_component.position;
+      direction = camera_component.getForward(transform_component.rotation);
     }
 
     renderer_context->setCameraData(view, projection);
     renderer_context->setEditorLightData(view_pos, direction);
-    
+
     switch(space_data->draw_mode) {
     case DrawMode::WIREFRAME: {
-	ctx->scene->onDrawWireframe(renderer_context);
+      ctx->scene->onDrawWireframe(renderer_context);
     } break;
     case DrawMode::RENDERED: {
-	ctx->scene->onDrawRendered(renderer_context);
+      ctx->scene->onDrawRendered(renderer_context);
     } break;
     case DrawMode::SOLID: {
-	ctx->scene->onDrawSolid(renderer_context);
+      ctx->scene->onDrawSolid(renderer_context);
     } break;
     case DrawMode::MATERIAL_PREVIEW: {
-	ctx->scene->onDrawMaterialPreview(renderer_context);
+      ctx->scene->onDrawMaterialPreview(renderer_context);
     } break;
     }
 
     renderer_context->setCameraData(view, projection);
-    renderer_context->setMeshVerticesData(glm::vec3(0.0f), glm::vec3(0.0f, 0.0f, 1.0f),
-					  0.8f, (uint32)ctx->selected_entity,
-					  ctx->selected_vertex_id);
+    renderer_context->setMeshVerticesData(
+        glm::vec3(0.0f), glm::vec3(0.0f, 0.0f, 1.0f), 0.8f,
+        (uint32)ctx->selected_entity, ctx->selected_vertex_id);
     ctx->scene->onDrawMeshVerticesOutlined(renderer_context);
-    
+
     auto[mx, my] = ImGui::GetMousePos();
     mx -= space_data->viewport_bounds[0].x;
     my -= space_data->viewport_bounds[0].y;
@@ -187,18 +190,19 @@ void onRenderSpaceModeling(EditorContext *ctx) {
 	} else {
 	    space_data->hovered_entity = {};
 	}
-	
-	space_data->framebuffer.bindReadAttachment(0);
+
+        space_data->framebuffer.bindReadAttachment(0);
     }
 }
 
 void onRenderPostProcessingSpaceModeling(EditorContext *ctx) {
     SpaceModelingData *space_data = ctx->space_modeling_data;
-    RendererContext *renderer_context = ctx->renderer_context;    
+    RendererContext *renderer_context = ctx->renderer_context;
 
-    renderer_context->setFXAAData(space_data->viewport_size,
-				  space_data->framebuffer.getColorAttachmentID(0));
-    
+    renderer_context->setFXAAData(
+        space_data->viewport_size,
+        space_data->framebuffer.getColorAttachmentID(0));
+
     space_data->pp_framebuffer.bind();
     Renderer::clear();
     Renderer::applyFXAA(renderer_context);
@@ -227,63 +231,65 @@ void onDrawUISpaceModeling(EditorContext *ctx) {
 		 ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
     glm::mat4 view = ctx->editor_camera->getViewMatrix();
-    glm::mat4 projection = ctx->editor_camera->getProjectionMatrix();    
+    glm::mat4 projection = ctx->editor_camera->getProjectionMatrix();
 
-    if(ctx->active_camera) {
-	auto& camera_component = ctx->active_camera.getComponent<CameraComponent>();
-	auto& transform_component = ctx->active_camera.getComponent<TransformComponent>();
-	view = camera_component.getViewMatrix(transform_component.position, transform_component.rotation);
-	projection = camera_component.getProjectionMatrix();	
-    }    
-
-    /* Draw settings */
-    if(ImGui::Begin("Modeling Settings")) {
-	ImGui::Text("Render Mode");
-	/* TODO: use icons instead of words */
-	if(ImGui::Button("Wireframe")) {
-	    space_data->draw_mode = DrawMode::WIREFRAME;
-	}
-	ImGui::SameLine();
-	if(ImGui::Button("Rendered")) {
-	    space_data->draw_mode = DrawMode::RENDERED;
-	}
-	ImGui::SameLine();
-	if(ImGui::Button("Solid")) {
-	    space_data->draw_mode = DrawMode::SOLID;
-	}
-	ImGui::SameLine();
-	if(ImGui::Button("Material")) {
-	    space_data->draw_mode = DrawMode::MATERIAL_PREVIEW;
-	}
-
-	ImGui::Text("Gizmos Type");
-	if(ImGui::Button("Translate")) {
-	    space_data->gizmo_operation = ImGuizmo::OPERATION::TRANSLATE;
-	}
-	ImGui::SameLine();
-	if(ImGui::Button("Rotate")) {
-	    space_data->gizmo_operation = ImGuizmo::OPERATION::ROTATE;
-	}
-	ImGui::SameLine();
-	if(ImGui::Button("Scale")) {
-	    space_data->gizmo_operation = ImGuizmo::OPERATION::SCALE;
-	}
-	ImGui::SameLine();
-	if(ImGui::Button("None")) {
-	    space_data->gizmo_operation = -1;
-	}
-	ImGui::SameLine();
-	
-	ImGui::End();
+    if (ctx->active_camera) {
+      auto &camera_component =
+          ctx->active_camera.getComponent<CameraComponent>();
+      auto &transform_component =
+          ctx->active_camera.getComponent<TransformComponent>();
+      view = camera_component.getViewMatrix(transform_component.position,
+                                            transform_component.rotation);
+      projection = camera_component.getProjectionMatrix();
     }
 
-    
+    /* Draw settings */
+    if (ImGui::Begin("Modeling Settings")) {
+      ImGui::Text("Render Mode");
+      /* TODO: use icons instead of words */
+      if (ImGui::Button("Wireframe")) {
+        space_data->draw_mode = DrawMode::WIREFRAME;
+      }
+      ImGui::SameLine();
+      if (ImGui::Button("Rendered")) {
+        space_data->draw_mode = DrawMode::RENDERED;
+      }
+      ImGui::SameLine();
+      if (ImGui::Button("Solid")) {
+        space_data->draw_mode = DrawMode::SOLID;
+      }
+      ImGui::SameLine();
+      if (ImGui::Button("Material")) {
+        space_data->draw_mode = DrawMode::MATERIAL_PREVIEW;
+      }
+
+      ImGui::Text("Gizmos Type");
+      if (ImGui::Button("Translate")) {
+        space_data->gizmo_operation = ImGuizmo::OPERATION::TRANSLATE;
+      }
+      ImGui::SameLine();
+      if (ImGui::Button("Rotate")) {
+        space_data->gizmo_operation = ImGuizmo::OPERATION::ROTATE;
+      }
+      ImGui::SameLine();
+      if (ImGui::Button("Scale")) {
+        space_data->gizmo_operation = ImGuizmo::OPERATION::SCALE;
+      }
+      ImGui::SameLine();
+      if (ImGui::Button("None")) {
+        space_data->gizmo_operation = -1;
+      }
+      ImGui::SameLine();
+
+      ImGui::End();
+    }
+
     // Draw gizmos
     if(ctx->selected_entity && space_data->gizmo_operation != -1 &&
        ctx->selected_entity.hasComponent<TransformComponent>()) {
 	TransformComponent& transform = ctx->selected_entity.getComponent<TransformComponent>();
-	glm::mat4 model = transform.getModelMatrix();	
-	bool snap = Input::wasKeyHeld(SDLK_LCTRL);
+        glm::mat4 model = transform.getModelMatrix();
+        bool snap = Input::wasKeyHeld(SDLK_LCTRL);
 	
 	Gizmos::drawManupilations((ImGuizmo::OPERATION)space_data->gizmo_operation,
 				  glm::value_ptr(view), glm::value_ptr(projection),

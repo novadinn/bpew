@@ -11,25 +11,25 @@ struct Entity;
 struct RendererContext;
 
 struct Scene {
-    Entity createEntity(const std::string& name = std::string());
-    void destroyEntity(Entity entity);
-	
-    void onDrawWireframe(RendererContext *context);
-    void onDrawRendered(RendererContext *context);
-    void onDrawSolid(RendererContext *context);
-    void onDrawMaterialPreview(RendererContext *context);
+  Entity createEntity(const std::string &name = std::string());
+  void destroyEntity(Entity entity);
 
-    void onDrawMeshVerticesOutlined(RendererContext *context);
-    
-    void onUpdateMaterialPreview();
-    void onUpdateRendered();
-    
-    void onResize(uint width, uint height);
+  void onDrawWireframe(RendererContext *context);
+  void onDrawRendered(RendererContext *context);
+  void onDrawSolid(RendererContext *context);
+  void onDrawMaterialPreview(RendererContext *context);
 
-    entt::registry& getEntityRegistry() { return registry; }
+  void onDrawMeshVerticesOutlined(RendererContext *context);
+
+  void onUpdateMaterialPreview();
+  void onUpdateRendered();
+
+  void onResize(uint width, uint height);
+
+  entt::registry &getEntityRegistry() { return registry; }
 
 private:
-    entt::registry registry;
+  entt::registry registry;
 };
 
 #endif // SCENE_H

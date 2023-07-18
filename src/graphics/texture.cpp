@@ -45,7 +45,7 @@ void Texture2D::createFromFile(const char* p) {
 
 	stbi_image_free(data);
 
-	addTexture(std::string(p), *this);
+        addTexture(std::string(p), *this);
 }
 
 void Texture2D::destroy() {
@@ -55,26 +55,24 @@ void Texture2D::destroy() {
 void Texture2D::bind() {
 	glBindTexture(GL_TEXTURE_2D, id);
 }
-    
-void Texture2D::unbind() {
-    glBindTexture(GL_TEXTURE_2D, 0);
-}
+
+void Texture2D::unbind() { glBindTexture(GL_TEXTURE_2D, 0); }
 
 std::map<std::string, Texture2D> Texture2D::textures;
 
-Texture2D* Texture2D::getTexture(std::string& path) {
-    if(!haveTexture(path)) {
-	return nullptr;
-    }
+Texture2D *Texture2D::getTexture(std::string &path) {
+  if (!haveTexture(path)) {
+    return nullptr;
+  }
 
-    return &textures[path];
+  return &textures[path];
 }
 
-bool Texture2D::haveTexture(std::string& path) {
-    return textures.contains(path);
+bool Texture2D::haveTexture(std::string &path) {
+  return textures.contains(path);
 }
 void Texture2D::addTexture(std::string path, Texture2D texture) {
-    if(!haveTexture(path)) {
-	textures.insert({path, texture});
-    }
+  if (!haveTexture(path)) {
+    textures.insert({path, texture});
+  }
 }
