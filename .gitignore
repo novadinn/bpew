@@ -21,7 +21,8 @@ bld/
 .vs/
 out/
 bpew.dir/
-*.vcxproj.?*
+*.vcxproj
+*.vcxproj.*
 *.sln
 
 src/.vscode/c_cpp_properties.json
