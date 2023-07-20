@@ -10,6 +10,11 @@ void EditorCamera::create(float start_fov, float start_aspect_ratio,
 
 glm::mat4 EditorCamera::getProjectionMatrix() {
   aspect_ratio = viewport_width / viewport_height;
+  if (orthographic) {
+    return glm::ortho(-aspect_ratio * distance, aspect_ratio * distance,
+                      -distance, distance, near, far);
+  }
+
   return glm::perspective(glm::radians(fov), aspect_ratio, near, far);
 }
 

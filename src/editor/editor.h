@@ -24,6 +24,7 @@ private:
   void showMenuBar();
   void showHierarchyPanel();
   void showInspectorPanel();
+  void showCameraPanel();
   void showLines();
 
   template <typename T> void showAddComponentPopup(const char *str);

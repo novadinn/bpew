@@ -180,6 +180,7 @@ void Editor::onDraw() {
   showMenuBar();
   showHierarchyPanel();
   showInspectorPanel();
+  showCameraPanel();
 
   ASSERT(active_receiver->onDrawUIBegin != NULL);
   active_receiver->onDrawUIBegin(ctx);
@@ -543,6 +544,88 @@ template <typename T> void Editor::showRemoveComponentPopup(const char *str) {
       ImGui::CloseCurrentPopup();
     }
   }
+}
+
+void Editor::showCameraPanel() {
+
+  ImGui::Begin("Editor Camera");
+
+  EditorCamera *camera = ctx->editor_camera;
+
+  ImGui::Checkbox("Is Orthographic", &camera->orthographic);
+
+  float near = camera->near;
+  if (ImGui::DragFloat("Near", &near, 0.1f, 0.0f, 0.0f, "%.2f"))
+    camera->near = near;
+
+  float far = camera->far;
+  if (ImGui::DragFloat("Far", &far, 0.1f, 0.0f, 0.0f, "%.2f"))
+    camera->far = far;
+
+  if (!camera->orthographic) {
+    float fov = camera->fov;
+    if (ImGui::DragFloat("FOV", &fov, 0.1f, 0.0f, 0.0f, "%.2f"))
+      camera->fov = fov;
+  }
+
+  ImGui::Text("Perpective Presets");
+  if (ImGui::Button("Left")) {
+    camera->pitch = 0.0f;
+    camera->yaw = glm::radians(90.0f);
+  }
+  ImGui::SameLine();
+  if (ImGui::Button("Right")) {
+    camera->pitch = 0.0f;
+    camera->yaw = glm::radians(-90.0f);
+  }
+
+  if (ImGui::Button("Top")) {
+    camera->pitch = glm::radians(90.0f);
+    camera->yaw = 0.0f;
+  }
+  ImGui::SameLine();
+  if (ImGui::Button("Bottom")) {
+    camera->pitch = glm::radians(-90.0f);
+    camera->yaw = 0.0f;
+  }
+
+  if (ImGui::Button("Front")) {
+    camera->pitch = 0.0f;
+    camera->yaw = 0.0f;
+  }
+  ImGui::SameLine();
+  if (ImGui::Button("Back")) {
+    camera->pitch = 0.0f;
+    camera->yaw = glm::radians(180.0f);
+  }
+
+  entt::registry &registry = ctx->scene->getEntityRegistry();
+
+  ImGui::Text("Copy Scene Camera Presets");
+  if (ImGui::CollapsingHeader("Scene Camera")) {
+    entt::registry &registry = ctx->scene->getEntityRegistry();
+    auto group = registry.group<TagComponent>(
+        entt::get<CameraComponent, TransformComponent>);
+    for (auto entity : group) {
+      auto [tag, scene_camera, transform] =
+          group.get<TagComponent, CameraComponent, TransformComponent>(entity);
+
+      if (ImGui::Button(tag.tag.c_str())) {
+        camera->near = scene_camera.near;
+        camera->far = scene_camera.far;
+        camera->fov = scene_camera.fov;
+        /* TODO: camera->orthographic */
+        camera->pitch = glm::radians(transform.rotation.x);
+        camera->yaw = glm::radians(transform.rotation.y);
+        camera->focal_point = scene_camera.focal_point;
+        camera->distance = scene_camera.distance;
+        camera->viewport_width = scene_camera.viewport_width;
+        camera->viewport_height = scene_camera.viewport_height;
+      }
+    }
+  }
+
+  ImGui::End();
 }
 
 void Editor::showLines() {
