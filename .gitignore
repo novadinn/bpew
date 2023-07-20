@@ -21,6 +21,9 @@ bld/
 .vs/
 out/
 bpew.dir/
+*.vcxproj.?*
+*.sln
+
 src/.vscode/c_cpp_properties.json
 src/.vscode/settings.json
 src/build/.cmake/api/v1/query/client-vscode/query.json

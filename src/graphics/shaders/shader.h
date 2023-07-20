@@ -5,8 +5,8 @@
 #include <glm/glm.hpp>
 
 struct Shader {
-  bool createFromFile(const char *vert_path, const char *frag_path);
-  bool createFromSource(const char *vsrc, const char *fsrc);
+  bool createFromFile(const char *vert_path, const char *frag_path, const char *geom_path = nullptr);
+  bool createFromSource(const char *vsrc, const char *fsrc, const char *gsrc = nullptr);
   void destroy();
 
   void bind();

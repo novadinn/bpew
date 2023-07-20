@@ -62,24 +62,7 @@ void Renderer::drawMeshMaterial(RendererContext *context) {
 
     Material *material = target.getActiveMaterial();
 
-    std::vector<int> prev_ids;
-    int id = 0;
-
-    // generate ids
-    for (auto &node : material->nodes) {
-      prev_ids.push_back(node.id.id);
-      node.id.id = id++;
-
-      for (auto &input : node.inputs) {
-        prev_ids.push_back(input.id.id);
-        input.id.id = id++;
-      }
-
-      for (auto &output : node.outputs) {
-        prev_ids.push_back(output.id.id);
-        output.id.id = id++;
-      }
-    }
+		ShaderBuilder::generateMaterialIds(*material);
 
     material->shader_container->shader.bind();
     material->shader_container->shader.setMatrix4("model", context->model);
@@ -110,18 +93,7 @@ void Renderer::drawMeshMaterial(RendererContext *context) {
 
     material->shader_container->shader.unbind();
 
-    // revert ids
-    for (auto &node : material->nodes) {
-      node.id.id = prev_ids[node.id.id];
-
-      for (auto &input : node.inputs) {
-        input.id.id = prev_ids[input.id.id];
-      }
-
-      for (auto &output : node.outputs) {
-        output.id.id = prev_ids[output.id.id];
-      }
-    }
+		ShaderBuilder::revertMaterialIds(*material);
   }
 }
 
@@ -156,25 +128,8 @@ void Renderer::drawMeshRendered(RendererContext *context) {
 
     Material *material = target.getActiveMaterial();
 
-    std::vector<int> prev_ids;
-    int id = 0;
-
-    // generate ids
-    for (auto &node : material->nodes) {
-      prev_ids.push_back(node.id.id);
-      node.id.id = id++;
-
-      for (auto &input : node.inputs) {
-        prev_ids.push_back(input.id.id);
-        input.id.id = id++;
-      }
-
-      for (auto &output : node.outputs) {
-        prev_ids.push_back(output.id.id);
-        output.id.id = id++;
-      }
-    }
-
+		ShaderBuilder::generateMaterialIds(*material);
+		
     material->shader_container->shader.bind();
     material->shader_container->shader.setMatrix4("model", context->model);
     material->shader_container->shader.setMatrix4("view", context->view);
@@ -269,18 +224,7 @@ void Renderer::drawMeshRendered(RendererContext *context) {
 
     material->shader_container->shader.unbind();
 
-    // revert ids
-    for (auto &node : material->nodes) {
-      node.id.id = prev_ids[node.id.id];
-
-      for (auto &input : node.inputs) {
-        input.id.id = prev_ids[input.id.id];
-      }
-
-      for (auto &output : node.outputs) {
-        output.id.id = prev_ids[output.id.id];
-      }
-    }
+		ShaderBuilder::revertMaterialIds(*material);
   }
 }
 

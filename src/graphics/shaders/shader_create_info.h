@@ -74,6 +74,29 @@ struct ShaderCreateInfo {
     return *this;
   }
 
+	ShaderCreateInfo &gin(ShaderType type, std::string name) {
+    ShaderInOut gin;
+    gin.type = ShaderBuilder::fromType(type);
+    gin.name = name;
+    info.gins.push_back(gin);
+    return *this;
+  }
+
+  ShaderCreateInfo &gin(std::string type, std::string name) {
+    ShaderInOut gin;
+    gin.type = type;
+    gin.name = name;
+    info.gins.push_back(gin);
+    return *this;
+  }
+
+	ShaderCreateInfo &primitive(GeometryInType in, GeometryOutType out, uint max_vertices) {
+		info.geometry_in_type = in;
+		info.geometry_out_type = out;
+		info.geometry_max_vertices = max_vertices;
+		return *this;
+	} 
+
   ShaderCreateInfo &vout(ShaderType type, std::string name) {
     ShaderInOut vout;
     vout.type = ShaderBuilder::fromType(type);
@@ -99,6 +122,22 @@ struct ShaderCreateInfo {
     return *this;
   }
 
+	ShaderCreateInfo &gout(ShaderType type, std::string name) {
+    ShaderInOut gout;
+    gout.type = ShaderBuilder::fromType(type);
+    gout.name = name;
+    info.gouts.push_back(gout);
+    return *this;
+  }
+
+  ShaderCreateInfo &gout(std::string type, std::string name) {
+    ShaderInOut gout;
+    gout.type = type;
+    gout.name = name;
+    info.gouts.push_back(gout);
+    return *this;
+  }
+
   ShaderCreateInfo &fragment(std::string source) {
     info.fragment_source = source;
     return *this;
@@ -106,6 +145,11 @@ struct ShaderCreateInfo {
 
   ShaderCreateInfo &vertex(std::string source) {
     info.vertex_source = source;
+    return *this;
+  }
+
+	ShaderCreateInfo &geometry(std::string source) {
+    info.geometry_source = source;
     return *this;
   }
 
@@ -179,22 +223,24 @@ struct ShaderCreateInfo {
     return *this;
   }
 
-  ShaderCreateInfo &interface(ShaderInterfaceCreateInfo interface,
+  ShaderCreateInfo &ginterface(ShaderInterfaceCreateInfo interface,
                               std::string name) {
     interface.interface.name = name;
-    info.interfaces.push_back(interface.interface);
+    info.geometry_interfaces.push_back(interface.interface);
+    return *this;
+  }
+
+	ShaderCreateInfo &vinterface(ShaderInterfaceCreateInfo interface,
+                              std::string name) {
+    interface.interface.name = name;
+    info.vertex_interfaces.push_back(interface.interface);
     return *this;
   }
 
   void removeDep(const char *dep) {
+    std::string str_dep(dep);
 
-    for (std::set<std::string>::iterator it = info.deps.begin();
-         it != info.deps.end(); ++it) {
-      if (strcmp(it->c_str(), dep) == 0) {
-        info.deps.erase(it);
-        break;
-      }
-    }
+		info.deps.erase(str_dep);
   }
 };
 

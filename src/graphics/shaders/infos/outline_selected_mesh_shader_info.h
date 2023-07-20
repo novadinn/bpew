@@ -11,7 +11,7 @@ const ShaderCreateInfo outline_selected_mesh_shader_create_info =
     ShaderCreateInfo::create()
         .vin(ShaderType::VEC2, 0, "aPos")
         .vin(ShaderType::VEC2, 1, "aTexCoord")
-        .interface(outline_selected_mesh_vs_out, "vs_inout")
+        .vinterface(outline_selected_mesh_vs_out, "vs_inout")
         .fout(ShaderType::VEC4, 0, "fragColor")
         .uniform(ShaderType::SAMPLER_2D, "colorTexture")
         .uniform(ShaderType::SAMPLER_2D, "entitiesTexture")
