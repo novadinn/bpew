@@ -212,12 +212,12 @@ bool ShaderBuilder::buildShaderFromShaderContainer(ShaderContainer *shader_conta
 		fs << ss.str();
 		buildFragmentShaderDefines(fs, create_info);
 		fs << shader_container->material_functions;
-		build_result |= includeLib(vs, create_info.info.fragment_source.c_str()) << 1;					
+		build_result |= includeLib(fs, create_info.info.fragment_source.c_str()) << 1;					
 	}
 	if (create_info.info.geometry_source.size() > 0) {
 		gs << ss.str();
 		buildGeometryShaderDefines(gs, create_info);
-		build_result |= includeLib(vs, create_info.info.geometry_source.c_str()) << 2;			
+		build_result |= includeLib(gs, create_info.info.geometry_source.c_str()) << 2;			
 	}
 
 	if (build_result == 0x7) {
