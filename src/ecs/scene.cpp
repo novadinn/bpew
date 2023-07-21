@@ -172,7 +172,8 @@ void Scene::searchIntersectedVertices(uint32 *entity_id, int *vertex_id,
   *entity_id = 0;
   *vertex_id = -1;
 
-  /* TODO: no sorting by the distance occurs here */
+  float closest_distance = FLT_MAX;
+
   auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
   for (auto entity : group) {
     auto [transform_component, mesh_component] =
@@ -190,13 +191,18 @@ void Scene::searchIntersectedVertices(uint32 *entity_id, int *vertex_id,
         vertex_position =
             transform_component.getModelMatrix() * vertex_position;
 
-        if (PhysicsUtils::raySphereIntersect(ray_position, ray_direction,
-                                             vertex_position, 0.1f)) {
+        float distance =
+            glm::distance(ray_position, glm::vec3(vertex_position));
 
-          *entity_id = (uint32)entity;
-          *vertex_id = int(j / mesh.totalAttributesCount());
+        if (distance < closest_distance) {
+          if (PhysicsUtils::raySphereIntersect(ray_position, ray_direction,
+                                               vertex_position, 0.1f)) {
 
-          return;
+            *entity_id = (uint32)entity;
+            *vertex_id = int(j / mesh.totalAttributesCount());
+
+            closest_distance = distance;
+          }
         }
       }
     }
