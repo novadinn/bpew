@@ -360,7 +360,7 @@ void Editor::showInspectorPanel() {
     memset(buff, 0, sizeof(buff));
     strncpy(buff, tag.tag.c_str(), sizeof(buff));
     if (ImGui::InputText("##Tag", buff, sizeof(buff))) {
-      tag.tag = std::string(buff);
+      ctx->scene->renameEntity(ctx->selected_entity, buff);
     }
 
     ASSERT(ctx->selected_entity.hasComponent<TransformComponent>());

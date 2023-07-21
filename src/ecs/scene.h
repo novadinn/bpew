@@ -35,6 +35,8 @@ struct Scene {
 
   entt::registry &getEntityRegistry() { return registry; }
 
+  void renameEntity(Entity entity, std::string name);
+
 private:
   entt::registry registry;
 };
