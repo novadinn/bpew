@@ -17,7 +17,6 @@ struct EditorContext {
   RendererContext *renderer_context;
   Scene *scene;
   EditorCamera *editor_camera;
-  Entity active_camera;
   Entity selected_entity;
   int selected_vertex = -1;
 

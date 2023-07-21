@@ -84,7 +84,6 @@ int main(int argc, char **argv) {
   SDL_GL_SetSwapInterval(1);
 
   glEnable(GL_DEPTH_TEST);
-  glEnable(GL_MULTISAMPLE);
 
   Renderer::init();
   Gizmos::init();

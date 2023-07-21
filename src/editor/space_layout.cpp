@@ -136,20 +136,6 @@ void onRenderSpaceLayout(EditorContext *ctx) {
   glm::vec3 view_pos = ctx->editor_camera->position;
   glm::vec3 direction = ctx->editor_camera->getForward();
 
-  /* we shouldnt render from not-editor camera if it is not a rendered mode */
-  if (ctx->active_camera && space_data->draw_mode == DrawMode::RENDERED) {
-    ASSERT(ctx->active_camera.hasComponent<CameraComponent>());
-    auto &camera_component = ctx->active_camera.getComponent<CameraComponent>();
-    ASSERT(ctx->active_camera.hasComponent<TransformComponent>());
-    auto &transform_component =
-        ctx->active_camera.getComponent<TransformComponent>();
-    view = camera_component.getViewMatrix(transform_component.position,
-                                          transform_component.rotation);
-    projection = camera_component.getProjectionMatrix();
-    view_pos = transform_component.position;
-    direction = camera_component.getForward(transform_component.rotation);
-  }
-
   renderer_context->setCameraData(view, projection);
   renderer_context->setEditorLightData(view_pos, direction);
 

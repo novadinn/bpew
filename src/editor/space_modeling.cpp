@@ -153,19 +153,6 @@ void onRenderSpaceModeling(EditorContext *ctx) {
   glm::vec3 view_pos = ctx->editor_camera->position;
   glm::vec3 direction = ctx->editor_camera->getForward();
 
-  if (ctx->active_camera && space_data->draw_mode == DrawMode::RENDERED) {
-    ASSERT(ctx->active_camera.hasComponent<CameraComponent>());
-    auto &camera_component = ctx->active_camera.getComponent<CameraComponent>();
-    ASSERT(ctx->active_camera.hasComponent<TransformComponent>());
-    auto &transform_component =
-        ctx->active_camera.getComponent<TransformComponent>();
-    view = camera_component.getViewMatrix(transform_component.position,
-                                          transform_component.rotation);
-    projection = camera_component.getProjectionMatrix();
-    view_pos = transform_component.position;
-    direction = camera_component.getForward(transform_component.rotation);
-  }
-
   renderer_context->setCameraData(view, projection);
   renderer_context->setEditorLightData(view_pos, direction);
 
@@ -275,7 +262,7 @@ void onDrawUISpaceModeling(EditorContext *ctx) {
         glm::vec4 world_space_position =
             transform.getModelMatrix() * glm::vec4(vertex_position, 1.0);
         glm::mat4 model = transform.getModelMatrix();
-        // Override translation
+        /* override translation */
         model[3] = world_space_position;
 
         bool snap = Input::wasKeyHeld(SDLK_LCTRL);
@@ -306,15 +293,16 @@ void onDrawUISpaceModeling(EditorContext *ctx) {
           vertex[1] = local_space_position.y;
           vertex[2] = local_space_position.z;
 
+          /* TODO: those operations should change vertex normals
+             transform.rotation = {rotation_result[0], rotation_result[1],
+             rotation_result[2]}; transform.scale = {scale_result[0],
+             scale_result[1], scale_result[2]}; */
+
           /* TODO: find a better way to update vertices data,
              since we dont need to recreate it every time */
           mesh.destroy();
           mesh.generateVertexArray();
 
-          /* TODO: those operations should change vertex normals
-             transform.rotation = {rotation_result[0], rotation_result[1],
-             rotation_result[2]}; transform.scale = {scale_result[0],
-             scale_result[1], scale_result[2]}; */
           break;
         }
       }

@@ -116,13 +116,15 @@ struct MeshComponent {
     // 		material->GetTexture((aiTextureType)i, j, &str);
 
     // 		std::string path = str.C_Str();
-    // 		std::string full_path = Utils::connectPathWithDirectory(directory,
-    // path);
+    // 		std::string full_path =
+    // Utils::connectPathWithDirectory(directory, path);
 
     // 		bool skip = false;
     // 		for(int k = 0; k < loaded_textures.size(); ++k) {
-    // 			if(strcmp(loaded_textures[k].first.data(), full_path.c_str()) == 0)
-    // { 				textures.push_back(loaded_textures[k].second); 				skip = true; 				break;
+    // 			if(strcmp(loaded_textures[k].first.data(),
+    // full_path.c_str())
+    // == 0) {
+    // textures.push_back(loaded_textures[k].second); skip = true; break;
     // 			}
     // 		}
 
