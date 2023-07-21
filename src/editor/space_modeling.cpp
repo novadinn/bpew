@@ -104,6 +104,11 @@ void onUpdateSpaceModeling(EditorContext *ctx) {
     }
   }
 
+  if (Input::wasKeyPressed(SDLK_DELETE) && ctx->selected_entity) {
+    ctx->scene->destroyEntity(ctx->selected_entity);
+    ctx->selected_entity = {};
+  }
+
   switch (space_data->draw_mode) {
   case DrawMode::RENDERED:
     ctx->scene->onUpdateRendered();
