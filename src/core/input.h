@@ -24,10 +24,6 @@ struct Input {
 
   static void wheelEvent(const SDL_Event &event);
 
-  static bool wasWheelMovedUp();
-  static bool wasWheelMovedDown();
-  static bool wasWheelMoved();
-
   static void getWheelMovement(int *x, int *y);
 
   static void getMousePosition(int *x, int *y);

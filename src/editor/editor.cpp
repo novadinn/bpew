@@ -49,9 +49,9 @@ void Editor::create() {
   Entity camera_entity = ctx->scene->createEntity("Camera");
   auto &camera_component = camera_entity.addComponent<CameraComponent>();
 
-  Entity object = ctx->scene->createEntity("Monkey");
+  Entity cube = ctx->scene->createEntity("Cube");
 
-  auto &mesh = object.addComponent<MeshComponent>();
+  auto &mesh = cube.addComponent<MeshComponent>();
   mesh.loadFromPath("datafiles/primitives/cube.obj");
   Material material;
   mesh.default_material = material;
@@ -95,7 +95,7 @@ void Editor::onUpdate() {
       ctx->editor_camera->rotate(mouse_delta);
     }
   }
-  if (Input::wasWheelMoved()) {
+  if (wheel_movement.y != 0) {
     ctx->editor_camera->zoom(delta_time * wheel_movement.y);
   }
 
@@ -107,17 +107,11 @@ void Editor::onDraw() {
   ASSERT(active_receiver->onResize != NULL);
   active_receiver->onResize(ctx);
 
-  ASSERT(active_receiver->onRenderBegin != NULL);
-  active_receiver->onRenderBegin(ctx);
   ASSERT(active_receiver->onRender != NULL);
   active_receiver->onRender(ctx);
 
-  showLines();
-
   ASSERT(active_receiver->onRenderPostProcessing != NULL);
   active_receiver->onRenderPostProcessing(ctx);
-  ASSERT(active_receiver->onRenderEnd != NULL);
-  active_receiver->onRenderEnd(ctx);
 
   static bool dockspace_open = true;
   static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
@@ -561,33 +555,4 @@ void Editor::showCameraPanel() {
   }
 
   ImGui::End();
-}
-
-void Editor::showLines() {
-  glm::mat4 view_mat = ctx->editor_camera->getViewMatrix();
-  glm::mat4 proj_mat = ctx->editor_camera->getProjectionMatrix();
-  glm::vec3 cam_pos = ctx->editor_camera->position;
-  float far = ctx->editor_camera->far;
-
-  for (float x = cam_pos.x - far; x < cam_pos.x + far; x += 0.5f) {
-    glm::vec3 start = glm::vec3((int)x, 0, (int)(cam_pos.z - far));
-    glm::vec3 end = glm::vec3((int)x, 0, (int)(cam_pos.z + far));
-    glm::vec3 color = glm::vec3(0.4, 0.4, 0.4);
-    if ((int)x == 0) {
-      color = glm::vec3(1, 0.4, 0.4);
-    }
-
-    Gizmos::drawLine(view_mat, proj_mat, start, end, color);
-  }
-
-  for (float z = cam_pos.z - far; z < cam_pos.z + far; z += 0.5f) {
-    glm::vec3 start = glm::vec3((int)(cam_pos.x - far), 0, (int)z);
-    glm::vec3 end = glm::vec3((int)(cam_pos.x + far), 0, (int)z);
-    glm::vec3 color = glm::vec3(0.4, 0.4, 0.4);
-    if ((int)z == 0) {
-      color = glm::vec3(0.55, 0.8, 0.9);
-    }
-
-    Gizmos::drawLine(view_mat, proj_mat, start, end, color);
-  }
 }

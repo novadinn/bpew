@@ -67,12 +67,6 @@ void Input::wheelEvent(const SDL_Event &event) {
   wheel_y = event.wheel.y;
 }
 
-bool Input::wasWheelMovedUp() { return wheel_y > 0; }
-
-bool Input::wasWheelMovedDown() { return wheel_y < 0; }
-
-bool Input::wasWheelMoved() { return wheel_y != 0; }
-
 void Input::getWheelMovement(int *x, int *y) {
   *x = wheel_x;
   *y = wheel_y;

@@ -124,7 +124,7 @@ int main(int argc, char **argv) {
             running = false;
           }
         }
-      };
+      } break;
       };
     }
 

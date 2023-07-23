@@ -22,10 +22,8 @@ EventReceiver *createSpaceModelingReceiver() {
   receiver->onUpdate = onUpdateSpaceModeling;
   receiver->onResize = onResizeSpaceModeling;
 
-  receiver->onRenderBegin = onRenderBeginSpaceModeling;
   receiver->onRender = onRenderSpaceModeling;
   receiver->onRenderPostProcessing = onRenderPostProcessingSpaceModeling;
-  receiver->onRenderEnd = onRenderEndSpaceModeling;
 
   receiver->onDrawUIBegin = onDrawUIBeginSpaceModeling;
   receiver->onDrawUI = onDrawUISpaceModeling;
@@ -42,7 +40,6 @@ void onCreateSpaceModeling(EditorContext *ctx) {
   data.formats = {GL_RGBA8, GL_RGBA32F, GL_DEPTH24_STENCIL8};
   data.width = 800;
   data.height = 800;
-  data.samples = 1;
   space_data->framebuffer.create(data);
 
   data.formats = {GL_RGBA8};
@@ -141,17 +138,13 @@ void onResizeSpaceModeling(EditorContext *ctx) {
   }
 }
 
-void onRenderBeginSpaceModeling(EditorContext *ctx) {
+void onRenderSpaceModeling(EditorContext *ctx) {
   SpaceModelingData *space_data = ctx->space_modeling_data;
+  RendererContext *renderer_context = ctx->renderer_context;
 
   space_data->framebuffer.bind();
   Renderer::clear();
   space_data->framebuffer.clearRGBA8ColorAttachment(1, glm::vec4(-1));
-}
-
-void onRenderSpaceModeling(EditorContext *ctx) {
-  SpaceModelingData *space_data = ctx->space_modeling_data;
-  RendererContext *renderer_context = ctx->renderer_context;
 
   glm::mat4 view = ctx->editor_camera->getViewMatrix();
   glm::mat4 projection = ctx->editor_camera->getProjectionMatrix();
@@ -186,13 +179,40 @@ void onRenderSpaceModeling(EditorContext *ctx) {
   int mouse_y = (int)my;
   space_data->mouse_position = {mouse_x, mouse_y};
 
-  // Draw vertices
+  /* draw vertices */
   space_data->framebuffer.clearRGBA8ColorAttachment(1, glm::vec4(-1));
 
   renderer_context->setCameraData(view, projection);
   renderer_context->setMeshVerticesData(glm::vec3(0.0));
 
   ctx->scene->onDrawMeshVertices(renderer_context);
+
+  /* draw lines */
+  float far = ctx->editor_camera->far;
+
+  for (float x = view_pos.x - far; x < view_pos.x + far; x += 0.5f) {
+    glm::vec3 start = glm::vec3((int)x, 0, (int)(view_pos.z - far));
+    glm::vec3 end = glm::vec3((int)x, 0, (int)(view_pos.z + far));
+    glm::vec3 color = glm::vec3(0.4, 0.4, 0.4);
+    if ((int)x == 0) {
+      color = glm::vec3(1, 0.4, 0.4);
+    }
+
+    Gizmos::drawLine(view, projection, start, end, color);
+  }
+
+  for (float z = view_pos.z - far; z < view_pos.z + far; z += 0.5f) {
+    glm::vec3 start = glm::vec3((int)(view_pos.x - far), 0, (int)z);
+    glm::vec3 end = glm::vec3((int)(view_pos.x + far), 0, (int)z);
+    glm::vec3 color = glm::vec3(0.4, 0.4, 0.4);
+    if ((int)z == 0) {
+      color = glm::vec3(0.55, 0.8, 0.9);
+    }
+
+    Gizmos::drawLine(view, projection, start, end, color);
+  }
+
+  space_data->framebuffer.unbind();
 }
 
 void onRenderPostProcessingSpaceModeling(EditorContext *ctx) {
@@ -216,10 +236,6 @@ void onRenderPostProcessingSpaceModeling(EditorContext *ctx) {
   space_data->pp_framebuffer.bind();
   Renderer::clear();
   Renderer::applyFXAA(renderer_context);
-}
-
-void onRenderEndSpaceModeling(EditorContext *ctx) {
-  SpaceModelingData *space_data = ctx->space_modeling_data;
 
   space_data->pp_framebuffer.unbind();
 }
