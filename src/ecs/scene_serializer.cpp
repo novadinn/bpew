@@ -139,6 +139,13 @@ void SceneSerializer::serialize(Scene *scene, const std::string &filepath) {
     serializeEntity(out, entity);
   });
   out << YAML::EndSeq;
+
+	out << YAML::Key << "Materials" << YAML::Value << YAML::BeginSeq;
+	for (Material &material : MaterialManager::materials) {
+		serializeMaterial(out, material);
+	}
+	out << YAML::EndSeq;
+	
   out << YAML::EndMap;
 
   std::ofstream fout(filepath);
@@ -227,7 +234,7 @@ bool SceneSerializer::deserialize(Scene *scene, const std::string &filepath) {
             std::vector<float> vertices =
                 field["Vertices"].as<std::vector<float>>();
             std::vector<uint> indices =
-                field["Indices"].as<std::vector<uint>>();
+                field["Indices"].as<std::vector<uint>>();						
 
             Mesh mesh;
             mesh.attributes = attribs;
@@ -235,12 +242,31 @@ bool SceneSerializer::deserialize(Scene *scene, const std::string &filepath) {
             mesh.indices = indices;
             mesh.generateVertexArray();
 
+						auto material = field["Material"];
+						if (material) {
+							mesh.active_material_index = material.as<int>();
+						}
+						
             mc.meshes.push_back(mesh);
           }
         }
+
+				auto materials_data = mesh["Materials"];
+				if (materials_data) {
+					std::vector<uint> materials = materials_data.as<std::vector<uint>>();
+
+					mc.materials = materials;
+				}
       }
     }
   }
+
+	auto materials = data["Materials"];
+	if (materials) {
+		for (auto material : materials) {
+			deserializeMaterial(material);
+		}
+	}
 
   return true;
 }
@@ -319,8 +345,6 @@ void SceneSerializer::serializeEntity(YAML::Emitter &out, Entity entity) {
     out << YAML::Key << "MeshComponent";
     out << YAML::BeginMap;
 
-    /* TODO: export materials */
-
     auto &mesh = entity.getComponent<MeshComponent>();
     if (mesh.meshes.size() > 0) {
       out << YAML::Key << "MeshFields" << YAML::Value;
@@ -338,14 +362,265 @@ void SceneSerializer::serializeEntity(YAML::Emitter &out, Entity entity) {
         out << YAML::Key << "Vertices" << YAML::Value << vertices;
         out << YAML::Key << "Indices" << YAML::Value << indices;
 
+				if (MaterialManager::validMaterialIndex(mesh.meshes[i].active_material_index)) {
+					out << YAML::Key << "Material" << YAML::Value << mesh.meshes[i].active_material_index;
+				}				
+
         out << YAML::EndMap;
-      }
+      }					 		 
 
       out << YAML::EndSeq;
     }
+
+		if (mesh.materials.size() > 0) {
+			out << YAML::Key << "Materials" << YAML::Value << mesh.materials;		 
+		}
 
     out << YAML::EndMap;
   }
 
   out << YAML::EndMap;
+}
+
+void SceneSerializer::serializeMaterial(YAML::Emitter &out, Material &material) {
+	out << YAML::BeginMap;
+	out << YAML::Key << "Material" << YAML::Value << material.name;				 	
+
+	if (material.nodes.size() > 0) {
+		out << YAML::Key << "Nodes" << YAML::Value;
+		out << YAML::BeginSeq;
+						
+		for (auto &node : material.nodes) {
+			out << YAML::BeginMap;
+			out << YAML::Key << "Node" << YAML::Value << node.id.id;
+							
+			out << YAML::Key << "Name" << YAML::Value << node.id.name;
+
+			out << YAML::Key << "Type" << YAML::Value << (int)node.type;
+
+			if (node.inputs.size() > 0) {
+				out << YAML::Key << "Inputs" << YAML::Value;
+				out << YAML::BeginSeq;
+
+				for (auto &input : node.inputs) {
+					out << YAML::BeginMap;									
+					out << YAML::Key << "Input" << YAML::Value << input.id.id;
+
+					out << YAML::Key << "Name" << YAML::Value << input.id.name;
+
+					if (input.link) {
+						out << YAML::Key << "Link";
+						out << YAML::BeginMap;
+
+						out << YAML::Key << "Id" << YAML::Value << input.link->id.id;
+						out << YAML::Key << "Name" << YAML::Value << input.link->id.name;
+						out << YAML::Key << "OutputNodeIndex" << YAML::Value << input.link->output_node_index;
+						out << YAML::Key << "InputNodeIndex" << YAML::Value << input.link->input_node_index;
+						out << YAML::Key << "OutputIndex" << YAML::Value << input.link->output_index;
+						out << YAML::Key << "InputIndex" << YAML::Value << input.link->input_index;
+										
+						out << YAML::EndMap;
+					}
+					
+					out << YAML::Key << "Type" << YAML::Value << (int)input.type;
+					out << YAML::Key << "Source" << YAML::Value << (int)input.source;
+
+					out << YAML::Key << "Value";
+					switch (input.type) {
+					case NodePropertyType::VECTOR4:
+						out << input.value.vector4_value;
+						break;
+					case NodePropertyType::COLOR:
+					case NodePropertyType::VECTOR3:
+						out << input.value.vector3_value;
+						break;
+					case NodePropertyType::VECTOR2:
+						out << input.value.vector2_value;
+						break;
+					case NodePropertyType::FLOAT:
+						out << input.value.float_value;
+						break;
+					case NodePropertyType::INT:
+						out << input.value.int_value;
+						break;
+					case NodePropertyType::ENUM:
+						out << input.value.enum_value;
+						break;									
+					case NodePropertyType::TEXTURE:
+						break;
+					default:
+						LOG_ERROR("Unknown node input type: %d\n", (int)input.type);
+					}
+
+					out << YAML::Key << "Enabled" << YAML::Value << input.enabled;
+									
+					out << YAML::EndMap;
+				}
+								
+				out << YAML::EndSeq;
+			}
+
+			if (node.outputs.size() > 0) {
+				out << YAML::Key << "Outputs" << YAML::Value;
+				out << YAML::BeginSeq;
+
+				for (auto &output : node.outputs) {
+					out << YAML::BeginMap;
+					out << YAML::Key << "Output" << YAML::Value << output.id.id;
+
+					out << YAML::Key << "Name" << YAML::Value << output.id.name;
+
+					if (output.links.size() > 0) {
+						out << YAML::Key << "Links" << YAML::Value;
+						out << YAML::BeginSeq;
+
+						for (auto &link : output.links) {
+							out << YAML::BeginMap;
+							out << YAML::Key << "Link" << YAML::Value << link.id.id;
+											
+							out << YAML::Key << "Name" << YAML::Value << link.id.name;
+							out << YAML::Key << "OutputNodeIndex" << YAML::Value << link.output_node_index;
+							out << YAML::Key << "InputNodeIndex" << YAML::Value << link.input_node_index;
+							out << YAML::Key << "OutputIndex" << YAML::Value << link.output_index;
+							out << YAML::Key << "InputIndex" << YAML::Value << link.input_index;
+										
+							out << YAML::EndMap;
+						}
+										
+						out << YAML::EndSeq;
+					}
+
+					out << YAML::Key << "Type" << YAML::Value << (int)output.type;
+
+					out << YAML::Key << "Enabled" << YAML::Value << output.enabled;
+									
+					out << YAML::EndMap;
+				}								
+								
+				out << YAML::EndSeq;
+			}							
+
+			out << YAML::EndMap;
+		}
+
+		out << YAML::EndSeq;
+	}
+					
+	out << YAML::EndMap;
+}
+
+void SceneSerializer::deserializeMaterial(YAML::Node &material_data) {
+	ASSERT(material_data["Material"]);
+
+	Material material;
+
+	material.name = material_data["Material"].as<std::string>();
+
+	auto nodes = material_data["Nodes"];
+	if (nodes) {
+		for (auto node_data : nodes) {
+			Node node;
+
+			node.id.id = node_data["Node"].as<int>();
+			node.id.name = node_data["Name"].as<std::string>();
+
+			node.type = (NodeType)node_data["Type"].as<int>();
+
+			auto inputs = node_data["Inputs"];
+			if (inputs) {
+				for (auto input_data : inputs) {
+					NodeInput input;
+
+					input.id.id = input_data["Input"].as<int>();
+					input.id.name = input_data["Name"].as<std::string>();
+
+					auto link_data = input_data["Link"];
+					if (link_data) {
+						NodeLink *link = new NodeLink();
+
+						link->id.id = link_data["Id"].as<int>();
+						link->id.name = link_data["Name"].as<std::string>();
+
+						link->output_node_index = link_data["OutputNodeIndex"].as<uint>();
+						link->input_node_index = link_data["InputNodeIndex"].as<uint>();
+
+						link->output_index = link_data["OutputIndex"].as<uint>();
+						link->input_index = link_data["InputIndex"].as<uint>();
+
+						input.link = link;
+					}
+
+					input.type = (NodePropertyType)input_data["Type"].as<int>();
+					input.source = (NodePropertySource)input_data["Source"].as<int>();
+					auto value = input_data["Value"];
+					switch(input.type) {
+					case NodePropertyType::VECTOR4:
+						input.value.vector4_value = value.as<glm::vec4>();
+						break;
+					case NodePropertyType::COLOR:
+					case NodePropertyType::VECTOR3:
+						input.value.vector3_value = value.as<glm::vec3>();
+						break;
+					case NodePropertyType::VECTOR2:
+						input.value.vector2_value = value.as<glm::vec2>();
+						break;
+					case NodePropertyType::FLOAT:
+						input.value.float_value = value.as<float>();
+						break;
+					case NodePropertyType::INT:
+						input.value.int_value = value.as<int>();
+						break;
+					case NodePropertyType::ENUM:
+						input.value.enum_value = value.as<int>();
+						break;									
+					case NodePropertyType::TEXTURE:
+						break;
+					default:
+						LOG_ERROR("Unknown node input type: %d\n", (int)input.type);
+					}
+
+					input.enabled = input_data["Enabled"].as<bool>();
+
+					node.inputs.push_back(input);
+				}				
+			}
+
+			auto outputs = node_data["Outputs"];
+			if (outputs) {
+				for (auto output_data : outputs) {
+					NodeOutput output;
+
+					output.id.id = output_data["Output"].as<int>();
+					output.id.name = output_data["Name"].as<std::string>();
+
+					auto links = output_data["Links"];
+					if (links) {
+						for (auto link_data : links) {
+							NodeLink link;
+
+							link.id.id = link_data["Link"].as<int>();
+							link.id.name = link_data["Name"].as<std::string>();
+
+							link.output_node_index = link_data["OutputNodeIndex"].as<uint>();
+							link.input_node_index = link_data["InputNodeIndex"].as<uint>();
+
+							link.output_index = link_data["OutputIndex"].as<uint>();
+							link.input_index = link_data["InputIndex"].as<uint>();
+
+							output.links.push_back(link);
+						}
+					}
+
+					output.type = (NodePropertyType)output_data["Type"].as<int>();					
+					output.enabled = output_data["Enabled"].as<bool>();
+					
+					node.outputs.push_back(output);
+				}
+			}
+
+			material.nodes.push_back(node);
+		}
+	}
+
+	MaterialManager::materials.push_back(material);
 }

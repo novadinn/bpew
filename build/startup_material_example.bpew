@@ -1,0 +1,588 @@
+Scene: Untitled
+Entities:
+  - Entity: 837098117960255112
+    TagComponent:
+      Tag: DirectionalLight
+    TransformComponent:
+      Position: [0, 0, 0]
+      Scale: [1, 1, 1]
+      Rotation: [-100, 0, 0]
+    LightComponent:
+      Type: 2
+      Ambient: [0.0500000007, 0.0500000007, 0.0500000007]
+      Diffuse: [0.400000006, 0.400000006, 0.400000006]
+      Specular: [0.100000001, 0.100000001, 0.100000001]
+  - Entity: 7792129764797824011
+    TagComponent:
+      Tag: Monkey
+    TransformComponent:
+      Position: [0, 0, 0]
+      Scale: [1, 1, 1]
+      Rotation: [0, 0, 0]
+    MeshComponent:
+      MeshFields:
+        - Mesh: 0
+          VertexAttributes:
+            - [4, 3, 0]
+            - [4, 3, 0]
+            - [4, 2, 0]
+            - [4, 3, 0]
+            - [4, 3, 0]
+          Vertices:
+            - 1
+            - 1
+            - -1
+            - -0
+            - 1
+            - -0
+            - 0.625
+            - 0.5
+            - -1
+            - 0
+            - 0
+            - 0
+            - 0
+            - 1
+            - -1
+            - 1
+            - -1
+            - -0
+            - 1
+            - -0
+            - 0.875
+            - 0.5
+            - -1
+            - 0
+            - 0
+            - 0
+            - 0
+            - 1
+            - -1
+            - 1
+            - 1
+            - -0
+            - 1
+            - -0
+            - 0.875
+            - 0.75
+            - -1
+            - 0
+            - 0
+            - 0
+            - 0
+            - 1
+            - 1
+            - 1
+            - 1
+            - -0
+            - 1
+            - -0
+            - 0.625
+            - 0.75
+            - -1
+            - 0
+            - 0
+            - 0
+            - 0
+            - 1
+            - 1
+            - -1
+            - 1
+            - -0
+            - -0
+            - 1
+            - 0.375
+            - 0.75
+            - 0
+            - 1
+            - 0
+            - -1
+            - 0
+            - 0
+            - 1
+            - 1
+            - 1
+            - -0
+            - -0
+            - 1
+            - 0.625
+            - 0.75
+            - 0
+            - 1
+            - 0
+            - -1
+            - 0
+            - 0
+            - -1
+            - 1
+            - 1
+            - -0
+            - -0
+            - 1
+            - 0.625
+            - 1
+            - 0
+            - 1
+            - 0
+            - -1
+            - 0
+            - 0
+            - -1
+            - -1
+            - 1
+            - -0
+            - -0
+            - 1
+            - 0.375
+            - 1
+            - 0
+            - 1
+            - 0
+            - -1
+            - 0
+            - 0
+            - -1
+            - -1
+            - 1
+            - -1
+            - -0
+            - -0
+            - 0.375
+            - 0
+            - 0
+            - 1
+            - 0
+            - 0
+            - 0
+            - -1
+            - -1
+            - 1
+            - 1
+            - -1
+            - -0
+            - -0
+            - 0.625
+            - 0
+            - 0
+            - 1
+            - 0
+            - 0
+            - 0
+            - -1
+            - -1
+            - 1
+            - -1
+            - -1
+            - -0
+            - -0
+            - 0.625
+            - 0.25
+            - 0
+            - 1
+            - 0
+            - 0
+            - 0
+            - -1
+            - -1
+            - -1
+            - -1
+            - -1
+            - -0
+            - -0
+            - 0.375
+            - 0.25
+            - 0
+            - 1
+            - 0
+            - 0
+            - 0
+            - -1
+            - -1
+            - -1
+            - -1
+            - -0
+            - -1
+            - -0
+            - 0.125
+            - 0.5
+            - 1
+            - 0
+            - 0
+            - 0
+            - 0
+            - 1
+            - 1
+            - -1
+            - -1
+            - -0
+            - -1
+            - -0
+            - 0.375
+            - 0.5
+            - 1
+            - 0
+            - 0
+            - 0
+            - 0
+            - 1
+            - 1
+            - -1
+            - 1
+            - -0
+            - -1
+            - -0
+            - 0.375
+            - 0.75
+            - 1
+            - 0
+            - 0
+            - 0
+            - 0
+            - 1
+            - -1
+            - -1
+            - 1
+            - -0
+            - -1
+            - -0
+            - 0.125
+            - 0.75
+            - 1
+            - 0
+            - 0
+            - 0
+            - 0
+            - 1
+            - 1
+            - -1
+            - -1
+            - 1
+            - -0
+            - -0
+            - 0.375
+            - 0.5
+            - 0
+            - 1
+            - 0
+            - 0
+            - 0
+            - 1
+            - 1
+            - 1
+            - -1
+            - 1
+            - -0
+            - -0
+            - 0.625
+            - 0.5
+            - 0
+            - 1
+            - 0
+            - 0
+            - 0
+            - 1
+            - 1
+            - 1
+            - 1
+            - 1
+            - -0
+            - -0
+            - 0.625
+            - 0.75
+            - 0
+            - 1
+            - 0
+            - 0
+            - 0
+            - 1
+            - 1
+            - -1
+            - 1
+            - 1
+            - -0
+            - -0
+            - 0.375
+            - 0.75
+            - 0
+            - 1
+            - 0
+            - 0
+            - 0
+            - 1
+            - -1
+            - -1
+            - -1
+            - -0
+            - -0
+            - -1
+            - 0.375
+            - 0.25
+            - 0
+            - 1
+            - 0
+            - 1
+            - 0
+            - 0
+            - -1
+            - 1
+            - -1
+            - -0
+            - -0
+            - -1
+            - 0.625
+            - 0.25
+            - 0
+            - 1
+            - 0
+            - 1
+            - 0
+            - 0
+            - 1
+            - 1
+            - -1
+            - -0
+            - -0
+            - -1
+            - 0.625
+            - 0.5
+            - 0
+            - 1
+            - 0
+            - 1
+            - 0
+            - 0
+            - 1
+            - -1
+            - -1
+            - -0
+            - -0
+            - -1
+            - 0.375
+            - 0.5
+            - 0
+            - 1
+            - 0
+            - 1
+            - 0
+            - 0
+          Indices:
+            - 0
+            - 1
+            - 2
+            - 0
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+            - 4
+            - 6
+            - 7
+            - 8
+            - 9
+            - 10
+            - 8
+            - 10
+            - 11
+            - 12
+            - 13
+            - 14
+            - 12
+            - 14
+            - 15
+            - 16
+            - 17
+            - 18
+            - 16
+            - 18
+            - 19
+            - 20
+            - 21
+            - 22
+            - 20
+            - 22
+            - 23
+  - Entity: 6052144280921676897
+    TagComponent:
+      Tag: Camera
+    TransformComponent:
+      Position: [0, 0, 3]
+      Scale: [1, 1, 1]
+      Rotation: [0, 0, 0]
+    CameraComponent:
+      FOV: 45
+      Near: 0.100000001
+      Far: 1000
+      Focal Point: [0, 0, 0]
+      Aspect Ratio: 1.778
+      Distance: 10
+      Viewport Width: 1307
+      Viewport Height: 1026
+Materials:
+  - Material: qwe
+    Nodes:
+      - Node: 3
+        Name: Principled BSDF
+        Type: 3
+        Inputs:
+          - Input: 0
+            Name: Base Color
+            Link:
+              Id: 24
+              Name: link3020
+              OutputNodeIndex: 3
+              InputNodeIndex: 0
+              OutputIndex: 2
+              InputIndex: 0
+            Type: 0
+            Source: 4
+            Value: [0.5, 0.5, 0.5]
+            Enabled: true
+          - Input: 1
+            Name: Alpha
+            Type: 4
+            Source: 4
+            Value: 1
+            Enabled: true
+        Outputs:
+          - Output: 2
+            Name: BSDF
+            Links:
+              - Link: 8
+                Name: link0100
+                OutputNodeIndex: 0
+                InputNodeIndex: 1
+                OutputIndex: 0
+                InputIndex: 0
+            Type: 1
+            Enabled: true
+      - Node: 7
+        Name: Material Output
+        Type: 2
+        Inputs:
+          - Input: 4
+            Name: Surface
+            Link:
+              Id: 8
+              Name: link0100
+              OutputNodeIndex: 0
+              InputNodeIndex: 1
+              OutputIndex: 0
+              InputIndex: 0
+            Type: 1
+            Source: 2
+            Value: [0, 0, 0, 0]
+            Enabled: true
+          - Input: 5
+            Name: Volume
+            Type: 1
+            Source: 2
+            Value: [0, 0, 0, 0]
+            Enabled: true
+          - Input: 6
+            Name: Displacement
+            Type: 1
+            Source: 2
+            Value: [0, 0, 0, 0]
+            Enabled: true
+      - Node: 11
+        Name: RGB
+        Type: 0
+        Inputs:
+          - Input: 9
+            Name: Color
+            Type: 0
+            Source: 1
+            Value: [1, 1, 1]
+            Enabled: true
+        Outputs:
+          - Output: 10
+            Name: Color
+            Links:
+              - Link: 25
+                Name: link2306
+                OutputNodeIndex: 2
+                InputNodeIndex: 3
+                OutputIndex: 0
+                InputIndex: 6
+            Type: 0
+            Enabled: true
+      - Node: 23
+        Name: Mix
+        Type: 5
+        Inputs:
+          - Input: 12
+            Name: Data Type
+            Type: 6
+            Source: 1
+            Value: 2
+            Enabled: true
+          - Input: 13
+            Name: Factor
+            Type: 4
+            Source: 4
+            Value: 0.5
+            Enabled: true
+          - Input: 14
+            Name: A
+            Type: 4
+            Source: 4
+            Value: 0
+            Enabled: false
+          - Input: 15
+            Name: B
+            Type: 4
+            Source: 4
+            Value: 0
+            Enabled: false
+          - Input: 16
+            Name: A
+            Type: 2
+            Source: 4
+            Value: [0, 0, 0]
+            Enabled: false
+          - Input: 17
+            Name: B
+            Type: 2
+            Source: 4
+            Value: [0, 0, 0]
+            Enabled: false
+          - Input: 18
+            Name: A
+            Link:
+              Id: 25
+              Name: link2306
+              OutputNodeIndex: 2
+              InputNodeIndex: 3
+              OutputIndex: 0
+              InputIndex: 6
+            Type: 0
+            Source: 4
+            Value: [0, 0, 0]
+            Enabled: true
+          - Input: 19
+            Name: B
+            Type: 0
+            Source: 4
+            Value: [0.0853125155, 0.311187416, 0.649999976]
+            Enabled: true
+        Outputs:
+          - Output: 20
+            Name: Result
+            Type: 4
+            Enabled: false
+          - Output: 21
+            Name: Result
+            Type: 2
+            Enabled: false
+          - Output: 22
+            Name: Result
+            Links:
+              - Link: 24
+                Name: link3020
+                OutputNodeIndex: 3
+                InputNodeIndex: 0
+                OutputIndex: 2
+                InputIndex: 0
+            Type: 0
+            Enabled: true
