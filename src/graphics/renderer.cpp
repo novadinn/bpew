@@ -364,9 +364,11 @@ void Renderer::bindMaterialUniforms(Material &material) {
           shader.setInt(name.c_str(), input.value.enum_value);
           break;
         case NodePropertyType::TEXTURE:
-          shader.setUInt(name.c_str(), texture_count);
-          glActiveTexture(GL_TEXTURE0 + texture_count++);
-          input.value.texture_value.bind();
+					if (Texture2D::validTextureIndex(input.value.texture_value)) {
+						shader.setUInt(name.c_str(), texture_count);
+						glActiveTexture(GL_TEXTURE0 + texture_count++);
+						Texture2D::getTexture(input.value.texture_value)->bind();						
+					}
           break;
         default:
           printf("Unhandled node property type\n");
@@ -384,8 +386,10 @@ void Renderer::unbindMaterialUniforms(Material &material) {
       if (input.useUniform(&material)) {
         switch (input.type) {
         case NodePropertyType::TEXTURE:
-          glActiveTexture(GL_TEXTURE0 + texture_count++);
-          input.value.texture_value.unbind();
+					if (Texture2D::validTextureIndex(input.value.texture_value)) {						
+						glActiveTexture(GL_TEXTURE0 + texture_count++);
+						Texture2D::getTexture(input.value.texture_value)->unbind();
+					}
           break;
         }
       }

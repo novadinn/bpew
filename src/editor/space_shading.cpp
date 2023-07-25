@@ -59,7 +59,30 @@ void drawNodeMaterialOutput(SpaceShadingData *ctx, Node &node) {
 void drawNodeImageTexture(SpaceShadingData *ctx, Node &node) {
   NodeInput &texture_input = node.inputs[0];
 
-  ImGui::Text("Image path");
+	if (ImGui::Button("Select"))
+		ImGui::OpenPopup("Select Texture");
+
+	if (ImGui::BeginPopup("Select Texture")) {
+		std::map<std::string, uint> &textures = Texture2D::loaded_textures;
+
+		
+		for (auto it = textures.begin(); it != textures.end(); ++it) {
+			const bool selected = texture_input.value.texture_value == it->second;
+			if (ImGui::Selectable(it->first.c_str()))
+				texture_input.value.texture_value = it->second;
+			
+			if (selected)
+				ImGui::SetItemDefaultFocus();
+		}
+		
+		ImGui::EndPopup();
+	}
+	
+	ImGui::SameLine();
+	
+	std::string name = Texture2D::getTexturePath(texture_input.value.texture_value);	
+	ImGui::Text(name.c_str());
+		
   ImGui::SameLine();
   if (ImGui::Button("...")) {
     ImGuiFileDialog::Instance()->OpenDialog("LoadTexture", "Choose File",
@@ -71,7 +94,11 @@ void drawNodeImageTexture(SpaceShadingData *ctx, Node &node) {
       std::string path = ImGuiFileDialog::Instance()->GetFilePathName();
       std::string name = ImGuiFileDialog::Instance()->GetCurrentFileName();
 
-      texture_input.value.texture_value.createFromFile(path.c_str());
+			uint index = Texture2D::textures.size();
+			Texture2D tex;
+      tex.createFromFile(path.c_str());
+
+			texture_input.value.texture_value = index;
     }
 
     ImGuiFileDialog::Instance()->Close();

@@ -1,6 +1,6 @@
 Scene: Untitled
 Entities:
-  - Entity: 837098117960255112
+  - Entity: 14800600399996884485
     TagComponent:
       Tag: DirectionalLight
     TransformComponent:
@@ -12,7 +12,7 @@ Entities:
       Ambient: [0.0500000007, 0.0500000007, 0.0500000007]
       Diffuse: [0.400000006, 0.400000006, 0.400000006]
       Specular: [0.100000001, 0.100000001, 0.100000001]
-  - Entity: 7792129764797824011
+  - Entity: 921538155254171061
     TagComponent:
       Tag: Monkey
     TransformComponent:
@@ -402,7 +402,10 @@ Entities:
             - 20
             - 22
             - 23
-  - Entity: 6052144280921676897
+          Material: 0
+      Materials:
+        - 0
+  - Entity: 4518465285646262072
     TagComponent:
       Tag: Camera
     TransformComponent:
@@ -418,6 +421,9 @@ Entities:
       Distance: 10
       Viewport Width: 1307
       Viewport Height: 1026
+ImageTextures:
+  - Texture: 0
+    Path: /home/nikolay/Projects/bpew/build/img/wall.jpg
 Materials:
   - Material: qwe
     Nodes:
@@ -428,9 +434,9 @@ Materials:
           - Input: 0
             Name: Base Color
             Link:
-              Id: 24
-              Name: link3020
-              OutputNodeIndex: 3
+              Id: 30
+              Name: link4020
+              OutputNodeIndex: 4
               InputNodeIndex: 0
               OutputIndex: 2
               InputIndex: 0
@@ -486,103 +492,171 @@ Materials:
             Value: [0, 0, 0, 0]
             Enabled: true
       - Node: 11
-        Name: RGB
-        Type: 0
+        Name: Texture Coordinate
+        Type: 1
         Inputs:
           - Input: 9
-            Name: Color
-            Type: 0
-            Source: 1
-            Value: [1, 1, 1]
+            Name: texCoord
+            Type: 3
+            Source: 3
+            Value: [0, 0]
             Enabled: true
         Outputs:
           - Output: 10
-            Name: Color
+            Name: UV
             Links:
-              - Link: 25
-                Name: link2306
+              - Link: 17
+                Name: link2301
                 OutputNodeIndex: 2
                 InputNodeIndex: 3
+                OutputIndex: 0
+                InputIndex: 1
+            Type: 3
+            Enabled: true
+      - Node: 16
+        Name: Image Texture
+        Type: 4
+        Inputs:
+          - Input: 12
+            Name: Texture
+            Type: 7
+            Source: 1
+            Value: 0
+            Enabled: true
+          - Input: 13
+            Name: Vector
+            Link:
+              Id: 17
+              Name: link2301
+              OutputNodeIndex: 2
+              InputNodeIndex: 3
+              OutputIndex: 0
+              InputIndex: 1
+            Type: 3
+            Source: 2
+            Value: [0, 0]
+            Enabled: true
+        Outputs:
+          - Output: 14
+            Name: Color
+            Links:
+              - Link: 31
+                Name: link3406
+                OutputNodeIndex: 3
+                InputNodeIndex: 4
                 OutputIndex: 0
                 InputIndex: 6
             Type: 0
             Enabled: true
-      - Node: 23
+          - Output: 15
+            Name: Alpha
+            Type: 4
+            Enabled: true
+      - Node: 29
         Name: Mix
         Type: 5
         Inputs:
-          - Input: 12
+          - Input: 18
             Name: Data Type
             Type: 6
             Source: 1
             Value: 2
             Enabled: true
-          - Input: 13
+          - Input: 19
             Name: Factor
             Type: 4
             Source: 4
             Value: 0.5
             Enabled: true
-          - Input: 14
+          - Input: 20
             Name: A
             Type: 4
             Source: 4
             Value: 0
             Enabled: false
-          - Input: 15
+          - Input: 21
             Name: B
             Type: 4
             Source: 4
             Value: 0
             Enabled: false
-          - Input: 16
+          - Input: 22
             Name: A
             Type: 2
             Source: 4
             Value: [0, 0, 0]
             Enabled: false
-          - Input: 17
+          - Input: 23
             Name: B
             Type: 2
             Source: 4
             Value: [0, 0, 0]
             Enabled: false
-          - Input: 18
+          - Input: 24
             Name: A
             Link:
-              Id: 25
-              Name: link2306
-              OutputNodeIndex: 2
-              InputNodeIndex: 3
+              Id: 31
+              Name: link3406
+              OutputNodeIndex: 3
+              InputNodeIndex: 4
               OutputIndex: 0
               InputIndex: 6
             Type: 0
             Source: 4
             Value: [0, 0, 0]
             Enabled: true
-          - Input: 19
+          - Input: 25
             Name: B
+            Link:
+              Id: 35
+              Name: link5407
+              OutputNodeIndex: 5
+              InputNodeIndex: 4
+              OutputIndex: 0
+              InputIndex: 7
             Type: 0
             Source: 4
-            Value: [0.0853125155, 0.311187416, 0.649999976]
+            Value: [0.439880818, 0.925000012, 0.132968768]
             Enabled: true
         Outputs:
-          - Output: 20
+          - Output: 26
             Name: Result
             Type: 4
             Enabled: false
-          - Output: 21
+          - Output: 27
             Name: Result
             Type: 2
             Enabled: false
-          - Output: 22
+          - Output: 28
             Name: Result
             Links:
-              - Link: 24
-                Name: link3020
-                OutputNodeIndex: 3
+              - Link: 30
+                Name: link4020
+                OutputNodeIndex: 4
                 InputNodeIndex: 0
                 OutputIndex: 2
                 InputIndex: 0
+            Type: 0
+            Enabled: true
+      - Node: 34
+        Name: RGB
+        Type: 0
+        Inputs:
+          - Input: 32
+            Name: Color
+            Type: 0
+            Source: 1
+            Value: [0.923076928, 0.51834321, 0.51834321]
+            Enabled: true
+        Outputs:
+          - Output: 33
+            Name: Color
+            Links:
+              - Link: 35
+                Name: link5407
+                OutputNodeIndex: 5
+                InputNodeIndex: 4
+                OutputIndex: 0
+                InputIndex: 7
             Type: 0
             Enabled: true

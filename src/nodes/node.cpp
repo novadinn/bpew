@@ -81,7 +81,7 @@ void Node::create(NodeType node_type) {
     input = {};
     input_value = {};
 
-    input_value.texture_value = Texture2D{};
+    input_value.texture_value = 0;
 
     input.create(input_value, "Texture", NodePropertyType::TEXTURE,
                  NodePropertySource::INPUT_UNIFORM);

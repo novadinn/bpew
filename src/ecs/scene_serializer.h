@@ -13,7 +13,8 @@ struct SceneSerializer {
 
 private:
   static void serializeEntity(YAML::Emitter &out, Entity entity);
-	static void serializeMaterial(YAML::Emitter &out, Material &material);
+	static void serializeTexture2D(YAML::Emitter &out, Texture2D &texture);
+	static void serializeMaterial(YAML::Emitter &out, Material &material);	
 	static void deserializeMaterial(YAML::Node &material_data);
 };
 

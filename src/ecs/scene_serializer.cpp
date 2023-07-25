@@ -140,6 +140,17 @@ void SceneSerializer::serialize(Scene *scene, const std::string &filepath) {
   });
   out << YAML::EndSeq;
 
+	out << YAML::Key << "ImageTextures" << YAML::Value << YAML::BeginSeq;
+	for (auto it = Texture2D::loaded_textures.begin(); it != Texture2D::loaded_textures.end(); ++it) {		
+		out << YAML::BeginMap;
+		out << YAML::Key << "Texture" << YAML::Value << it->second;
+
+		out << YAML::Key << "Path" << YAML::Value << it->first;
+		
+		out << YAML::EndMap;
+	}
+	out << YAML::EndSeq;
+
 	out << YAML::Key << "Materials" << YAML::Value << YAML::BeginSeq;
 	for (Material &material : MaterialManager::materials) {
 		serializeMaterial(out, material);
@@ -260,6 +271,16 @@ bool SceneSerializer::deserialize(Scene *scene, const std::string &filepath) {
       }
     }
   }
+
+	auto loaded_textures = data["ImageTextures"];
+	if (loaded_textures) {
+		for (auto texture_data : loaded_textures) {
+			std::string path = texture_data["Path"].as<std::string>();
+
+			Texture2D texture;
+			texture.createFromFile(path.c_str());			
+		}
+	}
 
 	auto materials = data["Materials"];
 	if (materials) {
@@ -446,7 +467,8 @@ void SceneSerializer::serializeMaterial(YAML::Emitter &out, Material &material) 
 					case NodePropertyType::ENUM:
 						out << input.value.enum_value;
 						break;									
-					case NodePropertyType::TEXTURE:
+					case NodePropertyType::TEXTURE:					
+						out << input.value.texture_value;						
 						break;
 					default:
 						LOG_ERROR("Unknown node input type: %d\n", (int)input.type);
@@ -573,7 +595,8 @@ void SceneSerializer::deserializeMaterial(YAML::Node &material_data) {
 					case NodePropertyType::ENUM:
 						input.value.enum_value = value.as<int>();
 						break;									
-					case NodePropertyType::TEXTURE:
+					case NodePropertyType::TEXTURE:						
+						input.value.texture_value = value.as<uint>();
 						break;
 					default:
 						LOG_ERROR("Unknown node input type: %d\n", (int)input.type);

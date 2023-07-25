@@ -51,7 +51,7 @@ union NodePropertyValue {
   float float_value;
   int int_value;
   int enum_value;
-  Texture2D texture_value;
+  uint texture_value;
 };
 
 struct NodeInput {
