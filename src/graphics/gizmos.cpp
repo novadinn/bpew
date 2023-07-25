@@ -21,7 +21,8 @@ void Gizmos::destroy() { line_shader.destroy(); }
 void Gizmos::drawLine(glm::mat4 &view_mat, glm::mat4 proj_mat,
                       const glm::vec3 &start, const glm::vec3 &end,
                       const glm::vec3 &color) {
-  // TODO: we dont need to create it every time
+  glLineWidth(2.0f);
+  /* TODO: we dont need to create it every time */
   std::vector<float> line_vertices;
   line_vertices.reserve(12);
 

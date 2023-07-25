@@ -28,7 +28,8 @@ void Editor::create() {
   receivers.push_back(createSpaceLayoutReceiver());
   receivers.push_back(createSpaceModelingReceiver());
   receivers.push_back(createSpaceShadingReceiver());
-  active_receiver = receivers[0]; // Set space layout as active
+  /* Set space layout as active */
+  active_receiver = receivers[0];
 
   ctx->renderer_context = new RendererContext();
 
@@ -37,19 +38,21 @@ void Editor::create() {
   }
 
   float near = 0.1f;
-  float far = 50.0f;
+  float far = 100.0f;
 
   ctx->scene = new Scene();
 
   ctx->editor_camera = new EditorCamera();
   ctx->editor_camera->create(45, 1.778f, near, far);
+  ctx->editor_camera->yaw = glm::radians(45.0f);
+  ctx->editor_camera->pitch = glm::radians(45.0f);
 
   Entity camera_entity = ctx->scene->createEntity("Camera");
   auto &camera_component = camera_entity.addComponent<CameraComponent>();
 
-  Entity object = ctx->scene->createEntity("Monkey");
+  Entity cube = ctx->scene->createEntity("Cube");
 
-  auto &mesh = object.addComponent<MeshComponent>();
+  auto &mesh = cube.addComponent<MeshComponent>();
   mesh.loadFromPath("datafiles/primitives/cube.obj");
 
   Entity dir_light = ctx->scene->createEntity("DirectionalLight");
@@ -86,31 +89,13 @@ void Editor::onUpdate() {
 
   if (Input::wasMouseButtonHeld(SDL_BUTTON_MIDDLE)) {
     if (Input::wasKeyHeld(SDLK_LSHIFT)) {
-      if (!ctx->active_camera) {
-        ctx->editor_camera->pan(mouse_delta);
-      }
+      ctx->editor_camera->pan(mouse_delta);
     } else {
-      if (!ctx->active_camera) {
-        ctx->editor_camera->rotate(mouse_delta);
-      }
+      ctx->editor_camera->rotate(mouse_delta);
     }
   }
-  if (Input::wasWheelMoved()) {
-    if (ctx->active_camera) {
-      auto &camera_component =
-          ctx->active_camera.getComponent<CameraComponent>();
-      auto &transform_component =
-          ctx->active_camera.getComponent<TransformComponent>();
-      camera_component.zoom(delta_time * wheel_movement.y,
-                            transform_component.rotation);
-    } else {
-      ctx->editor_camera->zoom(delta_time * wheel_movement.y);
-    }
-  }
-  if (Input::wasKeyPressed(SDLK_ESCAPE)) {
-    if (ctx->active_camera) {
-      ctx->active_camera = {};
-    }
+  if (wheel_movement.y != 0) {
+    ctx->editor_camera->zoom(delta_time * wheel_movement.y);
   }
 
   ASSERT(active_receiver->onUpdate != NULL);
@@ -121,17 +106,11 @@ void Editor::onDraw() {
   ASSERT(active_receiver->onResize != NULL);
   active_receiver->onResize(ctx);
 
-  ASSERT(active_receiver->onRenderBegin != NULL);
-  active_receiver->onRenderBegin(ctx);
   ASSERT(active_receiver->onRender != NULL);
   active_receiver->onRender(ctx);
 
-  showLines();
-
   ASSERT(active_receiver->onRenderPostProcessing != NULL);
   active_receiver->onRenderPostProcessing(ctx);
-  ASSERT(active_receiver->onRenderEnd != NULL);
-  active_receiver->onRenderEnd(ctx);
 
   static bool dockspace_open = true;
   static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
@@ -296,7 +275,6 @@ void Editor::showMenuBar() {
       ctx->selected_vertex = -1;
       /* TODO: since we are restoring context, we need to store the active
        * camera elsewhere (in scene, for example */
-      ctx->active_camera = {};
       ctx->space_layout_data->hovered_entity = {};
 
       SceneSerializer::deserialize(ctx->scene, fp);
@@ -375,7 +353,7 @@ void Editor::showInspectorPanel() {
     memset(buff, 0, sizeof(buff));
     strncpy(buff, tag.tag.c_str(), sizeof(buff));
     if (ImGui::InputText("##Tag", buff, sizeof(buff))) {
-      tag.tag = std::string(buff);
+      ctx->scene->renameEntity(ctx->selected_entity, buff);
     }
 
     ASSERT(ctx->selected_entity.hasComponent<TransformComponent>());
@@ -400,7 +378,7 @@ void Editor::showInspectorPanel() {
     if (ctx->selected_entity.hasComponent<CameraComponent>()) {
       if (ImGui::CollapsingHeader("Camera")) {
         if (ImGui::Button("Select as active")) {
-          ctx->active_camera = ctx->selected_entity;
+          /* TODO: set camera as main */
         }
       }
     }
@@ -626,44 +604,4 @@ void Editor::showCameraPanel() {
   }
 
   ImGui::End();
-}
-
-void Editor::showLines() {
-  glm::mat4 view_mat = ctx->editor_camera->getViewMatrix();
-  glm::mat4 proj_mat = ctx->editor_camera->getProjectionMatrix();
-  glm::vec3 cam_pos = ctx->editor_camera->position;
-  float far = ctx->editor_camera->far;
-
-  if (ctx->active_camera) {
-    auto &camera_component = ctx->active_camera.getComponent<CameraComponent>();
-    auto &transform_component =
-        ctx->active_camera.getComponent<TransformComponent>();
-    view_mat = camera_component.getViewMatrix(transform_component.position,
-                                              transform_component.rotation);
-    proj_mat = camera_component.getProjectionMatrix();
-    cam_pos = transform_component.position;
-    far = camera_component.far;
-  }
-
-  for (float x = cam_pos.x - far; x < cam_pos.x + far; x += 0.5f) {
-    glm::vec3 start = glm::vec3((int)x, 0, (int)(cam_pos.z - far));
-    glm::vec3 end = glm::vec3((int)x, 0, (int)(cam_pos.z + far));
-    glm::vec3 color = glm::vec3(0.4, 0.4, 0.4);
-    if ((int)x == 0) {
-      color = glm::vec3(1, 0.4, 0.4);
-    }
-
-    Gizmos::drawLine(view_mat, proj_mat, start, end, color);
-  }
-
-  for (float z = cam_pos.z - far; z < cam_pos.z + far; z += 0.5f) {
-    glm::vec3 start = glm::vec3((int)(cam_pos.x - far), 0, (int)z);
-    glm::vec3 end = glm::vec3((int)(cam_pos.x + far), 0, (int)z);
-    glm::vec3 color = glm::vec3(0.4, 0.4, 0.4);
-    if ((int)z == 0) {
-      color = glm::vec3(0.55, 0.8, 0.9);
-    }
-
-    Gizmos::drawLine(view_mat, proj_mat, start, end, color);
-  }
 }

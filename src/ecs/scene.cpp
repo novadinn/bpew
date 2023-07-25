@@ -25,9 +25,9 @@ Entity Scene::createEntityFromUUID(UUID uuid, const std::string &name) {
   UUIDComponent &uuid_component = entity.addComponent<UUIDComponent>();
   uuid_component.id = uuid;
   entity.addComponent<TransformComponent>();
-  TagComponent &tag = entity.addComponent<TagComponent>();
-  // TODO: check if name doesnt already exists in the scene
-  tag.tag = name.empty() ? "Entity" : name;
+  entity.addComponent<TagComponent>();
+
+  renameEntity(entity, name);
 
   return entity;
 }
@@ -179,7 +179,8 @@ void Scene::searchIntersectedVertices(uint32 *entity_id, int *vertex_id,
   *entity_id = 0;
   *vertex_id = -1;
 
-  /* TODO: no sorting by the distance occurs here */
+  float closest_distance = FLT_MAX;
+
   auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
   for (auto entity : group) {
     auto [transform_component, mesh_component] =
@@ -197,13 +198,18 @@ void Scene::searchIntersectedVertices(uint32 *entity_id, int *vertex_id,
         vertex_position =
             transform_component.getModelMatrix() * vertex_position;
 
-        if (PhysicsUtils::raySphereIntersect(ray_position, ray_direction,
-                                             vertex_position, 0.1f)) {
+        float distance =
+            glm::distance(ray_position, glm::vec3(vertex_position));
 
-          *entity_id = (uint32)entity;
-          *vertex_id = int(j / mesh.totalAttributesCount());
+        if (distance < closest_distance) {
+          if (PhysicsUtils::raySphereIntersect(ray_position, ray_direction,
+                                               vertex_position, 0.1f)) {
 
-          return;
+            *entity_id = (uint32)entity;
+            *vertex_id = int(j / mesh.totalAttributesCount());
+
+            closest_distance = distance;
+          }
         }
       }
     }
@@ -217,4 +223,37 @@ void Scene::onResize(uint width, uint height) {
 
     camera.setViewportSize(width, height);
   }
+}
+
+void Scene::renameEntity(Entity entity, std::string name) {
+  ASSERT(entity.hasComponent<TagComponent>());
+  TagComponent &tag = entity.getComponent<TagComponent>();
+
+  std::string result = name.empty() ? "Entity" : name;
+  std::string postfix = "";
+  int i = 0;
+
+  auto view = registry.view<TagComponent>();
+  while (true) {
+    bool exists = false;
+
+    for (auto target : view) {
+      if (entity != target) {
+        auto &tag_c = view.get<TagComponent>(target);
+
+        if (tag_c.tag == (result + postfix)) {
+          exists = true;
+        }
+      }
+    }
+
+    if (!exists) {
+      break;
+    } else {
+      postfix = std::to_string(i);
+      i++;
+    }
+  }
+
+  tag.tag = result + postfix;
 }

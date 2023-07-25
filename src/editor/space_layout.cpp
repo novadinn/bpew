@@ -21,10 +21,8 @@ EventReceiver *createSpaceLayoutReceiver() {
   receiver->onUpdate = onUpdateSpaceLayout;
   receiver->onResize = onResizeSpaceLayout;
 
-  receiver->onRenderBegin = onRenderBeginSpaceLayout;
   receiver->onRender = onRenderSpaceLayout;
   receiver->onRenderPostProcessing = onRenderPostProcessingSpaceLayout;
-  receiver->onRenderEnd = onRenderEndSpaceLayout;
 
   receiver->onDrawUIBegin = onDrawUIBeginSpaceLayout;
   receiver->onDrawUI = onDrawUISpaceLayout;
@@ -41,7 +39,6 @@ void onCreateSpaceLayout(EditorContext *ctx) {
   data.formats = {GL_RGBA8, GL_RGBA32F, GL_DEPTH24_STENCIL8};
   data.width = 800;
   data.height = 800;
-  data.samples = 1;
   space_data->framebuffer.create(data);
 
   data.formats = {GL_RGBA8};
@@ -87,6 +84,11 @@ void onUpdateSpaceLayout(EditorContext *ctx) {
     }
   }
 
+  if (Input::wasKeyPressed(SDLK_DELETE) && ctx->selected_entity) {
+    ctx->scene->destroyEntity(ctx->selected_entity);
+    ctx->selected_entity = {};
+  }
+
   switch (space_data->draw_mode) {
   case DrawMode::RENDERED:
     ctx->scene->onUpdateRendered();
@@ -119,36 +121,18 @@ void onResizeSpaceLayout(EditorContext *ctx) {
   }
 }
 
-void onRenderBeginSpaceLayout(EditorContext *ctx) {
+void onRenderSpaceLayout(EditorContext *ctx) {
   SpaceLayoutData *space_data = ctx->space_layout_data;
+  RendererContext *renderer_context = ctx->renderer_context;
 
   space_data->framebuffer.bind();
   Renderer::clear();
   space_data->framebuffer.clearRGBA8ColorAttachment(1, glm::vec4(-1));
-}
-
-void onRenderSpaceLayout(EditorContext *ctx) {
-  SpaceLayoutData *space_data = ctx->space_layout_data;
-  RendererContext *renderer_context = ctx->renderer_context;
 
   glm::mat4 view = ctx->editor_camera->getViewMatrix();
   glm::mat4 projection = ctx->editor_camera->getProjectionMatrix();
   glm::vec3 view_pos = ctx->editor_camera->position;
   glm::vec3 direction = ctx->editor_camera->getForward();
-
-  /* we shouldnt render from not-editor camera if it is not a rendered mode */
-  if (ctx->active_camera && space_data->draw_mode == DrawMode::RENDERED) {
-    ASSERT(ctx->active_camera.hasComponent<CameraComponent>());
-    auto &camera_component = ctx->active_camera.getComponent<CameraComponent>();
-    ASSERT(ctx->active_camera.hasComponent<TransformComponent>());
-    auto &transform_component =
-        ctx->active_camera.getComponent<TransformComponent>();
-    view = camera_component.getViewMatrix(transform_component.position,
-                                          transform_component.rotation);
-    projection = camera_component.getProjectionMatrix();
-    view_pos = transform_component.position;
-    direction = camera_component.getForward(transform_component.rotation);
-  }
 
   renderer_context->setCameraData(view, projection);
   renderer_context->setEditorLightData(view_pos, direction);
@@ -195,6 +179,33 @@ void onRenderSpaceLayout(EditorContext *ctx) {
 
     space_data->framebuffer.bindReadAttachment(0);
   }
+
+  /* draw lines */
+  float far = ctx->editor_camera->far;
+
+  for (float x = view_pos.x - far; x < view_pos.x + far; x += 0.5f) {
+    glm::vec3 start = glm::vec3((int)x, 0, (int)(view_pos.z - far));
+    glm::vec3 end = glm::vec3((int)x, 0, (int)(view_pos.z + far));
+    glm::vec3 color = glm::vec3(0.4, 0.4, 0.4);
+    if ((int)x == 0) {
+      color = glm::vec3(1, 0.4, 0.4);
+    }
+
+    Gizmos::drawLine(view, projection, start, end, color);
+  }
+
+  for (float z = view_pos.z - far; z < view_pos.z + far; z += 0.5f) {
+    glm::vec3 start = glm::vec3((int)(view_pos.x - far), 0, (int)z);
+    glm::vec3 end = glm::vec3((int)(view_pos.x + far), 0, (int)z);
+    glm::vec3 color = glm::vec3(0.4, 0.4, 0.4);
+    if ((int)z == 0) {
+      color = glm::vec3(0.55, 0.8, 0.9);
+    }
+
+    Gizmos::drawLine(view, projection, start, end, color);
+  }
+
+  space_data->framebuffer.unbind();
 }
 
 void onRenderPostProcessingSpaceLayout(EditorContext *ctx) {
@@ -217,10 +228,6 @@ void onRenderPostProcessingSpaceLayout(EditorContext *ctx) {
   space_data->pp_framebuffer.bind();
   Renderer::clear();
   Renderer::applyFXAA(renderer_context);
-}
-
-void onRenderEndSpaceLayout(EditorContext *ctx) {
-  SpaceLayoutData *space_data = ctx->space_layout_data;
 
   space_data->pp_framebuffer.unbind();
 }

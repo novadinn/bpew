@@ -9,10 +9,8 @@ void EventReceiver::clearEvents() {
   onUpdate = emptyEvent;
   onResize = emptyEvent;
 
-  onRenderBegin = emptyEvent;
   onRender = emptyEvent;
   onRenderPostProcessing = emptyEvent;
-  onRenderEnd = emptyEvent;
 
   onDrawUIBegin = emptyEvent;
   onDrawUI = emptyEvent;
