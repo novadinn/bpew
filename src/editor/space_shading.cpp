@@ -6,9 +6,9 @@
 #include "imgui/imgui.h"
 #include "imnodes/imnodes.h"
 
-void SpaceShadingData::createNode(Entity selected_entity, NodeType type) {
-  if (selected_entity && selected_entity.hasComponent<MeshComponent>()) {
-    MeshComponent &mesh = selected_entity.getComponent<MeshComponent>();
+void SpaceShadingData::createNode(Entity active_entity, NodeType type) {
+  if (active_entity && active_entity.hasComponent<MeshComponent>()) {
+    MeshComponent &mesh = active_entity.getComponent<MeshComponent>();
     Material *mat = mesh.getActiveMaterial();
 
     if (mat) {
@@ -28,9 +28,7 @@ EventReceiver *createSpaceShadingReceiver() {
   receiver->onCreate = onCreateSpaceShading;
   receiver->onDestroy = onDestroySpaceShading;
 
-  receiver->onDrawUIBegin = onDrawUIBeginSpaceShading;
   receiver->onDrawUI = onDrawUISpaceShading;
-  receiver->onDrawUIEnd = onDrawUIEndSpaceShading;
 
   return receiver;
 }
@@ -46,15 +44,15 @@ void onDestroySpaceShading(EditorContext *ctx) {
   delete space_data;
 }
 
-void onDrawUIBeginSpaceShading(EditorContext *ctx) { ImGui::Begin("Shading"); }
-
 void onDrawUISpaceShading(EditorContext *ctx) {
   SpaceShadingData *space_data = ctx->space_shading_data;
 
+  ImGui::Begin("Shading");
+
   // Draw header
   if (ImGui::Button("Material...")) {
-    if (ctx->selected_entity &&
-        ctx->selected_entity.hasComponent<MeshComponent>()) {
+    if (ctx->active_entity &&
+        ctx->active_entity.hasComponent<MeshComponent>()) {
       ImGui::OpenPopup("MaterialsMenu");
     } else {
       // TODO: error message popup
@@ -62,8 +60,8 @@ void onDrawUISpaceShading(EditorContext *ctx) {
   }
 
   if (ImGui::BeginPopup("MaterialsMenu")) {
-    ASSERT(ctx->selected_entity.hasComponent<MeshComponent>());
-    MeshComponent &mesh = ctx->selected_entity.getComponent<MeshComponent>();
+    ASSERT(ctx->active_entity.hasComponent<MeshComponent>());
+    MeshComponent &mesh = ctx->active_entity.getComponent<MeshComponent>();
     std::vector<Material> &materials = mesh.materials;
 
     static char material_name[255];
@@ -102,9 +100,8 @@ void onDrawUISpaceShading(EditorContext *ctx) {
   // Draw node editor
   ImNodes::BeginNodeEditor();
 
-  if (ctx->selected_entity &&
-      ctx->selected_entity.hasComponent<MeshComponent>()) {
-    MeshComponent &mesh = ctx->selected_entity.getComponent<MeshComponent>();
+  if (ctx->active_entity && ctx->active_entity.hasComponent<MeshComponent>()) {
+    MeshComponent &mesh = ctx->active_entity.getComponent<MeshComponent>();
 
     Material *mat = mesh.getActiveMaterial();
     if (mat) {
@@ -148,15 +145,14 @@ void onDrawUISpaceShading(EditorContext *ctx) {
     if (ImGui::BeginMenu("Add")) {
       if (ImGui::BeginMenu("Input")) {
         if (ImGui::Button("RGB")) {
-          space_data->createNode(ctx->selected_entity, NodeType::RGB);
+          space_data->createNode(ctx->active_entity, NodeType::RGB);
         }
 
         ImGui::EndMenu();
       }
       if (ImGui::BeginMenu("Output")) {
         if (ImGui::Button("Material Output")) {
-          space_data->createNode(ctx->selected_entity,
-                                 NodeType::MATERIAL_OUTPUT);
+          space_data->createNode(ctx->active_entity, NodeType::MATERIAL_OUTPUT);
         }
 
         ImGui::EndMenu();
@@ -209,9 +205,8 @@ void onDrawUISpaceShading(EditorContext *ctx) {
   }
 
   // Links should be drawn after the nodes
-  if (ctx->selected_entity &&
-      ctx->selected_entity.hasComponent<MeshComponent>()) {
-    MeshComponent &mesh = ctx->selected_entity.getComponent<MeshComponent>();
+  if (ctx->active_entity && ctx->active_entity.hasComponent<MeshComponent>()) {
+    MeshComponent &mesh = ctx->active_entity.getComponent<MeshComponent>();
     Material *mat = mesh.getActiveMaterial();
 
     if (mat) {
@@ -243,8 +238,8 @@ void onDrawUISpaceShading(EditorContext *ctx) {
   NodeProperty *output_prop = nullptr, *input_prop = nullptr;
   uint output_node, input_node;
   if (ImNodes::IsLinkCreated(&output_id, &input_id)) {
-    ASSERT(ctx->selected_entity.hasComponent<MeshComponent>());
-    MeshComponent &mesh = ctx->selected_entity.getComponent<MeshComponent>();
+    ASSERT(ctx->active_entity.hasComponent<MeshComponent>());
+    MeshComponent &mesh = ctx->active_entity.getComponent<MeshComponent>();
     Material *mat = mesh.getActiveMaterial();
     ASSERT(mat != nullptr);
     std::vector<Node> &nodes = mat->nodes;
@@ -299,8 +294,8 @@ void onDrawUISpaceShading(EditorContext *ctx) {
     // TODO: slow linear search
     for (int i = 0; i < num_selected; ++i) {
       int destroyed_link_id = selected_links[i];
-      ASSERT(ctx->selected_entity.hasComponent<MeshComponent>());
-      MeshComponent &mesh = ctx->selected_entity.getComponent<MeshComponent>();
+      ASSERT(ctx->active_entity.hasComponent<MeshComponent>());
+      MeshComponent &mesh = ctx->active_entity.getComponent<MeshComponent>();
       Material *mat = mesh.getActiveMaterial();
       std::vector<Node> &nodes = mat->nodes;
 
@@ -337,6 +332,6 @@ void onDrawUISpaceShading(EditorContext *ctx) {
       }
     }
   }
-}
 
-void onDrawUIEndSpaceShading(EditorContext *ctx) { ImGui::End(); }
+  ImGui::End();
+}

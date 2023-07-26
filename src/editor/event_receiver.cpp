@@ -12,7 +12,5 @@ void EventReceiver::clearEvents() {
   onRender = emptyEvent;
   onRenderPostProcessing = emptyEvent;
 
-  onDrawUIBegin = emptyEvent;
   onDrawUI = emptyEvent;
-  onDrawUIEnd = emptyEvent;
 }

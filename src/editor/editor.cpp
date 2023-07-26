@@ -162,12 +162,8 @@ void Editor::onDraw() {
   showInspectorPanel();
   showCameraPanel();
 
-  ASSERT(active_receiver->onDrawUIBegin != NULL);
-  active_receiver->onDrawUIBegin(ctx);
   ASSERT(active_receiver->onDrawUI != NULL);
   active_receiver->onDrawUI(ctx);
-  ASSERT(active_receiver->onDrawUIEnd != NULL);
-  active_receiver->onDrawUIEnd(ctx);
 
   // NOTE: dockspace end
   ImGui::End();
@@ -272,8 +268,10 @@ void Editor::showMenuBar() {
       /* TODO: just delete entities, we dont need to reallocate the scene */
       delete ctx->scene;
       ctx->scene = new Scene();
-      ctx->selected_entity = {};
-      ctx->selected_vertex = -1;
+      ctx->active_entity = {};
+      ctx->selected_entities.clear();
+      ctx->active_vertex = std::pair(Entity{}, -1);
+      ctx->selected_vertices.clear();
       /* TODO: since we are restoring context, we need to store the active
        * camera elsewhere (in scene, for example */
       ctx->space_layout_data->hovered_entity = {};
@@ -299,10 +297,10 @@ void Editor::showMenuBar() {
       std::string path = ImGuiFileDialog::Instance()->GetFilePathName();
       std::string name = ImGuiFileDialog::Instance()->GetCurrentFileName();
 
-      if (ctx->selected_entity) {
-        if (ctx->selected_entity.hasComponent<MeshComponent>()) {
+      if (ctx->active_entity) {
+        if (ctx->active_entity.hasComponent<MeshComponent>()) {
           MeshComponent &mesh =
-              ctx->selected_entity.getComponent<MeshComponent>();
+              ctx->active_entity.getComponent<MeshComponent>();
           mesh.loadFromPath(path.c_str());
         }
       }
@@ -319,8 +317,19 @@ void Editor::showHierarchyPanel() {
     auto view = registry.view<TagComponent>();
     for (auto entity : view) {
       auto &tag = view.get<TagComponent>(entity);
-      if (ImGui::Selectable(tag.tag.c_str(), ctx->selected_entity == entity))
-        ctx->selected_entity.create(entity, ctx->scene);
+      Entity scene_entity;
+      scene_entity.create(entity, ctx->scene);
+      bool selected = ctx->entitySelected(scene_entity);
+
+      if (ImGui::Selectable(tag.tag.c_str(), selected)) {
+        ctx->active_entity.create(entity, ctx->scene);
+
+        if (!Input::wasKeyHeld(SDLK_LSHIFT)) {
+          ctx->selected_entities.clear();
+        }
+
+        ctx->selected_entities.push_back(ctx->active_entity);
+      }
     }
   }
 
@@ -329,10 +338,9 @@ void Editor::showHierarchyPanel() {
       ctx->scene->createEntity();
     }
 
-    if (ctx->selected_entity) {
+    if (ctx->active_entity) {
       if (ImGui::MenuItem("Destoy Entity")) {
-        ctx->scene->destroyEntity(ctx->selected_entity);
-        ctx->selected_entity = {};
+        ctx->destroyEntity();
       }
     }
 
@@ -345,22 +353,22 @@ void Editor::showHierarchyPanel() {
 void Editor::showInspectorPanel() {
   ImGui::Begin("Inspector");
 
-  if (ctx->selected_entity) {
+  if (ctx->active_entity) {
     /* those 2 components always exists, dont need to check for them */
-    ASSERT(ctx->selected_entity.hasComponent<TagComponent>());
+    ASSERT(ctx->active_entity.hasComponent<TagComponent>());
     ImGui::Text("Tag");
-    TagComponent &tag = ctx->selected_entity.getComponent<TagComponent>();
+    TagComponent &tag = ctx->active_entity.getComponent<TagComponent>();
     char buff[256];
     memset(buff, 0, sizeof(buff));
     strncpy(buff, tag.tag.c_str(), sizeof(buff));
     if (ImGui::InputText("##Tag", buff, sizeof(buff))) {
-      ctx->scene->renameEntity(ctx->selected_entity, buff);
+      ctx->scene->renameEntity(ctx->active_entity, buff);
     }
 
-    ASSERT(ctx->selected_entity.hasComponent<TransformComponent>());
+    ASSERT(ctx->active_entity.hasComponent<TransformComponent>());
     if (ImGui::CollapsingHeader("Transform")) {
       TransformComponent &transform =
-          ctx->selected_entity.getComponent<TransformComponent>();
+          ctx->active_entity.getComponent<TransformComponent>();
 
       float p[3] = {transform.position.x, transform.position.y,
                     transform.position.z};
@@ -376,7 +384,7 @@ void Editor::showInspectorPanel() {
         transform.rotation = glm::vec3(r[0], r[1], r[2]);
     }
 
-    if (ctx->selected_entity.hasComponent<CameraComponent>()) {
+    if (ctx->active_entity.hasComponent<CameraComponent>()) {
       if (ImGui::CollapsingHeader("Camera")) {
         if (ImGui::Button("Select as active")) {
           /* TODO: set camera as main */
@@ -384,10 +392,9 @@ void Editor::showInspectorPanel() {
       }
     }
 
-    if (ctx->selected_entity.hasComponent<MeshComponent>()) {
+    if (ctx->active_entity.hasComponent<MeshComponent>()) {
       if (ImGui::CollapsingHeader("Mesh")) {
-        MeshComponent &mesh =
-            ctx->selected_entity.getComponent<MeshComponent>();
+        MeshComponent &mesh = ctx->active_entity.getComponent<MeshComponent>();
 
         ImGui::Text("Mesh");
         ImGui::SameLine();
@@ -398,10 +405,10 @@ void Editor::showInspectorPanel() {
       }
     }
 
-    if (ctx->selected_entity.hasComponent<LightComponent>()) {
+    if (ctx->active_entity.hasComponent<LightComponent>()) {
       if (ImGui::CollapsingHeader("Light")) {
         LightComponent &light =
-            ctx->selected_entity.getComponent<LightComponent>();
+            ctx->active_entity.getComponent<LightComponent>();
 
         const char *types[] = {"Spot", "Point", "Directional"};
         int type = light.type;
@@ -458,18 +465,18 @@ void Editor::showInspectorPanel() {
 }
 
 template <typename T> void Editor::showAddComponentPopup(const char *str) {
-  if (!ctx->selected_entity.hasComponent<T>()) {
+  if (!ctx->active_entity.hasComponent<T>()) {
     if (ImGui::MenuItem(str)) {
-      ctx->selected_entity.addComponent<T>();
+      ctx->active_entity.addComponent<T>();
       ImGui::CloseCurrentPopup();
     }
   }
 }
 
 template <typename T> void Editor::showRemoveComponentPopup(const char *str) {
-  if (ctx->selected_entity.hasComponent<T>()) {
+  if (ctx->active_entity.hasComponent<T>()) {
     if (ImGui::MenuItem(str)) {
-      ctx->selected_entity.removeComponent<T>();
+      ctx->active_entity.removeComponent<T>();
       ImGui::CloseCurrentPopup();
     }
   }
