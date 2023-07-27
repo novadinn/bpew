@@ -45,7 +45,7 @@ void onDrawUIBeginSpaceShading(EditorContext *ctx) { ImGui::Begin("Shading"); }
 void drawNodeRGB(SpaceShadingData *ctx, Node &node) {
   NodeInput &color_input = node.inputs[0];
 
-  drawNodeInputColor3Picker(ctx, color_input, "Color");
+  drawNodeInputColor3Picker(color_input, "Color");
 
   drawNodeOutputAttributes(ctx, node.outputs);
 }
@@ -56,10 +56,15 @@ void drawNodeBevel(SpaceShadingData *ctx, Node &node) {
 
   drawNodeOutputAttribute(ctx, node.outputs[0]);
 
-  drawNodeInputAttribute(ctx, radius_input);
-  drawNodeInputFloatDrag(ctx, radius_input, "Radius", 0.0f, 1000.0f);
+  if(drawNodeInputBegin(ctx, radius_input)) {
+		drawNodeInputFloatDrag(radius_input, "Radius", 0.0f, 1000.0f);
 
-  drawNodeInputAttribute(ctx, normal_input);
+		drawNodeInputEnd();
+	}
+	
+	if (drawNodeInputBegin(ctx, normal_input)) {
+		drawNodeInputEnd();
+	}
 }
 
 void drawNodeMaterialOutput(SpaceShadingData *ctx, Node &node) {
@@ -131,15 +136,24 @@ void drawNodeBrightnessContrast(SpaceShadingData *ctx, Node &node) {
   NodeInput &contrast_input = node.inputs[2];
 
   drawNodeOutputAttribute(ctx, node.outputs[0]);
+	
+  if (drawNodeInputBegin(ctx, color_input)) {
+		drawNodeInputColor3Edit(color_input, "Color");
 
-  drawNodeInputAttribute(ctx, color_input);
-  drawNodeInputColor3Edit(ctx, color_input, "Color");
+		drawNodeInputEnd();
+	}
 
-  drawNodeInputAttribute(ctx, brightness_input);
-  drawNodeInputFloatDrag(ctx, brightness_input, "Bright", -100.0f, 100.0f);
+  if (drawNodeInputBegin(ctx, brightness_input)) {
+		drawNodeInputFloatDrag(brightness_input, "Bright", -100.0f, 100.0f);
 
-  drawNodeInputAttribute(ctx, contrast_input);
-  drawNodeInputFloatDrag(ctx, contrast_input, "Contrast", -100.0f, 100.0f);
+		drawNodeInputEnd();
+	}
+	
+  if (drawNodeInputBegin(ctx, contrast_input)) {
+		drawNodeInputFloatDrag(contrast_input, "Contrast", -100.0f, 100.0f);
+
+		drawNodeInputEnd();
+	}
 }
 
 void drawNodeGamma(SpaceShadingData *ctx, Node &node) {
@@ -148,11 +162,17 @@ void drawNodeGamma(SpaceShadingData *ctx, Node &node) {
 
   drawNodeOutputAttribute(ctx, node.outputs[0]);
 
-  drawNodeInputAttribute(ctx, color_input);
-  drawNodeInputColor3Edit(ctx, color_input, "Color");
+  if (drawNodeInputBegin(ctx, color_input)) {
+		drawNodeInputColor3Edit(color_input, "Color");
 
-  drawNodeInputAttribute(ctx, gamma_input);
-  drawNodeInputFloatDrag(ctx, gamma_input, "Gamma", 0.001f, 10.0f);
+		drawNodeInputEnd();
+	}
+
+  if (drawNodeInputBegin(ctx, gamma_input)) {
+		drawNodeInputFloatDrag(gamma_input, "Gamma", 0.001f, 10.0f);
+		
+		drawNodeInputEnd();		
+	}
 }
 
 void drawNodeInvert(SpaceShadingData *ctx, Node &node) {
@@ -161,11 +181,36 @@ void drawNodeInvert(SpaceShadingData *ctx, Node &node) {
 
   drawNodeOutputAttribute(ctx, node.outputs[0]);
 
-  drawNodeInputAttribute(ctx, fac_input);
-  drawNodeInputFloatDrag(ctx, fac_input, "Fac", 0.0f, 1.0f);
+  if (drawNodeInputBegin(ctx, fac_input)) {
+		drawNodeInputFloatDrag(fac_input, "Fac", 0.0f, 1.0f);
 
-  drawNodeInputAttribute(ctx, color_input);
-  drawNodeInputColor3Edit(ctx, color_input, "Color");
+		drawNodeInputEnd();
+	}
+
+  if (drawNodeInputBegin(ctx, color_input)) {
+		drawNodeInputColor3Edit(color_input, "Color");
+
+		drawNodeInputEnd();
+	}
+}
+
+void drawNodeLightFalloff(SpaceShadingData *ctx, Node &node) {
+	NodeInput &strength_input = node.inputs[0];
+	NodeInput &smooth_input = node.inputs[1];
+
+	drawNodeOutputAttributes(ctx, node.outputs);
+
+	if (drawNodeInputBegin(ctx, strength_input)) {
+		drawNodeInputFloatDrag(strength_input, "Strength", 0.0f, FLT_MAX);
+
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, smooth_input)) {
+		drawNodeInputFloatDrag(smooth_input, "Smooth", 0.0f, 1000.0f);
+
+		drawNodeInputEnd();
+	}
 }
 
 void drawNodeTextureCoordinate(SpaceShadingData *ctx, Node &node) {
@@ -178,11 +223,18 @@ void drawNodePrincipledBSDF(SpaceShadingData *ctx, Node &node) {
   NodeInput &alpha_input = node.inputs[1];
 
   drawNodeOutputAttributes(ctx, node.outputs);
+	
+  if (drawNodeInputBegin(ctx, base_color_input)) {
+		drawNodeInputColor3Edit(base_color_input, "Base Color");
 
-  drawNodeInputAttribute(ctx, base_color_input);
-  drawNodeInputColor3Edit(ctx, base_color_input, "Base Color");
-  drawNodeInputAttribute(ctx, alpha_input);
-  drawNodeInputFloatDrag(ctx, alpha_input, "Alpha", 0.0f, 1.0f);
+		drawNodeInputEnd();
+	}
+	
+  if (drawNodeInputBegin(ctx, alpha_input)) {
+		drawNodeInputFloatDrag(alpha_input, "Alpha", 0.0f, 1.0f);
+		
+		drawNodeInputEnd();
+	}
 }
 
 NodePropertyType mixType(int value) {
@@ -209,7 +261,7 @@ void drawNodeMix(SpaceShadingData *ctx, Node &node) {
 
   static const char *values[3] = {"Float", "Vector", "Color"};
   int prev_type = data_type_input.value.enum_value;
-  drawNodeInputSelect(ctx, data_type_input, "Data Type", values, 3);
+  drawNodeInputSelect(data_type_input, "Data Type", values, 3);
 
   NodePropertyType mix_type = mixType(data_type_input.value.enum_value);
   if (data_type_input.value.enum_value != prev_type) {
@@ -228,8 +280,11 @@ void drawNodeMix(SpaceShadingData *ctx, Node &node) {
   }
   drawNodeOutputAttribute(ctx, node.outputs[data_type_input.value.enum_value]);
 
-  drawNodeInputAttribute(ctx, factor_input);
-  drawNodeInputFloatDrag(ctx, factor_input, "Factor", 0.0f, 1.0f);
+  if (drawNodeInputBegin(ctx, factor_input)) {
+		drawNodeInputFloatDrag(factor_input, "Factor", 0.0f, 1.0f);
+
+		drawNodeInputEnd();
+	}
 
   for (int i = 2; i < node.inputs.size(); ++i) {
     NodeInput &input = node.inputs[i];
@@ -237,28 +292,28 @@ void drawNodeMix(SpaceShadingData *ctx, Node &node) {
     if (mix_type != input.type)
       continue;
 
-    drawNodeInputAttribute(ctx, input);
-    switch (input.type) {
-    case NodePropertyType::FLOAT:
-      drawNodeInputFloatDrag(ctx, input, input.id.name.c_str(), FLT_MIN,
-                             FLT_MAX);
-      break;
-    case NodePropertyType::VECTOR3:
-      drawNodeInputFloatDrag3(ctx, input, input.id.name.c_str(), FLT_MIN,
-                              FLT_MAX);
-      break;
-    case NodePropertyType::COLOR:
-      drawNodeInputColor3Edit(ctx, input, input.id.name.c_str());
-      break;
-    }
+    if (drawNodeInputBegin(ctx, input)) {
+			switch (input.type) {
+			case NodePropertyType::FLOAT:
+				drawNodeInputFloatDrag(input, input.id.name.c_str(), FLT_MIN,
+															 FLT_MAX);
+				break;
+			case NodePropertyType::VECTOR3:
+				drawNodeInputFloatDrag3(input, input.id.name.c_str(), FLT_MIN,
+																FLT_MAX);
+				break;
+			case NodePropertyType::COLOR:
+				drawNodeInputColor3Edit(input, input.id.name.c_str());
+				break;
+			}
+
+			drawNodeInputEnd();
+		}
   }
 }
 
-void drawNodeInputSelect(SpaceShadingData *ctx, NodeInput &input,
-                         const char *title, const char **names, uint size) {
-  if (!input.useUniform(ctx->activeMaterial()))
-    return;
-
+void drawNodeInputSelect(NodeInput &input,
+                         const char *title, const char **names, uint size) {  
   if (ImGui::Button(names[input.value.enum_value]))
     ImGui::OpenPopup(title);
 
@@ -272,18 +327,13 @@ void drawNodeInputSelect(SpaceShadingData *ctx, NodeInput &input,
   }
 }
 
-void drawNodeInputFloatDrag(SpaceShadingData *ctx, NodeInput &input,
-                            const char *title, float min, float max) {
-  if (!input.useUniform(ctx->activeMaterial()))
-    return;
+void drawNodeInputFloatDrag(NodeInput &input,
+                            const char *title, float min, float max) {  
   ImGui::DragFloat(title, &input.value.float_value, 0.001f, min, max);
 }
 
-void drawNodeInputFloatDrag3(SpaceShadingData *ctx, NodeInput &input,
-                             const char *title, float min, float max) {
-  if (!input.useUniform(ctx->activeMaterial()))
-    return;
-
+void drawNodeInputFloatDrag3(NodeInput &input,
+                             const char *title, float min, float max) {  
   float values[3] = {
       input.value.vector3_value.x,
       input.value.vector3_value.y,
@@ -297,11 +347,9 @@ void drawNodeInputFloatDrag3(SpaceShadingData *ctx, NodeInput &input,
   }
 }
 
-void drawNodeInputColor3Picker(SpaceShadingData *ctx, NodeInput &input,
-                               const char *title, ImGuiColorEditFlags flags) {
-  if (!input.useUniform(ctx->activeMaterial()))
-    return;
-  static ImGuiColorEditFlags color_flags =
+void drawNodeInputColor3Picker(NodeInput &input,
+                               const char *title, ImGuiColorEditFlags flags) {  
+  ImGuiColorEditFlags color_flags =
       ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_NoAlpha | flags;
 
   float color[3] = {input.value.vector3_value.x, input.value.vector3_value.y,
@@ -314,13 +362,11 @@ void drawNodeInputColor3Picker(SpaceShadingData *ctx, NodeInput &input,
   }
 }
 
-void drawNodeInputColor3Edit(SpaceShadingData *ctx, NodeInput &input,
-                             const char *title, ImGuiColorEditFlags flags) {
-  if (!input.useUniform(ctx->activeMaterial()))
-    return;
-  static ImGuiColorEditFlags color_flags =
+void drawNodeInputColor3Edit(NodeInput &input,
+                             const char *title, ImGuiColorEditFlags flags) {  
+  ImGuiColorEditFlags color_flags =
       ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_NoAlpha |
-      ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel | flags;
+      ImGuiColorEditFlags_NoInputs | flags;
 
   float color[3] = {input.value.vector3_value.x, input.value.vector3_value.y,
                     input.value.vector3_value.z};
@@ -370,6 +416,9 @@ void drawNode(SpaceShadingData *ctx, Node &node) {
   case NodeType::INVERT:
     drawNodeInvert(ctx, node);
     break;
+	case NodeType::LIGHT_FALLOFF:
+		drawNodeLightFalloff(ctx, node);
+		break;
   case NodeType::MIX:
     drawNodeMix(ctx, node);
     break;
@@ -382,13 +431,26 @@ void drawNode(SpaceShadingData *ctx, Node &node) {
   ImGui::PopID();
 }
 
-void drawNodeInputAttribute(SpaceShadingData *ctx, NodeInput &input) {
-  if (input.source == NodePropertySource::OUTPUT ||
-      input.source == NodePropertySource::OUTPUT_UNIFORM) {
-    ImNodes::BeginInputAttribute(input.id.id);
-    ImGui::Text("%s", input.id.name.c_str());
-    ImNodes::EndInputAttribute();
-  }
+void drawNodeInputEnd() {	
+	ImNodes::EndInputAttribute();
+}
+
+bool drawNodeInputBegin(SpaceShadingData *ctx, NodeInput &input) {
+	if (!input.enabled)
+		return false;	
+
+	if (input.source == NodePropertySource::OUTPUT_UNIFORM && !input.link) {
+		ImNodes::BeginInputAttribute(input.id.id);
+		return true;
+	} else if (input.source == NodePropertySource::OUTPUT
+			|| (input.source == NodePropertySource::OUTPUT_UNIFORM && input.link)) {
+		ImNodes::BeginInputAttribute(input.id.id);
+		ImGui::Text(input.id.name.c_str());
+		drawNodeInputEnd();
+		return false;
+	} else {
+		return false;
+	}	
 }
 
 void drawNodeOutputAttribute(SpaceShadingData *ctx, NodeOutput &output) {
@@ -399,9 +461,10 @@ void drawNodeOutputAttribute(SpaceShadingData *ctx, NodeOutput &output) {
 
 void drawNodeInputAttributes(SpaceShadingData *ctx,
                              std::vector<NodeInput> &inputs) {
-  for (NodeInput &input : inputs) {
-    if (input.enabled)
-      drawNodeInputAttribute(ctx, input);
+  for (NodeInput &input : inputs) {    
+		if (drawNodeInputBegin(ctx, input)) {			
+			drawNodeInputEnd();
+		}
   }
 }
 void drawNodeOutputAttributes(SpaceShadingData *ctx,
@@ -517,6 +580,9 @@ void onDrawUISpaceShading(EditorContext *ctx) {
         if (ImGui::Button("Invert")) {
           space_data->createNode(mat, NodeType::INVERT);
         }
+				if (ImGui::Button("Light Falloff")) {
+					space_data->createNode(mat, NodeType::LIGHT_FALLOFF);
+				}
 
         ImGui::EndMenu();
       }

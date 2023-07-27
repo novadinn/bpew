@@ -237,12 +237,6 @@ struct ShaderCreateInfo {
     info.vertex_interfaces.push_back(interface.interface);
     return *this;
   }
-
-  void removeDep(const char *dep) {
-    std::string str_dep(dep);
-
-    info.deps.erase(str_dep);
-  }
 };
 
 #endif

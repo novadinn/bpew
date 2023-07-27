@@ -13,11 +13,13 @@ void ShaderBuilder::buildDefines(std::stringstream &ss,
                                  ShaderCreateInfo &create_info) {
   ss << "#version 460 core\n";
 
+	std::set<std::string> libs;
   for (auto &dep : create_info.info.deps) {
-    proceedSource(dep.c_str(), create_info);
+    proceedSource(dep.c_str(), create_info, libs);
   }
 
-  includeLibs(ss, create_info);
+  includeLibs(ss, libs);
+	includeLibs(ss, create_info.info.typedeps);
 
   for (auto &define : create_info.info.defines) {
     ss << "#define " << define.name << " " << define.value << "\n";
@@ -514,6 +516,9 @@ const char *ShaderBuilder::getNodeName(NodeType type) {
   case NodeType::INVERT:
     src = "node_invert";
     break;
+	case NodeType::LIGHT_FALLOFF:
+		src = "node_light_falloff";
+		break;
   case NodeType::TEXTURE_COORDINATE:
     src = "node_texture_coordinate";
     break;
@@ -621,15 +626,16 @@ const char *ShaderBuilder::fromType(GeometryOutType type) {
 }
 
 void ShaderBuilder::proceedSource(const char *dep,
-                                  ShaderCreateInfo &create_info) {
+                                  ShaderCreateInfo &create_info,
+																	std::set<std::string> &included_libs) {
   std::string lib(dep);
 
-  if (create_info.info.deps.contains(lib)) {
+  if (included_libs.contains(lib)) {		
     return;
   }
 
-  create_info.dep(lib);
-
+  auto it = included_libs.insert(lib);
+	
   std::ifstream src(std::string("datafiles/shaders/") + std::string(dep));
 
   if (src.is_open()) {
@@ -644,7 +650,7 @@ void ShaderBuilder::proceedSource(const char *dep,
           token = tokenizer.readToken();
 
           if (token.type == TokenType::STR) {
-            proceedSource(token.value.c_str(), create_info);
+            proceedSource(token.value.c_str(), create_info, included_libs);
           }
 
           continue;
@@ -654,19 +660,16 @@ void ShaderBuilder::proceedSource(const char *dep,
 
     src.close();
   } else {
-    create_info.removeDep(lib.c_str());
+    included_libs.erase(it.first);
     LOG_ERROR("failed to open dep: %s\n", dep);
   }
 }
 
 void ShaderBuilder::includeLibs(std::stringstream &ss,
-                                ShaderCreateInfo &create_info) {
-  for (auto &lib : create_info.info.typedeps) {
+                                std::set<std::string> &libs) {	
+  for (auto &lib : libs) {
     includeLib(ss, lib.c_str());
-  }
-  for (auto &lib : create_info.info.deps) {
-    includeLib(ss, lib.c_str());
-  }
+  }  
 }
 
 bool ShaderBuilder::includeLib(std::stringstream &ss, const char *dep) {

@@ -24,6 +24,7 @@ enum NodeType {
   BRIGHTNESS_CONTRAST,
   GAMMA,
   INVERT,
+	LIGHT_FALLOFF,
   // Vector
   // Converter
   MIX,

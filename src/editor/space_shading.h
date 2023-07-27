@@ -26,7 +26,9 @@ void onDrawUIEndSpaceShading(EditorContext *ctx);
 NodePropertyType mixType(int value);
 
 void drawNode(SpaceShadingData *ctx, Node &node);
-void drawNodeInputAttribute(SpaceShadingData *ctx, NodeInput &input);
+void drawNodeInputEnd(SpaceShadingData *ctx, NodeInput &input);
+bool drawNodeInputBegin(SpaceShadingData *ctx, NodeInput &input);
+void drawNodeInputEnd();
 void drawNodeOutputAttribute(SpaceShadingData *ctx, NodeOutput &output);
 
 bool inputDrawable(SpaceShadingData *ctx, NodeInput &input);
@@ -42,21 +44,22 @@ void drawNodeImageTexture(SpaceShadingData *ctx, Node &node);
 void drawNodeBrightnessContrast(SpaceShadingData *ctx, Node &node);
 void drawNodeGamma(SpaceShadingData *ctx, Node &node);
 void drawNodeInvert(SpaceShadingData *ctx, Node &node);
+void drawNodeLightFalloff(SpaceShadingData *ctx, Node &node);
 void drawNodeTextureCoordinate(SpaceShadingData *ctx, Node &node);
 void drawNodePrincipledBSDF(SpaceShadingData *ctx, Node &node);
 void drawNodeMix(SpaceShadingData *ctx, Node &node);
 
-void drawNodeInputFloatDrag(SpaceShadingData *ctx, NodeInput &input,
+void drawNodeInputFloatDrag(NodeInput &input,
                             const char *title, float min = 0.0f,
                             float max = 0.0f);
-void drawNodeInputFloatDrag3(SpaceShadingData *ctx, NodeInput &input,
+void drawNodeInputFloatDrag3(NodeInput &input,
                              const char *title, float min = 0.0f,
                              float max = 0.0f);
-void drawNodeInputColor3Picker(SpaceShadingData *ctx, NodeInput &input,
+void drawNodeInputColor3Picker(NodeInput &input,
                                const char *title, ImGuiColorEditFlags = 0);
-void drawNodeInputColor3Edit(SpaceShadingData *ctx, NodeInput &input,
+void drawNodeInputColor3Edit(NodeInput &input,
                              const char *title, ImGuiColorEditFlags flags = 0);
-void drawNodeInputSelect(SpaceShadingData *ctx, NodeInput &input,
+void drawNodeInputSelect(NodeInput &input,
                          const char *title, const char **names, uint size);
 
 struct SpaceShading {

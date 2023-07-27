@@ -237,6 +237,46 @@ void Node::create(NodeType node_type) {
     output.create("Color", NodePropertyType::VECTOR4);
     node_outputs.push_back(output);
   } break;
+	case NodeType::LIGHT_FALLOFF: {
+		node_name = "Light Falloff";
+
+		NodeInput input;
+		NodeOutput output;
+		NodePropertyValue input_value;
+
+		input = {};
+		input_value = {};
+
+		input_value.float_value = 100.0f;
+
+		input.create(input_value, "Strength", NodePropertyType::FLOAT,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.float_value = 0.0f;
+
+		input.create(input_value, "Smooth", NodePropertyType::FLOAT,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		output = {};
+
+		output.create("Quadratic", NodePropertyType::FLOAT);
+		node_outputs.push_back(output);
+
+		output = {};
+
+		output.create("Linear", NodePropertyType::FLOAT);
+		node_outputs.push_back(output);
+
+		output = {};
+
+		output.create("Constant", NodePropertyType::FLOAT);
+		node_outputs.push_back(output);
+	} break;
   case NodeType::TEXTURE_COORDINATE: {
     node_name = "Texture Coordinate";
 
