@@ -20,7 +20,6 @@ EventReceiver *createSpaceShadingReceiver();
 void onCreateSpaceShading(EditorContext *ctx);
 void onDestroySpaceShading(EditorContext *ctx);
 
-void onDrawUIBeginSpaceShading(EditorContext *ctx);
 void onDrawUISpaceShading(EditorContext *ctx);
 void onDrawUIEndSpaceShading(EditorContext *ctx);
 

@@ -25,9 +25,7 @@ EventReceiver *createSpaceModelingReceiver() {
   receiver->onRender = onRenderSpaceModeling;
   receiver->onRenderPostProcessing = onRenderPostProcessingSpaceModeling;
 
-  receiver->onDrawUIBegin = onDrawUIBeginSpaceModeling;
   receiver->onDrawUI = onDrawUISpaceModeling;
-  receiver->onDrawUIEnd = onDrawUIEndSpaceModeling;
 
   return receiver;
 }
@@ -43,13 +41,13 @@ void onCreateSpaceModeling(EditorContext *ctx) {
   space_data->framebuffer.create(data);
 
   data.formats = {GL_RGBA8};
-  space_data->pp_framebuffer.create(data);
+  space_data->ping_pong_buffer.create(data, data);
 }
 
 void onDestroySpaceModeling(EditorContext *ctx) {
   SpaceModelingData *space_data = ctx->space_modeling_data;
 
-  space_data->pp_framebuffer.destroy();
+  space_data->ping_pong_buffer.destroy();
   space_data->framebuffer.destroy();
 
   delete space_data;
@@ -70,11 +68,71 @@ void onUpdateSpaceModeling(EditorContext *ctx) {
       if (entity_id != 0 && vertex_id != -1) {
         Entity entity;
         entity.create((entt::entity)entity_id, ctx->scene);
-        ctx->selected_entity = entity;
-        ctx->selected_vertex = vertex_id;
+        ctx->active_entity = entity;
+        ctx->active_vertex = std::pair(entity, vertex_id);
       } else {
-        ctx->selected_entity = {};
-        ctx->selected_vertex = -1;
+        ctx->active_entity = {};
+        ctx->active_vertex = std::pair(Entity{}, -1);
+      }
+
+      /* miss */
+      if (!ctx->active_entity) {
+        ctx->selected_entities.clear();
+      } else { /* hit */
+        if (ctx->selected_entities.empty()) {
+          ctx->selected_entities.push_back(ctx->active_entity);
+        } else if (Input::wasKeyHeld(SDLK_LSHIFT)) {
+          bool contains = ctx->entitySelected(ctx->active_entity);
+
+          if (contains) {
+            for (int i = 0; i < ctx->selected_entities.size(); ++i) {
+              if (ctx->selected_entities[i] == ctx->active_entity) {
+                /* if entity already presented in the list, remove it */
+                ctx->selected_entities.erase(ctx->selected_entities.begin() +
+                                             i);
+                break;
+              }
+            }
+          } else {
+            /* entity is not in the list, just add it */
+            ctx->selected_entities.push_back(ctx->active_entity);
+          }
+        } else {
+          /* without shift we need to deselect all entities and push the new one
+           */
+          ctx->selected_entities.clear();
+          ctx->selected_entities.push_back(ctx->active_entity);
+        }
+      }
+
+      /* miss */
+      if (!ctx->active_vertex.first && ctx->active_vertex.second == -1) {
+        ctx->selected_vertices.clear();
+      } else { /* hit */
+        if (ctx->selected_vertices.empty()) {
+          ctx->selected_vertices.push_back(ctx->active_vertex);
+        } else if (Input::wasKeyHeld(SDLK_LSHIFT)) {
+          bool contains = ctx->vertexSelected(ctx->active_vertex);
+
+          if (contains) {
+            for (int i = 0; i < ctx->selected_vertices.size(); ++i) {
+              if (ctx->selected_vertices[i] == ctx->active_vertex) {
+                /* if entity already presented in the list, remove it */
+                ctx->selected_vertices.erase(ctx->selected_vertices.begin() +
+                                             i);
+                break;
+              }
+            }
+          } else {
+            /* entity is not in the list, just add it */
+            ctx->selected_vertices.push_back(ctx->active_vertex);
+          }
+        } else {
+          /* without shift we need to deselect all entities and push the new one
+           */
+          ctx->selected_vertices.clear();
+          ctx->selected_vertices.push_back(ctx->active_vertex);
+        }
       }
     }
   }
@@ -99,11 +157,6 @@ void onUpdateSpaceModeling(EditorContext *ctx) {
     } else if (Input::wasKeyPressed(SDLK_4)) {
       space_data->draw_mode = DrawMode::MATERIAL_PREVIEW;
     }
-  }
-
-  if (Input::wasKeyPressed(SDLK_DELETE) && ctx->selected_entity) {
-    ctx->scene->destroyEntity(ctx->selected_entity);
-    ctx->selected_entity = {};
   }
 
   switch (space_data->draw_mode) {
@@ -133,8 +186,8 @@ void onResizeSpaceModeling(EditorContext *ctx) {
 
     space_data->framebuffer.resize(space_data->viewport_size.x,
                                    space_data->viewport_size.y);
-    space_data->pp_framebuffer.resize(space_data->viewport_size.x,
-                                      space_data->viewport_size.y);
+    space_data->ping_pong_buffer.resize(space_data->viewport_size.x,
+                                        space_data->viewport_size.y);
   }
 }
 
@@ -219,100 +272,149 @@ void onRenderPostProcessingSpaceModeling(EditorContext *ctx) {
   SpaceModelingData *space_data = ctx->space_modeling_data;
   RendererContext *renderer_context = ctx->renderer_context;
 
-  renderer_context->setVertexOutlineData(
-      space_data->framebuffer.getColorAttachmentID(0),
-      space_data->framebuffer.getColorAttachmentID(1),
-      (uint32)ctx->selected_entity, ctx->selected_vertex,
-      glm::vec3(0.0f, 0.0f, 1.0f), 1.0f);
+  uint pong_id = space_data->framebuffer.getColorAttachmentID(0);
+  bool do_postprocessing = false;
 
-  space_data->framebuffer.bind();
-  Renderer::applyVertexOutline(renderer_context);
-  space_data->framebuffer.unbind();
+  for (int i = 0; i < ctx->selected_vertices.size(); ++i) {
+    if (ctx->selected_vertices[i].first.hasComponent<MeshComponent>()) {
+      do_postprocessing = true;
 
-  renderer_context->setFXAAData(
-      space_data->viewport_size,
-      space_data->framebuffer.getColorAttachmentID(0));
+      space_data->ping_pong_buffer.current->bind();
 
-  space_data->pp_framebuffer.bind();
+      renderer_context->setVertexOutlineData(
+          pong_id, space_data->framebuffer.getColorAttachmentID(1),
+          (uint32)ctx->selected_vertices[i].first,
+          ctx->selected_vertices[i].second, glm::vec3(0.0f, 0.0f, 1.0f), 1.0f);
+      Renderer::applyVertexOutline(renderer_context);
+
+      space_data->ping_pong_buffer.current->unbind();
+
+      pong_id = space_data->ping_pong_buffer.current->getColorAttachmentID(0);
+      space_data->ping_pong_buffer.swap();
+    }
+  }
+
+  space_data->ping_pong_buffer.current->unbind();
+  space_data->ping_pong_buffer.swap();
+
+  /* since ping pong texture might be empty, we dont want to set color texture
+   * as an empty one */
+  uint target_color_texture =
+      do_postprocessing
+          ? space_data->ping_pong_buffer.current->getColorAttachmentID(0)
+          : space_data->framebuffer.getColorAttachmentID(0);
+
+  renderer_context->setFXAAData(space_data->viewport_size,
+                                target_color_texture);
+
+  space_data->ping_pong_buffer.swap();
+
+  space_data->ping_pong_buffer.current->bind();
   Renderer::clear();
   Renderer::applyFXAA(renderer_context);
 
-  space_data->pp_framebuffer.unbind();
-}
-
-void onDrawUIBeginSpaceModeling(EditorContext *ctx) {
-  ImGui::Begin("Modeling");
+  space_data->ping_pong_buffer.current->unbind();
 }
 
 void onDrawUISpaceModeling(EditorContext *ctx) {
   SpaceModelingData *space_data = ctx->space_modeling_data;
+
+  ImGui::Begin("Modeling");
 
   space_data->viewport_size = Utils::getAvailableViewportSize();
   space_data->viewport_bounds[0] = Utils::getAvailableViewportBoundsMin();
   space_data->viewport_bounds[1] = Utils::getAvailableViewportBoundsMax();
   space_data->viewport_hovered = Utils::isViewportHovered();
 
-  ImGui::Image(reinterpret_cast<void *>(
-                   space_data->pp_framebuffer.getColorAttachmentID(0)),
-               ImVec2{space_data->viewport_size.x, space_data->viewport_size.y},
-               ImVec2{0, 1}, ImVec2{1, 0});
+  ImGui::Image(
+      reinterpret_cast<void *>(
+          space_data->ping_pong_buffer.current->getColorAttachmentID(0)),
+      ImVec2{space_data->viewport_size.x, space_data->viewport_size.y},
+      ImVec2{0, 1}, ImVec2{1, 0});
 
   glm::mat4 view = ctx->editor_camera->getViewMatrix();
   glm::mat4 projection = ctx->editor_camera->getProjectionMatrix();
 
   /* draw gizmos */
-  if (ctx->selected_entity && ctx->selected_vertex != -1 &&
-      space_data->gizmo_operation != -1 &&
-      ctx->selected_entity.hasComponent<MeshComponent>()) {
+  if (ctx->selected_vertices.size() > 0 && space_data->gizmo_operation != -1) {
+    glm::mat4 avg_model = glm::mat4(0.0f);
+    glm::vec4 avg_position = glm::vec4(0.0f);
 
-    ASSERT(ctx->selected_entity.hasComponent<TransformComponent>());
-    TransformComponent &transform =
-        ctx->selected_entity.getComponent<TransformComponent>();
-    MeshComponent &mesh_component =
-        ctx->selected_entity.getComponent<MeshComponent>();
+    for (int i = 0; i < ctx->selected_vertices.size(); ++i) {
+      ASSERT(
+          ctx->selected_vertices[i].first.hasComponent<TransformComponent>());
+      TransformComponent &transform =
+          ctx->selected_vertices[i].first.getComponent<TransformComponent>();
 
-    for (int i = 0; i < mesh_component.meshes.size(); ++i) {
-      Mesh &mesh = mesh_component.meshes[i];
-      int index = ctx->selected_vertex * mesh.totalAttributesCount();
+      avg_model += transform.getModelMatrix();
 
-      /* TODO: not sure if this will work in case there is more that 1 mesh */
-      if (index < mesh.vertices.size()) {
+      ASSERT(ctx->selected_vertices[i].first.hasComponent<MeshComponent>());
+      MeshComponent &mesh_component =
+          ctx->selected_vertices[i].first.getComponent<MeshComponent>();
+
+      for (int j = 0; j < mesh_component.meshes.size(); ++j) {
+        Mesh &mesh = mesh_component.meshes[j];
+        int index =
+            ctx->selected_vertices[i].second * mesh.totalAttributesCount();
+
+        /* TODO: not sure if this will work in case there is more that 1 mesh */
+        ASSERT(index < mesh.vertices.size());
         float *vertex = &mesh.vertices[index];
 
         glm::vec3 vertex_position = glm::vec3(vertex[0], vertex[1], vertex[2]);
         glm::vec4 world_space_position =
             transform.getModelMatrix() * glm::vec4(vertex_position, 1.0);
-        glm::mat4 model = transform.getModelMatrix();
-        /* override translation */
-        model[3] = world_space_position;
 
-        bool snap = Input::wasKeyHeld(SDLK_LCTRL);
+        avg_position += world_space_position;
+      }
+    }
 
-        /* TODO: gizmos are a bit wrong (they are offseted in the y direction)
-         */
-        Gizmos::drawManupilations(
-            (ImGuizmo::OPERATION)space_data->gizmo_operation,
-            glm::value_ptr(view), glm::value_ptr(projection),
-            glm::value_ptr(model), snap);
+    avg_model /= ctx->selected_vertices.size();
+    avg_position /= ctx->selected_vertices.size();
+    /* override translation */
+    avg_model[3] = glm::vec4(glm::vec3(avg_position), 1.0f);
 
-        if (ImGuizmo::IsUsing()) {
-          float *model_ptr = glm::value_ptr(model);
-          float scale_result[3];
-          float rotation_result[3];
-          float translation_result[3];
-          ImGuizmo::DecomposeMatrixToComponents(model_ptr, translation_result,
-                                                rotation_result, scale_result);
+    float *model_ptr = glm::value_ptr(avg_model);
+    float prev_position[3];
+    float prev_rotation[3];
+    float prev_scale[3];
 
-          glm::vec3 local_space_position =
-              glm::vec3(translation_result[0], translation_result[1],
-                        translation_result[2]);
-          local_space_position =
-              glm::vec3(glm::inverse(transform.getModelMatrix()) *
-                        glm::vec4(local_space_position, 1.0f));
+    /* store previous averaged results */
+    ImGuizmo::DecomposeMatrixToComponents(model_ptr, prev_position,
+                                          prev_rotation, prev_scale);
 
-          vertex[0] = local_space_position.x;
-          vertex[1] = local_space_position.y;
-          vertex[2] = local_space_position.z;
+    bool snap = Input::wasKeyHeld(SDLK_LCTRL);
+
+    /* TODO: gizmos are a bit wrong (they are offseted in the y direction
+     * for some reason)
+     */
+    Gizmos::drawManupilations((ImGuizmo::OPERATION)space_data->gizmo_operation,
+                              glm::value_ptr(view), glm::value_ptr(projection),
+                              glm::value_ptr(avg_model), snap);
+
+    if (ImGuizmo::IsUsing()) {
+      float scale_result[3];
+      float rotation_result[3];
+      float translation_result[3];
+      ImGuizmo::DecomposeMatrixToComponents(model_ptr, translation_result,
+                                            rotation_result, scale_result);
+
+      for (int i = 0; i < ctx->selected_vertices.size(); ++i) {
+        MeshComponent &mesh_component =
+            ctx->selected_vertices[i].first.getComponent<MeshComponent>();
+
+        for (int j = 0; j < mesh_component.meshes.size(); ++j) {
+          Mesh &mesh = mesh_component.meshes[j];
+          int index =
+              ctx->selected_vertices[i].second * mesh.totalAttributesCount();
+
+          /* TODO: not sure if this will work in case there is more that 1 mesh
+           */
+          float *vertex = &mesh.vertices[index];
+
+          vertex[0] += translation_result[0] - prev_position[0];
+          vertex[1] += translation_result[1] - prev_position[1];
+          vertex[2] += translation_result[2] - prev_position[2];
 
           /* TODO: those operations should change vertex normals
              transform.rotation = {rotation_result[0], rotation_result[1],
@@ -370,6 +472,6 @@ void onDrawUISpaceModeling(EditorContext *ctx) {
 
     ImGui::End();
   }
-}
 
-void onDrawUIEndSpaceModeling(EditorContext *ctx) { ImGui::End(); }
+  ImGui::End();
+}

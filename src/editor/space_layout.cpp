@@ -24,9 +24,7 @@ EventReceiver *createSpaceLayoutReceiver() {
   receiver->onRender = onRenderSpaceLayout;
   receiver->onRenderPostProcessing = onRenderPostProcessingSpaceLayout;
 
-  receiver->onDrawUIBegin = onDrawUIBeginSpaceLayout;
   receiver->onDrawUI = onDrawUISpaceLayout;
-  receiver->onDrawUIEnd = onDrawUIEndSpaceLayout;
 
   return receiver;
 }
@@ -42,13 +40,13 @@ void onCreateSpaceLayout(EditorContext *ctx) {
   space_data->framebuffer.create(data);
 
   data.formats = {GL_RGBA8};
-  space_data->pp_framebuffer.create(data);
+  space_data->ping_pong_buffer.create(data, data);
 }
 
 void onDestroySpaceLayout(EditorContext *ctx) {
   SpaceLayoutData *space_data = ctx->space_layout_data;
 
-  space_data->pp_framebuffer.destroy();
+  space_data->ping_pong_buffer.destroy();
   space_data->framebuffer.destroy();
 
   delete space_data;
@@ -58,8 +56,39 @@ void onUpdateSpaceLayout(EditorContext *ctx) {
   SpaceLayoutData *space_data = ctx->space_layout_data;
 
   if (Input::wasMouseButtonPressed(SDL_BUTTON_LEFT)) {
-    if (space_data->viewport_hovered && !ImGuizmo::IsOver())
-      ctx->selected_entity = space_data->hovered_entity;
+    if (space_data->viewport_hovered && !ImGuizmo::IsOver()) {
+      ctx->active_entity = space_data->hovered_entity;
+
+      /* miss */
+      if (!ctx->active_entity) {
+        ctx->selected_entities.clear();
+      } else { /* hit */
+        if (ctx->selected_entities.empty()) {
+          ctx->selected_entities.push_back(ctx->active_entity);
+        } else if (Input::wasKeyHeld(SDLK_LSHIFT)) {
+          bool contains = ctx->entitySelected(ctx->active_entity);
+
+          if (contains) {
+            for (int i = 0; i < ctx->selected_entities.size(); ++i) {
+              if (ctx->selected_entities[i] == ctx->active_entity) {
+                /* if entity already presented in the list, remove it */
+                ctx->selected_entities.erase(ctx->selected_entities.begin() +
+                                             i);
+                break;
+              }
+            }
+          } else {
+            /* entity is not in the list, just add it */
+            ctx->selected_entities.push_back(ctx->active_entity);
+          }
+        } else {
+          /* without shift we need to deselect all entities and push the new one
+           */
+          ctx->selected_entities.clear();
+          ctx->selected_entities.push_back(ctx->active_entity);
+        }
+      }
+    }
   }
 
   if (Input::wasKeyPressed(SDLK_q)) {
@@ -84,9 +113,8 @@ void onUpdateSpaceLayout(EditorContext *ctx) {
     }
   }
 
-  if (Input::wasKeyPressed(SDLK_DELETE) && ctx->selected_entity) {
-    ctx->scene->destroyEntity(ctx->selected_entity);
-    ctx->selected_entity = {};
+  if (Input::wasKeyPressed(SDLK_DELETE) && ctx->active_entity) {
+    ctx->destroyEntity();
   }
 
   switch (space_data->draw_mode) {
@@ -116,8 +144,8 @@ void onResizeSpaceLayout(EditorContext *ctx) {
 
     space_data->framebuffer.resize(space_data->viewport_size.x,
                                    space_data->viewport_size.y);
-    space_data->pp_framebuffer.resize(space_data->viewport_size.x,
-                                      space_data->viewport_size.y);
+    space_data->ping_pong_buffer.resize(space_data->viewport_size.x,
+                                        space_data->viewport_size.y);
   }
 }
 
@@ -212,40 +240,64 @@ void onRenderPostProcessingSpaceLayout(EditorContext *ctx) {
   SpaceLayoutData *space_data = ctx->space_layout_data;
   RendererContext *renderer_context = ctx->renderer_context;
 
-  renderer_context->setMeshOutlineData(
-      space_data->framebuffer.getColorAttachmentID(0),
-      space_data->framebuffer.getColorAttachmentID(1),
-      (uint32)ctx->selected_entity, glm::vec3(0.0f, 0.0f, 1.0f), 0.5f);
+  uint pong_id = space_data->framebuffer.getColorAttachmentID(0);
+  bool do_postprocessing = false;
 
-  space_data->framebuffer.bind();
-  Renderer::applyMeshOutline(renderer_context);
-  space_data->framebuffer.unbind();
+  for (auto entity : ctx->selected_entities) {
+    if (entity.hasComponent<MeshComponent>()) {
+      do_postprocessing = true;
 
-  renderer_context->setFXAAData(
-      space_data->viewport_size,
-      space_data->framebuffer.getColorAttachmentID(0));
+      space_data->ping_pong_buffer.current->bind();
 
-  space_data->pp_framebuffer.bind();
+      renderer_context->setMeshOutlineData(
+          pong_id, space_data->framebuffer.getColorAttachmentID(1),
+          (uint32)entity, glm::vec3(0.0f, 0.0f, 1.0f), 0.5f);
+      Renderer::applyMeshOutline(renderer_context);
+
+      space_data->ping_pong_buffer.current->unbind();
+
+      pong_id = space_data->ping_pong_buffer.current->getColorAttachmentID(0);
+      space_data->ping_pong_buffer.swap();
+    }
+  }
+
+  space_data->ping_pong_buffer.current->unbind();
+  space_data->ping_pong_buffer.swap();
+
+  /* since ping pong texture might be empty, we dont want to set color texture
+   * as an empty one */
+  uint target_color_texture =
+      do_postprocessing
+          ? space_data->ping_pong_buffer.current->getColorAttachmentID(0)
+          : space_data->framebuffer.getColorAttachmentID(0);
+
+  renderer_context->setFXAAData(space_data->viewport_size,
+                                target_color_texture);
+
+  space_data->ping_pong_buffer.swap();
+
+  space_data->ping_pong_buffer.current->bind();
   Renderer::clear();
   Renderer::applyFXAA(renderer_context);
 
-  space_data->pp_framebuffer.unbind();
+  space_data->ping_pong_buffer.current->unbind();
 }
-
-void onDrawUIBeginSpaceLayout(EditorContext *ctx) { ImGui::Begin("Layout"); }
 
 void onDrawUISpaceLayout(EditorContext *ctx) {
   SpaceLayoutData *space_data = ctx->space_layout_data;
+
+  ImGui::Begin("Layout");
 
   space_data->viewport_size = Utils::getAvailableViewportSize();
   space_data->viewport_bounds[0] = Utils::getAvailableViewportBoundsMin();
   space_data->viewport_bounds[1] = Utils::getAvailableViewportBoundsMax();
   space_data->viewport_hovered = Utils::isViewportHovered();
 
-  ImGui::Image(reinterpret_cast<void *>(
-                   space_data->pp_framebuffer.getColorAttachmentID(0)),
-               ImVec2{space_data->viewport_size.x, space_data->viewport_size.y},
-               ImVec2{0, 1}, ImVec2{1, 0});
+  ImGui::Image(
+      reinterpret_cast<void *>(
+          space_data->ping_pong_buffer.current->getColorAttachmentID(0)),
+      ImVec2{space_data->viewport_size.x, space_data->viewport_size.y},
+      ImVec2{0, 1}, ImVec2{1, 0});
 
   glm::mat4 view = ctx->editor_camera->getViewMatrix();
   glm::mat4 projection = ctx->editor_camera->getProjectionMatrix();
@@ -291,33 +343,61 @@ void onDrawUISpaceLayout(EditorContext *ctx) {
     ImGui::End();
   }
 
-  // Draw gizmos
-  if (ctx->selected_entity && space_data->gizmo_operation != -1) {
-    ASSERT(ctx->selected_entity.hasComponent<TransformComponent>());
-    TransformComponent &transform =
-        ctx->selected_entity.getComponent<TransformComponent>();
-    glm::mat4 model = transform.getModelMatrix();
+  /* draw gizmos */
+  if (ctx->selected_entities.size() > 0 && space_data->gizmo_operation != -1) {
+    /* take this as a sample transform */
+    glm::mat4 avg_model = glm::mat4(0.0f);
+
+    /* average model matrix */
+    for (int i = 0; i < ctx->selected_entities.size(); ++i) {
+      ASSERT(ctx->selected_entities[i].hasComponent<TransformComponent>());
+      TransformComponent &transform =
+          ctx->selected_entities[i].getComponent<TransformComponent>();
+
+      avg_model += transform.getModelMatrix();
+    }
+    avg_model /= ctx->selected_entities.size();
+
+    float *model_ptr = glm::value_ptr(avg_model);
+    float prev_position[3];
+    float prev_rotation[3];
+    float prev_scale[3];
+
+    /* store previous averaged results */
+    ImGuizmo::DecomposeMatrixToComponents(model_ptr, prev_position,
+                                          prev_rotation, prev_scale);
+
     bool snap = Input::wasKeyHeld(SDLK_LCTRL);
 
     Gizmos::drawManupilations((ImGuizmo::OPERATION)space_data->gizmo_operation,
                               glm::value_ptr(view), glm::value_ptr(projection),
-                              glm::value_ptr(model), snap);
+                              glm::value_ptr(avg_model), snap);
 
     if (ImGuizmo::IsUsing()) {
-      float *model_ptr = glm::value_ptr(model);
       float scale_result[3];
       float rotation_result[3];
       float translation_result[3];
       ImGuizmo::DecomposeMatrixToComponents(model_ptr, translation_result,
                                             rotation_result, scale_result);
 
-      transform.position = {translation_result[0], translation_result[1],
-                            translation_result[2]};
-      transform.rotation = {rotation_result[0], rotation_result[1],
-                            rotation_result[2]};
-      transform.scale = {scale_result[0], scale_result[1], scale_result[2]};
+      for (int i = 0; i < ctx->selected_entities.size(); ++i) {
+        TransformComponent &target =
+            ctx->selected_entities[i].getComponent<TransformComponent>();
+
+        target.position +=
+            glm::vec3(translation_result[0], translation_result[1],
+                      translation_result[2]) -
+            glm::vec3(prev_position[0], prev_position[1], prev_position[2]);
+        target.rotation +=
+            glm::vec3(rotation_result[0], rotation_result[1],
+                      rotation_result[2]) -
+            glm::vec3(prev_rotation[0], prev_rotation[1], prev_rotation[2]);
+        target.scale +=
+            glm::vec3(scale_result[0], scale_result[1], scale_result[2]) -
+            glm::vec3(prev_scale[0], prev_scale[1], prev_scale[2]);
+      }
     }
   }
-}
 
-void onDrawUIEndSpaceLayout(EditorContext *ctx) { ImGui::End(); }
+  ImGui::End();
+}

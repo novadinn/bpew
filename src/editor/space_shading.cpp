@@ -24,9 +24,7 @@ EventReceiver *createSpaceShadingReceiver() {
   receiver->onCreate = onCreateSpaceShading;
   receiver->onDestroy = onDestroySpaceShading;
 
-  receiver->onDrawUIBegin = onDrawUIBeginSpaceShading;
   receiver->onDrawUI = onDrawUISpaceShading;
-  receiver->onDrawUIEnd = onDrawUIEndSpaceShading;
 
   return receiver;
 }
@@ -326,9 +324,8 @@ void drawNodeInputColor3Edit(SpaceShadingData *ctx, NodeInput &input,
 
   float color[3] = {input.value.vector3_value.x, input.value.vector3_value.y,
                     input.value.vector3_value.z};
-
-  std::string name = std::string(title) + "##" + std::to_string(input.id.id);
-  if (ImGui::ColorEdit3(name.c_str(), color, color_flags)) {
+  
+  if (ImGui::ColorEdit3(title, color, color_flags)) {
     input.value.vector3_value.x = color[0];
     input.value.vector3_value.y = color[1];
     input.value.vector3_value.z = color[2];
@@ -416,6 +413,8 @@ void drawNodeOutputAttributes(SpaceShadingData *ctx,
 }
 
 void onDrawUISpaceShading(EditorContext *ctx) {
+	ImGui::Begin("Shading");
+	
   SpaceShadingData *space_data = ctx->space_shading_data;
   Material *mat =
       MaterialManager::getMaterial(space_data->active_material_index);
@@ -483,9 +482,6 @@ void onDrawUISpaceShading(EditorContext *ctx) {
         }
         if (ImGui::Button("RGB")) {
           space_data->createNode(mat, NodeType::RGB);
-        }
-        if (ImGui::Button("Texture Coordinate")) {
-          space_data->createNode(mat, NodeType::TEXTURE_COORDINATE);
         }
 
         ImGui::EndMenu();
@@ -562,30 +558,31 @@ void onDrawUISpaceShading(EditorContext *ctx) {
     ImGui::EndPopup();
   }
 
-  // Links should be drawn after the nodes
+	// Links should be drawn after the nodes
   if (mat) {
     for (int i = 0; i < mat->nodes.size(); ++i) {
-      Node &node = mat->nodes[i];
-      // Draw Link only from output nodes - dont need to do this twice
-      std::vector<NodeOutput> &outputs = node.outputs;
+			Node &node = mat->nodes[i];
+			// Draw Link only from output nodes - dont need to do this twice
+			std::vector<NodeOutput> &outputs = node.outputs;
 
-      for (int j = 0; j < outputs.size(); ++j) {
-        NodeOutput &prop = outputs[j];
-        if (!prop.enabled)
-          continue;
+			for (int j = 0; j < outputs.size(); ++j) {
+				NodeOutput &prop = outputs[j];
+				if (!prop.enabled)
+					continue;
 
-        for (auto &link : prop.links) {
-          if (!link.input(mat)->enabled)
-            continue;
-          int link_id = link.id.id;
-          int output_id = link.output(mat)->id.id;
-          int input_id = link.input(mat)->id.id;
+				for (auto &link : prop.links) {
+					if (!link.input(mat)->enabled)
+						continue;
+					int link_id = link.id.id;
+					int output_id = link.output(mat)->id.id;
+					int input_id = link.input(mat)->id.id;
 
-          ImNodes::Link(link_id, output_id, input_id);
-        }
-      }
-    }
-  }
+					ImNodes::Link(link_id, output_id, input_id);
+				}
+			}
+		}
+	}
+
   ImNodes::EndNodeEditor();
 
   // Update links
@@ -593,7 +590,6 @@ void onDrawUISpaceShading(EditorContext *ctx) {
   uint output_node, input_node;
   int output_prop = -1, input_prop = -1;
   if (ImNodes::IsLinkCreated(&output_id, &input_id)) {
-    // NOTE: assumes that material and mesh are there
     std::vector<Node> &nodes = mat->nodes;
 
     // TODO: slow linear search
@@ -624,7 +620,7 @@ void onDrawUISpaceShading(EditorContext *ctx) {
         break;
       }
     }
-  }
+  } 
 
   if (output_prop != -1 && input_prop != -1) {
     // TODO: should we add this to both input and output node or not?
@@ -649,6 +645,8 @@ void onDrawUISpaceShading(EditorContext *ctx) {
     }
     input->link = link;
   }
+	
+  ImGui::End();
 
   // TODO: ImNodes::IsLinkDestroyed is not impelemted on the imnodes side (or
   // thats just me stupid), so check for deletion by our own
@@ -687,6 +685,5 @@ void onDrawUISpaceShading(EditorContext *ctx) {
       }
     }
   }
-}
 
-void onDrawUIEndSpaceShading(EditorContext *ctx) { ImGui::End(); }
+}

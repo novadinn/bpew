@@ -16,9 +16,7 @@ struct EventReceiver {
   // TODO: add functionaloty to submit more passes
   void (*onRenderPostProcessing)(EditorContext *ctx);
 
-  void (*onDrawUIBegin)(EditorContext *ctx);
   void (*onDrawUI)(EditorContext *ctx);
-  void (*onDrawUIEnd)(EditorContext *ctx);
 };
 
 #endif // EVENT_RECEIVER_H
