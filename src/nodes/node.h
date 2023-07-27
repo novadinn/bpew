@@ -13,6 +13,7 @@ enum NodeType {
   // Input
   RGB,
   TEXTURE_COORDINATE,
+  BEVEL,
   // Output
   MATERIAL_OUTPUT,
   // Shader
@@ -20,6 +21,9 @@ enum NodeType {
   // Texture
   IMAGE_TEXTURE,
   // Color
+  BRIGHTNESS_CONTRAST,
+  GAMMA,
+  INVERT,
   // Vector
   // Converter
   MIX,

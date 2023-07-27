@@ -11,22 +11,23 @@
 #include <string>
 #include <vector>
 
-bool Shader::createFromFile(const char *vert_path, const char *frag_path, const char *geom_path) {
+bool Shader::createFromFile(const char *vert_path, const char *frag_path,
+                            const char *geom_path) {
   std::string vert_code;
   std::string frag_code;
-	std::string geom_code;
+  std::string geom_code;
   std::ifstream vert_fp;
-  std::ifstream frag_fp;	
-	std::ifstream geom_fp;
-	
+  std::ifstream frag_fp;
+  std::ifstream geom_fp;
+
   vert_fp.exceptions(std::ifstream::failbit);
   frag_fp.exceptions(std::ifstream::failbit);
-	if (geom_path) {
-		geom_fp.exceptions(std::ifstream::failbit);
-	}
+  if (geom_path) {
+    geom_fp.exceptions(std::ifstream::failbit);
+  }
   try {
     vert_fp.open(vert_path);
-    frag_fp.open(frag_path);		
+    frag_fp.open(frag_path);
     std::stringstream vert_stream, frag_stream;
 
     vert_stream << vert_fp.rdbuf();
@@ -38,28 +39,30 @@ bool Shader::createFromFile(const char *vert_path, const char *frag_path, const 
     vert_code = vert_stream.str();
     frag_code = frag_stream.str();
 
-		if (geom_path) {
-			geom_fp.open(geom_path);
-			std::stringstream geom_stream;
+    if (geom_path) {
+      geom_fp.open(geom_path);
+      std::stringstream geom_stream;
 
-			geom_stream << geom_fp.rdbuf();
+      geom_stream << geom_fp.rdbuf();
 
-			geom_fp.close();
+      geom_fp.close();
 
-			geom_code = geom_stream.str();
-		}
+      geom_code = geom_stream.str();
+    }
   } catch (std::ifstream::failure &e) {
     LOG_ERROR("File not successfully read: %s\n", e.what());
   }
 
-	if (geom_code.size() != 0) {
-		return createFromSource(vert_code.c_str(), frag_code.c_str(), geom_code.c_str());
-	}
+  if (geom_code.size() != 0) {
+    return createFromSource(vert_code.c_str(), frag_code.c_str(),
+                            geom_code.c_str());
+  }
 
-	return createFromSource(vert_code.c_str(), frag_code.c_str());
+  return createFromSource(vert_code.c_str(), frag_code.c_str());
 }
 
-bool Shader::createFromSource(const char *vsrc, const char *fsrc, const char *gsrc) {
+bool Shader::createFromSource(const char *vsrc, const char *fsrc,
+                              const char *gsrc) {
   // Compile the vertex shader
   GLuint vs = glCreateShader(GL_VERTEX_SHADER);
 
@@ -108,42 +111,42 @@ bool Shader::createFromSource(const char *vsrc, const char *fsrc, const char *gs
     return false;
   }
 
-	GLuint gs;
-	if (gsrc) {
-		// Compile the geometry shader
-		gs = glCreateShader(GL_GEOMETRY_SHADER);
+  GLuint gs;
+  if (gsrc) {
+    // Compile the geometry shader
+    gs = glCreateShader(GL_GEOMETRY_SHADER);
 
-		src = (const GLchar *)gsrc;
-		glShaderSource(gs, 1, &src, 0);
+    src = (const GLchar *)gsrc;
+    glShaderSource(gs, 1, &src, 0);
 
-		glCompileShader(gs);
+    glCompileShader(gs);
 
-		glGetShaderiv(gs, GL_COMPILE_STATUS, &compp);
-		if (compp == GL_FALSE) {
-			GLint ml = 0;
-			glGetShaderiv(gs, GL_INFO_LOG_LENGTH, &ml);
+    glGetShaderiv(gs, GL_COMPILE_STATUS, &compp);
+    if (compp == GL_FALSE) {
+      GLint ml = 0;
+      glGetShaderiv(gs, GL_INFO_LOG_LENGTH, &ml);
 
-			std::vector<GLchar> log(ml);
-			glGetShaderInfoLog(gs, ml, &ml, &log[0]);
+      std::vector<GLchar> log(ml);
+      glGetShaderInfoLog(gs, ml, &ml, &log[0]);
 
-			glDeleteShader(gs);
-			glDeleteShader(fs);
-			glDeleteShader(vs);
+      glDeleteShader(gs);
+      glDeleteShader(fs);
+      glDeleteShader(vs);
 
-			LOG_ERROR("Failed to load Geometry Shader. \n%s\n", &log[0]);
+      LOG_ERROR("Failed to load Geometry Shader. \n%s\n", &log[0]);
 
-			return false;
-		}
-	}
+      return false;
+    }
+  }
 
   // Create the final shader program
   id = glCreateProgram();
 
   glAttachShader(id, vs);
   glAttachShader(id, fs);
-	if (gsrc) {
-		glAttachShader(id, gs);
-	} 
+  if (gsrc) {
+    glAttachShader(id, gs);
+  }
 
   glLinkProgram(id);
 
@@ -159,9 +162,9 @@ bool Shader::createFromSource(const char *vsrc, const char *fsrc, const char *gs
     glDeleteProgram(id);
     glDeleteShader(vs);
     glDeleteShader(fs);
-		if (gsrc) {
-			glDeleteShader(gs);
-		}
+    if (gsrc) {
+      glDeleteShader(gs);
+    }
 
     LOG_ERROR("Failed to create Program. \n%s\n", &log[0]);
 
@@ -170,9 +173,9 @@ bool Shader::createFromSource(const char *vsrc, const char *fsrc, const char *gs
 
   glDetachShader(id, vs);
   glDetachShader(id, fs);
-	if (gsrc) {
-		glDetachShader(id, gs);
-	}
+  if (gsrc) {
+    glDetachShader(id, gs);
+  }
 
   return true;
 }

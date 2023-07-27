@@ -52,6 +52,18 @@ void drawNodeRGB(SpaceShadingData *ctx, Node &node) {
   drawNodeOutputAttributes(ctx, node.outputs);
 }
 
+void drawNodeBevel(SpaceShadingData *ctx, Node &node) {
+  NodeInput &radius_input = node.inputs[0];
+  NodeInput &normal_input = node.inputs[1];
+
+  drawNodeOutputAttribute(ctx, node.outputs[0]);
+
+  drawNodeInputAttribute(ctx, radius_input);
+  drawNodeInputFloatDrag(ctx, radius_input, "Radius", 0.0f, 1000.0f);
+
+  drawNodeInputAttribute(ctx, normal_input);
+}
+
 void drawNodeMaterialOutput(SpaceShadingData *ctx, Node &node) {
   drawNodeInputAttributes(ctx, node.inputs);
 }
@@ -59,30 +71,35 @@ void drawNodeMaterialOutput(SpaceShadingData *ctx, Node &node) {
 void drawNodeImageTexture(SpaceShadingData *ctx, Node &node) {
   NodeInput &texture_input = node.inputs[0];
 
-	if (ImGui::Button("Select"))
-		ImGui::OpenPopup("Select Texture");
+  if (ImGui::Button("Select"))
+    ImGui::OpenPopup("Select Texture");
 
-	if (ImGui::BeginPopup("Select Texture")) {
-		std::map<std::string, uint> &textures = Texture2D::loaded_textures;
+  if (ImGui::BeginPopup("Select Texture")) {
+    std::map<std::string, uint> &textures = Texture2D::loaded_textures;
 
-		
-		for (auto it = textures.begin(); it != textures.end(); ++it) {
-			const bool selected = texture_input.value.texture_value == it->second;
-			if (ImGui::Selectable(it->first.c_str()))
-				texture_input.value.texture_value = it->second;
-			
-			if (selected)
-				ImGui::SetItemDefaultFocus();
-		}
-		
-		ImGui::EndPopup();
-	}
-	
-	ImGui::SameLine();
-	
-	std::string name = Texture2D::getTexturePath(texture_input.value.texture_value);	
-	ImGui::Text(name.c_str());
-		
+    for (auto it = textures.begin(); it != textures.end(); ++it) {
+      const bool selected = texture_input.value.texture_value == it->second;
+      Texture2D *texture = Texture2D::getTexture(it->second);
+      if (ImGui::Selectable(texture->name.c_str()))
+        texture_input.value.texture_value = it->second;
+
+      if (selected)
+        ImGui::SetItemDefaultFocus();
+    }
+
+    ImGui::EndPopup();
+  }
+
+  ImGui::SameLine();
+
+  std::string name;
+  Texture2D *texture = Texture2D::getTexture(texture_input.value.texture_value);
+  if (texture) {
+    name = texture->name;
+  }
+
+  ImGui::Text(name.c_str());
+
   ImGui::SameLine();
   if (ImGui::Button("...")) {
     ImGuiFileDialog::Instance()->OpenDialog("LoadTexture", "Choose File",
@@ -94,11 +111,12 @@ void drawNodeImageTexture(SpaceShadingData *ctx, Node &node) {
       std::string path = ImGuiFileDialog::Instance()->GetFilePathName();
       std::string name = ImGuiFileDialog::Instance()->GetCurrentFileName();
 
-			uint index = Texture2D::textures.size();
-			Texture2D tex;
+      uint index = Texture2D::textures.size();
+      Texture2D tex;
+      tex.name = name;
       tex.createFromFile(path.c_str());
 
-			texture_input.value.texture_value = index;
+      texture_input.value.texture_value = index;
     }
 
     ImGuiFileDialog::Instance()->Close();
@@ -107,6 +125,49 @@ void drawNodeImageTexture(SpaceShadingData *ctx, Node &node) {
   drawNodeInputAttributes(ctx, node.inputs);
 
   drawNodeOutputAttributes(ctx, node.outputs);
+}
+
+void drawNodeBrightnessContrast(SpaceShadingData *ctx, Node &node) {
+  NodeInput &color_input = node.inputs[0];
+  NodeInput &brightness_input = node.inputs[1];
+  NodeInput &contrast_input = node.inputs[2];
+
+  drawNodeOutputAttribute(ctx, node.outputs[0]);
+
+  drawNodeInputAttribute(ctx, color_input);
+  drawNodeInputColor3Edit(ctx, color_input, "Color");
+
+  drawNodeInputAttribute(ctx, brightness_input);
+  drawNodeInputFloatDrag(ctx, brightness_input, "Bright", -100.0f, 100.0f);
+
+  drawNodeInputAttribute(ctx, contrast_input);
+  drawNodeInputFloatDrag(ctx, contrast_input, "Contrast", -100.0f, 100.0f);
+}
+
+void drawNodeGamma(SpaceShadingData *ctx, Node &node) {
+  NodeInput &color_input = node.inputs[0];
+  NodeInput &gamma_input = node.inputs[1];
+
+  drawNodeOutputAttribute(ctx, node.outputs[0]);
+
+  drawNodeInputAttribute(ctx, color_input);
+  drawNodeInputColor3Edit(ctx, color_input, "Color");
+
+  drawNodeInputAttribute(ctx, gamma_input);
+  drawNodeInputFloatDrag(ctx, gamma_input, "Gamma", 0.001f, 10.0f);
+}
+
+void drawNodeInvert(SpaceShadingData *ctx, Node &node) {
+  NodeInput &fac_input = node.inputs[0];
+  NodeInput &color_input = node.inputs[1];
+
+  drawNodeOutputAttribute(ctx, node.outputs[0]);
+
+  drawNodeInputAttribute(ctx, fac_input);
+  drawNodeInputFloatDrag(ctx, fac_input, "Fac", 0.0f, 1.0f);
+
+  drawNodeInputAttribute(ctx, color_input);
+  drawNodeInputColor3Edit(ctx, color_input, "Color");
 }
 
 void drawNodeTextureCoordinate(SpaceShadingData *ctx, Node &node) {
@@ -291,6 +352,9 @@ void drawNode(SpaceShadingData *ctx, Node &node) {
   case NodeType::TEXTURE_COORDINATE:
     drawNodeTextureCoordinate(ctx, node);
     break;
+  case NodeType::BEVEL:
+    drawNodeBevel(ctx, node);
+    break;
   case NodeType::MATERIAL_OUTPUT:
     drawNodeMaterialOutput(ctx, node);
     break;
@@ -299,6 +363,15 @@ void drawNode(SpaceShadingData *ctx, Node &node) {
     break;
   case NodeType::IMAGE_TEXTURE:
     drawNodeImageTexture(ctx, node);
+    break;
+  case NodeType::BRIGHTNESS_CONTRAST:
+    drawNodeBrightnessContrast(ctx, node);
+    break;
+  case NodeType::GAMMA:
+    drawNodeGamma(ctx, node);
+    break;
+  case NodeType::INVERT:
+    drawNodeInvert(ctx, node);
     break;
   case NodeType::MIX:
     drawNodeMix(ctx, node);
@@ -405,6 +478,9 @@ void onDrawUISpaceShading(EditorContext *ctx) {
   if (ImGui::BeginPopupContextWindow()) {
     if (ImGui::BeginMenu("Add")) {
       if (ImGui::BeginMenu("Input")) {
+        if (ImGui::Button("Bevel")) {
+          space_data->createNode(mat, NodeType::BEVEL);
+        }
         if (ImGui::Button("RGB")) {
           space_data->createNode(mat, NodeType::RGB);
         }
@@ -436,6 +512,15 @@ void onDrawUISpaceShading(EditorContext *ctx) {
         ImGui::EndMenu();
       }
       if (ImGui::BeginMenu("Color")) {
+        if (ImGui::Button("Brightness/Contrast")) {
+          space_data->createNode(mat, NodeType::BRIGHTNESS_CONTRAST);
+        }
+        if (ImGui::Button("Gamma")) {
+          space_data->createNode(mat, NodeType::GAMMA);
+        }
+        if (ImGui::Button("Invert")) {
+          space_data->createNode(mat, NodeType::INVERT);
+        }
 
         ImGui::EndMenu();
       }

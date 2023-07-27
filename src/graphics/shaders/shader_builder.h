@@ -19,8 +19,9 @@ struct ShaderCreateInfo;
 struct ShaderInterfaceCreateInfo;
 struct ShaderContainer;
 
-struct ShaderBuilder { 
-  static bool buildShaderFromCreateInfo(Shader &shader, const ShaderCreateInfo &info);
+struct ShaderBuilder {
+  static bool buildShaderFromCreateInfo(Shader &shader,
+                                        const ShaderCreateInfo &info);
   static bool buildShaderFromShaderContainer(ShaderContainer *shader_container);
   static bool buildMaterialShader(Material &material);
   static bool buildMaterialRenderedShader(Material &material,
@@ -30,20 +31,24 @@ struct ShaderBuilder {
   static const char *fromType(ShaderType type);
   static const char *fromType(NodePropertyType type);
   static const char *fromType(InterpolationType type);
-	static const char *fromType(GeometryInType type);
-	static const char *fromType(GeometryOutType type);
+  static const char *fromType(GeometryInType type);
+  static const char *fromType(GeometryOutType type);
   static ShaderType toType(NodePropertyType type);
   static const char *getNodeName(NodeType type);
 
-	static void generateMaterialIds(Material &material);
-	static void revertMaterialIds(Material &material);
+  static void generateMaterialIds(Material &material);
+  static void revertMaterialIds(Material &material);
 
 private:
-	static void buildDefines(std::stringstream &ss, ShaderCreateInfo &create_info);
-	static void buildVertexShaderDefines(std::stringstream &vs, ShaderCreateInfo &create_info);
-	static void buildFragmentShaderDefines(std::stringstream &fs, ShaderCreateInfo &create_info);
-	static void buildGeometryShaderDefines(std::stringstream &gs, ShaderCreateInfo &create_info);
-	
+  static void buildDefines(std::stringstream &ss,
+                           ShaderCreateInfo &create_info);
+  static void buildVertexShaderDefines(std::stringstream &vs,
+                                       ShaderCreateInfo &create_info);
+  static void buildFragmentShaderDefines(std::stringstream &fs,
+                                         ShaderCreateInfo &create_info);
+  static void buildGeometryShaderDefines(std::stringstream &gs,
+                                         ShaderCreateInfo &create_info);
+
   static ShaderContainer *getShaderContainer(std::string &hash);
   static void buildNodeTree(std::stringstream &ss,
                             ShaderCreateInfo &create_info, Material &material);
@@ -63,10 +68,10 @@ private:
   static void buildInterface(std::stringstream &ss,
                              ShaderInterfaceInfo &interface_info);
   static void decreaseUsage(std::string &hash, ShaderContainer &container);
-  static void increaseUsage(ShaderContainer &container); 
-	
+  static void increaseUsage(ShaderContainer &container);
+
   static std::map<std::string, ShaderContainer> shaders;
-	static std::map<Material*, std::vector<int>> ids_buf;
+  static std::map<Material *, std::vector<int>> ids_buf;
 };
 
 #endif

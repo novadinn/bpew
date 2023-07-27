@@ -7,10 +7,11 @@
 #include "shader_create_info.h"
 
 std::map<std::string, ShaderContainer> ShaderBuilder::shaders;
-std::map<Material*, std::vector<int>> ShaderBuilder::ids_buf;
+std::map<Material *, std::vector<int>> ShaderBuilder::ids_buf;
 
-void ShaderBuilder::buildDefines(std::stringstream &ss, ShaderCreateInfo &create_info) {
-	ss << "#version 460 core\n";
+void ShaderBuilder::buildDefines(std::stringstream &ss,
+                                 ShaderCreateInfo &create_info) {
+  ss << "#version 460 core\n";
 
   for (auto &dep : create_info.info.deps) {
     proceedSource(dep.c_str(), create_info);
@@ -29,17 +30,18 @@ void ShaderBuilder::buildDefines(std::stringstream &ss, ShaderCreateInfo &create
   for (auto &uniform_buffer : create_info.info.uniform_buffers) {
     ss << "layout(std140, binding = " << uniform_buffer.binding << ") uniform ";
     buildInterface(ss, uniform_buffer.interface);
-		ss << ";\n";
+    ss << ";\n";
   }
 
   for (auto &uniform_array : create_info.info.uniform_arrays) {
     ss << "uniform " << uniform_array.type << " " << uniform_array.name << "["
        << uniform_array.size << "];\n";
-  }  
+  }
 }
 
-void ShaderBuilder::buildVertexShaderDefines(std::stringstream &vs, ShaderCreateInfo &create_info) {
-	for (auto &vin : create_info.info.vins) {
+void ShaderBuilder::buildVertexShaderDefines(std::stringstream &vs,
+                                             ShaderCreateInfo &create_info) {
+  for (auto &vin : create_info.info.vins) {
     vs << "layout (location = " << vin.location << ") in " << vin.type << " "
        << vin.name << ";\n";
   }
@@ -51,107 +53,115 @@ void ShaderBuilder::buildVertexShaderDefines(std::stringstream &vs, ShaderCreate
   for (auto &interface : create_info.info.vertex_interfaces) {
     vs << "out ";
     buildInterface(vs, interface);
-		vs << ";\n";
+    vs << ";\n";
   }
 }
 
-void ShaderBuilder::buildFragmentShaderDefines(std::stringstream &fs, ShaderCreateInfo &create_info) {
-	for (auto &fin : create_info.info.fins) {
+void ShaderBuilder::buildFragmentShaderDefines(std::stringstream &fs,
+                                               ShaderCreateInfo &create_info) {
+  for (auto &fin : create_info.info.fins) {
     fs << "in " << fin.type << " " << fin.name << ";\n";
   }
 
   for (auto &fout : create_info.info.fouts) {
     fs << "layout (location = " << fout.location << ") out " << fout.type << " "
        << fout.name << ";\n";
-  } 
-	
+  }
+
   for (auto &interface : create_info.info.geometry_interfaces) {
     fs << "in ";
     buildInterface(fs, interface);
-		fs << ";\n";
+    fs << ";\n";
   }
 
-	for (auto &interface : create_info.info.vertex_interfaces) {
-		fs << "in ";
+  for (auto &interface : create_info.info.vertex_interfaces) {
+    fs << "in ";
     buildInterface(fs, interface);
-		fs << ";\n";
-	}
+    fs << ";\n";
+  }
 }
 
-void ShaderBuilder::buildGeometryShaderDefines(std::stringstream &gs, ShaderCreateInfo &create_info) {
-	gs << "layout(" << fromType(create_info.info.geometry_in_type) << ") in;\n";	
-	gs << "layout(" << fromType(create_info.info.geometry_out_type) << ", max_vertices = " << create_info.info.geometry_max_vertices << ") out;\n";
+void ShaderBuilder::buildGeometryShaderDefines(std::stringstream &gs,
+                                               ShaderCreateInfo &create_info) {
+  gs << "layout(" << fromType(create_info.info.geometry_in_type) << ") in;\n";
+  gs << "layout(" << fromType(create_info.info.geometry_out_type)
+     << ", max_vertices = " << create_info.info.geometry_max_vertices
+     << ") out;\n";
 
-	for (auto &gin : create_info.info.gins) {
-		gs << "in " << gin.type << " " << gin.name << "[];\n";
-	}
+  for (auto &gin : create_info.info.gins) {
+    gs << "in " << gin.type << " " << gin.name << "[];\n";
+  }
 
-	for (auto &gout : create_info.info.gouts) {
-		gs << "out " << gout.type << " " << gout.name << "[];\n";
-	}
+  for (auto &gout : create_info.info.gouts) {
+    gs << "out " << gout.type << " " << gout.name << "[];\n";
+  }
 
-	for (auto &interface : create_info.info.vertex_interfaces) {
-		gs << "in ";
-		buildInterface(gs, interface);
-		gs << "[];\n";
-
-		gs << "out ";
-		buildInterface(gs, interface);
-		gs << "_fs;\n";
-	}
-
-	for (auto &interface : create_info.info.geometry_interfaces) {
-		gs << "out ";
+  for (auto &interface : create_info.info.vertex_interfaces) {
+    gs << "in ";
     buildInterface(gs, interface);
-		gs << ";\n";
-	}
+    gs << "[];\n";
+
+    gs << "out ";
+    buildInterface(gs, interface);
+    gs << "_fs;\n";
+  }
+
+  for (auto &interface : create_info.info.geometry_interfaces) {
+    gs << "out ";
+    buildInterface(gs, interface);
+    gs << ";\n";
+  }
 }
 
-bool ShaderBuilder::buildShaderFromCreateInfo(Shader &shader, const ShaderCreateInfo &info) {
+bool ShaderBuilder::buildShaderFromCreateInfo(Shader &shader,
+                                              const ShaderCreateInfo &info) {
   ShaderCreateInfo create_info = info;
 
-	std::stringstream ss;
+  std::stringstream ss;
 
-	buildDefines(ss, create_info);
-	
-	std::stringstream vs, fs, gs;
+  buildDefines(ss, create_info);
 
-	char build_result = 0x0;
-	if (create_info.info.vertex_source.size() > 0) {
-		vs << ss.str();
-		buildVertexShaderDefines(vs, create_info);
-		build_result |= includeLib(vs, create_info.info.vertex_source.c_str());	 	 	
-	}
-	if (create_info.info.fragment_source.size() > 0) {
-		fs << ss.str();
-		buildFragmentShaderDefines(fs, create_info);
-		build_result |= includeLib(fs, create_info.info.fragment_source.c_str()) << 1;			
-	}
-	if (create_info.info.geometry_source.size() > 0) {
-		gs << ss.str();
-		buildGeometryShaderDefines(gs, create_info);
-		build_result |= includeLib(gs, create_info.info.geometry_source.c_str()) << 2;			
-	}
+  std::stringstream vs, fs, gs;
 
-	if (build_result == 0x7) {
-		shader.destroy();
+  char build_result = 0x0;
+  if (create_info.info.vertex_source.size() > 0) {
+    vs << ss.str();
+    buildVertexShaderDefines(vs, create_info);
+    build_result |= includeLib(vs, create_info.info.vertex_source.c_str());
+  }
+  if (create_info.info.fragment_source.size() > 0) {
+    fs << ss.str();
+    buildFragmentShaderDefines(fs, create_info);
+    build_result |= includeLib(fs, create_info.info.fragment_source.c_str())
+                    << 1;
+  }
+  if (create_info.info.geometry_source.size() > 0) {
+    gs << ss.str();
+    buildGeometryShaderDefines(gs, create_info);
+    build_result |= includeLib(gs, create_info.info.geometry_source.c_str())
+                    << 2;
+  }
 
-		if(!shader.createFromSource(vs.str().c_str(), fs.str().c_str(), gs.str().c_str())) {
-			LOG_ERROR("Failed to build shader\n");
-			return false;
-		}		
-	} else if (build_result == 0x3) {
-		shader.destroy();
-		
-		if(!shader.createFromSource(vs.str().c_str(), fs.str().c_str())) {
-			LOG_ERROR("Failed to build shader\n");
-			return false;
-		}		
-	} else {		
-		LOG_ERROR("Failed to build shader\n");
+  if (build_result == 0x7) {
+    shader.destroy();
+
+    if (!shader.createFromSource(vs.str().c_str(), fs.str().c_str(),
+                                 gs.str().c_str())) {
+      LOG_ERROR("Failed to build shader\n");
+      return false;
+    }
+  } else if (build_result == 0x3) {
+    shader.destroy();
+
+    if (!shader.createFromSource(vs.str().c_str(), fs.str().c_str())) {
+      LOG_ERROR("Failed to build shader\n");
+      return false;
+    }
+  } else {
+    LOG_ERROR("Failed to build shader\n");
     return false;
-	}
-	  
+  }
+
   return true;
 }
 
@@ -176,7 +186,7 @@ bool ShaderBuilder::buildMaterialShader(Material &material) {
 
   ShaderCreateInfo create_info = material_shader_create_info;
 
-	std::stringstream ss;
+  std::stringstream ss;
 
   buildNodeTree(ss, create_info, material);
   create_info.define("USE_PREVIEW_SHADER");
@@ -192,55 +202,59 @@ bool ShaderBuilder::buildMaterialShader(Material &material) {
   return buildShaderFromShaderContainer(material.shader_container);
 }
 
-bool ShaderBuilder::buildShaderFromShaderContainer(ShaderContainer *shader_container) {
-	ShaderCreateInfo &create_info = shader_container->create_info;
-	Shader &shader = shader_container->shader;
+bool ShaderBuilder::buildShaderFromShaderContainer(
+    ShaderContainer *shader_container) {
+  ShaderCreateInfo &create_info = shader_container->create_info;
+  Shader &shader = shader_container->shader;
 
-	std::stringstream ss;
+  std::stringstream ss;
 
-	buildDefines(ss, create_info);
-	
-	std::stringstream vs, fs, gs;
+  buildDefines(ss, create_info);
 
-	char build_result = 0x0;
-	if (create_info.info.vertex_source.size() > 0) {
-		vs << ss.str();
-		buildVertexShaderDefines(vs, create_info);
-		build_result |= includeLib(vs, create_info.info.vertex_source.c_str());	 	 	
-	}
-	if (create_info.info.fragment_source.size() > 0) {
-		fs << ss.str();
-		buildFragmentShaderDefines(fs, create_info);
-		fs << shader_container->material_functions;
-		build_result |= includeLib(fs, create_info.info.fragment_source.c_str()) << 1;					
-	}
-	if (create_info.info.geometry_source.size() > 0) {
-		gs << ss.str();
-		buildGeometryShaderDefines(gs, create_info);
-		build_result |= includeLib(gs, create_info.info.geometry_source.c_str()) << 2;			
-	}
+  std::stringstream vs, fs, gs;
 
-	if (build_result == 0x7) {
-		shader.destroy();
-		
-		if(!shader.createFromSource(vs.str().c_str(), fs.str().c_str(), gs.str().c_str())) {
-			LOG_ERROR("Failed to build shader\n");
-			return false;
-		}
-	} else if (build_result == 0x3) {
-		shader.destroy();
-		
-		if(!shader.createFromSource(vs.str().c_str(), fs.str().c_str())) {
-			LOG_ERROR("Failed to build shader\n");
-			return false;
-		}
-	} else {
-		LOG_ERROR("Failed to build shader\n");
+  char build_result = 0x0;
+  if (create_info.info.vertex_source.size() > 0) {
+    vs << ss.str();
+    buildVertexShaderDefines(vs, create_info);
+    build_result |= includeLib(vs, create_info.info.vertex_source.c_str());
+  }
+  if (create_info.info.fragment_source.size() > 0) {
+    fs << ss.str();
+    buildFragmentShaderDefines(fs, create_info);
+    fs << shader_container->material_functions;
+    build_result |= includeLib(fs, create_info.info.fragment_source.c_str())
+                    << 1;
+  }
+  if (create_info.info.geometry_source.size() > 0) {
+    gs << ss.str();
+    buildGeometryShaderDefines(gs, create_info);
+    build_result |= includeLib(gs, create_info.info.geometry_source.c_str())
+                    << 2;
+  }
+
+  if (build_result == 0x7) {
+    shader.destroy();
+
+    if (!shader.createFromSource(vs.str().c_str(), fs.str().c_str(),
+                                 gs.str().c_str())) {
+      LOG_ERROR("Failed to build shader\n");
+      return false;
+    }
+  } else if (build_result == 0x3) {
+    shader.destroy();
+
+    if (!shader.createFromSource(vs.str().c_str(), fs.str().c_str())) {
+      LOG_ERROR("Failed to build shader\n");
+      return false;
+    }
+  } else {
+    LOG_ERROR("Failed to build shader\n");
     return false;
-	}
-	  		
-	shader_container->compiled = true;
-	
+  }
+
+  shader_container->compiled = true;
+
   return true;
 }
 
@@ -485,8 +499,20 @@ const char *ShaderBuilder::getNodeName(NodeType type) {
   case NodeType::RGB:
     src = "node_rgb";
     break;
+  case NodeType::BEVEL:
+    src = "node_bevel";
+    break;
   case NodeType::IMAGE_TEXTURE:
     src = "node_image_texture";
+    break;
+  case NodeType::BRIGHTNESS_CONTRAST:
+    src = "node_brightness_contrast";
+    break;
+  case NodeType::GAMMA:
+    src = "node_gamma";
+    break;
+  case NodeType::INVERT:
+    src = "node_invert";
     break;
   case NodeType::TEXTURE_COORDINATE:
     src = "node_texture_coordinate";
@@ -563,35 +589,35 @@ const char *ShaderBuilder::fromType(InterpolationType type) {
 }
 
 const char *ShaderBuilder::fromType(GeometryInType type) {
-	switch (type) {
-	case GeometryInType::POINTS:
-		return "points";
-	case GeometryInType::LINES:
-		return "lines";
-	case GeometryInType::LINES_ADJACENCY:
-		return "lines_adjacency";
-	case GeometryInType::TRIANGLES:
-		return "triangles";
-	case GeometryInType::TRIANGLES_ADJACENCY:
-		return "triangles_adjacency";
-	default:
-		LOG_ERROR("unhandled type %d\n", (int)type);
-		return "";
-	}
+  switch (type) {
+  case GeometryInType::POINTS:
+    return "points";
+  case GeometryInType::LINES:
+    return "lines";
+  case GeometryInType::LINES_ADJACENCY:
+    return "lines_adjacency";
+  case GeometryInType::TRIANGLES:
+    return "triangles";
+  case GeometryInType::TRIANGLES_ADJACENCY:
+    return "triangles_adjacency";
+  default:
+    LOG_ERROR("unhandled type %d\n", (int)type);
+    return "";
+  }
 }
 
 const char *ShaderBuilder::fromType(GeometryOutType type) {
-	switch (type) {
-	case GeometryOutType::POINTS:
-		return "points";
-	case GeometryOutType::LINE_STRIP:
-		return "line_strip";
-	case GeometryOutType::TRIANGLE_STRIP:
-		return "triangle_strip";
-	default:
-		LOG_ERROR("unhandled type %d\n", (int)type);
-		return "";
-	}
+  switch (type) {
+  case GeometryOutType::POINTS:
+    return "points";
+  case GeometryOutType::LINE_STRIP:
+    return "line_strip";
+  case GeometryOutType::TRIANGLE_STRIP:
+    return "triangle_strip";
+  default:
+    LOG_ERROR("unhandled type %d\n", (int)type);
+    return "";
+  }
 }
 
 void ShaderBuilder::proceedSource(const char *dep,
@@ -669,10 +695,10 @@ bool ShaderBuilder::includeLib(std::stringstream &ss, const char *dep) {
     src.close();
   } else {
     LOG_ERROR("failed to open dep: %s\n", dep);
-		return false;
+    return false;
   }
 
-	return true;
+  return true;
 }
 
 Sha ShaderBuilder::generateMaterialSha(Material &material) {
@@ -745,8 +771,8 @@ void ShaderBuilder::increaseUsage(ShaderContainer &container) {
   container.users++;
 }
 
-void ShaderBuilder::generateMaterialIds(Material &material) { 	
-	std::vector<int> prev_ids;
+void ShaderBuilder::generateMaterialIds(Material &material) {
+  std::vector<int> prev_ids;
   int id = 0;
 
   // generate ids
@@ -766,16 +792,16 @@ void ShaderBuilder::generateMaterialIds(Material &material) {
     }
   }
 
-	ids_buf.insert({&material, prev_ids});
+  ids_buf.insert({&material, prev_ids});
 }
 
 void ShaderBuilder::revertMaterialIds(Material &material) {
-	if (!ids_buf.contains(&material))
-		return;
-	
-	std::vector<int> &prev_ids = ids_buf[&material];
+  if (!ids_buf.contains(&material))
+    return;
 
-	for (auto &node : material.nodes) {
+  std::vector<int> &prev_ids = ids_buf[&material];
+
+  for (auto &node : material.nodes) {
     node.id.id = prev_ids[node.id.id];
 
     for (auto &input : node.inputs) {
@@ -787,5 +813,5 @@ void ShaderBuilder::revertMaterialIds(Material &material) {
     }
   }
 
-	ids_buf.erase(&material);
+  ids_buf.erase(&material);
 }

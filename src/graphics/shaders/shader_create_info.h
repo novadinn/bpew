@@ -74,7 +74,7 @@ struct ShaderCreateInfo {
     return *this;
   }
 
-	ShaderCreateInfo &gin(ShaderType type, std::string name) {
+  ShaderCreateInfo &gin(ShaderType type, std::string name) {
     ShaderInOut gin;
     gin.type = ShaderBuilder::fromType(type);
     gin.name = name;
@@ -90,12 +90,13 @@ struct ShaderCreateInfo {
     return *this;
   }
 
-	ShaderCreateInfo &primitive(GeometryInType in, GeometryOutType out, uint max_vertices) {
-		info.geometry_in_type = in;
-		info.geometry_out_type = out;
-		info.geometry_max_vertices = max_vertices;
-		return *this;
-	} 
+  ShaderCreateInfo &primitive(GeometryInType in, GeometryOutType out,
+                              uint max_vertices) {
+    info.geometry_in_type = in;
+    info.geometry_out_type = out;
+    info.geometry_max_vertices = max_vertices;
+    return *this;
+  }
 
   ShaderCreateInfo &vout(ShaderType type, std::string name) {
     ShaderInOut vout;
@@ -122,7 +123,7 @@ struct ShaderCreateInfo {
     return *this;
   }
 
-	ShaderCreateInfo &gout(ShaderType type, std::string name) {
+  ShaderCreateInfo &gout(ShaderType type, std::string name) {
     ShaderInOut gout;
     gout.type = ShaderBuilder::fromType(type);
     gout.name = name;
@@ -148,7 +149,7 @@ struct ShaderCreateInfo {
     return *this;
   }
 
-	ShaderCreateInfo &geometry(std::string source) {
+  ShaderCreateInfo &geometry(std::string source) {
     info.geometry_source = source;
     return *this;
   }
@@ -224,14 +225,14 @@ struct ShaderCreateInfo {
   }
 
   ShaderCreateInfo &ginterface(ShaderInterfaceCreateInfo interface,
-                              std::string name) {
+                               std::string name) {
     interface.interface.name = name;
     info.geometry_interfaces.push_back(interface.interface);
     return *this;
   }
 
-	ShaderCreateInfo &vinterface(ShaderInterfaceCreateInfo interface,
-                              std::string name) {
+  ShaderCreateInfo &vinterface(ShaderInterfaceCreateInfo interface,
+                               std::string name) {
     interface.interface.name = name;
     info.vertex_interfaces.push_back(interface.interface);
     return *this;
@@ -240,7 +241,7 @@ struct ShaderCreateInfo {
   void removeDep(const char *dep) {
     std::string str_dep(dep);
 
-		info.deps.erase(str_dep);
+    info.deps.erase(str_dep);
   }
 };
 

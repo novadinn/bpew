@@ -58,44 +58,42 @@ std::vector<Texture2D> Texture2D::textures;
 std::map<std::string, uint> Texture2D::loaded_textures;
 
 Texture2D *Texture2D::getTexture(std::string &path) {
-	if (!textureLoaded(path)) {
-		return nullptr;
-	}
-	
+  if (!textureLoaded(path)) {
+    return nullptr;
+  }
+
   return &textures[loaded_textures[path]];
 }
 
 Texture2D *Texture2D::getTexture(uint index) {
-	if (!validTextureIndex(index)) {
-		return nullptr;
-	}
+  if (!validTextureIndex(index)) {
+    return nullptr;
+  }
 
-	return &textures[index];
+  return &textures[index];
 }
 
 std::string Texture2D::getTexturePath(uint index) {
-	for (auto it = loaded_textures.begin(); it != loaded_textures.end(); ++it) {
-		if (it->second == index) {
-			return it->first;
-		}
-	}
-	return "";
+  for (auto it = loaded_textures.begin(); it != loaded_textures.end(); ++it) {
+    if (it->second == index) {
+      return it->first;
+    }
+  }
+  return "";
 }
 
 bool Texture2D::textureLoaded(std::string &path) {
   return loaded_textures.contains(path);
 }
-void Texture2D::addTexture(Texture2D texture) {	
-	textures.push_back(texture);
-}
+void Texture2D::addTexture(Texture2D texture) { textures.push_back(texture); }
 
 void Texture2D::loadTexture(std::string path, Texture2D &texture) {
-	texture.type = TextureType::IMAGE;
-	loaded_textures.insert({path, textures.size()});
-	
-	addTexture(texture);
+  texture.type = TextureType::IMAGE;
+  loaded_textures.insert({path, textures.size()});
+
+  addTexture(texture);
 }
 
 bool Texture2D::validTextureIndex(uint index) {
-	return index >= 0 && index < textures.size();
+  return index >= 0 && index < textures.size();
 }

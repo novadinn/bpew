@@ -37,8 +37,12 @@ void drawNodeOutputAttributes(SpaceShadingData *ctx,
                               std::vector<NodeOutput> &outputs);
 
 void drawNodeRGB(SpaceShadingData *ctx, Node &node);
+void drawNodeBevel(SpaceShadingData *ctx, Node &node);
 void drawNodeMaterialOutput(SpaceShadingData *ctx, Node &node);
 void drawNodeImageTexture(SpaceShadingData *ctx, Node &node);
+void drawNodeBrightnessContrast(SpaceShadingData *ctx, Node &node);
+void drawNodeGamma(SpaceShadingData *ctx, Node &node);
+void drawNodeInvert(SpaceShadingData *ctx, Node &node);
 void drawNodeTextureCoordinate(SpaceShadingData *ctx, Node &node);
 void drawNodePrincipledBSDF(SpaceShadingData *ctx, Node &node);
 void drawNodeMix(SpaceShadingData *ctx, Node &node);
