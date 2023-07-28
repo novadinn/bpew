@@ -2,6 +2,8 @@
 #define MESH_H
 
 #include "../core/platform.h"
+#include "material.h"
+#include "material_manager.h"
 #include "vertex_array.h"
 #include "vertex_attribute.h"
 
@@ -34,9 +36,14 @@ struct Mesh {
     for (int i = 0; i < attributes.size(); ++i) {
       total_count += attributes[i].getCount();
     }
-
     return total_count;
   }
+
+  Material *getActiveMaterial() {
+    return MaterialManager::getMaterialOrDefault(active_material_index);
+  }
+
+  int active_material_index = -1;
 
   // TODO: store a type of a vertex subdata in here (to identify
   // position/normal..)

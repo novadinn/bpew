@@ -5,11 +5,6 @@
 #include "renderer_context.h"
 #include "shaders/shader.h"
 #include "vertex_array.h"
-#include "../ecs/entity.h"
-#include "../ecs/components/mesh_component.h"
-#include "../ecs/components/light_component.h"
-#include "../ecs/components/transform_component.h"
-#include "../ecs/components/camera_component.h"
 
 #include <glm/glm.hpp>
 #include <vector>
@@ -34,9 +29,8 @@ struct Renderer {
   static void setClearColor(const glm::vec4 &color);
 
 private:
-  static void setMaterialNodeUniforms(Shader &shader, Node &node);
-  static void setMaterialNodeUniform(Shader &shader, Node &node,
-                                     NodeProperty &prop);
+  static void bindMaterialUniforms(Material &material);
+  static void unbindMaterialUniforms(Material &material);
 };
 
 #endif // RENDERER_H

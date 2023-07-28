@@ -1,6 +1,7 @@
 #ifndef TOKENIZER_H
 #define TOKENIZER_H
 
+#include "../core/platform.h"
 #include <string>
 
 enum TokenType {

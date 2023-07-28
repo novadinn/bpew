@@ -44,6 +44,8 @@ void Texture2D::createFromFile(const char *p) {
   }
 
   stbi_image_free(data);
+
+  loadTexture(std::string(p), *this);
 }
 
 void Texture2D::destroy() { glDeleteTextures(1, &id); }
@@ -51,3 +53,47 @@ void Texture2D::destroy() { glDeleteTextures(1, &id); }
 void Texture2D::bind() { glBindTexture(GL_TEXTURE_2D, id); }
 
 void Texture2D::unbind() { glBindTexture(GL_TEXTURE_2D, 0); }
+
+std::vector<Texture2D> Texture2D::textures;
+std::map<std::string, uint> Texture2D::loaded_textures;
+
+Texture2D *Texture2D::getTexture(std::string &path) {
+  if (!textureLoaded(path)) {
+    return nullptr;
+  }
+
+  return &textures[loaded_textures[path]];
+}
+
+Texture2D *Texture2D::getTexture(uint index) {
+  if (!validTextureIndex(index)) {
+    return nullptr;
+  }
+
+  return &textures[index];
+}
+
+std::string Texture2D::getTexturePath(uint index) {
+  for (auto it = loaded_textures.begin(); it != loaded_textures.end(); ++it) {
+    if (it->second == index) {
+      return it->first;
+    }
+  }
+  return "";
+}
+
+bool Texture2D::textureLoaded(std::string &path) {
+  return loaded_textures.contains(path);
+}
+void Texture2D::addTexture(Texture2D texture) { textures.push_back(texture); }
+
+void Texture2D::loadTexture(std::string path, Texture2D &texture) {
+  texture.type = TextureType::IMAGE;
+  loaded_textures.insert({path, textures.size()});
+
+  addTexture(texture);
+}
+
+bool Texture2D::validTextureIndex(uint index) {
+  return index >= 0 && index < textures.size();
+}

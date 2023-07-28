@@ -1,2 +1,1 @@
-// TODO: add inout
-void node_rgb(in vec3 color, out vec4 outColor) { outColor = vec4(color, 1.0); }
+void node_rgb(in vec3 color, out vec3 outColor) { outColor = color; }

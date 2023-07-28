@@ -147,28 +147,47 @@ struct MeshComponent {
     }
   }
 
-  bool hasMaterials() const { return materials.size() > 0; }
-
-  bool validMaterialIndex() const {
-    return active_material_index >= 0 &&
-           active_material_index < materials.size();
+  // NOTE: this is temporary
+  void setMaterial(uint index) {
+    for (int i = 0; i < meshes.size(); ++i) {
+      meshes[i].active_material_index = index;
+    }
   }
 
-  Material *getActiveMaterial() {
-    if (!validMaterialIndex()) {
-      return nullptr;
+  int getMaterial(int index) {
+    for (int i = 0; i < materials.size(); ++i) {
+      if (materials[i] == index) {
+        return i;
+      }
     }
 
-    return &materials[active_material_index];
+    return -1;
   }
 
-  std::vector<Material> materials;
-  Material default_material;
-  int active_material_index = -1;
+  bool hasMaterial(int index) { return getMaterial(index) != -1; }
+
+  void addMaterial(int index) {
+    if (!hasMaterial(index)) {
+      materials.push_back(index);
+    }
+  }
+
+  void removeMaterial(int index) {
+    int i = getMaterial(index);
+
+    if (i != -1) {
+      for (auto &mesh : meshes) {
+        if (mesh.active_material_index == index) {
+          return;
+        }
+      }
+      materials.erase(materials.begin() + i);
+    }
+  }
+
+  std::vector<uint> materials;
 
   std::vector<Mesh> meshes;
-  // TODO: those are already stored in the mesh structures
-  // std::vector<std::pair<std::string, Texture2D>> loaded_textures;
 };
 
 #endif // MESH_COMPONENT_H

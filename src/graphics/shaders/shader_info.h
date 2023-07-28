@@ -23,6 +23,20 @@ enum class InterpolationType {
   NOPERSPECTIVE,
 };
 
+enum class GeometryInType {
+  POINTS,
+  LINES,
+  LINES_ADJACENCY,
+  TRIANGLES,
+  TRIANGLES_ADJACENCY,
+};
+
+enum class GeometryOutType {
+  POINTS,
+  LINE_STRIP,
+  TRIANGLE_STRIP,
+};
+
 struct ShaderInterfaceField {
   InterpolationType inter;
   ShaderType type;
@@ -65,19 +79,24 @@ struct ShaderDefine {
 };
 
 struct ShaderInfo {
-  std::vector<ShaderInOut> vins, fins;
+  std::vector<ShaderInOut> vins, fins, gins;
   std::vector<ShaderUniformBuffer> uniform_buffers;
-  std::vector<ShaderInOut> vouts, fouts;
+  std::vector<ShaderInOut> vouts, fouts, gouts;
   std::vector<ShaderUniform> uniforms;
   std::vector<ShaderUniformArray> uniform_arrays;
   std::vector<ShaderDefine> defines;
-  std::vector<ShaderInterfaceInfo> interfaces;
+  std::vector<ShaderInterfaceInfo> vertex_interfaces;
+  std::vector<ShaderInterfaceInfo> geometry_interfaces;
 
-  std::string fragment_source, vertex_source;
+  std::string fragment_source, vertex_source, geometry_source;
   // NOTE: the difference between typedeps in that ShaderBuilder will
   // recursively search for other deps
   std::set<std::string> deps;
   std::set<std::string> typedeps;
+
+  GeometryInType geometry_in_type;
+  GeometryOutType geometry_out_type;
+  uint geometry_max_vertices;
 };
 
 #endif

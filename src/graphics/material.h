@@ -11,6 +11,8 @@
 #include <vector>
 
 struct Material {
+  void createDefault();
+
   std::string name;
   std::vector<Node> nodes;
   ShaderContainer *shader_container = nullptr;

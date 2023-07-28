@@ -8,68 +8,419 @@
 void Node::create(NodeType node_type) {
 
   std::string node_name;
-  std::vector<NodeProperty> node_inputs;
-  std::vector<NodeProperty> node_outputs;
+  std::vector<NodeInput> node_inputs;
+  std::vector<NodeOutput> node_outputs;
 
   switch (node_type) {
   case NodeType::RGB: {
     node_name = "RGB";
 
-    NodeProperty prop;
+    NodeInput input;
+    NodeOutput output;
     NodePropertyValue prop_value;
 
     // Color socket
-    prop = {};
+    input = {};
     prop_value = {};
 
     prop_value.vector3_value = glm::vec3(0.0f);
 
-    prop.create(prop_value, "Color", NodePropertyType::VECTOR3);
-    node_inputs.push_back(prop);
+    input.create(prop_value, "Color", NodePropertyType::COLOR,
+                 NodePropertySource::INPUT_UNIFORM);
+    node_inputs.push_back(input);
 
     // Color socket
-    prop = {};
-    prop_value = {};
+    output = {};
 
-    prop_value.color_value = glm::vec4(0.0f);
+    output.create("Color", NodePropertyType::COLOR);
+    node_outputs.push_back(output);
+  } break;
+  case NodeType::BEVEL: {
+    node_name = "Bevel";
 
-    prop.create(prop_value, "Color", NodePropertyType::COLOR);
-    node_outputs.push_back(prop);
+    NodeInput input;
+    NodeOutput output;
+    NodePropertyValue input_value;
 
+    input = {};
+    input_value = {};
+
+    input_value.float_value = 0.05f;
+
+    input.create(input_value, "Radius", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    input = {};
+    input_value = {};
+
+    input_value.vector3_value = glm::vec3(0.0f);
+
+    input.create(input_value, "Normal", NodePropertyType::VECTOR3,
+                 NodePropertySource::OUTPUT);
+    node_inputs.push_back(input);
+
+    // TODO: samples not used ?
+
+    output = {};
+
+    output.create("Normal", NodePropertyType::VECTOR3);
+    node_outputs.push_back(output);
   } break;
   case NodeType::MATERIAL_OUTPUT: {
     node_name = "Material Output";
 
-    NodeProperty prop;
+    NodeInput prop;
     NodePropertyValue prop_value;
 
     // Surface socket
     prop = {};
     prop_value = {};
 
-    prop_value.shader_value = Shader{};
+    prop_value.vector4_value = glm::vec4(0.0f);
 
-    prop.create(prop_value, "Surface", NodePropertyType::SHADER);
+    prop.create(prop_value, "Surface", NodePropertyType::VECTOR4,
+                NodePropertySource::OUTPUT);
     node_inputs.push_back(prop);
 
     // Volume socket
     prop = {};
     prop_value = {};
 
-    prop_value.shader_value = Shader{};
+    prop_value.vector4_value = glm::vec4(0.0f);
 
-    prop.create(prop_value, "Volume", NodePropertyType::SHADER);
+    prop.create(prop_value, "Volume", NodePropertyType::VECTOR4,
+                NodePropertySource::OUTPUT);
     node_inputs.push_back(prop);
 
     // Displacement socket
     prop = {};
     prop_value = {};
 
-    prop_value.vector3_value = glm::vec3(0.0f);
-    ;
+    prop_value.vector4_value = glm::vec4(0.0f);
 
-    prop.create(prop_value, "Displacement", NodePropertyType::VECTOR3);
+    prop.create(prop_value, "Displacement", NodePropertyType::VECTOR4,
+                NodePropertySource::OUTPUT);
     node_inputs.push_back(prop);
+  } break;
+  case NodeType::IMAGE_TEXTURE: {
+    node_name = "Image Texture";
+
+    NodeInput input;
+    NodeOutput output;
+    NodePropertyValue input_value;
+
+    input = {};
+    input_value = {};
+
+    input_value.texture_value = 0;
+
+    input.create(input_value, "Texture", NodePropertyType::TEXTURE,
+                 NodePropertySource::INPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    input = {};
+    input_value = {};
+
+    input_value.vector2_value = glm::vec2(0.0f);
+
+    input.create(input_value, "Vector", NodePropertyType::VECTOR2,
+                 NodePropertySource::OUTPUT);
+    node_inputs.push_back(input);
+
+    output = {};
+
+    output.create("Color", NodePropertyType::COLOR);
+    node_outputs.push_back(output);
+
+    output = {};
+
+    output.create("Alpha", NodePropertyType::FLOAT);
+    node_outputs.push_back(output);
+  } break;
+  case NodeType::BRIGHTNESS_CONTRAST: {
+    node_name = "Brightness/Contrast";
+
+    NodeInput input;
+    NodeOutput output;
+    NodePropertyValue input_value;
+
+    input = {};
+    input_value = {};
+
+    input_value.vector4_value = glm::vec4(1.0f);
+
+    input.create(input_value, "Color", NodePropertyType::VECTOR4,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    input = {};
+    input_value = {};
+
+    input_value.float_value = 0.0f;
+
+    input.create(input_value, "Brightness", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    input = {};
+    input_value = {};
+
+    input_value.float_value = 0.0f;
+
+    input.create(input_value, "Contrast", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    output = {};
+
+    output.create("Color", NodePropertyType::VECTOR4);
+    node_outputs.push_back(output);
+  } break;
+  case NodeType::GAMMA: {
+    node_name = "Gamma";
+
+    NodeOutput output;
+    NodeInput input;
+    NodePropertyValue input_value;
+
+    input = {};
+    input_value = {};
+
+    input_value.vector4_value = glm::vec4(1.0f);
+
+    input.create(input_value, "Color", NodePropertyType::VECTOR4,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    input = {};
+    input_value = {};
+
+    input_value.float_value = 1.0f;
+
+    input.create(input_value, "Gamma", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    output = {};
+
+    output.create("Color", NodePropertyType::VECTOR4);
+    node_outputs.push_back(output);
+  } break;
+  case NodeType::INVERT: {
+    node_name = "Invert";
+
+    NodeInput input;
+    NodeOutput output;
+    NodePropertyValue input_value;
+
+    input = {};
+    input_value = {};
+
+    input_value.float_value = 1.0f;
+
+    input.create(input_value, "Fac", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    input = {};
+    input_value = {};
+
+    input_value.vector4_value = glm::vec4(0.0f);
+
+    input.create(input_value, "Color", NodePropertyType::VECTOR4,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    output = {};
+
+    output.create("Color", NodePropertyType::VECTOR4);
+    node_outputs.push_back(output);
+  } break;
+	case NodeType::LIGHT_FALLOFF: {
+		node_name = "Light Falloff";
+
+		NodeInput input;
+		NodeOutput output;
+		NodePropertyValue input_value;
+
+		input = {};
+		input_value = {};
+
+		input_value.float_value = 100.0f;
+
+		input.create(input_value, "Strength", NodePropertyType::FLOAT,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.float_value = 0.0f;
+
+		input.create(input_value, "Smooth", NodePropertyType::FLOAT,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		output = {};
+
+		output.create("Quadratic", NodePropertyType::FLOAT);
+		node_outputs.push_back(output);
+
+		output = {};
+
+		output.create("Linear", NodePropertyType::FLOAT);
+		node_outputs.push_back(output);
+
+		output = {};
+
+		output.create("Constant", NodePropertyType::FLOAT);
+		node_outputs.push_back(output);
+	} break;
+  case NodeType::TEXTURE_COORDINATE: {
+    node_name = "Texture Coordinate";
+
+    NodeOutput output;
+    NodeInput input;
+    NodePropertyValue input_value;
+
+    input = {};
+    input_value = {};
+
+    input_value.vector2_value = glm::vec2(0.0f);
+
+    input.create(input_value, "texCoord", NodePropertyType::VECTOR2,
+                 NodePropertySource::VS_OUT);
+    node_inputs.push_back(input);
+
+    output = {};
+
+    output.create("UV", NodePropertyType::VECTOR2);
+    node_outputs.push_back(output);
+  } break;
+  case NodeType::PRINCIPLED_BSDF: {
+    node_name = "Principled BSDF";
+
+    NodeInput input;
+    NodeOutput output;
+    NodePropertyValue input_value;
+
+    input = {};
+    input_value = {};
+
+    input_value.vector3_value = glm::vec3(0.5f);
+
+    input.create(input_value, "Base Color", NodePropertyType::COLOR,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    input = {};
+    input_value = {};
+
+    input_value.float_value = 1.0f;
+
+    input.create(input_value, "Alpha", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    output = {};
+
+    output.create("BSDF", NodePropertyType::VECTOR4);
+    node_outputs.push_back(output);
+  } break;
+  case NodeType::MIX: {
+    node_name = "Mix";
+
+    NodeInput input;
+    NodeOutput output;
+    NodePropertyValue input_value;
+
+    input = {};
+    input_value = {};
+
+    input_value.enum_value = 0;
+
+    input.create(input_value, "Data Type", NodePropertyType::ENUM,
+                 NodePropertySource::INPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    input = {};
+    input_value = {};
+
+    input_value.float_value = 0.5f;
+
+    input.create(input_value, "Factor", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    input = {};
+    input_value = {};
+
+    input_value.float_value = 0.0f;
+
+    input.create(input_value, "A", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    input = {};
+    input_value = {};
+
+    input_value.float_value = 0.0f;
+
+    input.create(input_value, "B", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    input = {};
+    input_value = {};
+
+    input_value.vector3_value = glm::vec3(0.0f);
+
+    input.create(input_value, "A", NodePropertyType::VECTOR3,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    input = {};
+    input_value = {};
+
+    input_value.vector3_value = glm::vec3(0.0f);
+
+    input.create(input_value, "B", NodePropertyType::VECTOR3,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    input = {};
+    input_value = {};
+
+    input_value.vector3_value = glm::vec3(0.0f);
+
+    input.create(input_value, "A", NodePropertyType::COLOR,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    input = {};
+    input_value = {};
+
+    input_value.vector3_value = glm::vec3(0.0f);
+
+    input.create(input_value, "B", NodePropertyType::COLOR,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
+
+    output = {};
+
+    output.create("Result", NodePropertyType::FLOAT);
+    node_outputs.push_back(output);
+
+    output = {};
+
+    output.create("Result", NodePropertyType::VECTOR3);
+    node_outputs.push_back(output);
+
+    output = {};
+
+    output.create("Result", NodePropertyType::COLOR);
+    node_outputs.push_back(output);
   } break;
   default: {
     LOG_ERROR("Undefined node type\n");
@@ -80,4 +431,10 @@ void Node::create(NodeType node_type) {
   inputs = node_inputs;
   outputs = node_outputs;
   type = node_type;
+}
+
+bool NodeInput::useUniform(Material *material) {
+  return enabled && (source == NodePropertySource::INPUT_UNIFORM ||
+                     (source == NodePropertySource::OUTPUT_UNIFORM &&
+                      (!link || !link->output(material)->enabled)));
 }

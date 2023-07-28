@@ -2,6 +2,7 @@
 
 #include "../core/input.h"
 #include "../core/time.h"
+#include "../core/utils.h"
 #include "../ecs/components/camera_component.h"
 #include "../ecs/components/light_component.h"
 #include "../ecs/components/mesh_component.h"
@@ -53,8 +54,6 @@ void Editor::create() {
 
   auto &mesh = cube.addComponent<MeshComponent>();
   mesh.loadFromPath("datafiles/primitives/cube.obj");
-  Material material;
-  mesh.default_material = material;
 
   Entity dir_light = ctx->scene->createEntity("DirectionalLight");
   auto &light_dir = dir_light.addComponent<LightComponent>();
@@ -401,6 +400,56 @@ void Editor::showInspectorPanel() {
         if (ImGui::Button("+")) {
           ImGuiFileDialog::Instance()->OpenDialog("LoadMeshDlgKey",
                                                   "Choose File", ".obj", ".");
+        }
+      }
+    }
+
+    if (ctx->active_entity.hasComponent<MeshComponent>()) {
+      if (ImGui::CollapsingHeader("Material")) {
+        MeshComponent &mesh =
+            ctx->active_entity.getComponent<MeshComponent>();
+
+        static int active_material = -1;
+        if (ImGui::BeginListBox("Active Materials")) {
+          for (int i = 0; i < mesh.materials.size(); ++i) {
+            Material *mat = MaterialManager::getMaterial(mesh.materials[i]);
+
+            if (mat) {
+              const bool selected = active_material == mesh.materials[i];
+              if (ImGui::Selectable(mat->name.c_str(), selected)) {
+                active_material = mesh.materials[i];
+
+                mesh.setMaterial(active_material);
+              }
+
+              if (selected)
+                ImGui::SetItemDefaultFocus();
+            }
+          }
+
+          ImGui::EndListBox();
+        }
+
+        if (ImGui::Button("+"))
+          ImGui::OpenPopup("add_material_popup");
+
+        if (ImGui::BeginPopup("add_material_popup")) {
+          std::vector<Material> &materials = MaterialManager::materials;
+          for (int i = 0; i < materials.size(); i++) {
+            Material &material = materials[i];
+            if (ImGui::Selectable(materials[i].name.c_str()))
+              mesh.addMaterial(i);
+          }
+
+          ImGui::EndPopup();
+        }
+
+        ImGui::SameLine();
+
+        if (ImGui::Button("-")) {
+          if (active_material != -1) {
+            mesh.removeMaterial(active_material);
+          }
         }
       }
     }

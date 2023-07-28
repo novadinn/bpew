@@ -16,7 +16,7 @@ const ShaderCreateInfo material_shader_create_info =
         .vin(ShaderType::VEC2, 2, "aTexCoord")
         .vin(ShaderType::VEC3, 3, "aTangent")
         .vin(ShaderType::VEC3, 4, "aBitangent")
-        .interface(material_vs_out, "vs_inout")
+        .vinterface(material_vs_out, "vs_inout")
         .fout(ShaderType::VEC4, 0, "fragColor")
         .fout(ShaderType::VEC4, 1, "entityID")
         .uniform(ShaderType::MAT4, "model")

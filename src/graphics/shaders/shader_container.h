@@ -15,7 +15,7 @@ struct ShaderContainer {
 
   ShaderCreateInfo create_info;
 
-  std::string additional_info;
+  std::string material_functions;
 };
 
 #endif
