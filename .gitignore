@@ -38,3 +38,6 @@ src/build/.cmake/api/v1/reply/toolchains-v1-074db5775ec40502811a.json
 src/build/compile_commands.json
 .vscode/c_cpp_properties.json
 .vscode/settings.json
+build/imgui.ini
+*.ini
+build/bpew
