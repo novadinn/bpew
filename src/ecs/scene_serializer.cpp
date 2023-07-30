@@ -140,13 +140,34 @@ void SceneSerializer::serialize(Scene *scene, const std::string &filepath) {
   });
   out << YAML::EndSeq;
 
-  out << YAML::Key << "ImageTextures" << YAML::Value << YAML::BeginSeq;
-  for (auto it = Texture2D::loaded_textures.begin();
-       it != Texture2D::loaded_textures.end(); ++it) {
+  out << YAML::Key << "Textures" << YAML::Value << YAML::BeginSeq;
+  for (int i = 0; i < Texture2D::textures.size(); ++i) {
     out << YAML::BeginMap;
-    out << YAML::Key << "Texture" << YAML::Value << it->second;
 
-    out << YAML::Key << "Path" << YAML::Value << it->first;
+    out << YAML::Key << "Texture" << YAML::Value;
+    Texture2D &texture = Texture2D::textures[i];
+
+    GLenum internal_fmt;
+    if (texture.getChanNumber() == 4) {
+      internal_fmt = GL_RGBA;
+    } else if (texture.getChanNumber() == 3) {
+      internal_fmt = GL_RGB;
+    }
+
+    uint buf_size = texture.getWidth() * texture.getHeight() * 3;
+
+    unsigned char *buf = new unsigned char[buf_size];
+
+    glGetTextureImage(texture.getID(), 0, internal_fmt, GL_UNSIGNED_BYTE,
+                      buf_size, buf);
+
+    out << YAML::Binary(buf, buf_size);
+    delete buf;
+
+    out << YAML::Key << "Name" << YAML::Value << texture.name;
+    out << YAML::Key << "Width" << YAML::Value << texture.getWidth();
+    out << YAML::Key << "Height" << YAML::Value << texture.getHeight();
+    out << YAML::Key << "ChanNum" << YAML::Value << texture.getChanNumber();
 
     out << YAML::EndMap;
   }
@@ -273,13 +294,24 @@ bool SceneSerializer::deserialize(Scene *scene, const std::string &filepath) {
     }
   }
 
-  auto loaded_textures = data["ImageTextures"];
+  auto loaded_textures = data["Textures"];
   if (loaded_textures) {
     for (auto texture_data : loaded_textures) {
-      std::string path = texture_data["Path"].as<std::string>();
+      auto data = texture_data["Texture"];
+
+      auto binary = data.as<YAML::Binary>();
+
+      const unsigned char *buf = binary.data();
+
+      std::string name = texture_data["Name"].as<std::string>();
+
+      uint width = texture_data["Width"].as<uint>();
+      uint height = texture_data["Height"].as<uint>();
+      uint chan_num = texture_data["ChanNum"].as<uint>();
 
       Texture2D texture;
-      texture.createFromFile(path.c_str());
+      texture.name = name;
+      texture.createFromData(buf, width, height, chan_num);
     }
   }
 

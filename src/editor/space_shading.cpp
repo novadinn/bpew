@@ -78,13 +78,13 @@ void drawNodeImageTexture(SpaceShadingData *ctx, Node &node) {
     ImGui::OpenPopup("Select Texture");
 
   if (ImGui::BeginPopup("Select Texture")) {
-    std::map<std::string, uint> &textures = Texture2D::loaded_textures;
+    std::vector<Texture2D> &textures = Texture2D::textures;
 
-    for (auto it = textures.begin(); it != textures.end(); ++it) {
-      const bool selected = texture_input.value.texture_value == it->second;
-      Texture2D *texture = Texture2D::getTexture(it->second);
+    for (int i = 0; i < textures.size(); ++i) {
+      const bool selected = texture_input.value.texture_value == i;
+      Texture2D *texture = Texture2D::getTexture(i);
       if (ImGui::Selectable(texture->name.c_str()))
-        texture_input.value.texture_value = it->second;
+        texture_input.value.texture_value = i;
 
       if (selected)
         ImGui::SetItemDefaultFocus();
@@ -545,6 +545,9 @@ void onDrawUISpaceShading(EditorContext *ctx) {
         }
         if (ImGui::Button("RGB")) {
           space_data->createNode(mat, NodeType::RGB);
+        }
+        if (ImGui::Button("Texture Coordinate")) {
+          space_data->createNode(mat, NodeType::TEXTURE_COORDINATE);
         }
 
         ImGui::EndMenu();

@@ -365,9 +365,11 @@ void Renderer::bindMaterialUniforms(Material &material) {
           break;
         case NodePropertyType::TEXTURE:
           if (Texture2D::validTextureIndex(input.value.texture_value)) {
+            Texture2D *texture =
+                Texture2D::getTexture(input.value.texture_value);
             shader.setUInt(name.c_str(), texture_count);
             glActiveTexture(GL_TEXTURE0 + texture_count++);
-            Texture2D::getTexture(input.value.texture_value)->bind();
+            texture->bind();
           }
           break;
         default:

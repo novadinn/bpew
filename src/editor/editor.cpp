@@ -401,13 +401,6 @@ void Editor::showInspectorPanel() {
           ImGuiFileDialog::Instance()->OpenDialog("LoadMeshDlgKey",
                                                   "Choose File", ".obj", ".");
         }
-      }
-    }
-
-    if (ctx->active_entity.hasComponent<MeshComponent>()) {
-      if (ImGui::CollapsingHeader("Material")) {
-        MeshComponent &mesh =
-            ctx->active_entity.getComponent<MeshComponent>();
 
         static int active_material = -1;
         if (ImGui::BeginListBox("Active Materials")) {
@@ -430,7 +423,7 @@ void Editor::showInspectorPanel() {
           ImGui::EndListBox();
         }
 
-        if (ImGui::Button("+"))
+        if (ImGui::Button("+##Material"))
           ImGui::OpenPopup("add_material_popup");
 
         if (ImGui::BeginPopup("add_material_popup")) {
