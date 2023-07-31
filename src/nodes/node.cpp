@@ -23,16 +23,16 @@ void Node::create(NodeType node_type) {
     input = {};
     prop_value = {};
 
-    prop_value.vector3_value = glm::vec3(0.0f);
+    prop_value.vector4_value = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
-    input.create(prop_value, "Color", NodePropertyType::COLOR,
+    input.create(prop_value, "Color", NodePropertyType::VECTOR4,
                  NodePropertySource::INPUT_UNIFORM);
     node_inputs.push_back(input);
 
     // Color socket
     output = {};
 
-    output.create("Color", NodePropertyType::COLOR);
+    output.create("Color", NodePropertyType::VECTOR4);
     node_outputs.push_back(output);
   } break;
   case NodeType::BEVEL: {
@@ -246,6 +246,59 @@ void Node::create(NodeType node_type) {
 		output.create("Fac", NodePropertyType::FLOAT);
 		node_outputs.push_back(output);
 	} break;
+	case NodeType::CHECKER_TEXTURE: {
+		node_name = "Checker Texture";
+
+		NodeInput input;
+		NodeOutput output;
+		NodePropertyValue input_value;
+
+		input = {};
+		input_value = {};
+
+		input_value.vector3_value = glm::vec3(0.0f);
+
+		input.create(input_value, "Vector", NodePropertyType::VECTOR3,
+								 NodePropertySource::OUTPUT);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.vector4_value = glm::vec4(1.0f);
+
+		input.create(input_value, "Color1", NodePropertyType::VECTOR4,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.vector4_value = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f);
+
+		input.create(input_value, "Color2", NodePropertyType::VECTOR4,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.float_value = 5.0f;
+
+		input.create(input_value, "Scale", NodePropertyType::FLOAT,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		output = {};
+
+		output.create("Color", NodePropertyType::VECTOR4);
+		node_outputs.push_back(output);
+
+		output = {};
+
+		output.create("Fac", NodePropertyType::FLOAT);
+		node_outputs.push_back(output);
+	} break;
   case NodeType::IMAGE_TEXTURE: {
     node_name = "Image Texture";
 
@@ -265,15 +318,15 @@ void Node::create(NodeType node_type) {
     input = {};
     input_value = {};
 
-    input_value.vector2_value = glm::vec2(0.0f);
+    input_value.vector3_value = glm::vec3(0.0f);
 
-    input.create(input_value, "Vector", NodePropertyType::VECTOR2,
+    input.create(input_value, "Vector", NodePropertyType::VECTOR3,
                  NodePropertySource::OUTPUT);
     node_inputs.push_back(input);
 
     output = {};
 
-    output.create("Color", NodePropertyType::COLOR);
+    output.create("Color", NodePropertyType::VECTOR4);
     node_outputs.push_back(output);
 
     output = {};
@@ -369,7 +422,7 @@ void Node::create(NodeType node_type) {
     input = {};
     input_value = {};
 
-    input_value.vector4_value = glm::vec4(0.0f);
+    input_value.vector4_value = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
     input.create(input_value, "Color", NodePropertyType::VECTOR4,
                  NodePropertySource::OUTPUT_UNIFORM);
@@ -451,9 +504,9 @@ void Node::create(NodeType node_type) {
     input = {};
     input_value = {};
 
-    input_value.vector3_value = glm::vec3(0.5f);
+    input_value.vector4_value = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f);
 
-    input.create(input_value, "Base Color", NodePropertyType::COLOR,
+    input.create(input_value, "Base Color", NodePropertyType::VECTOR4,
                  NodePropertySource::OUTPUT_UNIFORM);
     node_inputs.push_back(input);
 
@@ -535,18 +588,18 @@ void Node::create(NodeType node_type) {
     input = {};
     input_value = {};
 
-    input_value.vector3_value = glm::vec3(0.0f);
+    input_value.vector4_value = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
-    input.create(input_value, "A", NodePropertyType::COLOR,
+    input.create(input_value, "A", NodePropertyType::VECTOR4,
                  NodePropertySource::OUTPUT_UNIFORM);
     node_inputs.push_back(input);
 
     input = {};
     input_value = {};
 
-    input_value.vector3_value = glm::vec3(0.0f);
+    input_value.vector4_value = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
-    input.create(input_value, "B", NodePropertyType::COLOR,
+    input.create(input_value, "B", NodePropertyType::VECTOR4,
                  NodePropertySource::OUTPUT_UNIFORM);
     node_inputs.push_back(input);
 
@@ -562,7 +615,7 @@ void Node::create(NodeType node_type) {
 
     output = {};
 
-    output.create("Result", NodePropertyType::COLOR);
+    output.create("Result", NodePropertyType::VECTOR4);
     node_outputs.push_back(output);
   } break;
   default: {

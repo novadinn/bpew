@@ -418,8 +418,7 @@ void ShaderBuilder::buildNodeUniform(ShaderCreateInfo &info, Node *node,
 ShaderType ShaderBuilder::toType(NodePropertyType type) {
   switch (type) {
   case NodePropertyType::VECTOR4:
-    return ShaderType::VEC4;
-  case NodePropertyType::COLOR:
+    return ShaderType::VEC4;  
   case NodePropertyType::VECTOR3:
     return ShaderType::VEC3;
   case NodePropertyType::VECTOR2:
@@ -507,6 +506,9 @@ const char *ShaderBuilder::getNodeName(NodeType type) {
 	case NodeType::BRICK_TEXTURE:
 		src = "node_tex_brick";
 		break;
+	case NodeType::CHECKER_TEXTURE:
+		src = "node_tex_checker";
+		break;
   case NodeType::IMAGE_TEXTURE:
     src = "node_image_texture";
     break;
@@ -542,7 +544,6 @@ const char *ShaderBuilder::fromType(NodePropertyType type) {
   switch (type) {
   case NodePropertyType::VECTOR4:
     return "vec4";
-  case NodePropertyType::COLOR:
   case NodePropertyType::VECTOR3:
     return "vec3";
   case NodePropertyType::VECTOR2:

@@ -154,6 +154,35 @@ void drawNodeBrickTexture(SpaceShadingData *ctx, Node &node) {
 	}
 }
 
+void drawNodeCheckerTexture(SpaceShadingData *ctx, Node &node) {
+	NodeInput &vector_input = node.inputs[0];
+	NodeInput &color1_input = node.inputs[1];
+	NodeInput &color2_input = node.inputs[2];
+	NodeInput &scale_input = node.inputs[3];
+
+	drawNodeOutputAttributes(ctx, node.outputs);
+
+	drawNodeInputBegin(ctx, vector_input);
+
+	if (drawNodeInputBegin(ctx, color1_input)) {
+		drawNodeInputColor3Edit(color1_input, "Color1");
+		
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, color2_input)) {
+		drawNodeInputColor3Edit(color2_input, "Color2");
+		
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, scale_input)) {
+		drawNodeInputFloatDrag(scale_input, "Scale", FLT_MIN, FLT_MAX);
+		
+		drawNodeInputEnd();
+	}
+}
+
 void drawNodeImageTexture(SpaceShadingData *ctx, Node &node) {
   NodeInput &texture_input = node.inputs[0];
 
@@ -330,7 +359,7 @@ NodePropertyType mixType(int value) {
     mix_type = NodePropertyType::VECTOR3;
     break;
   case 2:
-    mix_type = NodePropertyType::COLOR;
+    mix_type = NodePropertyType::VECTOR4;
     break;
   default:
     mix_type = NodePropertyType::FLOAT;
@@ -385,7 +414,7 @@ void drawNodeMix(SpaceShadingData *ctx, Node &node) {
 				drawNodeInputFloatDrag3(input, input.id.name.c_str(), FLT_MIN,
 																FLT_MAX);
 				break;
-			case NodePropertyType::COLOR:
+			case NodePropertyType::VECTOR4:
 				drawNodeInputColor3Edit(input, input.id.name.c_str());
 				break;
 			}
@@ -441,13 +470,13 @@ void drawNodeInputColor3Picker(NodeInput &input,
   ImGuiColorEditFlags color_flags =
       ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_NoAlpha | flags;
 
-  float color[3] = {input.value.vector3_value.x, input.value.vector3_value.y,
-                    input.value.vector3_value.z};
+  float color[3] = {input.value.vector4_value.x, input.value.vector4_value.y,
+                    input.value.vector4_value.z};
 
   if (ImGui::ColorPicker3(title, color, color_flags)) {
-    input.value.vector3_value.x = color[0];
-    input.value.vector3_value.y = color[1];
-    input.value.vector3_value.z = color[2];
+    input.value.vector4_value.x = color[0];
+    input.value.vector4_value.y = color[1];
+    input.value.vector4_value.z = color[2];
   }
 }
 
@@ -457,13 +486,13 @@ void drawNodeInputColor3Edit(NodeInput &input,
       ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_NoAlpha |
       ImGuiColorEditFlags_NoInputs | flags;
 
-  float color[3] = {input.value.vector3_value.x, input.value.vector3_value.y,
-                    input.value.vector3_value.z};
+  float color[3] = {input.value.vector4_value.x, input.value.vector4_value.y,
+                    input.value.vector4_value.z};
   
   if (ImGui::ColorEdit3(title, color, color_flags)) {
-    input.value.vector3_value.x = color[0];
-    input.value.vector3_value.y = color[1];
-    input.value.vector3_value.z = color[2];
+    input.value.vector4_value.x = color[0];
+    input.value.vector4_value.y = color[1];
+    input.value.vector4_value.z = color[2];
   }
 }
 
@@ -495,6 +524,9 @@ void drawNode(SpaceShadingData *ctx, Node &node) {
     break;
 	case NodeType::BRICK_TEXTURE:
 		drawNodeBrickTexture(ctx, node);
+		break;
+	case NodeType::CHECKER_TEXTURE:
+		drawNodeCheckerTexture(ctx, node);
 		break;
   case NodeType::IMAGE_TEXTURE:
     drawNodeImageTexture(ctx, node);
@@ -662,6 +694,9 @@ void onDrawUISpaceShading(EditorContext *ctx) {
       if (ImGui::BeginMenu("Texture")) {
 				if (ImGui::Button("Brick Texture")) {
 					space_data->createNode(mat, NodeType::BRICK_TEXTURE);
+				}
+				if (ImGui::Button("Checker Texture")) {
+					space_data->createNode(mat, NodeType::CHECKER_TEXTURE);
 				}
         if (ImGui::Button("Image Texture")) {
           space_data->createNode(mat, NodeType::IMAGE_TEXTURE);

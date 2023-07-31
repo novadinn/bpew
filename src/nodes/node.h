@@ -20,6 +20,7 @@ enum NodeType {
   PRINCIPLED_BSDF,
   // Texture
 	BRICK_TEXTURE,
+	CHECKER_TEXTURE,
   IMAGE_TEXTURE,
   // Color
   BRIGHTNESS_CONTRAST,
@@ -31,8 +32,7 @@ enum NodeType {
   MIX,
 };
 
-enum NodePropertyType {
-  COLOR,
+enum NodePropertyType {  
   VECTOR4,
   VECTOR3,
   VECTOR2,

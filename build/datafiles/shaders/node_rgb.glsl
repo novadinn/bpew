@@ -1,1 +1,1 @@
-void node_rgb(in vec3 color, out vec3 outColor) { outColor = color; }
+void node_rgb(vec4 color, out vec4 outColor) { outColor = color; }

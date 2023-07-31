@@ -490,8 +490,7 @@ void SceneSerializer::serializeMaterial(YAML::Emitter &out,
           switch (input.type) {
           case NodePropertyType::VECTOR4:
             out << input.value.vector4_value;
-            break;
-          case NodePropertyType::COLOR:
+            break;          
           case NodePropertyType::VECTOR3:
             out << input.value.vector3_value;
             break;
@@ -623,7 +622,6 @@ void SceneSerializer::deserializeMaterial(YAML::Node &material_data) {
           case NodePropertyType::VECTOR4:
             input.value.vector4_value = value.as<glm::vec4>();
             break;
-          case NodePropertyType::COLOR:
           case NodePropertyType::VECTOR3:
             input.value.vector3_value = value.as<glm::vec3>();
             break;

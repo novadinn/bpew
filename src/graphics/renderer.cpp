@@ -346,8 +346,7 @@ void Renderer::bindMaterialUniforms(Material &material) {
         switch (input.type) {
         case NodePropertyType::VECTOR4:
           shader.setVec4(name.c_str(), input.value.vector4_value);
-          break;
-        case NodePropertyType::COLOR:
+          break;        
         case NodePropertyType::VECTOR3:
           shader.setVec3(name.c_str(), input.value.vector3_value);
           break;
