@@ -19,6 +19,7 @@ enum NodeType {
   // Shader
   PRINCIPLED_BSDF,
   // Texture
+	BRICK_TEXTURE,
   IMAGE_TEXTURE,
   // Color
   BRIGHTNESS_CONTRAST,
@@ -96,8 +97,8 @@ struct Node {
   ID id;
   std::vector<NodeInput> inputs;
   std::vector<NodeOutput> outputs;
-
-  NodeType type;
+ 
+  NodeType type;	
 };
 
 #endif // NODE_H

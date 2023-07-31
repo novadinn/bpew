@@ -103,6 +103,149 @@ void Node::create(NodeType node_type) {
                 NodePropertySource::OUTPUT);
     node_inputs.push_back(prop);
   } break;
+	case NodeType::BRICK_TEXTURE: {
+		node_name = "Brick Texture";
+
+		NodeInput input;
+		NodeOutput output;
+		NodePropertyValue input_value;
+
+		input = {};
+		input_value = {};
+
+		input_value.vector3_value = glm::vec3(0.0f);
+
+		input.create(input_value, "Vector", NodePropertyType::VECTOR3,
+								 NodePropertySource::OUTPUT);		
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.vector4_value = glm::vec4(1.0f);
+
+		input.create(input_value, "Color1", NodePropertyType::VECTOR4,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.vector4_value = glm::vec4(0.2f, 0.2f, 0.2f, 1.0f);
+
+		input.create(input_value, "Color2", NodePropertyType::VECTOR4,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.vector4_value = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+
+		input.create(input_value, "Mortar", NodePropertyType::VECTOR4,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.float_value = 5.0f;
+
+		input.create(input_value, "Scale", NodePropertyType::FLOAT,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.float_value = 0.02f;
+
+		input.create(input_value, "Mortar size", NodePropertyType::FLOAT,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.float_value = 0.1f;
+
+		input.create(input_value, "Mortar Smooth", NodePropertyType::FLOAT,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.float_value = 0.0f;
+
+		input.create(input_value, "Bias", NodePropertyType::FLOAT,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.float_value = 0.5f;
+
+		input.create(input_value, "Brick Width", NodePropertyType::FLOAT,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.float_value = 0.25f;
+
+		input.create(input_value, "Row Height", NodePropertyType::FLOAT,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.float_value = 0.5f;
+
+		input.create(input_value, "Offset", NodePropertyType::FLOAT,
+								 NodePropertySource::INPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.int_value = 2;
+
+		input.create(input_value, "Frequency", NodePropertyType::INT,
+								 NodePropertySource::INPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.float_value = 1.0f;
+
+		input.create(input_value, "Squash", NodePropertyType::FLOAT,
+								 NodePropertySource::INPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.int_value = 2;
+
+		input.create(input_value, "Frequency", NodePropertyType::INT,
+								 NodePropertySource::INPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		output = {};
+
+		output.create("Color", NodePropertyType::VECTOR4);
+		node_outputs.push_back(output);
+
+		output = {};
+
+		output.create("Fac", NodePropertyType::FLOAT);
+		node_outputs.push_back(output);
+	} break;
   case NodeType::IMAGE_TEXTURE: {
     node_name = "Image Texture";
 
@@ -295,7 +438,7 @@ void Node::create(NodeType node_type) {
 
     output = {};
 
-    output.create("UV", NodePropertyType::VECTOR2);
+    output.create("UV", NodePropertyType::VECTOR3);
     node_outputs.push_back(output);
   } break;
   case NodeType::PRINCIPLED_BSDF: {

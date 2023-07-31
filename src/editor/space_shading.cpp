@@ -5,11 +5,13 @@
 #include "imgui/imgui.h"
 #include "imnodes/imnodes.h"
 
-void SpaceShadingData::createNode(Material *mat, NodeType type) {
-  Node node;
-  node.create(type);
-
-  mat->nodes.push_back(node);
+void SpaceShadingData::createNode(Material *mat, NodeType type) {	
+	if (mat) {
+		Node node;
+		node.create(type);
+		
+		mat->nodes.push_back(node);
+	}
 }
 
 Material *SpaceShadingData::activeMaterial() {
@@ -71,6 +73,87 @@ void drawNodeMaterialOutput(SpaceShadingData *ctx, Node &node) {
   drawNodeInputAttributes(ctx, node.inputs);
 }
 
+void drawNodeBrickTexture(SpaceShadingData *ctx, Node &node) {
+	NodeInput &vector_input = node.inputs[0];
+	NodeInput &color1_input = node.inputs[1];
+	NodeInput &color2_input = node.inputs[2];
+	NodeInput &mortar_input = node.inputs[3];
+	NodeInput &scale_input = node.inputs[4];
+	NodeInput &mortar_size_input = node.inputs[5];
+	NodeInput &mortar_smooth_input = node.inputs[6];
+	NodeInput &bias_input = node.inputs[7];
+	NodeInput &brick_width_input = node.inputs[8];
+	NodeInput &row_height_input = node.inputs[9];
+	NodeInput &offset_amount_input = node.inputs[10];
+	NodeInput &offset_frequency_input = node.inputs[11];
+	NodeInput &squash_amount_input = node.inputs[12];
+	NodeInput &squash_frequency_input = node.inputs[13];
+
+	drawNodeOutputAttributes(ctx, node.outputs);
+	
+	drawNodeInputFloatDrag(offset_amount_input, "Offset", 0.0f, 1.0f);
+	drawNodeInputIntSlider(offset_frequency_input, "Offset Frequency", 1, 99);
+
+	drawNodeInputFloatDrag(squash_amount_input, "Squash", 0.0f, 99.0f);
+	drawNodeInputIntSlider(squash_frequency_input, "Squash Frequency", 1, 99);
+
+	drawNodeInputBegin(ctx, vector_input);
+
+	if (drawNodeInputBegin(ctx, color1_input)) {
+		drawNodeInputColor3Edit(color1_input, "Color1");
+
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, color2_input)) {
+		drawNodeInputColor3Edit(color2_input, "Color2");
+
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, mortar_input)) {
+		drawNodeInputColor3Edit(mortar_input, "Mortar");
+
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, scale_input)) {
+		drawNodeInputFloatDrag(scale_input, "Scale", -1000.0f, 1000.0f);
+
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, mortar_size_input)) {
+		drawNodeInputFloatDrag(mortar_size_input, "Mortar Size", 0.0f, 0.125f);
+
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, mortar_smooth_input)) {
+		drawNodeInputFloatDrag(mortar_smooth_input, "Mortar Smooth", 0.0f, 1.0f);
+
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, bias_input)) {
+		drawNodeInputFloatDrag(bias_input, "Bias", -1.0f, 1.0f);
+
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, brick_width_input)) {
+		drawNodeInputFloatDrag(brick_width_input, "Brick Width", 0.01f, 100.0f);
+
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, row_height_input)) {
+		drawNodeInputFloatDrag(row_height_input, "Row Height", 0.01f, 100.0f);
+
+		drawNodeInputEnd();
+	}
+}
+
 void drawNodeImageTexture(SpaceShadingData *ctx, Node &node) {
   NodeInput &texture_input = node.inputs[0];
 
@@ -95,7 +178,7 @@ void drawNodeImageTexture(SpaceShadingData *ctx, Node &node) {
 
   ImGui::SameLine();
 
-  std::string name;
+  std::string name = "";
   Texture2D *texture = Texture2D::getTexture(texture_input.value.texture_value);
   if (texture) {
     name = texture->name;
@@ -332,6 +415,12 @@ void drawNodeInputFloatDrag(NodeInput &input,
   ImGui::DragFloat(title, &input.value.float_value, 0.001f, min, max);
 }
 
+void drawNodeInputIntSlider(NodeInput &input,
+														const char *title, int min,
+														int max) {
+	ImGui::SliderInt(title, &input.value.int_value, min, max);
+}
+
 void drawNodeInputFloatDrag3(NodeInput &input,
                              const char *title, float min, float max) {  
   float values[3] = {
@@ -404,6 +493,9 @@ void drawNode(SpaceShadingData *ctx, Node &node) {
   case NodeType::PRINCIPLED_BSDF:
     drawNodePrincipledBSDF(ctx, node);
     break;
+	case NodeType::BRICK_TEXTURE:
+		drawNodeBrickTexture(ctx, node);
+		break;
   case NodeType::IMAGE_TEXTURE:
     drawNodeImageTexture(ctx, node);
     break;
@@ -476,12 +568,12 @@ void drawNodeOutputAttributes(SpaceShadingData *ctx,
 }
 
 void onDrawUISpaceShading(EditorContext *ctx) {
-	ImGui::Begin("Shading");
-	
-  SpaceShadingData *space_data = ctx->space_shading_data;
-  Material *mat =
+  SpaceShadingData *space_data = ctx->space_shading_data;  
+	Material *mat =
       MaterialManager::getMaterial(space_data->active_material_index);
 
+	ImGui::Begin("Shading");
+	
   // Draw header
   if (ImGui::Button("Material...")) {
     ImGui::OpenPopup("MaterialsMenu");
@@ -502,7 +594,8 @@ void onDrawUISpaceShading(EditorContext *ctx) {
       if (MaterialManager::validMaterialIndex(
               space_data->active_material_index)) {
         MaterialManager::removeMaterial(space_data->active_material_index);
-
+				mat = nullptr;
+				
         if (space_data->active_material_index == materials.size()) {
           --space_data->active_material_index;
         }
@@ -567,6 +660,9 @@ void onDrawUISpaceShading(EditorContext *ctx) {
         ImGui::EndMenu();
       }
       if (ImGui::BeginMenu("Texture")) {
+				if (ImGui::Button("Brick Texture")) {
+					space_data->createNode(mat, NodeType::BRICK_TEXTURE);
+				}
         if (ImGui::Button("Image Texture")) {
           space_data->createNode(mat, NodeType::IMAGE_TEXTURE);
         }

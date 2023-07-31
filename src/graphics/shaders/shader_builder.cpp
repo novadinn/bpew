@@ -504,6 +504,9 @@ const char *ShaderBuilder::getNodeName(NodeType type) {
   case NodeType::BEVEL:
     src = "node_bevel";
     break;
+	case NodeType::BRICK_TEXTURE:
+		src = "node_tex_brick";
+		break;
   case NodeType::IMAGE_TEXTURE:
     src = "node_image_texture";
     break;
