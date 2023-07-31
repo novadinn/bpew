@@ -44,10 +44,10 @@ private:
   bool invalidate();
 
   void attachColorTexture(GLenum internal_format, GLenum format, int index);
-  void attachRenderbuffer(GLenum format, GLenum attachment_type);
+  void attachDepthTexture(GLenum format, GLenum attachment_type);
 
   std::vector<GLenum> getColorAttachmentFormats() const;
-  GLenum getRenderbufferAttachmentFormat() const;
+  GLenum getDepthAttachmentFormat() const;
 
   uint id;
   FramebufferData data;

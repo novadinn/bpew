@@ -1,6 +1,6 @@
 #include "gizmos.h"
 
-#include "shaders/infos/line_shader_info.h"
+#include "shaders/infos/overlay_grid_shader_info.h"
 #include "shaders/shader.h"
 #include "shaders/shader_builder.h"
 #include "vertex_array.h"
@@ -9,18 +9,19 @@
 
 #include <vector>
 
-static Shader line_shader;
+static Shader overlay_grid_shader;
 
 void Gizmos::init() {
-  ShaderBuilder::buildShaderFromCreateInfo(line_shader,
-                                           line_shader_create_info);
+  ShaderBuilder::buildShaderFromCreateInfo(overlay_grid_shader,
+                                           overlay_grid_shader_create_info);
 }
 
-void Gizmos::destroy() { line_shader.destroy(); }
+void Gizmos::destroy() { overlay_grid_shader.destroy(); }
 
 void Gizmos::drawLine(glm::mat4 &view_mat, glm::mat4 proj_mat,
                       const glm::vec3 &start, const glm::vec3 &end,
-                      const glm::vec3 &color) {
+                      const glm::vec3 &color, const glm::vec3 camera_position,
+                      float far) {
   glLineWidth(2.0f);
   /* TODO: we dont need to create it every time */
   std::vector<float> line_vertices;
@@ -56,11 +57,13 @@ void Gizmos::drawLine(glm::mat4 &view_mat, glm::mat4 proj_mat,
 
   line_va.addVertexBuffer(line_vb, attribs);
 
-  line_shader.bind();
+  overlay_grid_shader.bind();
   line_va.bind();
 
-  line_shader.setMatrix4("projection", proj_mat);
-  line_shader.setMatrix4("view", view_mat);
+  overlay_grid_shader.setMatrix4("projection", proj_mat);
+  overlay_grid_shader.setMatrix4("view", view_mat);
+  overlay_grid_shader.setVec3("cameraPosition", camera_position);
+  overlay_grid_shader.setFloat("far", far);
 
   glDrawArrays(GL_LINES, 0, line_vertices.size());
 

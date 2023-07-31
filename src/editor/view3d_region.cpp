@@ -281,7 +281,9 @@ void View3dRegion::onRender(EditorContext *ctx, void *space) {
   }
 
   /* draw lines */
-  float far = ctx->editor_camera->far;
+  /* TODO: some linese dissapears when rotating the scene */
+  const float far = ctx->editor_camera->far;
+  const glm::vec3 camera_position = ctx->editor_camera->position;
 
   for (float x = view_pos.x - far; x < view_pos.x + far; x += 0.5f) {
     glm::vec3 start = glm::vec3((int)x, 0, (int)(view_pos.z - far));
@@ -291,7 +293,7 @@ void View3dRegion::onRender(EditorContext *ctx, void *space) {
       color = glm::vec3(1, 0.4, 0.4);
     }
 
-    Gizmos::drawLine(view, projection, start, end, color);
+    Gizmos::drawLine(view, projection, start, end, color, camera_position, far);
   }
 
   for (float z = view_pos.z - far; z < view_pos.z + far; z += 0.5f) {
@@ -302,7 +304,7 @@ void View3dRegion::onRender(EditorContext *ctx, void *space) {
       color = glm::vec3(0.55, 0.8, 0.9);
     }
 
-    Gizmos::drawLine(view, projection, start, end, color);
+    Gizmos::drawLine(view, projection, start, end, color, camera_position, far);
   }
 
   framebuffer.unbind();
@@ -312,14 +314,11 @@ void View3dRegion::onRenderPostProcessing(EditorContext *ctx) {
   RendererContext *renderer_context = ctx->renderer_context;
 
   uint pong_id = framebuffer.getColorAttachmentID(0);
-  bool do_postprocessing = false;
 
   switch (v3d_mode) {
   case V3D_OBJECT: {
     for (auto entity : ctx->selected_entities) {
       if (entity.hasComponent<MeshComponent>()) {
-        do_postprocessing = true;
-
         ping_pong_buffer.current->bind();
 
         renderer_context->setMeshOutlineData(
@@ -337,8 +336,6 @@ void View3dRegion::onRenderPostProcessing(EditorContext *ctx) {
   case V3D_EDIT: {
     for (int i = 0; i < ctx->selected_vertices.size(); ++i) {
       if (ctx->selected_vertices[i].first.hasComponent<MeshComponent>()) {
-        do_postprocessing = true;
-
         ping_pong_buffer.current->bind();
 
         renderer_context->setVertexOutlineData(
@@ -358,16 +355,9 @@ void View3dRegion::onRenderPostProcessing(EditorContext *ctx) {
   } break;
   };
 
-  /* since ping pong texture might be empty, we dont want to set color texture
-   * as an empty one */
-  uint target_color_texture =
-      do_postprocessing ? ping_pong_buffer.previous->getColorAttachmentID(0)
-                        : framebuffer.getColorAttachmentID(0);
-
-  renderer_context->setFXAAData(viewport_size, target_color_texture);
+  renderer_context->setFXAAData(viewport_size, pong_id);
 
   ping_pong_buffer.current->bind();
-  Renderer::clear();
   Renderer::applyFXAA(renderer_context);
 
   ping_pong_buffer.current->unbind();
