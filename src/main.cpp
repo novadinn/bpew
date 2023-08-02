@@ -84,7 +84,6 @@ int main(int argc, char **argv) {
   SDL_GL_SetSwapInterval(1);
 
   glEnable(GL_DEPTH_TEST);
-  glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
   Renderer::init();

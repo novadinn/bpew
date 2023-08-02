@@ -213,6 +213,7 @@ void View3dRegion::onRender(EditorContext *ctx, void *space) {
 
   framebuffer.bind();
   Renderer::clear();
+  /* TODO: why we are clearing rgba32f attachment as rgba8 in here? */
   framebuffer.clearRGBA8ColorAttachment(1, glm::vec4(-1));
 
   glm::mat4 view = ctx->editor_camera->getViewMatrix();

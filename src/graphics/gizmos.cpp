@@ -22,6 +22,8 @@ void Gizmos::drawLine(glm::mat4 &view_mat, glm::mat4 proj_mat,
                       const glm::vec3 &start, const glm::vec3 &end,
                       const glm::vec3 &color, const glm::vec3 camera_position,
                       float far) {
+  glEnable(GL_BLEND);
+
   glLineWidth(2.0f);
   /* TODO: we dont need to create it every time */
   std::vector<float> line_vertices;
@@ -69,6 +71,8 @@ void Gizmos::drawLine(glm::mat4 &view_mat, glm::mat4 proj_mat,
 
   line_vb.destroy();
   line_va.destroy();
+
+  glDisable(GL_BLEND);
 }
 
 void Gizmos::drawManupilations(ImGuizmo::OPERATION gizmo_operation, float *view,
