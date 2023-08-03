@@ -43,6 +43,7 @@ void drawNodeMaterialOutput(SpaceShadingData *ctx, Node &node);
 void drawNodeBrickTexture(SpaceShadingData *ctx, Node &node);
 void drawNodeCheckerTexture(SpaceShadingData *ctx, Node &node);
 void drawNodeImageTexture(SpaceShadingData *ctx, Node &node);
+void drawNodeMagicTexture(SpaceShadingData *ctx, Node &node);
 void drawNodeBrightnessContrast(SpaceShadingData *ctx, Node &node);
 void drawNodeGamma(SpaceShadingData *ctx, Node &node);
 void drawNodeInvert(SpaceShadingData *ctx, Node &node);

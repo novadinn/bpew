@@ -299,6 +299,27 @@ void Node::create(NodeType node_type) {
 		output.create("Fac", NodePropertyType::FLOAT);
 		node_outputs.push_back(output);
 	} break;
+	case NodeType::ENVIRONMENT_TEXTURE_EMPTY: {
+		node_name = "Environment Texture";
+
+		NodeInput input;
+		NodeOutput output;
+		NodePropertyValue input_value;
+
+		input = {};
+		input_value = {};
+
+		input_value.vector3_value = glm::vec3(0.0f);
+
+		input.create(input_value, "Vector", NodePropertyType::VECTOR3,
+								 NodePropertySource::OUTPUT);
+		node_inputs.push_back(input);
+
+		output = {};
+
+		output.create("Color", NodePropertyType::VECTOR4);
+		node_outputs.push_back(output);
+	} break;
   case NodeType::IMAGE_TEXTURE: {
     node_name = "Image Texture";
 
@@ -334,6 +355,59 @@ void Node::create(NodeType node_type) {
     output.create("Alpha", NodePropertyType::FLOAT);
     node_outputs.push_back(output);
   } break;
+	case NodeType::MAGIC_TEXTURE: {
+		node_name = "Magic Texture";
+
+		NodeInput input;
+		NodeOutput output;
+		NodePropertyValue input_value;
+
+		input = {};
+		input_value = {};
+
+		input_value.vector3_value = glm::vec3(0.0f);
+
+		input.create(input_value, "Vector", NodePropertyType::VECTOR3,
+								 NodePropertySource::OUTPUT);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.float_value = 5.0f;
+
+		input.create(input_value, "Scale", NodePropertyType::FLOAT,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+		
+		input = {};
+		input_value = {};
+
+		input_value.float_value = 1.0f;
+
+		input.create(input_value, "Distortion", NodePropertyType::FLOAT,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		input = {};
+		input_value = {};
+
+		input_value.int_value = 2;
+
+		input.create(input_value, "Depth", NodePropertyType::INT,
+								 NodePropertySource::OUTPUT_UNIFORM);
+		node_inputs.push_back(input);
+
+		output = {};
+
+		output.create("Color", NodePropertyType::VECTOR4);
+		node_outputs.push_back(output);
+
+		output = {};
+
+		output.create("Fac", NodePropertyType::FLOAT);
+		node_outputs.push_back(output);
+	} break;
   case NodeType::BRIGHTNESS_CONTRAST: {
     node_name = "Brightness/Contrast";
 

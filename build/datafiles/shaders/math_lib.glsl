@@ -1,3 +1,5 @@
+#define M_PI 3.1415926535897932
+
 vec3 transform_point(mat4 m, vec3 v) {
   return (m * vec4(v, 1.0)).xyz;
 }

@@ -35,6 +35,7 @@ struct ShaderBuilder {
   static const char *fromType(GeometryOutType type);
   static ShaderType toType(NodePropertyType type);
   static const char *getNodeName(NodeType type);
+	static const char *getNodeSource(NodeType type);
 
   static void generateMaterialIds(Material &material);
   static void revertMaterialIds(Material &material);

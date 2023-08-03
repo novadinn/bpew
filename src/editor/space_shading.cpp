@@ -242,6 +242,31 @@ void drawNodeImageTexture(SpaceShadingData *ctx, Node &node) {
   drawNodeOutputAttributes(ctx, node.outputs);
 }
 
+void drawNodeMagicTexture(SpaceShadingData *ctx, Node &node) {
+	NodeInput &vector_input = node.inputs[0];
+	NodeInput &scale_input = node.inputs[1];
+	NodeInput &distortion_input = node.inputs[2];
+	NodeInput &depth_input = node.inputs[3];
+
+	drawNodeOutputAttributes(ctx, node.outputs);
+
+	drawNodeInputIntSlider(depth_input, "Depth", 0, 10);
+
+	drawNodeInputBegin(ctx, vector_input);
+
+	if (drawNodeInputBegin(ctx, scale_input)) {
+		drawNodeInputFloatDrag(scale_input, "Scale", -1000.0f, 1000.0f);
+		
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, distortion_input)) {
+		drawNodeInputFloatDrag(distortion_input, "Distortion", -1000.0f, 1000.0f);
+		
+		drawNodeInputEnd();
+	}
+}
+
 void drawNodeBrightnessContrast(SpaceShadingData *ctx, Node &node) {
   NodeInput &color_input = node.inputs[0];
   NodeInput &brightness_input = node.inputs[1];
@@ -531,6 +556,9 @@ void drawNode(SpaceShadingData *ctx, Node &node) {
   case NodeType::IMAGE_TEXTURE:
     drawNodeImageTexture(ctx, node);
     break;
+	case NodeType::MAGIC_TEXTURE:
+		drawNodeMagicTexture(ctx, node);
+		break;
   case NodeType::BRIGHTNESS_CONTRAST:
     drawNodeBrightnessContrast(ctx, node);
     break;
@@ -701,6 +729,9 @@ void onDrawUISpaceShading(EditorContext *ctx) {
         if (ImGui::Button("Image Texture")) {
           space_data->createNode(mat, NodeType::IMAGE_TEXTURE);
         }
+				if (ImGui::Button("Magic Texture")) {
+					space_data->createNode(mat, NodeType::MAGIC_TEXTURE);
+				}
 
         ImGui::EndMenu();
       }

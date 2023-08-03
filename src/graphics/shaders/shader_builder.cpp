@@ -344,12 +344,9 @@ void ShaderBuilder::buildNodeTree(std::stringstream &ss,
   for (auto &node : material.nodes) {
     if (node.type == NodeType::MATERIAL_OUTPUT) {
       continue;
-    }
+    }    
 
-    const char *node_name = getNodeName(node.type);
-
-    std::string node_src(node_name);
-    node_src.append(".glsl");
+    const char *node_src = getNodeSource(node.type);    
 
     create_info.dep(node_src);
   }
@@ -509,9 +506,21 @@ const char *ShaderBuilder::getNodeName(NodeType type) {
 	case NodeType::CHECKER_TEXTURE:
 		src = "node_tex_checker";
 		break;
+	case NodeType::ENVIRONMENT_TEXTURE_EQUIRECTANGULAR:
+		src = "node_tex_environment_equirectangular";	 
+		break;
+	case NodeType::ENVIRONMENT_TEXTURE_MIRROR_BALL:
+		src = "node_tex_environment_mirror_ball";
+		break;
+	case NodeType::ENVIRONMENT_TEXTURE_EMPTY:
+		src = "node_tex_environment_empty";
+		break;
   case NodeType::IMAGE_TEXTURE:
     src = "node_image_texture";
     break;
+	case NodeType::MAGIC_TEXTURE:
+		src = "node_tex_magic";
+		break;
   case NodeType::BRIGHTNESS_CONTRAST:
     src = "node_brightness_contrast";
     break;
@@ -532,6 +541,64 @@ const char *ShaderBuilder::getNodeName(NodeType type) {
     break;
   case NodeType::MIX:
     src = "node_mix";
+    break;
+  default:
+    LOG_ERROR("Unknown node type: %d\n", type);
+  }
+
+  return src;
+}
+
+const char *ShaderBuilder::getNodeSource(NodeType type) {
+  const char *src = "";
+  switch (type) {
+  case NodeType::RGB:
+    src = "node_rgb.glsl";
+    break;
+  case NodeType::BEVEL:
+    src = "node_bevel.glsl";
+    break;
+	case NodeType::BRICK_TEXTURE:
+		src = "node_tex_brick.glsl";
+		break;
+	case NodeType::CHECKER_TEXTURE:
+		src = "node_tex_checker.glsl";
+		break;
+	case NodeType::ENVIRONMENT_TEXTURE_EQUIRECTANGULAR:
+		src = "node_tex_environment.glsl";	 
+		break;
+	case NodeType::ENVIRONMENT_TEXTURE_MIRROR_BALL:
+		src = "node_tex_environment.glsl";
+		break;
+	case NodeType::ENVIRONMENT_TEXTURE_EMPTY:
+		src = "node_tex_environment.glsl";
+		break;		
+  case NodeType::IMAGE_TEXTURE:
+    src = "node_image_texture.glsl";
+    break;
+	case NodeType::MAGIC_TEXTURE:
+		src = "node_tex_magic.glsl";
+		break;
+  case NodeType::BRIGHTNESS_CONTRAST:
+    src = "node_brightness_contrast.glsl";
+    break;
+  case NodeType::GAMMA:
+    src = "node_gamma.glsl";
+    break;
+  case NodeType::INVERT:
+    src = "node_invert.glsl";
+    break;
+	case NodeType::LIGHT_FALLOFF:
+		src = "node_light_falloff.glsl";
+		break;
+  case NodeType::TEXTURE_COORDINATE:
+    src = "node_texture_coordinate.glsl";
+    break;
+  case NodeType::PRINCIPLED_BSDF:
+    src = "node_principled_bsdf.glsl";
+    break;
+  case NodeType::MIX:
+    src = "node_mix.glsl";
     break;
   default:
     LOG_ERROR("Unknown node type: %d\n", type);
