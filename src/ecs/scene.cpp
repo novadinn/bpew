@@ -172,6 +172,18 @@ void Scene::onDrawMeshVertices(RendererContext *context) {
   }
 }
 
+void Scene::onDrawVertexNormals(RendererContext *context) {
+  auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
+  for (auto entity : group) {
+    auto [transform, mesh] =
+        group.get<TransformComponent, MeshComponent>(entity);
+
+    context->setMeshData(&mesh, transform.getModelMatrix());
+
+    Renderer::drawVertexNormals(context);
+  }
+}
+
 void Scene::searchIntersectedVertices(uint32 *entity_id, int *vertex_id,
                                       glm::vec3 ray_position,
                                       glm::vec3 ray_direction) {

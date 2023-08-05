@@ -278,6 +278,9 @@ void View3dRegion::onRender(EditorContext *ctx, void *space) {
     renderer_context->setMeshVerticesData(glm::vec3(0.0));
 
     ctx->scene->onDrawMeshVertices(renderer_context);
+
+    renderer_context->setVertexNormalsData(glm::vec4(0, 1, 0, 1), 0.2f);
+    ctx->scene->onDrawVertexNormals(renderer_context);
   } break;
   }
 

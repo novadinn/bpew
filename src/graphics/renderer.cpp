@@ -8,6 +8,7 @@
 #include "shaders/infos/outline_selected_mesh_shader_info.h"
 #include "shaders/infos/outline_selected_vertex_shader_info.h"
 #include "shaders/infos/solid_shader_info.h"
+#include "shaders/infos/vertex_normals_info.h"
 #include "shaders/shader_builder.h"
 
 #include <glad/glad.h>
@@ -17,6 +18,7 @@ static Shader outline_selected_mesh_shader;
 static Shader fxaa_shader;
 static Shader mesh_vertices_shader;
 static Shader outline_selected_vertex_shader;
+static Shader vertex_normals_shader;
 
 static Mesh quad_mesh;
 
@@ -32,6 +34,8 @@ void Renderer::init() {
   ShaderBuilder::buildShaderFromCreateInfo(
       outline_selected_vertex_shader,
       outline_selected_vertex_shader_create_info);
+  ShaderBuilder::buildShaderFromCreateInfo(vertex_normals_shader,
+                                           vertex_normals_shader_create_info);
 
   std::vector<float> quad_vertices = {// positions   // texCoords
                                       -1.0f, 1.0f, 0.0f, 1.0f,  -1.0f, -1.0f,
@@ -261,6 +265,26 @@ void Renderer::drawMeshVertices(RendererContext *context) {
     target.va.unbind();
 
     mesh_vertices_shader.unbind();
+  }
+}
+
+void Renderer::drawVertexNormals(RendererContext *context) {
+  for (int i = 0; i < context->mesh->meshes.size(); ++i) {
+    vertex_normals_shader.bind();
+    vertex_normals_shader.setMatrix4("model", context->model);
+    vertex_normals_shader.setMatrix4("view", context->view);
+    vertex_normals_shader.setMatrix4("projection", context->projection);
+
+    vertex_normals_shader.setVec4("color", context->normal_color);
+    vertex_normals_shader.setFloat("normalLength", context->normal_length);
+
+    Mesh &target = context->mesh->meshes[i];
+
+    target.va.bind();
+    glDrawElements(GL_TRIANGLES, target.indices.size(), GL_UNSIGNED_INT, 0);
+    target.va.unbind();
+
+    vertex_normals_shader.unbind();
   }
 }
 
