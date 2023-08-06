@@ -16,7 +16,7 @@ struct Mesh {
     va.create();
     va.bind();
 
-    vb.create(&vertices[0], vertices.size() * sizeof(float));
+    vb.create(&vertices[0], vertices.size() * sizeof(float), GL_DYNAMIC_DRAW);
     if (indices.size() > 0)
       ib.create(&indices[0], indices.size() * sizeof(uint));
 
@@ -37,6 +37,13 @@ struct Mesh {
       total_count += attributes[i].getCount();
     }
     return total_count;
+  }
+
+  void refreshData() {
+    vb.bind();
+    glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(float),
+                    &vertices[0]);
+    vb.unbind();
   }
 
   Material *getActiveMaterial() {

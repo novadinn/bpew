@@ -55,7 +55,7 @@ void Gizmos::drawLine(glm::mat4 &view_mat, glm::mat4 proj_mat,
                                           {sizeof(float), 3, GL_FALSE}};
 
   VertexBuffer line_vb;
-  line_vb.create(line_vertices.data(), vertices_size);
+  line_vb.create(line_vertices.data(), vertices_size, GL_STATIC_DRAW);
 
   line_va.addVertexBuffer(line_vb, attribs);
 

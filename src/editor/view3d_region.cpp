@@ -564,15 +564,7 @@ void View3dRegion::onDrawUI(EditorContext *ctx) {
             vertex[1] += translation_result[1] - prev_position[1];
             vertex[2] += translation_result[2] - prev_position[2];
 
-            /* TODO: those operations should change vertex normals
-               transform.rotation = {rotation_result[0], rotation_result[1],
-               rotation_result[2]}; transform.scale = {scale_result[0],
-               scale_result[1], scale_result[2]}; */
-
-            /* TODO: find a better way to update vertices data,
-               since we dont need to recreate it every time */
-            mesh.destroy();
-            mesh.generateVertexArray();
+            mesh.refreshData();
 
             break;
           }
