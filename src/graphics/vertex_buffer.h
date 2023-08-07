@@ -12,6 +12,8 @@ struct VertexBuffer {
   void bind();
   void unbind();
 
+  void flushSubData(const void *verts, uint size);
+
   inline uint getId() const { return id; }
 
 private:

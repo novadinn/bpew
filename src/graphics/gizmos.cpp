@@ -1,5 +1,6 @@
 #include "gizmos.h"
 
+#include "batch.h"
 #include "shaders/infos/overlay_grid_shader_info.h"
 #include "shaders/shader.h"
 #include "shaders/shader_builder.h"
@@ -10,67 +11,52 @@
 #include <vector>
 
 static Shader overlay_grid_shader;
+static Batch overlay_grid_batch;
+static int overlay_grid_batch_capacity = 0;
 
 void Gizmos::init() {
   ShaderBuilder::buildShaderFromCreateInfo(overlay_grid_shader,
                                            overlay_grid_shader_create_info);
+
+  const std::vector<VertexAttribute> attribs = {{sizeof(float), 3, GL_FALSE},
+                                                {sizeof(float), 3, GL_FALSE}};
+  overlay_grid_batch.create(overlay_grid_batch_capacity, attribs);
 }
 
-void Gizmos::destroy() { overlay_grid_shader.destroy(); }
+void Gizmos::destroy() {
+  overlay_grid_shader.destroy();
+  overlay_grid_batch.destroy();
+}
 
-void Gizmos::drawLine(glm::mat4 &view_mat, glm::mat4 proj_mat,
-                      const glm::vec3 &start, const glm::vec3 &end,
-                      const glm::vec3 &color, const glm::vec3 camera_position,
-                      float far) {
+void Gizmos::drawOverlayGrid(const std::vector<float> &vertices,
+                             glm::mat4 &view_mat, glm::mat4 proj_mat,
+                             const glm::vec3 &camera_position, float far) {
   glEnable(GL_BLEND);
 
   glLineWidth(2.0f);
-  /* TODO: we dont need to create it every time */
-  std::vector<float> line_vertices;
-  line_vertices.reserve(12);
 
-  line_vertices.push_back(start.x);
-  line_vertices.push_back(start.y);
-  line_vertices.push_back(start.z);
+  if (vertices.size() * sizeof(float) > overlay_grid_batch_capacity) {
+    std::vector<VertexAttribute> attribs = {{sizeof(float), 3, GL_FALSE},
+                                            {sizeof(float), 3, GL_FALSE}};
 
-  line_vertices.push_back(color.x);
-  line_vertices.push_back(color.y);
-  line_vertices.push_back(color.z);
+    overlay_grid_batch_capacity = vertices.size() * sizeof(float);
+    overlay_grid_batch.destroy();
+    overlay_grid_batch.create(overlay_grid_batch_capacity, attribs);
+  }
 
-  line_vertices.push_back(end.x);
-  line_vertices.push_back(end.y);
-  line_vertices.push_back(end.z);
-
-  line_vertices.push_back(color.x);
-  line_vertices.push_back(color.y);
-  line_vertices.push_back(color.z);
-
-  VertexArray line_va;
-
-  line_va.create();
-  line_va.bind();
-
-  size_t vertices_size = line_vertices.size() * sizeof(float);
-  std::vector<VertexAttribute> attribs = {{sizeof(float), 3, GL_FALSE},
-                                          {sizeof(float), 3, GL_FALSE}};
-
-  VertexBuffer line_vb;
-  line_vb.create(line_vertices.data(), vertices_size, GL_STATIC_DRAW);
-
-  line_va.addVertexBuffer(line_vb, attribs);
+  overlay_grid_batch.flush(vertices);
 
   overlay_grid_shader.bind();
-  line_va.bind();
+  overlay_grid_batch.va.bind();
 
   overlay_grid_shader.setMatrix4("projection", proj_mat);
   overlay_grid_shader.setMatrix4("view", view_mat);
   overlay_grid_shader.setVec3("cameraPosition", camera_position);
   overlay_grid_shader.setFloat("far", far);
 
-  glDrawArrays(GL_LINES, 0, line_vertices.size());
+  glDrawArrays(GL_LINES, 0, vertices.size());
 
-  line_vb.destroy();
-  line_va.destroy();
+  overlay_grid_batch.va.unbind();
 
   glDisable(GL_BLEND);
 }

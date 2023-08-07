@@ -285,9 +285,10 @@ void View3dRegion::onRender(EditorContext *ctx, void *space) {
   }
 
   /* draw lines */
-  /* TODO: some linese dissapears when rotating the scene */
-  const float far = ctx->editor_camera->far;
+  /* TODO: some lines dissapears when rotating the scene */
+  const float far = 100; // ctx->editor_camera->far;
   const glm::vec3 camera_position = ctx->editor_camera->position;
+  std::vector<float> vertices;
 
   for (float x = view_pos.x - far; x < view_pos.x + far; x += 0.5f) {
     glm::vec3 start = glm::vec3((int)x, 0, (int)(view_pos.z - far));
@@ -297,7 +298,21 @@ void View3dRegion::onRender(EditorContext *ctx, void *space) {
       color = glm::vec3(1, 0.4, 0.4);
     }
 
-    Gizmos::drawLine(view, projection, start, end, color, camera_position, far);
+    vertices.push_back(start.x);
+    vertices.push_back(start.y);
+    vertices.push_back(start.z);
+
+    vertices.push_back(color.x);
+    vertices.push_back(color.y);
+    vertices.push_back(color.z);
+
+    vertices.push_back(end.x);
+    vertices.push_back(end.y);
+    vertices.push_back(end.z);
+
+    vertices.push_back(color.x);
+    vertices.push_back(color.y);
+    vertices.push_back(color.z);
   }
 
   for (float z = view_pos.z - far; z < view_pos.z + far; z += 0.5f) {
@@ -308,8 +323,24 @@ void View3dRegion::onRender(EditorContext *ctx, void *space) {
       color = glm::vec3(0.55, 0.8, 0.9);
     }
 
-    Gizmos::drawLine(view, projection, start, end, color, camera_position, far);
+    vertices.push_back(start.x);
+    vertices.push_back(start.y);
+    vertices.push_back(start.z);
+
+    vertices.push_back(color.x);
+    vertices.push_back(color.y);
+    vertices.push_back(color.z);
+
+    vertices.push_back(end.x);
+    vertices.push_back(end.y);
+    vertices.push_back(end.z);
+
+    vertices.push_back(color.x);
+    vertices.push_back(color.y);
+    vertices.push_back(color.z);
   }
+
+  Gizmos::drawOverlayGrid(vertices, view, projection, camera_position, far);
 
   framebuffer.unbind();
 }

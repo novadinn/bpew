@@ -17,7 +17,7 @@ void VertexArray::addVertexBuffer(VertexBuffer vb,
   int i = 0;
   size_t total = 0;
 
-  // Calculate the stride
+  /* calculate the stride */
   for (i = 0; i < attribs.size(); ++i) {
     total += attribs[i].getSize() * attribs[i].getCount();
   }
@@ -27,7 +27,7 @@ void VertexArray::addVertexBuffer(VertexBuffer vb,
 
   size_t off = 0;
 
-  // Set shader's attributes and calculate offset
+  /* set shader's attributes and calculate offset */
   for (i = 0; i < attribs.size(); ++i) {
     glVertexAttribPointer(i, attribs[i].getCount(), GL_FLOAT,
                           attribs[i].isNormalized(), total,

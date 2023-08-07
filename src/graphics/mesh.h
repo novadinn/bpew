@@ -41,8 +41,7 @@ struct Mesh {
 
   void refreshData() {
     vb.bind();
-    glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(float),
-                    &vertices[0]);
+    vb.flushSubData(&vertices[0], vertices.size() * sizeof(float));
     vb.unbind();
   }
 

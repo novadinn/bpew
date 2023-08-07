@@ -11,3 +11,7 @@ void VertexBuffer::destroy() { glDeleteBuffers(1, &id); }
 void VertexBuffer::bind() { glBindBuffer(GL_ARRAY_BUFFER, id); }
 
 void VertexBuffer::unbind() { glBindBuffer(GL_ARRAY_BUFFER, 0); }
+
+void VertexBuffer::flushSubData(const void *verts, uint size) {
+  glBufferSubData(GL_ARRAY_BUFFER, 0, size, verts);
+}
