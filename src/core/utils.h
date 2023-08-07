@@ -2,7 +2,11 @@
 #define UTILS_H
 
 #include "platform.h"
+#include "log.h"
 
+#include <iostream>
+#include <fstream>
+#include <sstream>
 #include <cstring>
 #include <random>
 #include <string>
@@ -70,6 +74,27 @@ static glm::vec2 getAvailableViewportBoundsMax() {
 }
 
 static bool isViewportHovered() { return ImGui::IsWindowHovered(); }
+
+	static bool readFile(const char *path, std::string &buf) {
+		std::ifstream fp;		
+		
+		fp.exceptions(std::ifstream::failbit);
+		try {
+			fp.open(path);
+						
+			std::stringstream fs;
+			
+			fs << fp.rdbuf();
+
+			fp.close();
+
+			buf = fs.str();
+			return true;
+		} catch (std::ifstream::failure &e) {
+			LOG_ERROR("File not successfully read: %s\n", e.what());
+			return false;
+		}
+	}
 }; // namespace Utils
 
 #endif // UTILS_H

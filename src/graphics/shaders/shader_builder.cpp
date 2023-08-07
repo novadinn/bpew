@@ -13,13 +13,9 @@ void ShaderBuilder::buildDefines(std::stringstream &ss,
                                  ShaderCreateInfo &create_info) {
   ss << "#version 460 core\n";
 
-	std::set<std::string> libs;
-  for (auto &dep : create_info.info.deps) {
-    proceedSource(dep.c_str(), create_info, libs);
-  }
-
-  includeLibs(ss, libs);
-	includeLibs(ss, create_info.info.typedeps);
+  includeLibs(ss, create_info.info.deps);
+	// TODO: remove typedeps
+	// includeLibs(ss, create_info.info.typedeps);
 
   for (auto &define : create_info.info.defines) {
     ss << "#define " << define.name << " " << define.value << "\n";
@@ -124,26 +120,37 @@ bool ShaderBuilder::buildShaderFromCreateInfo(Shader &shader,
   buildDefines(ss, create_info);
 
   std::stringstream vs, fs, gs;
-
+	const char *base_dir = "datafiles/shaders/";
+	
+	std::string buf;
   char build_result = 0x0;
   if (create_info.info.vertex_source.size() > 0) {
     vs << ss.str();
     buildVertexShaderDefines(vs, create_info);
-    build_result |= includeLib(vs, create_info.info.vertex_source.c_str());
+		std::string path(base_dir);
+		path.append(create_info.info.vertex_source.c_str());
+    build_result |= Utils::readFile(path.c_str(), buf);
+		vs << buf;
   }
   if (create_info.info.fragment_source.size() > 0) {
     fs << ss.str();
     buildFragmentShaderDefines(fs, create_info);
-    build_result |= includeLib(fs, create_info.info.fragment_source.c_str())
+		std::string path(base_dir);
+		path.append(create_info.info.fragment_source.c_str());
+    build_result |= Utils::readFile(path.c_str(), buf)
                     << 1;
+		fs << buf;
   }
   if (create_info.info.geometry_source.size() > 0) {
     gs << ss.str();
     buildGeometryShaderDefines(gs, create_info);
-    build_result |= includeLib(gs, create_info.info.geometry_source.c_str())
+		std::string path(base_dir);
+		path.append(create_info.info.geometry_source.c_str());
+    build_result |= Utils::readFile(path.c_str(), buf)
                     << 2;
+		gs << buf;
   }
-
+		
   if (build_result == 0x7) {
     shader.destroy();
 
@@ -214,27 +221,38 @@ bool ShaderBuilder::buildShaderFromShaderContainer(
   buildDefines(ss, create_info);
 
   std::stringstream vs, fs, gs;
-
+	std::string buf;
+	const char *base_dir = "datafiles/shaders/";
+	
   char build_result = 0x0;
   if (create_info.info.vertex_source.size() > 0) {
     vs << ss.str();
     buildVertexShaderDefines(vs, create_info);
-    build_result |= includeLib(vs, create_info.info.vertex_source.c_str());
+		std::string path(base_dir);
+		path.append(create_info.info.vertex_source.c_str());
+    build_result |= Utils::readFile(path.c_str(), buf);
+		vs << buf;
   }
   if (create_info.info.fragment_source.size() > 0) {
     fs << ss.str();
     buildFragmentShaderDefines(fs, create_info);
     fs << shader_container->material_functions;
-    build_result |= includeLib(fs, create_info.info.fragment_source.c_str())
+		std::string path(base_dir);
+		path.append(create_info.info.fragment_source.c_str());
+    build_result |= Utils::readFile(path.c_str(), buf)
                     << 1;
+		fs << buf;
   }
   if (create_info.info.geometry_source.size() > 0) {
     gs << ss.str();
     buildGeometryShaderDefines(gs, create_info);
-    build_result |= includeLib(gs, create_info.info.geometry_source.c_str())
+		std::string path(base_dir);
+		path.append(create_info.info.geometry_source.c_str());
+    build_result |= Utils::readFile(path.c_str(), buf)
                     << 2;
+		gs << buf;
   }
-
+	
   if (build_result == 0x7) {
     shader.destroy();
 
@@ -521,6 +539,12 @@ const char *ShaderBuilder::getNodeName(NodeType type) {
 	case NodeType::MAGIC_TEXTURE:
 		src = "node_tex_magic";
 		break;
+	case NodeType::MUSGRAVE_TEXTURE:
+		src = "node_tex_musgrave";
+		break;
+	case NodeType::NOISE_TEXTURE:
+		src = "node_noise_texture";
+		break;
   case NodeType::BRIGHTNESS_CONTRAST:
     src = "node_brightness_contrast";
     break;
@@ -541,7 +565,7 @@ const char *ShaderBuilder::getNodeName(NodeType type) {
     break;
   case NodeType::MIX:
     src = "node_mix";
-    break;
+    break;	
   default:
     LOG_ERROR("Unknown node type: %d\n", type);
   }
@@ -564,12 +588,8 @@ const char *ShaderBuilder::getNodeSource(NodeType type) {
 	case NodeType::CHECKER_TEXTURE:
 		src = "node_tex_checker.glsl";
 		break;
-	case NodeType::ENVIRONMENT_TEXTURE_EQUIRECTANGULAR:
-		src = "node_tex_environment.glsl";	 
-		break;
-	case NodeType::ENVIRONMENT_TEXTURE_MIRROR_BALL:
-		src = "node_tex_environment.glsl";
-		break;
+	case NodeType::ENVIRONMENT_TEXTURE_EQUIRECTANGULAR:		
+	case NodeType::ENVIRONMENT_TEXTURE_MIRROR_BALL:		
 	case NodeType::ENVIRONMENT_TEXTURE_EMPTY:
 		src = "node_tex_environment.glsl";
 		break;		
@@ -579,6 +599,12 @@ const char *ShaderBuilder::getNodeSource(NodeType type) {
 	case NodeType::MAGIC_TEXTURE:
 		src = "node_tex_magic.glsl";
 		break;
+	case NodeType::MUSGRAVE_TEXTURE:
+		src = "node_tex_musgrave.glsl";
+		break;
+	case NodeType::NOISE_TEXTURE:
+		src = "node_tex_noise.glsl";
+		break;		
   case NodeType::BRIGHTNESS_CONTRAST:
     src = "node_brightness_contrast.glsl";
     break;
@@ -696,60 +722,28 @@ const char *ShaderBuilder::fromType(GeometryOutType type) {
   }
 }
 
-void ShaderBuilder::proceedSource(const char *dep,
-                                  ShaderCreateInfo &create_info,
-																	std::set<std::string> &included_libs) {
-  std::string lib(dep);
-
-  if (included_libs.contains(lib)) {		
-    return;
-  }
-
-  auto it = included_libs.insert(lib);
-	
-  std::ifstream src(std::string("datafiles/shaders/") + std::string(dep));
-
-  if (src.is_open()) {
-    std::string line;
-    while (std::getline(src, line)) {
-      Tokenizer tokenizer(line.c_str(), line.size());
-
-      Token token = tokenizer.readToken();
-
-      if (token.type == TokenType::DIRECTIVE) {
-        if (token.value == "include") {
-          token = tokenizer.readToken();
-
-          if (token.type == TokenType::STR) {
-            proceedSource(token.value.c_str(), create_info, included_libs);
-          }
-
-          continue;
-        }
-      }
-    }
-
-    src.close();
-  } else {
-    included_libs.erase(it.first);
-    LOG_ERROR("failed to open dep: %s\n", dep);
-  }
-}
-
 void ShaderBuilder::includeLibs(std::stringstream &ss,
-                                std::set<std::string> &libs) {	
+                                std::set<std::string> &libs) {
+	std::set<std::string> included_libs;
   for (auto &lib : libs) {
-    includeLib(ss, lib.c_str());
+    includeLib(ss, lib.c_str(), included_libs);
   }  
 }
 
-bool ShaderBuilder::includeLib(std::stringstream &ss, const char *dep) {
+bool ShaderBuilder::includeLib(std::stringstream &ss, const char *dep,															 
+															 std::set<std::string> &included_libs) {
+	std::string lib(dep);
+
+  if (included_libs.contains(lib)) {		
+    return true;
+  }
+
+  auto it = included_libs.insert(lib);
+
   // TODO: extend filesystem to create path
   // e.g. in "dir/file" path "../shader" to "shader"
   std::ifstream src(Utils::joinPath("datafiles/shaders/") + std::string(dep));
 
-  std::string lib(dep);
-
   if (src.is_open()) {
     std::string line;
     while (std::getline(src, line)) {
@@ -759,6 +753,12 @@ bool ShaderBuilder::includeLib(std::stringstream &ss, const char *dep) {
 
       if (token.type == TokenType::DIRECTIVE) {
         if (token.value == "include") {
+					token = tokenizer.readToken();
+
+          if (token.type == TokenType::STR) {
+            includeLib(ss, token.value.c_str(), included_libs);
+          }
+
           continue;
         }
       }
@@ -768,6 +768,7 @@ bool ShaderBuilder::includeLib(std::stringstream &ss, const char *dep) {
 
     src.close();
   } else {
+		included_libs.erase(it.first);
     LOG_ERROR("failed to open dep: %s\n", dep);
     return false;
   }

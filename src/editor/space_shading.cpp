@@ -267,6 +267,140 @@ void drawNodeMagicTexture(SpaceShadingData *ctx, Node &node) {
 	}
 }
 
+void drawNodeMusgraveTexture(SpaceShadingData *ctx, Node &node) {
+	NodeInput &dimensions_input = node.inputs[0];
+	NodeInput &type_input = node.inputs[1];
+	NodeInput &vector_input = node.inputs[2];
+	NodeInput &w_input = node.inputs[3];
+	NodeInput &scale_input = node.inputs[4];
+	NodeInput &detail_input = node.inputs[5];
+	NodeInput &dimension_input = node.inputs[6];
+	NodeInput &lac_input = node.inputs[7];
+	NodeInput &offset_input = node.inputs[8];
+	NodeInput &gain_input = node.inputs[9];
+
+	drawNodeOutputAttributes(ctx, node.outputs);
+
+	static const char *dimensions_names[4] = { "1D", "2D", "3D", "4D" };
+
+	drawNodeInputSelect(dimensions_input, "Dimensions", dimensions_names, 4);
+
+	static const char *type_names[5] = { "Multifractal", "Ridged Multifractal",
+		"Hybrid Multifractal", "fBM", "Hetero Terrain" };
+
+	drawNodeInputSelect(type_input, "Type", type_names, 5);
+
+	if (dimensions_input.value.enum_value > 0) {
+		drawNodeInputBegin(ctx, vector_input);		
+	}
+
+	if (dimensions_input.value.enum_value == 0
+		|| dimensions_input.value.enum_value == 3) {
+		if (drawNodeInputBegin(ctx, w_input)) {
+			drawNodeInputFloatDrag(w_input, "W", -1000.0f, 1000.0f);
+		
+			drawNodeInputEnd();
+		}
+	}
+	
+	if (drawNodeInputBegin(ctx, scale_input)) {
+		drawNodeInputFloatDrag(scale_input, "Scale", -1000.0f, 1000.0f);
+		
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, detail_input)) {
+		drawNodeInputFloatDrag(detail_input, "Detail", 0.0f, 15.0f);
+		
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, dimension_input)) {
+		drawNodeInputFloatDrag(dimension_input, "Dimension", 0.0f, 1000.0f);
+		
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, lac_input)) {
+		drawNodeInputFloatDrag(lac_input, "Lacunarity", 0.0f, 1000.0f);
+
+		
+		drawNodeInputEnd();
+	}
+
+	if (type_input.value.enum_value == 1
+		|| type_input.value.enum_value == 2
+		|| type_input.value.enum_value == 4) {
+		if (drawNodeInputBegin(ctx, offset_input)) {
+			drawNodeInputFloatDrag(offset_input, "Offset", 0.0f, 1000.0f);
+		
+			drawNodeInputEnd();
+		}
+	}
+
+	if (type_input.value.enum_value == 1
+		|| type_input.value.enum_value == 2) {
+		if (drawNodeInputBegin(ctx, gain_input)) {
+			drawNodeInputFloatDrag(gain_input, "Gain", 0.0f, 1000.0f);
+		
+			drawNodeInputEnd();
+		}
+	}
+}
+
+void drawNodeNoiseTexture(SpaceShadingData *ctx, Node &node) {
+	NodeInput &dimensions_input = node.inputs[0];
+	NodeInput &vector_input = node.inputs[1];
+	NodeInput &w_input = node.inputs[2];
+	NodeInput &scale_input = node.inputs[3];
+	NodeInput &detail_input = node.inputs[4];
+	NodeInput &roughness_input = node.inputs[5];
+	NodeInput &distortion_input = node.inputs[6];
+
+	drawNodeOutputAttributes(ctx, node.outputs);
+
+	static const char *names[4] = { "1D", "2D", "3D", "4D" };
+
+	drawNodeInputSelect(dimensions_input, "Dimensions", names, 4);
+	
+	if (dimensions_input.value.enum_value > 0) {
+		drawNodeInputBegin(ctx, vector_input);
+	}
+
+	if (dimensions_input.value.enum_value == 0
+			|| dimensions_input.value.enum_value == 3) {
+		if (drawNodeInputBegin(ctx, w_input)) {
+			drawNodeInputFloatDrag(w_input, "W", -1000.0f, 1000.0f);
+		
+			drawNodeInputEnd();
+		}
+	}
+	
+	if (drawNodeInputBegin(ctx, scale_input)) {
+		drawNodeInputFloatDrag(scale_input, "Scale", -1000.0f, 1000.0f);
+		
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, detail_input)) {
+		drawNodeInputFloatDrag(detail_input, "Detail", 0.0f, 15.0f);
+		
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, roughness_input)) {
+		drawNodeInputFloatDrag(roughness_input, "Roughness", 0.0f, 1.0f);
+		
+		drawNodeInputEnd();
+	}
+
+	if (drawNodeInputBegin(ctx, distortion_input)) {
+		drawNodeInputFloatDrag(distortion_input, "Distortion", -1000.0f, 1000.0f);
+		
+		drawNodeInputEnd();
+	}
+}
+
 void drawNodeBrightnessContrast(SpaceShadingData *ctx, Node &node) {
   NodeInput &color_input = node.inputs[0];
   NodeInput &brightness_input = node.inputs[1];
@@ -552,12 +686,18 @@ void drawNode(SpaceShadingData *ctx, Node &node) {
 		break;
 	case NodeType::CHECKER_TEXTURE:
 		drawNodeCheckerTexture(ctx, node);
-		break;
+		break;		
   case NodeType::IMAGE_TEXTURE:
     drawNodeImageTexture(ctx, node);
     break;
 	case NodeType::MAGIC_TEXTURE:
 		drawNodeMagicTexture(ctx, node);
+		break;
+	case NodeType::MUSGRAVE_TEXTURE:
+		drawNodeMusgraveTexture(ctx, node);
+		break;
+	case NodeType::NOISE_TEXTURE:
+		drawNodeNoiseTexture(ctx, node);
 		break;
   case NodeType::BRIGHTNESS_CONTRAST:
     drawNodeBrightnessContrast(ctx, node);
@@ -731,6 +871,12 @@ void onDrawUISpaceShading(EditorContext *ctx) {
         }
 				if (ImGui::Button("Magic Texture")) {
 					space_data->createNode(mat, NodeType::MAGIC_TEXTURE);
+				}
+				if (ImGui::Button("Musgrave Texture")) {
+					space_data->createNode(mat, NodeType::MUSGRAVE_TEXTURE);
+				}
+				if (ImGui::Button("Noise Texture")) {
+					space_data->createNode(mat, NodeType::NOISE_TEXTURE);
 				}
 
         ImGui::EndMenu();

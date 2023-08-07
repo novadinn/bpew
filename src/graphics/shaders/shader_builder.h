@@ -54,8 +54,7 @@ private:
   static void buildNodeTree(std::stringstream &ss,
                             ShaderCreateInfo &create_info, Material &material);
   static void includeLibs(std::stringstream &ss, std::set<std::string> &libs);
-  static bool includeLib(std::stringstream &ss, const char *dep);
-  static void proceedSource(const char *dep, ShaderCreateInfo &create_info, std::set<std::string> &included_libs);
+  static bool includeLib(std::stringstream &ss, const char *dep, std::set<std::string> &included_libs);	
   static void buildNode(std::stringstream &ss, Node *node, Material &material);
   static void buildNodeUniforms(ShaderCreateInfo &info, Node *node,
                                 Material *material);
