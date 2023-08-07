@@ -340,7 +340,8 @@ void View3dRegion::onRender(EditorContext *ctx, void *space) {
     vertices.push_back(color.z);
   }
 
-  Gizmos::drawOverlayGrid(vertices, view, projection, camera_position, far);
+  Gizmos::drawOverlayGrid(vertices, view, projection, camera_position,
+                          ctx->editor_camera->far);
 
   framebuffer.unbind();
 }
