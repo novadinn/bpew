@@ -17,8 +17,6 @@ struct Batch {
   VertexArray va;
   VertexBuffer vb;
   /* TODO: IndexBuffer ib; */
-  std::vector<VertexAttribute> attributes;
-  int capacity;
 };
 
 #endif // BATCH_H

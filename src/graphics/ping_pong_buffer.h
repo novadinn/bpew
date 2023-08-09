@@ -46,7 +46,7 @@ struct PingPongBuffer {
   Framebuffer *previous;
 
 private:
-  /* pointers for safely in case of copying */
+  /* pointers for safety in case of copying */
 
   Framebuffer *first;
   Framebuffer *second;

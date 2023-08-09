@@ -41,15 +41,15 @@ struct EditorContext {
   }
 
   void destroyEntity() {
-    scene->destroyEntity(active_entity);
-    active_entity = {};
-
     for (int i = 0; i < selected_entities.size(); ++i) {
       if (selected_entities[i] == active_entity) {
         selected_entities.erase(selected_entities.begin() + i);
         break;
       }
     }
+
+    scene->destroyEntity(active_entity);
+    active_entity = {};
   }
 
   bool vertexSelected(std::pair<Entity, int> vertex) {
