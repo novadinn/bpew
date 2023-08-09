@@ -1,23 +1,11 @@
 #ifndef SPACE_MODELING_H
 #define SPACE_MODELING_H
 
-#include "../ecs/components/transform_component.h"
-#include "../ecs/entity.h"
-#include "../graphics/ping_pong_buffer.h"
-#include "draw_mode.h"
 #include "event_receiver.h"
-
-#include <glm/glm.hpp>
+#include "view3d_region.h"
 
 struct SpaceModelingData {
-  Framebuffer framebuffer;
-  PingPongBuffer ping_pong_buffer;
-  glm::vec2 viewport_size{1, 1};
-  glm::vec2 viewport_bounds[2];
-  int gizmo_operation = -1;
-  DrawMode draw_mode = DrawMode::SOLID;
-  bool viewport_hovered = false;
-  glm::ivec2 mouse_position;
+  View3dRegion *view3d_region;
 };
 
 EventReceiver *createSpaceModelingReceiver();

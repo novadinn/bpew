@@ -15,7 +15,7 @@ bool Framebuffer::create(FramebufferData new_data) {
 void Framebuffer::destroy() {
   glDeleteFramebuffers(1, &id);
   glDeleteTextures(color_attachment_ids.size(), &color_attachment_ids[0]);
-  glDeleteRenderbuffers(1, &depth_attachment_id);
+  glDeleteTextures(1, &depth_attachment_id);
 }
 
 void Framebuffer::bind() {
@@ -110,7 +110,7 @@ bool Framebuffer::invalidate() {
   if (id) {
     glDeleteFramebuffers(1, &id);
     glDeleteTextures(color_attachment_ids.size(), &color_attachment_ids[0]);
-    glDeleteRenderbuffers(1, &depth_attachment_id);
+    glDeleteTextures(1, &depth_attachment_id);
 
     color_attachment_ids.clear();
     depth_attachment_id = 0;
@@ -121,7 +121,7 @@ bool Framebuffer::invalidate() {
       multisampled ? GL_TEXTURE_2D_MULTISAMPLE : GL_TEXTURE_2D;
 
   std::vector<GLenum> color_attachment_formats = getColorAttachmentFormats();
-  GLenum depth_attachment_format = getRenderbufferAttachmentFormat();
+  GLenum depth_attachment_format = getDepthAttachmentFormat();
 
   glCreateFramebuffers(1, &id);
   glBindFramebuffer(GL_FRAMEBUFFER, id);
@@ -149,13 +149,16 @@ bool Framebuffer::invalidate() {
   }
 
   if (depth_attachment_format != GL_NONE) {
-    glCreateRenderbuffers(1, &depth_attachment_id);
-    glBindRenderbuffer(GL_RENDERBUFFER, depth_attachment_id);
+    glCreateTextures(texture_target, 1, &depth_attachment_id);
+    glBindTexture(texture_target, depth_attachment_id);
 
     switch (depth_attachment_format) {
       // TODO:
     case GL_DEPTH24_STENCIL8: {
-      attachRenderbuffer(GL_DEPTH24_STENCIL8, GL_DEPTH_STENCIL_ATTACHMENT);
+      attachDepthTexture(GL_DEPTH24_STENCIL8, GL_DEPTH_STENCIL_ATTACHMENT);
+    } break;
+    case GL_DEPTH_COMPONENT16: {
+      attachDepthTexture(GL_DEPTH_COMPONENT16, GL_DEPTH_ATTACHMENT);
     } break;
     }
   }
@@ -202,18 +205,26 @@ void Framebuffer::attachColorTexture(GLenum internal_format, GLenum format,
                          texture_target, color_attachment_ids[index], 0);
 }
 
-void Framebuffer::attachRenderbuffer(GLenum format, GLenum attachment_type) {
+void Framebuffer::attachDepthTexture(GLenum format, GLenum attachment_type) {
   bool multisampled = data.samples > 1;
+  GLenum texture_target =
+      multisampled ? GL_TEXTURE_2D_MULTISAMPLE : GL_TEXTURE_2D;
 
   if (multisampled) {
-    glRenderbufferStorageMultisample(GL_RENDERBUFFER, data.samples, format,
-                                     data.width, data.height);
+    glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, data.samples, format,
+                            data.width, data.height, GL_TRUE);
   } else {
-    glRenderbufferStorage(GL_RENDERBUFFER, format, data.width, data.height);
+    glTexStorage2D(GL_TEXTURE_2D, 1, format, data.width, data.height);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
   }
 
-  glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment_type, GL_RENDERBUFFER,
-                            depth_attachment_id);
+  glFramebufferTexture2D(GL_FRAMEBUFFER, attachment_type, texture_target,
+                         depth_attachment_id, 0);
 }
 
 std::vector<GLenum> Framebuffer::getColorAttachmentFormats() const {
@@ -236,16 +247,16 @@ std::vector<GLenum> Framebuffer::getColorAttachmentFormats() const {
   return color_attachment_formats;
 }
 
-GLenum Framebuffer::getRenderbufferAttachmentFormat() const {
+GLenum Framebuffer::getDepthAttachmentFormat() const {
   GLenum renderbuffer_attachment_format = GL_NONE;
   for (int i = 0; i < data.formats.size(); ++i) {
     // TODO:
     switch (data.formats[i]) {
     case GL_DEPTH24_STENCIL8: {
-      if (renderbuffer_attachment_format != GL_NONE) {
-        LOG_ERROR("Number of renderbuffer attachments is greater than 1\n");
-      }
       renderbuffer_attachment_format = GL_DEPTH24_STENCIL8;
+    } break;
+    case GL_DEPTH_COMPONENT16: {
+      renderbuffer_attachment_format = GL_DEPTH_COMPONENT16;
     } break;
     }
   }

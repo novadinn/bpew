@@ -32,7 +32,17 @@ Entity Scene::createEntityFromUUID(UUID uuid, const std::string &name) {
   return entity;
 }
 
-void Scene::destroyEntity(Entity entity) { registry.destroy(entity); }
+void Scene::destroyEntity(Entity entity) {
+  auto view = registry.view<TransformComponent>();
+  for (auto sub : view) {
+    auto &transform = view.get<TransformComponent>(sub);
+    if (transform.parent == entity) {
+      transform.parent = {};
+    }
+  }
+
+  registry.destroy(entity);
+}
 
 void Scene::onDrawWireframe(RendererContext *context) {
   auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
@@ -169,6 +179,18 @@ void Scene::onDrawMeshVertices(RendererContext *context) {
     context->setMeshData(&mesh, transform.getModelMatrix());
 
     Renderer::drawMeshVertices(context);
+  }
+}
+
+void Scene::onDrawVertexNormals(RendererContext *context) {
+  auto group = registry.group<TransformComponent>(entt::get<MeshComponent>);
+  for (auto entity : group) {
+    auto [transform, mesh] =
+        group.get<TransformComponent, MeshComponent>(entity);
+
+    context->setMeshData(&mesh, transform.getModelMatrix());
+
+    Renderer::drawVertexNormals(context);
   }
 }
 

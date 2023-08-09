@@ -20,6 +20,7 @@ struct Renderer {
   static void drawMeshWireframe(RendererContext *context);
 
   static void drawMeshVertices(RendererContext *context);
+  static void drawVertexNormals(RendererContext *context);
 
   static void applyFXAA(RendererContext *context);
   static void applyMeshOutline(RendererContext *context);

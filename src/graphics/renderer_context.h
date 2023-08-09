@@ -41,6 +41,9 @@ struct RendererContext {
   glm::vec3 color;
   int selected_vertex_id;
 
+  glm::vec4 normal_color;
+  float normal_length;
+
   void setCommonData(uint32 current_entity_id_) {
     current_entity_id = current_entity_id_;
   }
@@ -51,6 +54,11 @@ struct RendererContext {
   }
 
   void setMeshVerticesData(glm::vec3 color_) { color = color_; }
+
+  void setVertexNormalsData(glm::vec4 normal_color_, float normal_length_) {
+    normal_color = normal_color_;
+    normal_length = normal_length_;
+  }
 
   void setCameraData(glm::mat4 view_, glm::mat4 projection_) {
     view = view_;

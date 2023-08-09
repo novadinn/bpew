@@ -13,6 +13,7 @@ struct PingPongBuffer {
     second->create(data2);
 
     current = first;
+    previous = second;
   }
 
   void destroy() {
@@ -21,6 +22,9 @@ struct PingPongBuffer {
 
     delete first;
     delete second;
+
+    current = nullptr;
+    previous = nullptr;
   }
 
   void resize(uint width, uint height) {
@@ -31,15 +35,18 @@ struct PingPongBuffer {
   void swap() {
     if (current->getID() == first->getID()) {
       current = second;
+      previous = first;
     } else {
       current = first;
+      previous = second;
     }
   }
 
   Framebuffer *current;
+  Framebuffer *previous;
 
 private:
-  /* pointers for safely in case of copying */
+  /* pointers for safety in case of copying */
 
   Framebuffer *first;
   Framebuffer *second;

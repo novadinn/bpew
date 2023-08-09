@@ -55,6 +55,14 @@ void Editor::create() {
   auto &mesh = cube.addComponent<MeshComponent>();
   mesh.loadFromPath("datafiles/primitives/cube.obj");
 
+  Entity cone = ctx->scene->createEntity("Cone");
+
+  auto &mesh1 = cone.addComponent<MeshComponent>();
+  mesh1.loadFromPath("datafiles/primitives/cone.obj");
+  auto &tr = cone.getComponent<TransformComponent>();
+  tr.position.x = 2;
+  tr.parent = cube;
+
   Entity dir_light = ctx->scene->createEntity("DirectionalLight");
   auto &light_dir = dir_light.addComponent<LightComponent>();
   light_dir.type = LightComponent::LightType::DIRECTIONAL;

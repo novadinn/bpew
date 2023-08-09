@@ -6,11 +6,13 @@
 #include <glad/glad.h>
 
 struct VertexBuffer {
-  void create(const void *verts, uint size);
+  void create(const void *verts, uint size, GLenum usage);
   void destroy();
 
   void bind();
   void unbind();
+
+  void flushSubData(const void *verts, uint size);
 
   inline uint getId() const { return id; }
 

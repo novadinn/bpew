@@ -23,6 +23,7 @@ struct Scene {
   void onDrawMaterialPreview(RendererContext *context);
 
   void onDrawMeshVertices(RendererContext *context);
+  void onDrawVertexNormals(RendererContext *context);
 
   void onUpdateMaterialPreview();
   void onUpdateRendered();
