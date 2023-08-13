@@ -321,13 +321,13 @@ void Editor::showHierarchyPanel() {
   ImGui::Begin("Hierarchy");
   if (ImGui::CollapsingHeader("Scene")) {
     entt::registry &registry = ctx->scene->getEntityRegistry();
-    auto view = registry.view<TagComponent>();
-    for (auto entity : view) {
-      auto &tag = view.get<TagComponent>(entity);
+    auto group = registry.group<TagComponent>(entt::get<TransformComponent>);
+    for (auto entity : group) {
+      auto [tag, transform] = group.get<TagComponent, TransformComponent>(entity);
       Entity scene_entity;
       scene_entity.create(entity, ctx->scene);
       bool selected = ctx->entitySelected(scene_entity);
-
+			
       if (ImGui::Selectable(tag.tag.c_str(), selected)) {
         ctx->active_entity.create(entity, ctx->scene);
 
@@ -398,6 +398,60 @@ void Editor::showInspectorPanel() {
         }
       }
     }
+
+		if (ImGui::CollapsingHeader("Relations")) {
+			TransformComponent &transform =
+          ctx->active_entity.getComponent<TransformComponent>();
+
+			ImGui::Text("Parent");
+			ImGui::SameLine();
+
+			std::string parent_name = "Select";
+
+			if (transform.parent && transform.parent.hasComponent<TagComponent>()) {
+				TagComponent &tag = transform.parent.getComponent<TagComponent>();
+				parent_name = tag.tag;
+			}
+
+			if (ImGui::Button(parent_name.c_str())) {
+				ImGui::OpenPopup("select_parent");
+			}
+
+			if (ImGui::BeginPopup("select_parent")) {				
+				entt::registry &registry = ctx->scene->getEntityRegistry();
+				auto view = registry.view<TagComponent>();
+
+				if (ImGui::BeginListBox("##parent")) {
+					for (auto entity : view) {
+						if (entity == ctx->active_entity) {
+							continue;
+						}
+						auto &tag = view.get<TagComponent>(entity);
+						Entity scene_entity;
+						scene_entity.create(entity, ctx->scene);
+						bool selected = transform.parent == scene_entity;
+						
+						if (ImGui::Selectable(tag.tag.c_str(), selected)) {
+							transform.parent = scene_entity;
+						}
+
+						if (selected)
+							ImGui::SetItemDefaultFocus();
+					}
+					
+					ImGui::EndListBox();
+				}
+				
+				ImGui::EndPopup();
+			}
+
+			if (transform.parent) {
+				ImGui::SameLine();
+				if (ImGui::Button("-")) {
+					transform.parent = {};
+				}
+			}
+		}
 
     if (ctx->active_entity.hasComponent<MeshComponent>()) {
       if (ImGui::CollapsingHeader("Mesh")) {

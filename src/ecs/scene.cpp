@@ -9,6 +9,7 @@
 #include "components/transform_component.h"
 #include "components/uuid_component.h"
 #include "entity.h"
+#include "../graphics/shaders/material_shader_builder.h"
 
 Entity Scene::createEntity(const std::string &name) {
   UUID uuid;
@@ -110,32 +111,36 @@ void Scene::onDrawMaterialPreview(RendererContext *context) {
   }
 }
 
-void Scene::onUpdateRendered() {
-  std::vector<LightComponent> lights;
-  uint num_point_lights = 0;
-  uint num_spot_lights = 0;
-  uint num_dir_lights = 0;
-
-  auto light_view = registry.view<LightComponent>();
+void Scene::onUpdateRendered() {  
+  uint num_dir_lights = 0;	
+	std::vector<LightComponent> dir_lights;
+	std::vector<LightComponent> point_lights;
+	std::vector<LightComponent> spot_lights;
+	
+  auto light_view = registry.view<LightComponent>();	
+	
   for (auto entity : light_view) {
     auto &light = light_view.get<LightComponent>(entity);
-
     switch (light.type) {
     case LightComponent::LightType::SPOT:
-      num_spot_lights++;
+			spot_lights.push_back(light);      
       break;
     case LightComponent::LightType::POINT:
-      num_point_lights++;
+			point_lights.push_back(light);      
       break;
     case LightComponent::LightType::DIRECTIONAL:
-      num_dir_lights++;
+      dir_lights.push_back(light);      
       break;
     }
   }
 
-  ShaderBuilder::buildMaterialRenderedShader(MaterialManager::default_material,
-                                             num_spot_lights, num_point_lights,
-                                             num_dir_lights);
+	uint dir_lights_size = dir_lights.capacity();
+	uint point_lights_size = point_lights.capacity();
+	uint spot_lights_size = spot_lights.capacity();
+
+  MaterialShaderBuilder::buildMaterialRenderedShader(MaterialManager::default_material,
+                                             spot_lights_size, point_lights_size,
+                                             dir_lights_size);
 
   auto view = registry.view<MeshComponent>();
   for (auto entity : view) {
@@ -145,8 +150,8 @@ void Scene::onUpdateRendered() {
       // TODO: update only when material is changed
       Material *mat = MaterialManager::getMaterial(material);
       if (mat) {
-        ShaderBuilder::buildMaterialRenderedShader(
-            *mat, num_spot_lights, num_point_lights, num_dir_lights);
+        MaterialShaderBuilder::buildMaterialRenderedShader(
+            *mat, spot_lights_size, point_lights_size, dir_lights_size);
       }
     }
   }
@@ -155,7 +160,7 @@ void Scene::onUpdateRendered() {
 void Scene::onUpdateMaterialPreview() {
   auto view = registry.view<MeshComponent>();
 
-  ShaderBuilder::buildMaterialShader(MaterialManager::default_material);
+  MaterialShaderBuilder::buildMaterialShader(MaterialManager::default_material);
 
   for (auto entity : view) {
     auto &mesh = view.get<MeshComponent>(entity);
@@ -163,7 +168,7 @@ void Scene::onUpdateMaterialPreview() {
     for (auto &material : mesh.materials) {
       Material *mat = MaterialManager::getMaterial(material);
       if (mat) {
-        ShaderBuilder::buildMaterialShader(*mat);
+        MaterialShaderBuilder::buildMaterialShader(*mat);
       }
     }
   }

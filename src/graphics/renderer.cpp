@@ -10,6 +10,7 @@
 #include "shaders/infos/solid_shader_info.h"
 #include "shaders/infos/vertex_normals_info.h"
 #include "shaders/shader_builder.h"
+#include "shaders/material_shader_builder.h"
 
 #include <glad/glad.h>
 
@@ -66,7 +67,7 @@ void Renderer::drawMeshMaterial(RendererContext *context) {
 
     Material *material = target.getActiveMaterial();
 
-    ShaderBuilder::generateMaterialIds(*material);
+    MaterialShaderBuilder::generateMaterialIds(*material);
 
     material->shader_container->shader.bind();
     material->shader_container->shader.setMatrix4("model", context->model);
@@ -97,7 +98,7 @@ void Renderer::drawMeshMaterial(RendererContext *context) {
 
     material->shader_container->shader.unbind();
 
-    ShaderBuilder::revertMaterialIds(*material);
+    MaterialShaderBuilder::revertMaterialIds(*material);
   }
 }
 
@@ -132,7 +133,7 @@ void Renderer::drawMeshRendered(RendererContext *context) {
 
     Material *material = target.getActiveMaterial();
 
-    ShaderBuilder::generateMaterialIds(*material);
+    MaterialShaderBuilder::generateMaterialIds(*material);
 
     material->shader_container->shader.bind();
     material->shader_container->shader.setMatrix4("model", context->model);
@@ -218,6 +219,10 @@ void Renderer::drawMeshRendered(RendererContext *context) {
       };
     }
 
+		material->shader_container->shader.setInt("num_dir_lights", num_dir_lights);
+		material->shader_container->shader.setInt("num_point_lights", num_point_lights);
+		material->shader_container->shader.setInt("num_spot_lights", num_spot_lights);
+
     bindMaterialUniforms(*material);
 
     target.va.bind();
@@ -228,7 +233,7 @@ void Renderer::drawMeshRendered(RendererContext *context) {
 
     material->shader_container->shader.unbind();
 
-    ShaderBuilder::revertMaterialIds(*material);
+    MaterialShaderBuilder::revertMaterialIds(*material);
   }
 }
 

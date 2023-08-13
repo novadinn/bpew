@@ -299,30 +299,7 @@ void Node::create(NodeType node_type) {
 		output.create("Fac", NodePropertyType::FLOAT);
 		node_outputs.push_back(output);
 	} break;
-	case NodeType::ENVIRONMENT_TEXTURE_EQUIRECTANGULAR:
-	case NodeType::ENVIRONMENT_TEXTURE_MIRROR_BALL:
-	case NodeType::ENVIRONMENT_TEXTURE_EMPTY: {
-		node_name = "Environment Texture";
-
-		NodeInput input;
-		NodeOutput output;
-		NodePropertyValue input_value;
-
-		input = {};
-		input_value = {};
-
-		input_value.vector3_value = glm::vec3(0.0f);
-
-		input.create(input_value, "Vector", NodePropertyType::VECTOR3,
-								 NodePropertySource::OUTPUT);
-		node_inputs.push_back(input);
-
-		output = {};
-
-		output.create("Color", NodePropertyType::VECTOR4);
-		node_outputs.push_back(output);
-	} break;
-  case NodeType::IMAGE_TEXTURE: {
+	case NodeType::IMAGE_TEXTURE: {
     node_name = "Image Texture";
 
     NodeInput input;
