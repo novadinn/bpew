@@ -61,7 +61,6 @@ void Editor::create() {
   mesh1.loadFromPath("datafiles/primitives/cone.obj");
   auto &tr = cone.getComponent<TransformComponent>();
   tr.position.x = 2;
-  tr.parent = cube;
 
   Entity dir_light = ctx->scene->createEntity("DirectionalLight");
   auto &light_dir = dir_light.addComponent<LightComponent>();
@@ -478,7 +477,7 @@ void Editor::showInspectorPanel() {
 
       std::string parent_name = "Select";
 
-      if (transform.parent && transform.parent.hasComponent<TagComponent>()) {
+      if (transform.parent) {
         TagComponent &tag = transform.parent.getComponent<TagComponent>();
         parent_name = tag.tag;
       }
@@ -496,13 +495,27 @@ void Editor::showInspectorPanel() {
             if (entity == ctx->active_entity) {
               continue;
             }
+
             auto &tag = view.get<TagComponent>(entity);
             Entity scene_entity;
             scene_entity.create(entity, ctx->scene);
+
+            TransformComponent &entity_transform =
+                scene_entity.getComponent<TransformComponent>();
+
+            if (entity_transform.parent == ctx->active_entity) {
+              continue;
+            }
+
             bool selected = transform.parent == scene_entity;
 
             if (ImGui::Selectable(tag.tag.c_str(), selected)) {
               transform.parent = scene_entity;
+
+              SceneNode *node =
+                  ctx->findNodeByEntity(scene_entity, ctx->scene_tree);
+
+              ctx->moveNode(ctx->active_entity, node);
             }
 
             if (selected)
@@ -519,6 +532,8 @@ void Editor::showInspectorPanel() {
         ImGui::SameLine();
         if (ImGui::Button("-")) {
           transform.parent = {};
+
+          ctx->moveNodeOut(ctx->active_entity);
         }
       }
     }

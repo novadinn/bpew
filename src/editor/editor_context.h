@@ -51,31 +51,29 @@ struct EditorContext {
   }
 
   void moveNode(Entity entity, SceneNode *to) {
-    if (to->collection) {
-      SceneNode *node_p = findNodeByEntity(entity, scene_tree);
+    SceneNode *node_p = findNodeByEntity(entity, scene_tree);
 
-      if (node_p) {
-        SceneNode *child = findNodeByEntity(to->entity, *node_p);
+    if (node_p) {
+      SceneNode *child = findNodeByEntity(to->entity, *node_p);
 
-        if (child) {
-          return;
-        }
-        SceneNode node = *node_p;
-        SceneNode *from_node = node.parent;
-
-        for (int i = 0; i < from_node->children.size(); ++i) {
-          if (from_node->children[i].entity == node.entity) {
-            from_node->children.erase(from_node->children.begin() + i);
-            break;
-          }
-        }
-
-        replaceParentReq(*from_node, from_node->parent);
-
-        to = findNodeByEntity(to->entity, scene_tree);
-
-        addChild(to, node);
+      if (child) {
+        return;
       }
+      SceneNode node = *node_p;
+      SceneNode *from_node = node.parent;
+
+      for (int i = 0; i < from_node->children.size(); ++i) {
+        if (from_node->children[i].entity == node.entity) {
+          from_node->children.erase(from_node->children.begin() + i);
+          break;
+        }
+      }
+
+      replaceParentReq(*from_node, from_node->parent);
+
+      to = findNodeByEntity(to->entity, scene_tree);
+
+      addChild(to, node);
     }
   }
 
@@ -130,6 +128,16 @@ struct EditorContext {
       }
     }
     return nullptr;
+  }
+
+  void moveNodeOut(Entity entity) {
+    SceneNode *node = findNodeByEntity(entity, scene_tree);
+    if (node->parent) {
+
+      SceneNode *collection = collectionLookup(node->parent);
+
+      moveNode(entity, collection);
+    }
   }
 
   void destroyNode() {

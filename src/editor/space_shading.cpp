@@ -574,7 +574,7 @@ void drawNodeMix(SpaceShadingData *ctx, Node &node) {
                         case NodePropertyType::VECTOR4:
                           drawNodeInputColor3Edit(input, input.id.name.c_str());
                           break;
-			}
+                        }
 
 			drawNodeInputEnd();
 		}
@@ -1059,5 +1059,4 @@ void onDrawUISpaceShading(EditorContext *ctx) {
       }
     }
   }
-
 }
