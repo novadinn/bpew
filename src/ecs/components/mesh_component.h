@@ -54,7 +54,7 @@ struct MeshComponent {
     std::vector<VertexAttribute> attribs;
     if (mesh->HasPositions()) {
       attribs.push_back({sizeof(float), 3, GL_FALSE});
-    }		
+    }
     if (mesh->HasNormals()) {
       attribs.push_back({sizeof(float), 3, GL_FALSE});
     }
@@ -82,7 +82,7 @@ struct MeshComponent {
       }
 
       // TODO: check other coordinate sets
-      if (mesh->HasTextureCoords(0)) {			 
+      if (mesh->HasTextureCoords(0)) {
         result.vertices.push_back(mesh->mTextureCoords[0][i].x);
         result.vertices.push_back(mesh->mTextureCoords[0][i].y);
       }

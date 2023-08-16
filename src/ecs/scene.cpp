@@ -1,6 +1,7 @@
 #include "scene.h"
 
 #include "../graphics/renderer.h"
+#include "../graphics/shaders/material_shader_builder.h"
 #include "../physics/physics_utils.h"
 #include "components/camera_component.h"
 #include "components/light_component.h"
@@ -9,7 +10,6 @@
 #include "components/transform_component.h"
 #include "components/uuid_component.h"
 #include "entity.h"
-#include "../graphics/shaders/material_shader_builder.h"
 
 Entity Scene::createEntity(const std::string &name) {
   UUID uuid;
@@ -111,36 +111,35 @@ void Scene::onDrawMaterialPreview(RendererContext *context) {
   }
 }
 
-void Scene::onUpdateRendered() {  
-  uint num_dir_lights = 0;	
-	std::vector<LightComponent> dir_lights;
-	std::vector<LightComponent> point_lights;
-	std::vector<LightComponent> spot_lights;
-	
-  auto light_view = registry.view<LightComponent>();	
-	
+void Scene::onUpdateRendered() {
+  std::vector<LightComponent> dir_lights;
+  std::vector<LightComponent> point_lights;
+  std::vector<LightComponent> spot_lights;
+
+  auto light_view = registry.view<LightComponent>();
+
   for (auto entity : light_view) {
     auto &light = light_view.get<LightComponent>(entity);
     switch (light.type) {
     case LightComponent::LightType::SPOT:
-			spot_lights.push_back(light);      
+      spot_lights.push_back(light);
       break;
     case LightComponent::LightType::POINT:
-			point_lights.push_back(light);      
+      point_lights.push_back(light);
       break;
     case LightComponent::LightType::DIRECTIONAL:
-      dir_lights.push_back(light);      
+      dir_lights.push_back(light);
       break;
     }
   }
 
-	uint dir_lights_size = dir_lights.capacity();
-	uint point_lights_size = point_lights.capacity();
-	uint spot_lights_size = spot_lights.capacity();
+  uint dir_lights_size = dir_lights.capacity();
+  uint point_lights_size = point_lights.capacity();
+  uint spot_lights_size = spot_lights.capacity();
 
-  MaterialShaderBuilder::buildMaterialRenderedShader(MaterialManager::default_material,
-                                             spot_lights_size, point_lights_size,
-                                             dir_lights_size);
+  MaterialShaderBuilder::buildMaterialRenderedShader(
+      MaterialManager::default_material, spot_lights_size, point_lights_size,
+      dir_lights_size);
 
   auto view = registry.view<MeshComponent>();
   for (auto entity : view) {

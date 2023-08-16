@@ -9,8 +9,8 @@
 #include "shaders/infos/outline_selected_vertex_shader_info.h"
 #include "shaders/infos/solid_shader_info.h"
 #include "shaders/infos/vertex_normals_info.h"
-#include "shaders/shader_builder.h"
 #include "shaders/material_shader_builder.h"
+#include "shaders/shader_builder.h"
 
 #include <glad/glad.h>
 
@@ -219,9 +219,11 @@ void Renderer::drawMeshRendered(RendererContext *context) {
       };
     }
 
-		material->shader_container->shader.setInt("num_dir_lights", num_dir_lights);
-		material->shader_container->shader.setInt("num_point_lights", num_point_lights);
-		material->shader_container->shader.setInt("num_spot_lights", num_spot_lights);
+    material->shader_container->shader.setInt("num_dir_lights", num_dir_lights);
+    material->shader_container->shader.setInt("num_point_lights",
+                                              num_point_lights);
+    material->shader_container->shader.setInt("num_spot_lights",
+                                              num_spot_lights);
 
     bindMaterialUniforms(*material);
 
@@ -375,7 +377,7 @@ void Renderer::bindMaterialUniforms(Material &material) {
         switch (input.type) {
         case NodePropertyType::VECTOR4:
           shader.setVec4(name.c_str(), input.value.vector4_value);
-          break;        
+          break;
         case NodePropertyType::VECTOR3:
           shader.setVec3(name.c_str(), input.value.vector3_value);
           break;

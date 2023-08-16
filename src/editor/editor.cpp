@@ -71,6 +71,30 @@ void Editor::create() {
 
   auto &tr2 = camera_entity.getComponent<TransformComponent>();
   tr2.position = glm::vec3(0, 0, 3);
+
+  Entity scene_collection = ctx->scene->createEntity("Scene Collection");
+
+  SceneNode camera_node;
+  camera_node.entity = camera_entity;
+  camera_node.parent = &ctx->scene_tree;
+  SceneNode cube_node;
+  cube_node.entity = cube;
+  cube_node.parent = &ctx->scene_tree;
+  SceneNode cone_node;
+  cone_node.entity = cone;
+  cone_node.parent = &ctx->scene_tree;
+  SceneNode dir_light_node;
+  dir_light_node.entity = dir_light;
+  dir_light_node.parent = &ctx->scene_tree;
+
+  ctx->scene_tree.entity = scene_collection;
+  ctx->scene_tree.collection = true;
+  ctx->scene_tree.children.push_back(camera_node);
+  ctx->scene_tree.children.push_back(cube_node);
+  ctx->scene_tree.children.push_back(cone_node);
+  ctx->scene_tree.children.push_back(dir_light_node);
+
+  ctx->active_collection = &ctx->scene_tree;
 }
 
 void Editor::destroy() {
@@ -160,7 +184,7 @@ void Editor::onDraw() {
       io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
   }
 
-  static bool show_demo = false;
+  static bool show_demo = true;
   if (show_demo)
     ImGui::ShowDemoWindow(&show_demo);
 
@@ -277,6 +301,8 @@ void Editor::showMenuBar() {
       ctx->scene = new Scene();
       ctx->active_entity = {};
       ctx->selected_entities.clear();
+      ctx->scene_tree = SceneNode();
+      ctx->active_collection = &ctx->scene_tree;
       ctx->active_vertex = std::pair(Entity{}, -1);
       ctx->selected_vertices.clear();
       /* TODO: since we are restoring context, we need to store the active
@@ -317,38 +343,82 @@ void Editor::showMenuBar() {
   }
 }
 
+void Editor::showHierarchyItem(SceneNode &node) {
+  static ImGuiTreeNodeFlags base_flags = ImGuiTreeNodeFlags_OpenOnArrow |
+                                         ImGuiTreeNodeFlags_OpenOnDoubleClick |
+                                         ImGuiTreeNodeFlags_SpanAvailWidth;
+  TagComponent &tag = node.entity.getComponent<TagComponent>();
+
+  bool selected = ctx->entitySelected(node.entity);
+
+  ImGuiTreeNodeFlags flags = base_flags;
+
+  if (selected) {
+    flags |= ImGuiTreeNodeFlags_Selected;
+  }
+
+  if (node.children.size() == 0) {
+    flags |= ImGuiTreeNodeFlags_Leaf;
+  }
+
+  bool node_open = ImGui::TreeNodeEx(tag.tag.c_str(), flags);
+
+  if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen()) {
+    if (!Input::wasKeyHeld(SDLK_LSHIFT)) {
+      ctx->selected_entities.clear();
+    }
+
+    ctx->selectNode(&node);
+  }
+
+  if (ImGui::BeginDragDropTarget()) {
+    if (const ImGuiPayload *payload =
+            ImGui::AcceptDragDropPayload("SceneNode")) {
+      Entity entity;
+      entity.create((entt::entity) * (const uint32 *)payload->Data, ctx->scene);
+      ctx->moveNode(entity, &node);
+    }
+
+    ImGui::EndDragDropTarget();
+  }
+
+  if (ImGui::BeginDragDropSource()) {
+    ImGui::SetDragDropPayload("SceneNode", (void *)(const uint32 *)&node.entity,
+                              sizeof(uint32));
+    ImGui::Text(tag.tag.c_str());
+    ImGui::EndDragDropSource();
+  }
+
+  if (node_open) {
+    if (node.children.size() > 0) {
+      for (auto &child : node.children) {
+        showHierarchyItem(child);
+      }
+    }
+
+    ImGui::TreePop();
+  }
+}
+
 void Editor::showHierarchyPanel() {
   ImGui::Begin("Hierarchy");
   if (ImGui::CollapsingHeader("Scene")) {
-    entt::registry &registry = ctx->scene->getEntityRegistry();
-    auto group = registry.group<TagComponent>(entt::get<TransformComponent>);
-    for (auto entity : group) {
-      auto [tag, transform] = group.get<TagComponent, TransformComponent>(entity);
-      Entity scene_entity;
-      scene_entity.create(entity, ctx->scene);
-      bool selected = ctx->entitySelected(scene_entity);
-			
-      if (ImGui::Selectable(tag.tag.c_str(), selected)) {
-        ctx->active_entity.create(entity, ctx->scene);
-
-        if (!Input::wasKeyHeld(SDLK_LSHIFT)) {
-          ctx->selected_entities.clear();
-        }
-
-        ctx->selected_entities.push_back(ctx->active_entity);
-      }
-    }
+    showHierarchyItem(ctx->scene_tree);
   }
 
   if (ImGui::BeginPopupContextWindow()) {
     if (ImGui::MenuItem("Create Entity")) {
-      ctx->scene->createEntity();
+      ctx->createNode();
     }
 
     if (ctx->active_entity) {
-      if (ImGui::MenuItem("Destoy Entity")) {
-        ctx->destroyEntity();
+      if (ImGui::MenuItem("Destroy Entity")) {
+        ctx->destroyNode();
       }
+    }
+
+    if (ImGui::MenuItem("New Collection")) {
+      ctx->createCollection();
     }
 
     ImGui::EndPopup();
@@ -399,59 +469,59 @@ void Editor::showInspectorPanel() {
       }
     }
 
-		if (ImGui::CollapsingHeader("Relations")) {
-			TransformComponent &transform =
+    if (ImGui::CollapsingHeader("Relations")) {
+      TransformComponent &transform =
           ctx->active_entity.getComponent<TransformComponent>();
 
-			ImGui::Text("Parent");
-			ImGui::SameLine();
+      ImGui::Text("Parent");
+      ImGui::SameLine();
 
-			std::string parent_name = "Select";
+      std::string parent_name = "Select";
 
-			if (transform.parent && transform.parent.hasComponent<TagComponent>()) {
-				TagComponent &tag = transform.parent.getComponent<TagComponent>();
-				parent_name = tag.tag;
-			}
+      if (transform.parent && transform.parent.hasComponent<TagComponent>()) {
+        TagComponent &tag = transform.parent.getComponent<TagComponent>();
+        parent_name = tag.tag;
+      }
 
-			if (ImGui::Button(parent_name.c_str())) {
-				ImGui::OpenPopup("select_parent");
-			}
+      if (ImGui::Button(parent_name.c_str())) {
+        ImGui::OpenPopup("select_parent");
+      }
 
-			if (ImGui::BeginPopup("select_parent")) {				
-				entt::registry &registry = ctx->scene->getEntityRegistry();
-				auto view = registry.view<TagComponent>();
+      if (ImGui::BeginPopup("select_parent")) {
+        entt::registry &registry = ctx->scene->getEntityRegistry();
+        auto view = registry.view<TagComponent>();
 
-				if (ImGui::BeginListBox("##parent")) {
-					for (auto entity : view) {
-						if (entity == ctx->active_entity) {
-							continue;
-						}
-						auto &tag = view.get<TagComponent>(entity);
-						Entity scene_entity;
-						scene_entity.create(entity, ctx->scene);
-						bool selected = transform.parent == scene_entity;
-						
-						if (ImGui::Selectable(tag.tag.c_str(), selected)) {
-							transform.parent = scene_entity;
-						}
+        if (ImGui::BeginListBox("##parent")) {
+          for (auto entity : view) {
+            if (entity == ctx->active_entity) {
+              continue;
+            }
+            auto &tag = view.get<TagComponent>(entity);
+            Entity scene_entity;
+            scene_entity.create(entity, ctx->scene);
+            bool selected = transform.parent == scene_entity;
 
-						if (selected)
-							ImGui::SetItemDefaultFocus();
-					}
-					
-					ImGui::EndListBox();
-				}
-				
-				ImGui::EndPopup();
-			}
+            if (ImGui::Selectable(tag.tag.c_str(), selected)) {
+              transform.parent = scene_entity;
+            }
 
-			if (transform.parent) {
-				ImGui::SameLine();
-				if (ImGui::Button("-")) {
-					transform.parent = {};
-				}
-			}
-		}
+            if (selected)
+              ImGui::SetItemDefaultFocus();
+          }
+
+          ImGui::EndListBox();
+        }
+
+        ImGui::EndPopup();
+      }
+
+      if (transform.parent) {
+        ImGui::SameLine();
+        if (ImGui::Button("-")) {
+          transform.parent = {};
+        }
+      }
+    }
 
     if (ctx->active_entity.hasComponent<MeshComponent>()) {
       if (ImGui::CollapsingHeader("Mesh")) {

@@ -177,7 +177,7 @@ void View3dRegion::onUpdate(EditorContext *ctx, void *space) {
   switch (v3d_mode) {
   case V3D_OBJECT: {
     if (Input::wasKeyPressed(SDLK_DELETE) && ctx->active_entity) {
-      ctx->destroyEntity();
+      ctx->destroyNode();
     }
   } break;
   }

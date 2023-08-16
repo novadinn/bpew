@@ -103,203 +103,203 @@ void Node::create(NodeType node_type) {
                 NodePropertySource::OUTPUT);
     node_inputs.push_back(prop);
   } break;
-	case NodeType::BRICK_TEXTURE: {
-		node_name = "Brick Texture";
+  case NodeType::BRICK_TEXTURE: {
+    node_name = "Brick Texture";
 
-		NodeInput input;
-		NodeOutput output;
-		NodePropertyValue input_value;
+    NodeInput input;
+    NodeOutput output;
+    NodePropertyValue input_value;
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.vector3_value = glm::vec3(0.0f);
+    input_value.vector3_value = glm::vec3(0.0f);
 
-		input.create(input_value, "Vector", NodePropertyType::VECTOR3,
-								 NodePropertySource::OUTPUT);		
-		node_inputs.push_back(input);
+    input.create(input_value, "Vector", NodePropertyType::VECTOR3,
+                 NodePropertySource::OUTPUT);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.vector4_value = glm::vec4(1.0f);
+    input_value.vector4_value = glm::vec4(1.0f);
 
-		input.create(input_value, "Color1", NodePropertyType::VECTOR4,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input.create(input_value, "Color1", NodePropertyType::VECTOR4,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.vector4_value = glm::vec4(0.2f, 0.2f, 0.2f, 1.0f);
+    input_value.vector4_value = glm::vec4(0.2f, 0.2f, 0.2f, 1.0f);
 
-		input.create(input_value, "Color2", NodePropertyType::VECTOR4,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input.create(input_value, "Color2", NodePropertyType::VECTOR4,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.vector4_value = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+    input_value.vector4_value = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
-		input.create(input_value, "Mortar", NodePropertyType::VECTOR4,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input.create(input_value, "Mortar", NodePropertyType::VECTOR4,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.float_value = 5.0f;
+    input_value.float_value = 5.0f;
 
-		input.create(input_value, "Scale", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input.create(input_value, "Scale", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.float_value = 0.02f;
+    input_value.float_value = 0.02f;
 
-		input.create(input_value, "Mortar size", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input.create(input_value, "Mortar size", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.float_value = 0.1f;
+    input_value.float_value = 0.1f;
 
-		input.create(input_value, "Mortar Smooth", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input.create(input_value, "Mortar Smooth", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.float_value = 0.0f;
+    input_value.float_value = 0.0f;
 
-		input.create(input_value, "Bias", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input.create(input_value, "Bias", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.float_value = 0.5f;
+    input_value.float_value = 0.5f;
 
-		input.create(input_value, "Brick Width", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input.create(input_value, "Brick Width", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.float_value = 0.25f;
+    input_value.float_value = 0.25f;
 
-		input.create(input_value, "Row Height", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input.create(input_value, "Row Height", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.float_value = 0.5f;
+    input_value.float_value = 0.5f;
 
-		input.create(input_value, "Offset", NodePropertyType::FLOAT,
-								 NodePropertySource::INPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input.create(input_value, "Offset", NodePropertyType::FLOAT,
+                 NodePropertySource::INPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.int_value = 2;
+    input_value.int_value = 2;
 
-		input.create(input_value, "Frequency", NodePropertyType::INT,
-								 NodePropertySource::INPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input.create(input_value, "Frequency", NodePropertyType::INT,
+                 NodePropertySource::INPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.float_value = 1.0f;
+    input_value.float_value = 1.0f;
 
-		input.create(input_value, "Squash", NodePropertyType::FLOAT,
-								 NodePropertySource::INPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input.create(input_value, "Squash", NodePropertyType::FLOAT,
+                 NodePropertySource::INPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.int_value = 2;
+    input_value.int_value = 2;
 
-		input.create(input_value, "Frequency", NodePropertyType::INT,
-								 NodePropertySource::INPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input.create(input_value, "Frequency", NodePropertyType::INT,
+                 NodePropertySource::INPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		output = {};
+    output = {};
 
-		output.create("Color", NodePropertyType::VECTOR4);
-		node_outputs.push_back(output);
+    output.create("Color", NodePropertyType::VECTOR4);
+    node_outputs.push_back(output);
 
-		output = {};
+    output = {};
 
-		output.create("Fac", NodePropertyType::FLOAT);
-		node_outputs.push_back(output);
-	} break;
-	case NodeType::CHECKER_TEXTURE: {
-		node_name = "Checker Texture";
+    output.create("Fac", NodePropertyType::FLOAT);
+    node_outputs.push_back(output);
+  } break;
+  case NodeType::CHECKER_TEXTURE: {
+    node_name = "Checker Texture";
 
-		NodeInput input;
-		NodeOutput output;
-		NodePropertyValue input_value;
+    NodeInput input;
+    NodeOutput output;
+    NodePropertyValue input_value;
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.vector3_value = glm::vec3(0.0f);
+    input_value.vector3_value = glm::vec3(0.0f);
 
-		input.create(input_value, "Vector", NodePropertyType::VECTOR3,
-								 NodePropertySource::OUTPUT);
-		node_inputs.push_back(input);
+    input.create(input_value, "Vector", NodePropertyType::VECTOR3,
+                 NodePropertySource::OUTPUT);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.vector4_value = glm::vec4(1.0f);
+    input_value.vector4_value = glm::vec4(1.0f);
 
-		input.create(input_value, "Color1", NodePropertyType::VECTOR4,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input.create(input_value, "Color1", NodePropertyType::VECTOR4,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.vector4_value = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f);
+    input_value.vector4_value = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f);
 
-		input.create(input_value, "Color2", NodePropertyType::VECTOR4,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input.create(input_value, "Color2", NodePropertyType::VECTOR4,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.float_value = 5.0f;
+    input_value.float_value = 5.0f;
 
-		input.create(input_value, "Scale", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input.create(input_value, "Scale", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		output = {};
+    output = {};
 
-		output.create("Color", NodePropertyType::VECTOR4);
-		node_outputs.push_back(output);
+    output.create("Color", NodePropertyType::VECTOR4);
+    node_outputs.push_back(output);
 
-		output = {};
+    output = {};
 
-		output.create("Fac", NodePropertyType::FLOAT);
-		node_outputs.push_back(output);
-	} break;
-	case NodeType::IMAGE_TEXTURE: {
+    output.create("Fac", NodePropertyType::FLOAT);
+    node_outputs.push_back(output);
+  } break;
+  case NodeType::IMAGE_TEXTURE: {
     node_name = "Image Texture";
 
     NodeInput input;
@@ -334,241 +334,241 @@ void Node::create(NodeType node_type) {
     output.create("Alpha", NodePropertyType::FLOAT);
     node_outputs.push_back(output);
   } break;
-	case NodeType::MAGIC_TEXTURE: {
-		node_name = "Magic Texture";
+  case NodeType::MAGIC_TEXTURE: {
+    node_name = "Magic Texture";
 
-		NodeInput input;
-		NodeOutput output;
-		NodePropertyValue input_value;
+    NodeInput input;
+    NodeOutput output;
+    NodePropertyValue input_value;
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.vector3_value = glm::vec3(0.0f);
+    input_value.vector3_value = glm::vec3(0.0f);
 
-		input.create(input_value, "Vector", NodePropertyType::VECTOR3,
-								 NodePropertySource::OUTPUT);
-		node_inputs.push_back(input);
+    input.create(input_value, "Vector", NodePropertyType::VECTOR3,
+                 NodePropertySource::OUTPUT);
+    node_inputs.push_back(input);
 
-		input = {};
-		input_value = {};
+    input = {};
+    input_value = {};
 
-		input_value.float_value = 5.0f;
+    input_value.float_value = 5.0f;
 
-		input.create(input_value, "Scale", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
-		
-		input = {};
-		input_value = {};
+    input.create(input_value, "Scale", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input_value.float_value = 1.0f;
+    input = {};
+    input_value = {};
 
-		input.create(input_value, "Distortion", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input_value.float_value = 1.0f;
 
-		input = {};
-		input_value = {};
+    input.create(input_value, "Distortion", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input_value.int_value = 2;
+    input = {};
+    input_value = {};
 
-		input.create(input_value, "Depth", NodePropertyType::INT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input_value.int_value = 2;
 
-		output = {};
+    input.create(input_value, "Depth", NodePropertyType::INT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		output.create("Color", NodePropertyType::VECTOR4);
-		node_outputs.push_back(output);
+    output = {};
 
-		output = {};
+    output.create("Color", NodePropertyType::VECTOR4);
+    node_outputs.push_back(output);
 
-		output.create("Fac", NodePropertyType::FLOAT);
-		node_outputs.push_back(output);
-	} break;
-	case NodeType::MUSGRAVE_TEXTURE: {
-		node_name = "Musgrave Texture";
+    output = {};
 
-		NodeInput input;
-		NodeOutput output;
-		NodePropertyValue input_value;
+    output.create("Fac", NodePropertyType::FLOAT);
+    node_outputs.push_back(output);
+  } break;
+  case NodeType::MUSGRAVE_TEXTURE: {
+    node_name = "Musgrave Texture";
 
-		input = {};
-		input_value = {};
+    NodeInput input;
+    NodeOutput output;
+    NodePropertyValue input_value;
 
-		input_value.enum_value = 2;
+    input = {};
+    input_value = {};
 
-		input.create(input_value, "Dimensions", NodePropertyType::ENUM,
-								 NodePropertySource::INPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input_value.enum_value = 2;
 
-		input = {};
-		input_value = {};
+    input.create(input_value, "Dimensions", NodePropertyType::ENUM,
+                 NodePropertySource::INPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input_value.enum_value = 3;
+    input = {};
+    input_value = {};
 
-		input.create(input_value, "Type", NodePropertyType::ENUM,
-								 NodePropertySource::INPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input_value.enum_value = 3;
 
-		input = {};
-		input_value = {};
+    input.create(input_value, "Type", NodePropertyType::ENUM,
+                 NodePropertySource::INPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input_value.vector3_value = glm::vec3(0.0f);
+    input = {};
+    input_value = {};
 
-		input.create(input_value, "Vector", NodePropertyType::VECTOR3,
-								 NodePropertySource::OUTPUT);
-		node_inputs.push_back(input);
+    input_value.vector3_value = glm::vec3(0.0f);
 
-		input = {};
-		input_value = {};
+    input.create(input_value, "Vector", NodePropertyType::VECTOR3,
+                 NodePropertySource::OUTPUT);
+    node_inputs.push_back(input);
 
-		input_value.float_value = 0.0f;
+    input = {};
+    input_value = {};
 
-		input.create(input_value, "W", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input_value.float_value = 0.0f;
 
-		input = {};
-		input_value = {};
+    input.create(input_value, "W", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input_value.float_value = 5.0f;
+    input = {};
+    input_value = {};
 
-		input.create(input_value, "Scale", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input_value.float_value = 5.0f;
 
-		input = {};
-		input_value = {};
+    input.create(input_value, "Scale", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input_value.float_value = 2.0f;
+    input = {};
+    input_value = {};
 
-		input.create(input_value, "Detail", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input_value.float_value = 2.0f;
 
-		input = {};
-		input_value = {};
+    input.create(input_value, "Detail", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input_value.float_value = 2.0f;
+    input = {};
+    input_value = {};
 
-		input.create(input_value, "Dimension", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input_value.float_value = 2.0f;
 
-		input = {};
-		input_value = {};
+    input.create(input_value, "Dimension", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input_value.float_value = 2.0f;
+    input = {};
+    input_value = {};
 
-		input.create(input_value, "Lacunarity", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input_value.float_value = 2.0f;
 
-		input = {};
-		input_value = {};
+    input.create(input_value, "Lacunarity", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input_value.float_value = 0.0f;
+    input = {};
+    input_value = {};
 
-		input.create(input_value, "Offset", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input_value.float_value = 0.0f;
 
-		input = {};
-		input_value = {};
+    input.create(input_value, "Offset", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input_value.float_value = 1.0f;
+    input = {};
+    input_value = {};
 
-		input.create(input_value, "Gain", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input_value.float_value = 1.0f;
 
-		output = {};
+    input.create(input_value, "Gain", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		output.create("Height", NodePropertyType::FLOAT);
-		node_outputs.push_back(output);
-	} break;
-	case NodeType::NOISE_TEXTURE: {
-		node_name = "Noise Texture";
+    output = {};
 
-		NodeInput input;
-		NodeOutput output;
-		NodePropertyValue input_value;
+    output.create("Height", NodePropertyType::FLOAT);
+    node_outputs.push_back(output);
+  } break;
+  case NodeType::NOISE_TEXTURE: {
+    node_name = "Noise Texture";
 
-		input = {};
-		input_value = {};
+    NodeInput input;
+    NodeOutput output;
+    NodePropertyValue input_value;
 
-		input_value.enum_value = 2;
+    input = {};
+    input_value = {};
 
-		input.create(input_value, "Dimensions", NodePropertyType::ENUM,
-								 NodePropertySource::INPUT_UNIFORM);
-		node_inputs.push_back(input);
-		
-		input = {};
-		input_value = {};
+    input_value.enum_value = 2;
 
-		input_value.vector3_value = glm::vec3(0.0f);
+    input.create(input_value, "Dimensions", NodePropertyType::ENUM,
+                 NodePropertySource::INPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input.create(input_value, "Vector", NodePropertyType::VECTOR3,
-								 NodePropertySource::OUTPUT);
-		node_inputs.push_back(input);
+    input = {};
+    input_value = {};
 
-		input = {};
-		input_value = {};
+    input_value.vector3_value = glm::vec3(0.0f);
 
-		input_value.float_value = 0.0f;
+    input.create(input_value, "Vector", NodePropertyType::VECTOR3,
+                 NodePropertySource::OUTPUT);
+    node_inputs.push_back(input);
 
-		input.create(input_value, "W", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input = {};
+    input_value = {};
 
-		input = {};
-		input_value = {};
+    input_value.float_value = 0.0f;
 
-		input_value.float_value = 5.0f;
+    input.create(input_value, "W", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input.create(input_value, "Scale", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input = {};
+    input_value = {};
 
-		input = {};
-		input_value = {};
+    input_value.float_value = 5.0f;
 
-		input_value.float_value = 2.0f;
+    input.create(input_value, "Scale", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input.create(input_value, "Detail", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input = {};
+    input_value = {};
 
-		input = {};
-		input_value = {};
+    input_value.float_value = 2.0f;
 
-		input_value.float_value = 0.5f;
+    input.create(input_value, "Detail", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input.create(input_value, "Roughness", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input = {};
+    input_value = {};
 
-		input = {};
-		input_value = {};
+    input_value.float_value = 0.5f;
 
-		input_value.float_value = 0.0f;
+    input.create(input_value, "Roughness", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		input.create(input_value, "Distortion", NodePropertyType::FLOAT,
-								 NodePropertySource::OUTPUT_UNIFORM);
-		node_inputs.push_back(input);
+    input = {};
+    input_value = {};
 
-		output = {};
+    input_value.float_value = 0.0f;
 
-		output.create("Fac", NodePropertyType::FLOAT);
-		node_outputs.push_back(output);
+    input.create(input_value, "Distortion", NodePropertyType::FLOAT,
+                 NodePropertySource::OUTPUT_UNIFORM);
+    node_inputs.push_back(input);
 
-		output = {};
+    output = {};
 
-		output.create("Color", NodePropertyType::VECTOR4);
-		node_outputs.push_back(output);
-	} break;
+    output.create("Fac", NodePropertyType::FLOAT);
+    node_outputs.push_back(output);
+
+    output = {};
+
+    output.create("Color", NodePropertyType::VECTOR4);
+    node_outputs.push_back(output);
+  } break;
   case NodeType::BRIGHTNESS_CONTRAST: {
     node_name = "Brightness/Contrast";
 

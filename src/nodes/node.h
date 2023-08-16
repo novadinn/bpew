@@ -19,23 +19,23 @@ enum NodeType {
   // Shader
   PRINCIPLED_BSDF,
   // Texture
-	BRICK_TEXTURE,
-	CHECKER_TEXTURE,
+  BRICK_TEXTURE,
+  CHECKER_TEXTURE,
   IMAGE_TEXTURE,
-	MAGIC_TEXTURE,
-	MUSGRAVE_TEXTURE,
-	NOISE_TEXTURE,
+  MAGIC_TEXTURE,
+  MUSGRAVE_TEXTURE,
+  NOISE_TEXTURE,
   // Color
   BRIGHTNESS_CONTRAST,
   GAMMA,
   INVERT,
-	LIGHT_FALLOFF,
+  LIGHT_FALLOFF,
   // Vector
   // Converter
   MIX,
 };
 
-enum NodePropertyType {  
+enum NodePropertyType {
   VECTOR4,
   VECTOR3,
   VECTOR2,
@@ -100,8 +100,8 @@ struct Node {
   ID id;
   std::vector<NodeInput> inputs;
   std::vector<NodeOutput> outputs;
- 
-  NodeType type;	
+
+  NodeType type;
 };
 
 #endif // NODE_H

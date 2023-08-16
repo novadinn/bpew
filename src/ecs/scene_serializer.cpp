@@ -490,7 +490,7 @@ void SceneSerializer::serializeMaterial(YAML::Emitter &out,
           switch (input.type) {
           case NodePropertyType::VECTOR4:
             out << input.value.vector4_value;
-            break;          
+            break;
           case NodePropertyType::VECTOR3:
             out << input.value.vector3_value;
             break;

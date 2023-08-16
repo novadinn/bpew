@@ -22,7 +22,8 @@ struct ShaderBuilder {
   static const char *fromType(ShaderType type);
   static const char *fromType(InterpolationType type);
   static const char *fromType(GeometryInType type);
-  static const char *fromType(GeometryOutType type);	
+  static const char *fromType(GeometryOutType type);
+
 protected:
   static void buildDefines(std::stringstream &ss,
                            ShaderCreateInfo &create_info);
@@ -34,11 +35,12 @@ protected:
                                          ShaderCreateInfo &create_info);
 
   static void includeLibs(std::stringstream &ss, std::set<std::string> &libs);
-  static bool includeLib(std::stringstream &ss, const char *dep, std::set<std::string> &included_libs);	
+  static bool includeLib(std::stringstream &ss, const char *dep,
+                         std::set<std::string> &included_libs);
   static void buildInterface(std::stringstream &ss,
                              ShaderInterfaceInfo &interface_info);
   static void decreaseUsage(std::string &hash, ShaderContainer &container);
-  static void increaseUsage(ShaderContainer &container);	
+  static void increaseUsage(ShaderContainer &container);
 };
 
 #endif

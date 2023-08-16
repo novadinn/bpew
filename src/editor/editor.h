@@ -23,9 +23,10 @@ struct Editor {
 private:
   void showMenuBar();
   void showHierarchyPanel();
+  void showHierarchyItem(SceneNode &node);
   void showInspectorPanel();
   void showCameraPanel();
-	
+
   template <typename T> void showAddComponentPopup(const char *str);
   template <typename T> void showRemoveComponentPopup(const char *str);
 

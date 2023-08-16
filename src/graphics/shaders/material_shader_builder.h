@@ -26,12 +26,12 @@ struct MaterialShaderBuilder : ShaderBuilder {
   static const char *fromType(NodePropertyType type);
   static ShaderType toType(NodePropertyType type);
   static const char *getNodeName(NodeType type);
-	static const char *getNodeSource(NodeType type);
+  static const char *getNodeSource(NodeType type);
 
   static void generateMaterialIds(Material &material);
   static void revertMaterialIds(Material &material);
 
-private: 
+private:
   static ShaderContainer *getShaderContainer(std::string &hash);
   static void buildNodeTree(std::stringstream &ss,
                             ShaderCreateInfo &create_info, Material &material);

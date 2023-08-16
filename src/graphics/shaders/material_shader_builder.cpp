@@ -56,38 +56,36 @@ bool MaterialShaderBuilder::buildShaderFromShaderContainer(
   buildDefines(ss, create_info);
 
   std::stringstream vs, fs, gs;
-	std::string buf;
-	const char *base_dir = "datafiles/shaders/";
-	
+  std::string buf;
+  const char *base_dir = "datafiles/shaders/";
+
   char build_result = 0x0;
   if (create_info.info.vertex_source.size() > 0) {
     vs << ss.str();
     buildVertexShaderDefines(vs, create_info);
-		std::string path(base_dir);
-		path.append(create_info.info.vertex_source.c_str());
+    std::string path(base_dir);
+    path.append(create_info.info.vertex_source.c_str());
     build_result |= Utils::readFile(path.c_str(), buf);
-		vs << buf;
+    vs << buf;
   }
   if (create_info.info.fragment_source.size() > 0) {
     fs << ss.str();
     buildFragmentShaderDefines(fs, create_info);
     fs << shader_container->material_functions;
-		std::string path(base_dir);
-		path.append(create_info.info.fragment_source.c_str());
-    build_result |= Utils::readFile(path.c_str(), buf)
-                    << 1;
-		fs << buf;
+    std::string path(base_dir);
+    path.append(create_info.info.fragment_source.c_str());
+    build_result |= Utils::readFile(path.c_str(), buf) << 1;
+    fs << buf;
   }
   if (create_info.info.geometry_source.size() > 0) {
     gs << ss.str();
     buildGeometryShaderDefines(gs, create_info);
-		std::string path(base_dir);
-		path.append(create_info.info.geometry_source.c_str());
-    build_result |= Utils::readFile(path.c_str(), buf)
-                    << 2;
-		gs << buf;
+    std::string path(base_dir);
+    path.append(create_info.info.geometry_source.c_str());
+    build_result |= Utils::readFile(path.c_str(), buf) << 2;
+    gs << buf;
   }
-	
+
   if (build_result == 0x7) {
     shader.destroy();
 
@@ -114,9 +112,9 @@ bool MaterialShaderBuilder::buildShaderFromShaderContainer(
 }
 
 bool MaterialShaderBuilder::buildMaterialRenderedShader(Material &material,
-                                                uint num_spot_lights,
-                                                uint num_point_lights,
-                                                uint num_dir_lights) {
+                                                        uint num_spot_lights,
+                                                        uint num_point_lights,
+                                                        uint num_dir_lights) {
   Sha new_sha = generateMaterialRenderedSha(material, num_spot_lights,
                                             num_point_lights, num_dir_lights);
 
@@ -144,15 +142,16 @@ bool MaterialShaderBuilder::buildMaterialRenderedShader(Material &material,
 
   create_info.dep("lights_lib.glsl");
   create_info.define("USE_RENDERED_SHADER");
-	create_info.uniform(ShaderType::INT, "num_dir_lights");
-	create_info.uniform(ShaderType::INT, "num_spot_lights");
-	create_info.uniform(ShaderType::INT, "num_point_lights");
+  create_info.uniform(ShaderType::INT, "num_dir_lights");
+  create_info.uniform(ShaderType::INT, "num_spot_lights");
+  create_info.uniform(ShaderType::INT, "num_point_lights");
   if (num_spot_lights > 0) {
     create_info.define("CAPACITY_SPOT_LIGHTS", std::to_string(num_spot_lights));
     create_info.uniformArray("SpotLight", "spotLights", num_spot_lights);
   }
   if (num_point_lights > 0) {
-    create_info.define("CAPACITY_POINT_LIGHTS", std::to_string(num_point_lights));
+    create_info.define("CAPACITY_POINT_LIGHTS",
+                       std::to_string(num_point_lights));
     create_info.uniformArray("PointLight", "pointLights", num_point_lights);
   }
   if (num_dir_lights > 0) {
@@ -171,8 +170,8 @@ bool MaterialShaderBuilder::buildMaterialRenderedShader(Material &material,
   return buildShaderFromShaderContainer(material.shader_container);
 }
 
-void MaterialShaderBuilder::buildNodeUniforms(ShaderCreateInfo &info, Node *node,
-                                      Material *material) {
+void MaterialShaderBuilder::buildNodeUniforms(ShaderCreateInfo &info,
+                                              Node *node, Material *material) {
   for (auto &input : node->inputs) {
     if (input.enabled &&
         (input.source == NodePropertySource::INPUT_UNIFORM ||
@@ -193,16 +192,16 @@ ShaderContainer *MaterialShaderBuilder::getShaderContainer(std::string &hash) {
 }
 
 void MaterialShaderBuilder::buildNodeTree(std::stringstream &ss,
-                                  ShaderCreateInfo &create_info,
-                                  Material &material) {
+                                          ShaderCreateInfo &create_info,
+                                          Material &material) {
   generateMaterialIds(material);
 
   for (auto &node : material.nodes) {
     if (node.type == NodeType::MATERIAL_OUTPUT) {
       continue;
-    }    
+    }
 
-    const char *node_src = getNodeSource(node.type);    
+    const char *node_src = getNodeSource(node.type);
 
     create_info.dep(node_src);
   }
@@ -260,7 +259,7 @@ void MaterialShaderBuilder::buildNodeTree(std::stringstream &ss,
 }
 
 void MaterialShaderBuilder::buildNodeUniform(ShaderCreateInfo &info, Node *node,
-                                     const NodeInput &prop) {
+                                             const NodeInput &prop) {
   std::string name = std::string("input_") + std::to_string(prop.id.id);
 
   ShaderType type = toType(prop.type);
@@ -271,7 +270,7 @@ void MaterialShaderBuilder::buildNodeUniform(ShaderCreateInfo &info, Node *node,
 ShaderType MaterialShaderBuilder::toType(NodePropertyType type) {
   switch (type) {
   case NodePropertyType::VECTOR4:
-    return ShaderType::VEC4;  
+    return ShaderType::VEC4;
   case NodePropertyType::VECTOR3:
     return ShaderType::VEC3;
   case NodePropertyType::VECTOR2:
@@ -290,7 +289,7 @@ ShaderType MaterialShaderBuilder::toType(NodePropertyType type) {
 }
 
 void MaterialShaderBuilder::buildNode(std::stringstream &ss, Node *node,
-                              Material &material) {
+                                      Material &material) {
   for (auto &input : node->inputs) {
     if (input.link && input.enabled && input.link->output(&material)->enabled) {
       buildNode(ss, input.link->outputNode(&material), material);
@@ -356,24 +355,24 @@ const char *MaterialShaderBuilder::getNodeName(NodeType type) {
   case NodeType::BEVEL:
     src = "node_bevel";
     break;
-	case NodeType::BRICK_TEXTURE:
-		src = "node_tex_brick";
-		break;
-	case NodeType::CHECKER_TEXTURE:
-		src = "node_tex_checker";
-		break;
+  case NodeType::BRICK_TEXTURE:
+    src = "node_tex_brick";
+    break;
+  case NodeType::CHECKER_TEXTURE:
+    src = "node_tex_checker";
+    break;
   case NodeType::IMAGE_TEXTURE:
     src = "node_image_texture";
     break;
-	case NodeType::MAGIC_TEXTURE:
-		src = "node_tex_magic";
-		break;
-	case NodeType::MUSGRAVE_TEXTURE:
-		src = "node_tex_musgrave";
-		break;
-	case NodeType::NOISE_TEXTURE:
-		src = "node_noise_texture";
-		break;
+  case NodeType::MAGIC_TEXTURE:
+    src = "node_tex_magic";
+    break;
+  case NodeType::MUSGRAVE_TEXTURE:
+    src = "node_tex_musgrave";
+    break;
+  case NodeType::NOISE_TEXTURE:
+    src = "node_noise_texture";
+    break;
   case NodeType::BRIGHTNESS_CONTRAST:
     src = "node_brightness_contrast";
     break;
@@ -383,9 +382,9 @@ const char *MaterialShaderBuilder::getNodeName(NodeType type) {
   case NodeType::INVERT:
     src = "node_invert";
     break;
-	case NodeType::LIGHT_FALLOFF:
-		src = "node_light_falloff";
-		break;
+  case NodeType::LIGHT_FALLOFF:
+    src = "node_light_falloff";
+    break;
   case NodeType::TEXTURE_COORDINATE:
     src = "node_texture_coordinate";
     break;
@@ -394,7 +393,7 @@ const char *MaterialShaderBuilder::getNodeName(NodeType type) {
     break;
   case NodeType::MIX:
     src = "node_mix";
-    break;	
+    break;
   default:
     LOG_ERROR("Unknown node type: %d\n", type);
   }
@@ -411,24 +410,24 @@ const char *MaterialShaderBuilder::getNodeSource(NodeType type) {
   case NodeType::BEVEL:
     src = "node_bevel.glsl";
     break;
-	case NodeType::BRICK_TEXTURE:
-		src = "node_tex_brick.glsl";
-		break;
-	case NodeType::CHECKER_TEXTURE:
-		src = "node_tex_checker.glsl";
-		break;
+  case NodeType::BRICK_TEXTURE:
+    src = "node_tex_brick.glsl";
+    break;
+  case NodeType::CHECKER_TEXTURE:
+    src = "node_tex_checker.glsl";
+    break;
   case NodeType::IMAGE_TEXTURE:
     src = "node_image_texture.glsl";
     break;
-	case NodeType::MAGIC_TEXTURE:
-		src = "node_tex_magic.glsl";
-		break;
-	case NodeType::MUSGRAVE_TEXTURE:
-		src = "node_tex_musgrave.glsl";
-		break;
-	case NodeType::NOISE_TEXTURE:
-		src = "node_tex_noise.glsl";
-		break;		
+  case NodeType::MAGIC_TEXTURE:
+    src = "node_tex_magic.glsl";
+    break;
+  case NodeType::MUSGRAVE_TEXTURE:
+    src = "node_tex_musgrave.glsl";
+    break;
+  case NodeType::NOISE_TEXTURE:
+    src = "node_tex_noise.glsl";
+    break;
   case NodeType::BRIGHTNESS_CONTRAST:
     src = "node_brightness_contrast.glsl";
     break;
@@ -438,9 +437,9 @@ const char *MaterialShaderBuilder::getNodeSource(NodeType type) {
   case NodeType::INVERT:
     src = "node_invert.glsl";
     break;
-	case NodeType::LIGHT_FALLOFF:
-		src = "node_light_falloff.glsl";
-		break;
+  case NodeType::LIGHT_FALLOFF:
+    src = "node_light_falloff.glsl";
+    break;
   case NodeType::TEXTURE_COORDINATE:
     src = "node_texture_coordinate.glsl";
     break;
@@ -504,9 +503,9 @@ Sha MaterialShaderBuilder::generateMaterialSha(Material &material) {
 }
 
 Sha MaterialShaderBuilder::generateMaterialRenderedSha(Material &material,
-                                               uint num_spot_lights,
-                                               uint num_point_lights,
-                                               uint num_dir_lights) {
+                                                       uint num_spot_lights,
+                                                       uint num_point_lights,
+                                                       uint num_dir_lights) {
   Sha sha = generateMaterialSha(material);
 
   std::stringstream ss;
@@ -519,7 +518,7 @@ Sha MaterialShaderBuilder::generateMaterialRenderedSha(Material &material,
 }
 
 void MaterialShaderBuilder::decreaseUsage(std::string &key,
-                                  ShaderContainer &container) {
+                                          ShaderContainer &container) {
   container.users--;
   if (container.users == 0) {
     // TODO: clear unused shaders

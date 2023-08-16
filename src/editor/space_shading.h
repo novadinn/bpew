@@ -57,9 +57,8 @@ void drawNodeMix(SpaceShadingData *ctx, Node &node);
 void drawNodeInputFloatDrag(NodeInput &input,
                             const char *title, float min = 0.0f,
                             float max = 0.0f);
-void drawNodeInputIntSlider(NodeInput &input,
-														const char *title, int min = 0,
-														int max = 0);
+void drawNodeInputIntSlider(NodeInput &input, const char *title, int min = 0,
+                            int max = 0);
 void drawNodeInputFloatDrag3(NodeInput &input,
                              const char *title, float min = 0.0f,
                              float max = 0.0f);
