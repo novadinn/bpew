@@ -59,6 +59,7 @@ struct EditorContext {
       if (child) {
         return;
       }
+      Entity to_entity = to->entity;
       SceneNode node = *node_p;
       SceneNode *from_node = node.parent;
 
@@ -71,7 +72,11 @@ struct EditorContext {
 
       replaceParentReq(*from_node, from_node->parent);
 
-      to = findNodeByEntity(to->entity, scene_tree);
+      TransformComponent &transform = node.entity.getComponent<TransformComponent>();
+
+      transform.parent = to_entity;
+
+      to = findNodeByEntity(to_entity, scene_tree);
 
       addChild(to, node);
     }

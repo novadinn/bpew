@@ -94,6 +94,8 @@ void Editor::create() {
   ctx->scene_tree.children.push_back(dir_light_node);
 
   ctx->active_collection = &ctx->scene_tree;
+
+  ctx->replaceParentReq(ctx->scene_tree, nullptr);  
 }
 
 void Editor::destroy() {
